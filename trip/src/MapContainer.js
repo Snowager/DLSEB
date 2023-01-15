@@ -23,6 +23,7 @@ const MapContainer = () => {
   //list of locations used for testing the google markers and infoWindows
   const locations = [
     {
+      num: "1",
       name: "Location 1",
       desc: "Something cool",
       location: { 
@@ -31,6 +32,7 @@ const MapContainer = () => {
       },
     },
     {
+      num: "2",
       name: "Location 2",
       desc: "Something fresh",
       location: { 
@@ -39,6 +41,7 @@ const MapContainer = () => {
       },
     },
     {
+      num: "3",
       name: "Location 3",
       desc: "Something wild",
       location: { 
@@ -47,6 +50,7 @@ const MapContainer = () => {
       },
     },
     {
+      num: "4",
       name: "Location 4",
       desc: "Something frisky",
       location: { 
@@ -55,6 +59,7 @@ const MapContainer = () => {
       },
     },
     {
+      num: "5",
       name: "Location 5",
       desc: "Something damn right awesome",
       location: { 
@@ -63,8 +68,26 @@ const MapContainer = () => {
       },
     }
 ];
-  
+
+  let newName;
+  let newPos; 
+  let item = 0;
+
+  function changeMarker() {
+    document.addEventListener("DOMContentLoaded", function(e){
+      var item = document.getElementById("myText").addEventListener("click", function(e){
+        console.log(item.id);
+      });
+    });
+    console.log(locations[item].name);
+    var newPos = locations[item].location;
+    var newName = locations[item].name;
+  }
+  document.getElementById("button").onclick = function() {changeMarker()};
   return (
+    <>
+    <input type="text" id="myText" defaultValue="Some text..."/>
+    <button id="button" >Try it</button>
      <LoadScript
        googleMapsApiKey='AIzaSyCbEViNtWBZefKVLluU-rWvH4fVKYz5Uuk'>
         <GoogleMap
@@ -74,8 +97,8 @@ const MapContainer = () => {
             {
                 locations.map(item => {
                     return (
-                        <Marker key={item.name}
-                        position={item.location}
+                        <Marker key={newName}
+                        position={newPos}
                         onClick={() => onSelect(item)}
                         />
                     )
@@ -91,14 +114,18 @@ const MapContainer = () => {
                     >
                         {/*commenting in jsx is dumb*/}
                         <p>
-                            <h1>hi</h1>
-                            <h1>bye</h1>
+                            <h1>{selected.name}</h1>
+                            <h2>{selected.desc}</h2>
                         </p>
                         </InfoWindow>
                 )
             }
             </GoogleMap>
      </LoadScript>
+     <script>
+      
+      </script>
+     </>
   )
 }
 
