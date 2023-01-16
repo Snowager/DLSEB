@@ -68,42 +68,38 @@ const MapContainer = () => {
       },
     }
 ];
-
+  let newPos;
   let newName;
-  let newPos; 
-  let item = 0;
 
   function changeMarker() {
-    document.addEventListener("DOMContentLoaded", function(e){
-      var item = document.getElementById("myText").addEventListener("click", function(e){
-        console.log(item.id);
-      });
-    });
-    console.log(locations[item].name);
-    var newPos = locations[item].location;
-    var newName = locations[item].name;
+    var listItem = locations[document.getElementById("myText").value];
+    //console.log(listItem);
+    //console.log(locations[listItem]);
+    //var newPos = locations[listItem].location;
+    //console.log("new position " + newPos)
+    //var newName = locations[listItem].name;
+    var element = document.getElementById('marker');
+    console.log(element);
+    document.getElementById("marker").position = listItem.location;
+    document.getElementById("marker").key = newName;
   }
-  document.getElementById("button").onclick = function() {changeMarker()};
   return (
     <>
-    <input type="text" id="myText" defaultValue="Some text..."/>
-    <button id="button" >Try it</button>
+    <input type="text" id="myText" defaultValue="1"/>
+    <button id="button" onClick={() => changeMarker()}>Try it</button>
      <LoadScript
        googleMapsApiKey='AIzaSyCbEViNtWBZefKVLluU-rWvH4fVKYz5Uuk'>
         <GoogleMap
           mapContainerStyle={mapStyles}
           zoom={13}
           center={defaultCenter}>
-            {
-                locations.map(item => {
-                    return (
                         <Marker key={newName}
                         position={newPos}
-                        onClick={() => onSelect(item)}
+                        id="marker"
+                        onClick={() => onSelect(this)}
                         />
-                    )
-                })
-            }
+                        {console.log(newName)}
+
             {
                 selected.location &&
                 (
