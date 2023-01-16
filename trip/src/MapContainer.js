@@ -1,4 +1,5 @@
 import React, {useState, useEffect, useRef} from 'react';
+import ReactDOM, { createRoot } from "react-dom/client";
 import { GoogleMap, LoadScript, Marker, InfoWindow } from '@react-google-maps/api';
 
 const MapContainer = () => {
@@ -67,39 +68,37 @@ const MapContainer = () => {
         lng: 2.1915
       },
     }
-];
-  let newPos;
-  let newName;
+  ];
 
-  function changeMarker() {
-    var listItem = locations[document.getElementById("myText").value];
-    //console.log(listItem);
-    //console.log(locations[listItem]);
-    //var newPos = locations[listItem].location;
-    //console.log("new position " + newPos)
-    //var newName = locations[listItem].name;
-    var element = document.getElementById('marker');
-    console.log(element);
-    document.getElementById("marker").position = listItem.location;
-    document.getElementById("marker").key = newName;
+
+  let newName;
+  let newPos;
+  let item;
+  var markerElement = <Marker key={newName} position={newPos} onClick={() => onSelect(item)} />
+
+  function changeMarker(newMark) {
+    var listItem = locations[newMark];
+    var newName = listItem.name;
+    var newPos = listItem.location;
+    console.log("listItem = " + listItem + "newName = " + newName + "newPos = " + newPos);
+    //root1.render(<Marker key={newName} position={newPos} onClick={() => onSelect(item)} />);
   }
+
   return (
     <>
     <input type="text" id="myText" defaultValue="1"/>
-    <button id="button" onClick={() => changeMarker()}>Try it</button>
+    <button id="button" onClick={() => changeMarker(document.getElementById("myText").value)}>Try it</button>
      <LoadScript
        googleMapsApiKey='AIzaSyCbEViNtWBZefKVLluU-rWvH4fVKYz5Uuk'>
         <GoogleMap
           mapContainerStyle={mapStyles}
           zoom={13}
           center={defaultCenter}>
-                        <Marker key={newName}
-                        position={newPos}
-                        id="marker"
-                        onClick={() => onSelect(this)}
-                        />
-                        {console.log(newName)}
+            
 
+                  <div id="root1"></div>
+                  {console.log("updated")}
+            
             {
                 selected.location &&
                 (
@@ -118,9 +117,6 @@ const MapContainer = () => {
             }
             </GoogleMap>
      </LoadScript>
-     <script>
-      
-      </script>
      </>
   )
 }
