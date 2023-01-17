@@ -32,6 +32,7 @@ const App: React.VFC = () => {
     lng: -93.2678,
   });
 
+  // on click that adds markers by adding to array
   const onClick = (e: google.maps.MapMouseEvent) => {
     // avoid directly mutating state
     setClicks([...clicks, e.latLng!]);
@@ -43,6 +44,7 @@ const App: React.VFC = () => {
     setCenter(m.getCenter()!.toJSON());
   };
 
+  // form for alterable data
   const form = (
     <div
       style={{
@@ -135,6 +137,7 @@ const Map: React.FC<MapProps> = ({
 
   // because React does not do deep comparisons, a custom hook is used
   // see discussion in https://github.com/googlemaps/js-samples/issues/946
+  // stops map from recentering and using more cycles to load
   useDeepCompareEffectForMaps(() => {
     if (map) {
       map.setOptions(options);
