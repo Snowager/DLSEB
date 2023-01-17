@@ -60,11 +60,11 @@ const SearchBar = () => {
       onChange={handleChange}
       value={searchInput} />
 
-    <ul>
+    <div>
       {filteredData.map((country, index) => (
 
-        <li key={index} className="box">{country.name} {country.continent}</li>))}
-    </ul>
+        <div key={index} className="box">{country.name} {country.continent}</div>))}
+    </div>
 
   </div>
 
