@@ -1,10 +1,13 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
+import axios from "axios"
 
 const SearchBar = () => {
 
   const [searchInput, setSearchInput] = useState("");
 
-  const countries = [
+  const [cities, setCities] = useState([])
+
+  /*const countries = [
 
     { name: "Belgium", continent: "Europe" },
     { name: "India", continent: "Asia" },
@@ -31,7 +34,13 @@ const SearchBar = () => {
     { name: "Portugal", continent: "Europe" },
     { name: "Pakistan", continent: "Asia" },
 
-  ];
+  ];*/
+
+  useEffect(() => {
+    axios.get("city_info.JSON")
+    .then((res) => setCities(res.data.city))
+    .catch((err) => console.log(err));
+  }, []);
 
   const handleChange = (e) => {
     e.preventDefault();
@@ -39,18 +48,23 @@ const SearchBar = () => {
     console.log(e.target.value)
   };
 
+
+
   const filteredData =
-    countries.filter((country) => {
-      if (searchInput == "") {
-        return country
+    Object.values(cities).filter((location) => {
+      if (searchInput === "") {
+        return "Enter a location"
       }
-      else if (country.continent.toLowerCase().includes(searchInput.toLowerCase())) {
-        return country.continent.toLowerCase().includes(searchInput.toLowerCase());
-      }
-      else if (country.name.toLowerCase().includes(searchInput.toLowerCase())) {
-        return country.name.toLowerCase().includes(searchInput.toLowerCase());
+      else if (location.toLowerCase().includes(searchInput.toLowerCase()) && searchInput.length > 4) {
+        return location.toLowerCase().includes(searchInput.toLowerCase());
       }
     })
+
+    const returnSearch = () => {
+      if (searchInput == "") {
+        return "Enter a location"
+      }
+    }
 
   return <div>
 
@@ -61,9 +75,9 @@ const SearchBar = () => {
       value={searchInput} />
 
     <div>
-      {filteredData.map((country, index) => (
+      {filteredData.map((city, index) => (
 
-        <div key={index} className="box">{country.name} {country.continent}</div>))}
+        <div key={index} className="box">{city}</div>))}
     </div>
 
   </div>
