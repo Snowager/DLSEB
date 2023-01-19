@@ -93,7 +93,7 @@ const MapContainer = (props) => {
        googleMapsApiKey='AIzaSyCbEViNtWBZefKVLluU-rWvH4fVKYz5Uuk'>
         <GoogleMap
           mapContainerStyle={mapStyles}
-          zoom={13}
+          zoom={props.zoom}
           center={defaultCenter}>
             
 

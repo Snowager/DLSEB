@@ -4,6 +4,16 @@ import MapContainer from '../MapContainer';
 const CitiesList = (props) => {
 
     const [map, setMap] = useState(false)
+    const [lat, setLat] = useState(0)
+    const [lng, setLng] = useState(0)
+
+    const handleChange = (lat, lng) => {
+        setMap(!map)
+        setLat(lat)
+        setLng(lng)
+        console.log(lat)
+    }
+
 
 
 
@@ -13,9 +23,10 @@ const CitiesList = (props) => {
                 if (city) {
                     
                     return (
-                        <button key={index} type='button' onClick={() => setMap(!map)}>{city}</button>)
+                        <div><button key={index} type='button' onClick={() => handleChange(city.lat, city.lng)}>{city.city} {city.lat} {city.lng}</button></div>
+                        )
                 }
-            })} <MapContainer lat={40} lng={70} status={map} />
+            })} <MapContainer lat={lat} lng={lng} status={map} zoom={10} />
         </>
     );
 }

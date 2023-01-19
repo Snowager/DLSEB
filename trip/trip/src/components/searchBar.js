@@ -40,10 +40,8 @@ const SearchBar = () => {
   ];*/
 
   useEffect(() => {
-    axios.get("city_info.JSON")
-    .then((res) => setCities(res.data.city))
-    .then((res) => setLat(res.data.lat))
-    .then((res) => setLng(res.city.lng))
+    axios.get("city_info2.JSON")
+    .then((res) => setCities(res.data))
     .catch((err) => console.log(err));
   }, []);
 
@@ -53,15 +51,16 @@ const SearchBar = () => {
     console.log(e.target.value)
   };
 
-
+  console.log(cities)
 
   const filteredData =
     Object.values(cities).filter((location) => {
       if (searchInput == "") {
         return
       }
-      else if (location.toLowerCase().includes(searchInput.toLowerCase()) && searchInput.length > 4) {
-        return location.toLowerCase().includes(searchInput.toLowerCase());
+      else if (location.city.toLowerCase().includes(searchInput.toLowerCase()) && searchInput.length > 4) {
+        return location.city.toLowerCase().includes(searchInput.toLowerCase());
+        
       }
     })
 
@@ -74,7 +73,7 @@ const SearchBar = () => {
       value={searchInput} />
 
     <div>
-      <CitiesList cityList={filteredData} />
+      <CitiesList cityList={filteredData}/>
     </div>
 
   </div>
