@@ -1,6 +1,7 @@
 import React, {useState, useEffect, useRef} from 'react';
 import ReactDOM, { createRoot } from "react-dom/client";
 import { GoogleMap, LoadScript, Marker, InfoWindow } from '@react-google-maps/api';
+import MarkerContainer from './components/MarkerContainer.js';
 
 const MapContainer = (props) => {
 
@@ -95,27 +96,7 @@ const MapContainer = (props) => {
           mapContainerStyle={mapStyles}
           zoom={props.zoom}
           center={defaultCenter}>
-            
-
-                  <div id="root1"></div>
-                  {console.log("updated")}
-            
-            {
-                selected.location &&
-                (
-                    <InfoWindow
-                    position={selected.location}
-                    clickable={true}
-                    onCloseClick={() => setSelected({})}
-                    >
-                        {/*commenting in jsx is dumb*/}
-                        <p>
-                            <h1>{selected.name}</h1>
-                            <h2>{selected.desc}</h2>
-                        </p>
-                        </InfoWindow>
-                )
-            }
+            <MarkerContainer name={"center"} position = {defaultCenter} desc = {"something boring"}  />
             </GoogleMap>
      </LoadScript>
      </>
