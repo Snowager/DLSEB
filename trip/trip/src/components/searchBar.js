@@ -20,15 +20,30 @@ const SearchBar = () => {
     console.log(e.target.value)
   };
 
+  let count = 0
+
   const filteredData =
     Object.values(cities).filter((location) => {
       if (searchInput == "") {
+        count = 0
         return
       }
-      else if (location.city.toLowerCase().includes(searchInput.toLowerCase()) && searchInput.length > 4) {
-        return location.city.toLowerCase().includes(searchInput.toLowerCase());
-        
+      else if (location.city.toLowerCase() == searchInput) {
+        return location.city
       }
+      else if ((location.city.toLowerCase().includes(searchInput.toLowerCase()) && searchInput.length > 2)) {
+        while (count < 5) {
+          count++
+          return location.city.toLowerCase().includes(searchInput.toLowerCase());
+        }
+      }
+      else if ((location.state_name.toLowerCase().includes(searchInput.toLowerCase()) && searchInput.length > 2)) {
+        while (count < 5) {
+          count++
+        return location.state_name.toLowerCase().includes(searchInput.toLowerCase());
+        }
+      }
+      return
     })
 
   return <div>
