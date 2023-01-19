@@ -9,6 +9,7 @@ const InfoWindowContainer = (props) => {
     const [selected, setSelected ] = useState(true);
 
     return(
+        <div style={{zIndex: 1000}}>
         <InfoWindow 
         position={props.position}
         clickable={true}
@@ -20,6 +21,7 @@ const InfoWindowContainer = (props) => {
                 <h2>{props.desc}</h2>
             </>
         </InfoWindow>
+        </div>
     )
 }
 

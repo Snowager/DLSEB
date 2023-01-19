@@ -16,6 +16,24 @@ const MarkerContainer = (props) => {
         console.log(infoWindow);
     }
 
+    const showWindow = () => {
+        if(infoWindow) {
+            return(
+                <div style={{zIndex: "10000000"}}>
+                <InfoWindow 
+                position = {props.position}
+                >
+                    <h1> poopY</h1>
+                </InfoWindow>
+                {/*<InfoWindowContainer position = {props.position} name= {props.name} desc = {props.desc} />*/}
+            </div>
+            )
+        }
+        else{
+            console.log("you fucked it");
+        }
+    }
+
     return(
         <>
         <Marker 
@@ -23,6 +41,9 @@ const MarkerContainer = (props) => {
         key = {props.name}
         onClick = {() => onSelect()}
         /> 
+        <>
+            <showWindow />
+        </>
     </>
     )
 
