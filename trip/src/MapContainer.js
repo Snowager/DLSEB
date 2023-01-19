@@ -1,13 +1,10 @@
 import React, {useState, useEffect, useRef} from 'react';
 import ReactDOM, { createRoot } from "react-dom/client";
 import { GoogleMap, LoadScript, Marker, InfoWindow } from '@react-google-maps/api';
-import MarkerContainer from './components/MarkerContainer.js'
 
-const MapContainer = () => {
+const MapContainer = (props) => {
 
     const [ selected, setSelected ] = useState({});
-
-    const [marker, setMarker] = useState(false);
   
     const onSelect = item => {
     setSelected(item);
@@ -21,7 +18,7 @@ const MapContainer = () => {
   
   //coordinates of the center of the map
   const defaultCenter = {
-    lat: 41.3851, lng: 2.1734
+    lat: props.lat, lng: props.lng
   }
 
   //list of locations used for testing the google markers and infoWindows
@@ -87,7 +84,8 @@ const MapContainer = () => {
     //root1.render(<Marker key={newName} position={newPos} onClick={() => onSelect(item)} />);
   }
 
-  return (
+  if (props.status) {
+    return (
     <>
     <input type="text" id="myText" defaultValue="1"/>
     <button id="button" onClick={() => changeMarker(document.getElementById("myText").value)}>Try it</button>
@@ -95,13 +93,35 @@ const MapContainer = () => {
        googleMapsApiKey='AIzaSyCbEViNtWBZefKVLluU-rWvH4fVKYz5Uuk'>
         <GoogleMap
           mapContainerStyle={mapStyles}
-          zoom={13}
+          zoom={props.zoom}
           center={defaultCenter}>
-            <MarkerContainer position = {defaultCenter} name = {"center"} desc = {"something dumb"} status = {marker} onClick = {() => onSelect(this)}/>
+            
+
+                  <div id="root1"></div>
+                  {console.log("updated")}
+            
+            {
+                selected.location &&
+                (
+                    <InfoWindow
+                    position={selected.location}
+                    clickable={true}
+                    onCloseClick={() => setSelected({})}
+                    >
+                        {/*commenting in jsx is dumb*/}
+                        <p>
+                            <h1>{selected.name}</h1>
+                            <h2>{selected.desc}</h2>
+                        </p>
+                        </InfoWindow>
+                )
+            }
             </GoogleMap>
      </LoadScript>
      </>
   )
+          }
+          return null
 }
 
 export default MapContainer;
