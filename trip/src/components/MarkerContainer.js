@@ -6,27 +6,19 @@ import InfoWindowContainer from "./InfoWindowContainer"
 const MarkerContainer = (props) => {
 
     const [ selected, setSelected ] = useState({});
-
-    var infoWindow = false;
+    const [ infoWindow, setInfoWindow ] = useState(false);
 
     const onSelect = item => {
         console.log("working")
         setSelected(item)
-        infoWindow = (!infoWindow);
+        setInfoWindow(!infoWindow)
         console.log(infoWindow);
     }
 
-    const showWindow = () => {
+    const ShowWindow = () => {
         if(infoWindow) {
             return(
-                <div style={{zIndex: "10000000"}}>
-                <InfoWindow 
-                position = {props.position}
-                >
-                    <h1> poopY</h1>
-                </InfoWindow>
-                {/*<InfoWindowContainer position = {props.position} name= {props.name} desc = {props.desc} />*/}
-            </div>
+                <InfoWindowContainer name = {props.name} position = {props.position} desc = {props.desc}/>
             )
         }
         else{
@@ -36,14 +28,12 @@ const MarkerContainer = (props) => {
 
     return(
         <>
-        <Marker 
-        position = {props.position}
-        key = {props.name}
-        onClick = {() => onSelect()}
-        /> 
-        <>
-            <showWindow />
-        </>
+            <Marker 
+            position = {props.position}
+            key = {props.name}
+            onClick = {() => onSelect()}
+            /> 
+            <ShowWindow />
     </>
     )
 
