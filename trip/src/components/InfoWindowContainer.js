@@ -6,22 +6,19 @@ const InfoWindowContainer = (props) => {
 
     console.log("loaded");
 
-    const [selected, setSelected ] = useState(true);
+    const [selected, setSelected ] = useState(false);
 
     return(
-        <div style={{zIndex: 1000}}>
         <InfoWindow 
-        position={props.position}
-        clickable={true}
-        onCloseClick={() => setSelected({})}
+            position={props.position}
+            clickable={true}
+            onCloseClick={() => setSelected({})}
         >
-            { console.log("not happening") }
             <>
                 <h1>{props.name}</h1>
                 <h2>{props.desc}</h2>
             </>
         </InfoWindow>
-        </div>
     )
 }
 
