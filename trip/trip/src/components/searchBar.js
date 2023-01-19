@@ -1,13 +1,14 @@
 import React, { useEffect, useState } from 'react'
 import axios from "axios"
 import CitiesList from "./citiesList"
-import MapContainer from '../MapContainer';
 
 const SearchBar = () => {
 
   const [searchInput, setSearchInput] = useState("");
 
   const [cities, setCities] = useState([])
+  const [lat, setLat] = useState([])
+  const [lng, setLng] = useState([])
 
   /*const countries = [
 
@@ -41,6 +42,8 @@ const SearchBar = () => {
   useEffect(() => {
     axios.get("city_info.JSON")
     .then((res) => setCities(res.data.city))
+    .then((res) => setLat(res.data.lat))
+    .then((res) => setLng(res.city.lng))
     .catch((err) => console.log(err));
   }, []);
 

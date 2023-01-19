@@ -2,7 +2,7 @@ import React, {useState, useEffect, useRef} from 'react';
 import ReactDOM, { createRoot } from "react-dom/client";
 import { GoogleMap, LoadScript, Marker, InfoWindow } from '@react-google-maps/api';
 
-const MapContainer = () => {
+const MapContainer = (props) => {
 
     const [ selected, setSelected ] = useState({});
   
@@ -18,7 +18,7 @@ const MapContainer = () => {
   
   //coordinates of the center of the map
   const defaultCenter = {
-    lat: 41.3851, lng: 2.1734
+    lat: props.lat, lng: props.lng
   }
 
   //list of locations used for testing the google markers and infoWindows
@@ -84,7 +84,8 @@ const MapContainer = () => {
     //root1.render(<Marker key={newName} position={newPos} onClick={() => onSelect(item)} />);
   }
 
-  return (
+  if (props.status) {
+    return (
     <>
     <input type="text" id="myText" defaultValue="1"/>
     <button id="button" onClick={() => changeMarker(document.getElementById("myText").value)}>Try it</button>
@@ -119,6 +120,8 @@ const MapContainer = () => {
      </LoadScript>
      </>
   )
+          }
+          return null
 }
 
 export default MapContainer;

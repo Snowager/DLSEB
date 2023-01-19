@@ -1,18 +1,21 @@
-import React from 'react'
+import React, { useState } from 'react'
+import MapContainer from '../MapContainer';
 
-const CitiesList = ({ cityList = [] }) => {
+const CitiesList = (props) => {
+
+    const [map, setMap] = useState(false)
 
 
 
     return (
         <>
-            {cityList.map((city, index) => {
+            {props.cityList.map((city, index) => {
                 if (city) {
+                    
                     return (
-                        <div key={index} className="box">{city}</div>)
+                        <button key={index} type='button' onClick={() => setMap(!map)}>{city}</button>)
                 }
-                return null
-            })}
+            })} <MapContainer lat={40} lng={70} status={map} />
         </>
     );
 }
