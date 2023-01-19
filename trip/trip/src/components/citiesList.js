@@ -1,13 +1,20 @@
-import React, { useEffect, useState } from 'react'
+import React from 'react'
 
-const citiesList = () => {
-    
+const CitiesList = ({ cityList = [] }) => {
 
 
-    return 
-    <div>
-      {filteredData.map((city, index) => (
 
-        <div key={index} className="box">{city}</div>))}
-    </div>
+    return (
+        <>
+            {cityList.map((city, index) => {
+                if (city) {
+                    return (
+                        <div key={index} className="box">{city}</div>)
+                }
+                return null
+            })}
+        </>
+    );
 }
+
+export default CitiesList;

@@ -1,5 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import axios from "axios"
+import CitiesList from "./citiesList"
+import MapContainer from '../MapContainer';
 
 const SearchBar = () => {
 
@@ -52,19 +54,13 @@ const SearchBar = () => {
 
   const filteredData =
     Object.values(cities).filter((location) => {
-      if (searchInput === "") {
-        return "Enter a location"
+      if (searchInput == "") {
+        return
       }
       else if (location.toLowerCase().includes(searchInput.toLowerCase()) && searchInput.length > 4) {
         return location.toLowerCase().includes(searchInput.toLowerCase());
       }
     })
-
-    const returnSearch = () => {
-      if (searchInput == "") {
-        return "Enter a location"
-      }
-    }
 
   return <div>
 
@@ -75,9 +71,7 @@ const SearchBar = () => {
       value={searchInput} />
 
     <div>
-      {filteredData.map((city, index) => (
-
-        <div key={index} className="box">{city}</div>))}
+      <CitiesList cityList={filteredData} />
     </div>
 
   </div>
