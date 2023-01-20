@@ -1,7 +1,7 @@
 import React, {useState, useEffect, useRef} from 'react';
 import ReactDOM, { createRoot } from "react-dom/client";
 import { GoogleMap, LoadScript, Marker, InfoWindow } from '@react-google-maps/api';
-import MarkerContainer from './components/MarkerContainer.js';
+import MarkerContainer from './MarkerContainer.js';
 
 const MapContainer = (props) => {
 
