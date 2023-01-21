@@ -6,7 +6,7 @@ const navbar = (props) => {
         <div class="navbar-opaque">
             <div class="navbar-transparent bg-dark">
                 <nav class="navbar navbar-expand-sm">
-                    <button class="navbar-toggler ms-auto mx-3" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+                    <button class="navbar-toggler ms-auto mx-3 border-white" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
                         <span class="navbar-toggler-icon"></span>
                     </button>
                     <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
