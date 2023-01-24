@@ -1,8 +1,7 @@
 import React from 'react';
-import './App.css';
-import Navbar from './components/Navbar';
+import Navbar from './scenes/Splash/components/fragments/Navbar';
 import {BrowserRouter as Router, Routes, Route} from 'react-router-dom';
-import Home from './components/pages/Home';
+import Home from './scenes/Splash/pages/Home';
 
 function App() {
   return (
