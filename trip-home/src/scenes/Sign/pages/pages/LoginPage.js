@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
-import '../pages/styles/login.css';
+import '../styles/login.css';
 
-import Navbar from '../Components/fragments/navbar.js';
-import { Login } from '../Components/fragments/login.jsx';
-import { Register } from '../Components/fragments/register.jsx';
+import Navbar from '../../components/fragments/navbar';
+import { Login } from '../../components/fragments/login';
+import { Register } from '../../components/fragments/register';
 import { GoogleLogin } from 'react-google-login';
 import { gapi } from 'gapi-script'; 
 
