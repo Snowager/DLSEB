@@ -10,7 +10,7 @@ import { gapi } from 'gapi-script';
 function LoginPage() {
   const clientId = '707704172368-21chld3a3c333od4ordt9nvk5kog2cdi.apps.googleusercontent.com';
 
-  useEffect(() => {
+  const useEffect = () => {
    const initClient = () => {
          gapi.client.init({
          clientId: clientId,
@@ -18,7 +18,7 @@ function LoginPage() {
        });
     };
     gapi.load('client:auth2', initClient);
-});
+}
 const onSuccess = (res) => {
   console.log('success:', res);
 };
