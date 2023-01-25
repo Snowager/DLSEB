@@ -1,0 +1,43 @@
+import React from 'react';
+import { useQuery, useLazyQuery, gql } from '@apollo/client';
+
+const GET_TRIP_USER = gql`
+query Search($user_id: Int) {
+    trip_user(where: {user_id: {_eq: $user_id}}) {
+      email
+      first_name
+      last_name
+      password
+      phone_number
+      user_id
+      user_name
+    }
+  }
+`;
+/*
+function TripUserById({user_id}){
+    const {loading, error, data } = useQuery
+}
+*/
+
+export default function Users({user_id}) {
+    const { loading, error, data } = useQuery(
+        GET_TRIP_USER,
+        {
+            variables: {user_id}
+        }
+    );
+
+    console.log(user_id);
+
+    if (error) return <p> error :( {error.message}</p>
+    if (loading) return <p>loading</p>;
+
+    return data.trip_user.map(({ user_id, first_name, last_name}) => (
+        <div>
+            <p>
+                {user_id} | {first_name} | {last_name}
+            </p>
+        </div>
+    ))
+}

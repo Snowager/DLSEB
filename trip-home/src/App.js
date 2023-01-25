@@ -2,6 +2,7 @@ import React from 'react';
 import Navbar from './scenes/Splash/components/fragments/Navbar';
 import {BrowserRouter as Router, Routes, Route} from 'react-router-dom';
 import Home from './scenes/Splash/pages/Home';
+import Default from './scenes/TestingDatabase/pages/default.js';
 
 function App() {
   return (
@@ -9,7 +10,7 @@ function App() {
       <Router> 
         <Navbar />  
           <Routes>
-            <Route exact path='/' element={< Home />} />
+            <Route exact path='/' element={<Default />} />
           </Routes>
       </Router>
       </>
