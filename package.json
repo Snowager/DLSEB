@@ -1,7 +1,10 @@
 {
   "dependencies": {
     "@googlemaps/react-wrapper": "^1.1.35",
+    "firebase": "^9.16.0",
     "gapi-script": "^1.2.0",
-    "react-google-login": "^5.2.2"
+    "react-firebase-hooks": "^5.1.1",
+    "react-google-login": "^5.2.2",
+    "react-router-dom": "^6.7.0"
   }
 }
