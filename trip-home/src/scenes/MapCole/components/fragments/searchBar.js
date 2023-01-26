@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import axios from "axios"
 import CitiesList from "../fragments/citiesList"
+import '../styles/searchbar.css';
 
 const SearchBar = () => {
 
@@ -49,6 +50,7 @@ const SearchBar = () => {
   return <>
 
     <input
+      className = "HomeSearch"
       type="search"
       placeholder="Search here"
       onChange={handleChange}
