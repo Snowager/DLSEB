@@ -88,7 +88,6 @@
       position: absolute;
       top: 80px;
       left: -100%;
-      opacity: 1;
       transition: all 0.5s ease;
       justify-content: start;
     }
@@ -96,7 +95,6 @@
     .nav-menu.active {
       background: #242222;
       left: 0;
-      opacity: 1;
       transition: all 0.5s ease;
       z-index: 1;
     }
@@ -156,4 +154,12 @@
       color: #242424;
       transition: 250ms;
     }
+
+    .navbar-opaque:hover {
+      opacity: 1.0;
+  }
+  
+    .navbar-opaque {
+      opacity: 0.2;
+  }
   }

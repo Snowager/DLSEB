@@ -1,9 +1,11 @@
 import React, { useState } from 'react';
-import './login.css';
+import '../styles/login.css';
 
-import Navbar from "./components/navbar";
-import { Login } from "./components/login";
-import { Register } from "./components/register";
+import Navbar from '../../components/fragments/navbar';
+import { Login } from '../../components/fragments/login';
+import { Register } from '../../components/fragments/register';
+import { GoogleLogin } from 'react-google-login';
+import { gapi } from 'gapi-script'; 
 
 function LoginPage() {
   const [currentForm, setCurrentForm] = useState('login');
