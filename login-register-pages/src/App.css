@@ -1,49 +1,5 @@
-.App {
-  text-align: center;
-}
-* {
-  box-sizing: border-box;
-  margin: 0;
-  padding: 0;
-  font-family: 'PT Sans', sans-serif;
-}
-
-.SignUp,
-.SignIn,
-.ManageTrips{
-  display: flex;
-  height: 90vh;
-  align-items: center;
-  justify-content: center;
-  font-size: 3rem;
-}
-
-.SignUp {
-  background-position: center;
-  background-size: cover;
-  background-repeat: no-repeat;
-  color: #fff;
-  font-size: 100px;
-}
-
-.SignIn {
-  background-position: center;
-  background-size: fill;
-  background-repeat: no-repeat;
-  color: #fff;
-  font-size: 100px;
-}
-
-.ManageTrips {
-  background-position: center;
-  background-size: cover;
-  background-repeat: no-repeat;
-  color: #fff;
-  font-size: 100px;
-}
-
 body {
-  background-image: url("../../images/background.jpg");
+  background-image: url("../public/background.jpg");
   background-repeat: no-repeat;
   background-size:cover;
 }
@@ -52,7 +8,7 @@ body {
   text-align: center;
   display: flex;
   align-items: center;
-  min-height: 92vh;
+  min-height: 70vh;
   justify-content: center;
   color: white;
 }
@@ -135,6 +91,5 @@ button {
     display: flex;
     align-items: center;
     padding: .25rem;
-
 }
 
