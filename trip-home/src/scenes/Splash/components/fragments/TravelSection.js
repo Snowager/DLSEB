@@ -1,6 +1,6 @@
 import React, {Component}from 'react';
 import'../styles/TravelSection.css';
-import SearchBar from './SearchBar';
+import SearchBar from '../../../MapCole/components/fragments/searchBar';
 
 
 class TravelSection extends Component {

@@ -3,7 +3,7 @@ import axios from "axios"
 import CitiesList from "../fragments/citiesList"
 import '../styles/searchbar.css';
 
-const SearchBar = () => {
+const SearchBar = (props) => {
 
   const [searchInput, setSearchInput] = useState("");
 
@@ -48,14 +48,12 @@ const SearchBar = () => {
     })
 
   return <>
-
-    <input
+      <input
       className = "HomeSearch"
       type="search"
       placeholder="Search here"
       onChange={handleChange}
       value={searchInput} />
-
     <div>
       <CitiesList cityList={filteredData}/>
     </div>

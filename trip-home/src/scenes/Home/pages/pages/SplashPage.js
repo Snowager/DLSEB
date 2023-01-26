@@ -1,6 +1,7 @@
 import React from 'react';
 import '../styles/SplashPage.css';
 import Searchbar from "../../../MapCole/components/fragments/searchBar"
+import TravelSection from '../../../Splash/components/fragments/TravelSection';
 
 
 function SplashPage() {
@@ -10,7 +11,7 @@ function SplashPage() {
             <div class="row">
                 <div class="col-md-1"> </div>
                 <div class="col-md-10"></div>
-            <Searchbar />
+                <TravelSection />
             </div>
             </div>
             <div class="container text-center mt-4">
