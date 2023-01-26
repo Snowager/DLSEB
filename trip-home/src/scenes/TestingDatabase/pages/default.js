@@ -25,7 +25,7 @@ const Default = () => {
 
     return (
     <ApolloProvider client ={client}>
-        <Users user_id={1}/>
+        <Users user_id={2}/>
     </ApolloProvider>
     )
 }

@@ -14,13 +14,59 @@ query Search($user_id: Int) {
     }
   }
 `;
-/*
-function TripUserById({user_id}){
-    const {loading, error, data } = useQuery
-}
-*/
+
+const GET_SERVICE = gql`
+query Search($coordinates: Int) {
+    service_by_pk(coordinates: "$coordinates") {
+      admin_id
+      coordinates
+      trip_id
+      type
+      user_id
+    }
+  }
+`;
+
+const GET_TRIP = gql`
+query Search($trip_id: Int) {
+    trip_by_pk(trip_id: $trip_id) {
+      city
+      duration
+      trip_id
+      user_id
+    }
+  }
+`;
+
+const GET_ACTIVITY = gql`
+query Search($name: String!, $street: String!) {
+    activity_by_pk(name: $name, street: $street) {
+      coordinates
+      name
+      phone_number
+      photo
+      pricerange
+      street
+      type
+    }
+  }
+`;
+
+const GET_ = gql`
+
+`;
+
+const GET_ = gql`
+
+`;
+
+const GET_ = gql`
+
+`;
+
 
 export default function Users({user_id}) {
+    
     const { loading, error, data } = useQuery(
         GET_TRIP_USER,
         {
