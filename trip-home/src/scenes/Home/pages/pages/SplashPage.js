@@ -1,4 +1,8 @@
-import './SplashPage.css';
+// Bootstrap CSS
+import "bootstrap/dist/css/bootstrap.min.css";
+// Bootstrap Bundle JS
+import "bootstrap/dist/js/bootstrap.bundle.min";
+import '../styles/SplashPage.css';
 import Navbar from '../../components/fragments/Navbar.js';
 import Searchbar from '../../components/fragments/Searchbar.js';
 

@@ -1,18 +1,11 @@
-import React from 'react';
-import Navbar from './scenes/Splash/components/fragments/Navbar';
-import {BrowserRouter as Router, Routes, Route} from 'react-router-dom';
-import Home from './scenes/Splash/pages/Home';
+import Map from './scenes/Home/pages/pages/Map.js';
 
-function App() {
+
+function Home() {
   return (
-  <>
-      <Router> 
-        <Navbar />  
-          <Routes>
-            <Route exact path='/' element={< Home />} />
-          </Routes>
-      </Router>
-      </>
+    <>
+      <Map />
+    </>
   );
 }
-export default App;
+export default Home;
