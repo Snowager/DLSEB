@@ -112,9 +112,9 @@ query Search($admin_id: String!) {
 export default function Users({user_id, email}) {
     
     const { loading, error, data } = useQuery(
-        GET_TRIP_USER_BY_EMAIL,
+        GET_TRIP_USER_BY_ID,
         {
-            variables: {email}
+            variables: {user_id}
         }
     );
 

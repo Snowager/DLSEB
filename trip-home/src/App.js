@@ -1,7 +1,7 @@
 import React from 'react';
 import Navbar from './scenes/Splash/components/fragments/Navbar';
 import {BrowserRouter as Router, Routes, Route} from 'react-router-dom';
-import Home from './scenes/Map/pages/pages/Home.js';
+//import Home from './scenes/Splash/pages/pages/Home.js';
 import Default from './scenes/TestingDatabase/pages/default.js';
 
 function App() {
