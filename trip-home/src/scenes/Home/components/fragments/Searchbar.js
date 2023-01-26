@@ -1,4 +1,5 @@
 import React from 'react';
+import SearchBar from "../../../MapCole/components/fragments/searchBar"
 
 const searchbar = (props) => {
     return (
@@ -6,9 +7,7 @@ const searchbar = (props) => {
             <div class="row">
                 <div class="col-md-1"> </div>
                 <div class="col-md-10">
-                    <div class="input-group">
-                        <input type="search" class="form-control py-3" placeholder="Greeley, CO" aria-label="Search" aria-describedby="search-addon" />
-                    </div>
+                    <SearchBar />
                 </div>
             </div>
         </div>

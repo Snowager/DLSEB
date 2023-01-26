@@ -10,8 +10,6 @@ function SplashPage() {
 
             <h1 class="text-center text-white display-5 font-weight-bold mt-5 pt-5 fw-bold"> TR!P </h1>
 
-            <Searchbar />
-
             <div class="container text-center mt-4">
                 <div class="row">
                     <div class="col-md-4">
@@ -25,6 +23,10 @@ function SplashPage() {
                     </div>
                 </div>
             </div>
+
+            <Searchbar />
+
+            
 
         </body>
     );

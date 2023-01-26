@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import MapContainer from '../MapContainer';
+import MapContainer from '../containers/MapContainer';
 
 const CitiesList = (props) => {
 
