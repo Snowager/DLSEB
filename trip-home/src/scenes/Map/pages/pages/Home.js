@@ -1,4 +1,4 @@
-import SplashPage from '../SplashPage.js';
+import SplashPage from './SplashPage.js';
 
 
 function Home() {

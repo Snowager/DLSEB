@@ -1,4 +1,4 @@
-import SearchBar from '../Searchbar.js';
+import SearchBar from '.../components/fragments/Searchbar.js';
 import React, {useState, useEffect, useRef} from 'react';
 
 const MapPage = (props) => {

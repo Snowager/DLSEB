@@ -1,9 +1,9 @@
-import './SplashPage.css';
-import Navbar from './Navbar.js';
-import Searchbar from './Searchbar.js';
+import '../styles/SplashPage.css';
+import Navbar from '.../components/fragments/Navbar.js';
+import Searchbar from '.../components/fragments/Searchbar.js';
 import React from 'react';
 import * as ReactDOM from 'react-dom';
-import MapPage from './pages/mapPage.js';
+import MapPage from './mapPage.js';
 
 function SplashPage() {
 
