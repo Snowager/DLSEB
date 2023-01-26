@@ -52,16 +52,46 @@ query Search($name: String!, $street: String!) {
   }
 `;
 
-const GET_ = gql`
-
+const GET_HOTEL = gql`
+query Search($name: String!, $street: String!) {
+  hotel_by_pk(name: "$name", street: "%street") {
+    lat
+    lng
+    name
+    phone_number
+    photo
+    pricerange
+    street
+  }
+}
 `;
 
-const GET_ = gql`
-
+const GET_RESTAURANT = gql`
+query Search($name: String!, $street: String!) {
+  restaurant_by_pk(name: "$name", street: "$street") {
+    lat
+    lng
+    name
+    phone_number
+    photo
+    pricerange
+    street
+    type
+  }
+}
 `;
 
-const GET_ = gql`
-
+const GET_ADMIN = gql`
+query Search($admin_id: String!) {
+  admin_by_pk(admin_id: $admin_id) {
+    admin_id
+    can_modify
+    email
+    first_name
+    last_name
+    password
+  }
+}
 `;
 
 
