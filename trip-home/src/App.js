@@ -1,10 +1,10 @@
-import Map from './scenes/Home/pages/pages/Map.js';
+import SplashPage from './scenes/Home/pages/pages/SplashPage.js';
 
 
 function Home() {
   return (
     <>
-      <Map />
+      <SplashPage />
     </>
   );
 }
