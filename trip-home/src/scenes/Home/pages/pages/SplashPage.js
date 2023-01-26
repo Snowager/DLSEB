@@ -5,6 +5,7 @@ import Searchbar from '../../components/fragments/Searchbar.js';
 
 
 function SplashPage() {
+    // comment blah
     return (
         <body>
 
