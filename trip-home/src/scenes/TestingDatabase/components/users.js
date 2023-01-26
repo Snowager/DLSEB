@@ -1,9 +1,23 @@
 import React from 'react';
 import { useQuery, useLazyQuery, gql } from '@apollo/client';
 
-const GET_TRIP_USER = gql`
+const GET_TRIP_USER_BY_ID = gql`
 query Search($user_id: Int) {
     trip_user(where: {user_id: {_eq: $user_id}}) {
+      email
+      first_name
+      last_name
+      password
+      phone_number
+      user_id
+      user_name
+    }
+  }
+`;
+
+const GET_TRIP_USER_BY_EMAIL = gql`
+query Search($email: String) {
+    trip_user(where: {email: {_eq: $email}}) {
       email
       first_name
       last_name
@@ -95,24 +109,24 @@ query Search($admin_id: String!) {
 `;
 
 
-export default function Users({user_id}) {
+export default function Users({user_id, email}) {
     
     const { loading, error, data } = useQuery(
-        GET_TRIP_USER,
+        GET_TRIP_USER_BY_EMAIL,
         {
-            variables: {user_id}
+            variables: {email}
         }
     );
 
-    console.log(user_id);
+    console.log(email);
 
     if (error) return <p> error :( {error.message}</p>
     if (loading) return <p>loading</p>;
 
-    return data.trip_user.map(({ user_id, first_name, last_name}) => (
+    return data.trip_user.map(({ user_id, first_name, last_name, email, phone_number, user_name}) => (
         <div>
             <p>
-                {user_id} | {first_name} | {last_name}
+                {user_id} | {user_name} | {first_name} | {last_name} | {email} | {phone_number}
             </p>
         </div>
     ))
