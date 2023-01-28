@@ -1,17 +1,16 @@
 import React from 'react';
 import { useQuery, useLazyQuery, gql } from '@apollo/client';
-import {GET_TRIP_USER_BY_ID} from '../GraphQL/queries.js';
+import {GET_TRIP_USER_BY_ID, GET_TRIP_USER_BY_EMAIL} from '../GraphQL/queries.js';
+import {UserIdInDatabase, UserEmailInDatabase, ServiceInDatabase, ActivityInDatabase, HotelInDatabase, RestaurantInDatabase} from './DBCommands.js';
 
-function GetUsers({user_id}) {
+function GetUsers({email}) {
     
   const { loading, error, data } = useQuery(
-      GET_TRIP_USER_BY_ID,
+    GET_TRIP_USER_BY_EMAIL,
       {
-          variables: {user_id}
+          variables: {email}
       }
   );
-
-  console.log(user_id);
 
   if (error) return "error";
   if (loading) return "loading";
@@ -20,7 +19,7 @@ function GetUsers({user_id}) {
 }
 
 
-export default function Users({user_id, email}) {
+export default function Users({user_id, email, fakeEmail, lat, lng, name, street}) {
     
   /*
     const { loading, error, data } = useQuery(
@@ -43,9 +42,9 @@ export default function Users({user_id, email}) {
         </div>
     ))
     */
-    const cole = GetUsers({user_id})
+    const cole = GetUsers({email})
 
-    console.log(cole);
+    console.log("is service in database? ==> " + RestaurantInDatabase({name, street}))
 
     if(cole == "error") return <h1>error</h1>;
     if(cole == "loading") return <h1>loading</h1>;

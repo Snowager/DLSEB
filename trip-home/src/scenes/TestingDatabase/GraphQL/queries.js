@@ -30,15 +30,16 @@ query Search($email: String) {
 `;
 
 export const GET_SERVICE = gql`
-query Search($coordinates: Int) {
-    service_by_pk(coordinates: "$coordinates") {
-      admin_id
-      coordinates
-      trip_id
-      type
-      user_id
-    }
+query Search($lat: String!, $lng: String!) {
+  service_by_pk(lat: $lat, lng: $lng) {
+    admin_id
+    lat
+    lng
+    trip_id
+    type
+    user_id
   }
+}
 `;
 
 export const GET_TRIP = gql`
@@ -53,22 +54,23 @@ query Search($trip_id: Int) {
 `;
 
 export const GET_ACTIVITY = gql`
-query Search($name: String!, $street: String!) {
-    activity_by_pk(name: $name, street: $street) {
-      coordinates
-      name
-      phone_number
-      photo
-      pricerange
-      street
-      type
-    }
+query MyQuery($name: String!, $street: String!) {
+  activity_by_pk(name: $name, street: $street) {
+    lat
+    lng
+    name
+    phone_number
+    photo
+    pricerange
+    street
+    type
   }
+}
 `;
 
 export const GET_HOTEL = gql`
-query Search($name: String!, $street: String!) {
-  hotel_by_pk(name: "$name", street: "%street") {
+query MyQuery($name: String!, $street: String!) {
+  hotel_by_pk(name: $name, street: $street) {
     lat
     lng
     name
@@ -82,7 +84,7 @@ query Search($name: String!, $street: String!) {
 
 export const GET_RESTAURANT = gql`
 query Search($name: String!, $street: String!) {
-  restaurant_by_pk(name: "$name", street: "$street") {
+  restaurant_by_pk(name: $name, street: $street) {
     lat
     lng
     name

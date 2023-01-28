@@ -25,9 +25,16 @@ const Default = () => {
 
     return (
     <ApolloProvider client ={client}>
-        <Users user_id={2} email={'test@test.aaaah'}/>
+        <Users 
+        user_id={2} 
+        email={'test@test.aaaah'} 
+        fakeEmail={'test@gmail.com'} 
+        lat={"40.40857608351398"} 
+        lng={"-104.7793644195992"} 
+        name={"Wing shack"}
+        street={"1815 65th Ave WEST, Greeley, CO 80634"}
+        />
     </ApolloProvider>
     )
 }
-
 export default Default;
