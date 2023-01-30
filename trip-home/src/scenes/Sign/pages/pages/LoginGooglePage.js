@@ -30,12 +30,12 @@ function App() {
   };
 
   return (
-      <div>
+      <div classname = "App">
           <h2>React Google Login</h2>
           <br />
           <br />
           {profile ? (
-              <div>
+        <div classname = "auth-form-container">
                   <img src={profile.imageUrl} alt="user image" />
                   <h3>User Logged in</h3>
                   <p>Name: {profile.name}</p>
@@ -54,6 +54,7 @@ function App() {
                   isSignedIn={true}
               />
           )}
+          
       </div>
   );
 }
