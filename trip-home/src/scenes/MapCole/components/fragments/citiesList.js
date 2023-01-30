@@ -11,7 +11,7 @@ const CitiesList = (props) => {
         setMap(!map)
         setLat(lat)
         setLng(lng)
-        console.log(lat)
+        //console.log(lat)
     }
 
 
