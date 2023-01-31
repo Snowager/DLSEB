@@ -6,19 +6,26 @@ const MapContainer = (props) => {
 
   const google = window.google;
   const [selected, setSelected] = useState({});
+  const [markers, setMarkers] = useState([]);
+  const places = []
 
   const onLoad = React.useCallback(
-    function onLoad (map) {
+    function onLoad(map) {
       const service = new google.maps.places.PlacesService(map)
       var request = {
         location: map.center,
-        radius: "50",
+        radius: "5",
         query: "restaurant"
       };
       service.textSearch(request, callback);
       function callback(results, status) {
-        if (status == google.maps.places.PlacesServiceStatus.OK) {
-          console.log(results);
+        if (status === google.maps.places.PlacesServiceStatus.OK) {
+          for (var i = 0; i < results.length; i++) {
+            console.log(results[i])
+            places.push(results[i])
+          }
+          console.log(places.length)
+          setMarkers(places)
         }
       }
     }
@@ -107,25 +114,20 @@ const MapContainer = (props) => {
     zoom={props.zoom}
     center={defaultCenter}
     onLoad={onLoad}
-    >
+  >
 
     <div id="root1"></div>
     {console.log("updated")}
 
     {
-      selected.location &&
+      places &&
       (
-        <InfoWindow
-          position={selected.location}
-          clickable={true}
-          onCloseClick={() => setSelected({})}
-        >
-          {/*commenting in jsx is dumb*/}
-          <p>
-            <h1>{selected.name}</h1>
-            <h2>{selected.desc}</h2>
-          </p>
-        </InfoWindow>
+        markers.map(places => (
+          <Marker
+            key={places.place_id}
+            position={places.geometry.location} />
+        )
+        )
       )
     }
   </GoogleMap>
@@ -135,7 +137,7 @@ const MapContainer = (props) => {
       <>
         <input type="text" id="myText" defaultValue="1" />
         <button id="button" onClick={() => changeMarker(document.getElementById("myText").value)}>Try it</button>
-          {map}
+        {map}
       </>
     )
   }
