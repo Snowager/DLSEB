@@ -54,9 +54,3 @@ function addMarkers(map) {
         algorithm: new SuperClusterAlgorithm({ radius: 200 }),
     });
 }
-
-
-
-
-
-
