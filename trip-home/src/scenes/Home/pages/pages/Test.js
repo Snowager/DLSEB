@@ -1,11 +1,3 @@
-
-
-
-
-
-
-
-
 import { useState, useCallback } from "react";
 import { GoogleMapsProvider } from "@ubilabs/google-maps-react-hooks";
 import { MarkerClusterer } from "@googlemaps/markerclusterer";
@@ -13,10 +5,10 @@ import SuperClusterAlgorithm from "../../components/fragments/Super_Cluster_Algo
 import restaurant from "../../data/restaurant";
 
 const mapOptions = {
-    zoom: 12,
+    zoom: 10,
     center: {
-        lat: 43.68,
-        lng: -79.43,
+        lat: 40.4152,
+        lng: -104.7706,
     },
 };
 
@@ -26,6 +18,7 @@ export default function Test() {
 
     return (
         <GoogleMapsProvider
+            mapContainerClassName="map-container"
             googleMapsAPIKey="AIzaSyCqZGpZi8NbIqDp7jvaKZKCWDqMT3-_kr4"
             options={mapOptions}
             mapContainer={mapContainer}
@@ -61,3 +54,9 @@ function addMarkers(map) {
         algorithm: new SuperClusterAlgorithm({ radius: 200 }),
     });
 }
+
+
+
+
+
+
