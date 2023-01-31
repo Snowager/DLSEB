@@ -1,21 +1,21 @@
-import React from 'react';
-import Navbar from './scenes/Splash/components/fragments/Navbar';
-import {BrowserRouter as Router, Routes, Route} from 'react-router-dom';
-import Home from './scenes/Splash/pages/Home';
-import LoginGooglePage from './scenes/Sign/pages/pages/LoginGooglePage';
-
-
+//import "./App.css";
+import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
+import Login from './scenes/Sign/pages/pages/Login'; //login//
+import Register from './scenes/Sign/pages/pages/Register';
+import Reset from './scenes/Sign/pages/pages/Reset';
+import Dashboard from './scenes/Sign/pages/pages/Dashboard';
 function App() {
   return (
-  <>
-      <Router> 
-        <Navbar />  
-          <Routes>
-            <Route exact path='/' element={< Home />} />
-            <Route exact path='/SignIn' element={<LoginGooglePage />} />
-          </Routes>
+    <div className="app">
+      <Router>
+        <Routes>
+          <Route exact path="/" element={<Login />} />
+          <Route exact path="/register" element={<Register />} />
+          {<Route exact path="/reset" element={<Reset />} /> }
+          <Route exact path="/dashboard" element={<Dashboard />} />
+        </Routes>
       </Router>
-      </>
+    </div>
   );
 }
 export default App;

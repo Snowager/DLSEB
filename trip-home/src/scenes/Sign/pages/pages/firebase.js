@@ -16,14 +16,15 @@ import {
   where,
   addDoc,
 } from "firebase/firestore";
+// For Firebase JS SDK v7.20.0 and later, measurementId is optional
 const firebaseConfig = {
-  apiKey: "AIzaSyDIXJ5YT7hoNbBFqK3TBcV41-TzIO-7n7w",
-  authDomain: "fir-auth-6edd8.firebaseapp.com",
-  projectId: "fir-auth-6edd8",
-  storageBucket: "fir-auth-6edd8.appspot.com",
-  messagingSenderId: "904760319835",
-  appId: "1:904760319835:web:44fd0d957f114b4e51447e",
-  measurementId: "G-Q4TYKH9GG7",
+  apiKey: "AIzaSyC3NRpTX82Whbm7-v8cMK7LX_EB4TTWkVw",
+  authDomain: "trip-login-d4bdc.firebaseapp.com",
+  projectId: "trip-login-d4bdc",
+  storageBucket: "trip-login-d4bdc.appspot.com",
+  messagingSenderId: "506632449893",
+  appId: "1:506632449893:web:5af428c5449f1fea53bb8c",
+  measurementId: "G-56SZQ1QMK6"
 };
 const app = initializeApp(firebaseConfig);
 const auth = getAuth(app);
@@ -87,8 +88,8 @@ export {
   auth,
   db,
   signInWithGoogle,
-  logInWithEmailAndPassword,
+  signInWithEmailAndPassword,
   registerWithEmailAndPassword,
-  sendPasswordReset,
+  sendPasswordResetEmail,
   logout,
 };
