@@ -1,10 +1,10 @@
-import Map from './scenes/Home/pages/pages/Map.js';
+import Test from './scenes/Home/pages/pages/Test.js';
 
 
 function Home() {
   return (
     <>
-      <Map />
+      <Test />
     </>
   );
 }

@@ -1,6 +1,11 @@
 {
   "dependencies": {
     "@googlemaps/react-wrapper": "^1.1.35",
-    "@reach/combobox": "^0.18.0"
+    "@reach/combobox": "^0.18.0",
+    "@react-google-maps/api": "^2.18.1",
+    "google-map-react": "^2.2.0"
+  },
+  "devDependencies": {
+    "@ubilabs/google-maps-react-hooks": "^2.0.2"
   }
 }
