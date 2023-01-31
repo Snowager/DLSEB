@@ -1,9 +1,12 @@
 {
   "dependencies": {
+    "@googlemap-react/core": "^0.1.14",
+    "@googlemaps/markerclusterer": "^2.0.15",
     "@googlemaps/react-wrapper": "^1.1.35",
     "@reach/combobox": "^0.18.0",
     "@react-google-maps/api": "^2.18.1",
-    "google-map-react": "^2.2.0"
+    "google-map-react": "^2.2.0",
+    "react-hook-google-maps": "^0.0.3"
   },
   "devDependencies": {
     "@ubilabs/google-maps-react-hooks": "^2.0.2"
