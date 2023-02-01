@@ -4,17 +4,22 @@ import {BrowserRouter as Router, Routes, Route} from 'react-router-dom';
 import LoginPage from "./scenes/Sign/pages/pages/LoginPage"
 import SplashPage from './scenes/Home/pages/pages/SplashPage';
 
+import Login from './scenes/Sign/pages/pages/Login'; //login//
+import Register from './scenes/Sign/pages/pages/Register';
+import Reset from './scenes/Sign/pages/pages/Reset';
+import Dashboard from './scenes/Sign/pages/pages/Dashboard';
 function App() {
   return (
-  <>
-      <Router> 
-        <Navbar />  
-          <Routes>
-            <Route exact path='/' element={< SplashPage />} />
-            <Route exact path='/SignIn' element={<LoginPage />} />
-          </Routes>
+    <div className="app">
+      <Router>
+        <Routes>
+          <Route exact path="/login" element={<Login />} />
+          <Route exact path="/register" element={<Register />} />
+          {<Route exact path="/reset" element={<Reset />} /> }
+          <Route exact path="/dashboard" element={<Dashboard />} />
+        </Routes>
       </Router>
-      </>
+    </div>
   );
 }
 export default App;
