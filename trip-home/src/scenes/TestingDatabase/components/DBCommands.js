@@ -1,6 +1,7 @@
 import React from 'react';
-import { useQuery, useLazyQuery, gql } from '@apollo/client';
+import { useQuery, useLazyQuery, gql , useMutation} from '@apollo/client';
 import {GET_TRIP_USER_BY_ID, GET_TRIP_USER_BY_EMAIL, GET_SERVICE, GET_ACTIVITY, GET_HOTEL, GET_RESTAURANT} from '../GraphQL/queries.js';
+import {CREATE_HOTEL_PHOTO_PRICERANGE} from '../GraphQL/inserts.js';
 
 export function UserIdInDatabase({user_id}) {
     
@@ -117,3 +118,32 @@ export function RestaurantInDatabase({name, street}) {
   
     return false;
 }
+
+/*
+export function CreateHotel({name, street, phone_number, pricerange, photo, lat, lng}){
+
+    const [DoIt, { loading, error, data }] = useMutation(
+        CREATE_HOTEL_PHOTO_PRICERANGE,
+        {
+            variables: {name, street, phone_number, pricerange, photo, lat, lng}
+        }
+    );
+
+    if(HotelInDatabase({name, street})) return "hotel already in database";
+
+    if (error) {
+        console.log("Couldn't create hotel with values: NAME:" + name + " STREET:" + street + " PHONENUMBER:" + phone_number + " PRICERANGE:" + pricerange + " PHOTO:" + photo + " LAT:" + lat + " LNG:" + lng)
+        console.log(`${error.message}`);
+        return "error";
+    }
+    if (loading) {
+        console.log("Creating Hotel")
+        return "loading";
+    }
+    if(data && data.insert_activity_one != null){
+        console.log("Successfully created hotel with values: NAME:" + name + " STREET:" + street + " PHONENUMBER:" + phone_number + " PRICERANGE:" + pricerange + " PHOTO:" + photo + " LAT:" + lat + " LNG:" + lng)
+        return true;
+    }
+    return false;
+}
+*/

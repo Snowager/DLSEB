@@ -31,8 +31,11 @@ const Default = () => {
         fakeEmail={'test@gmail.com'} 
         lat={"40.40857608351398"} 
         lng={"-104.7793644195992"} 
-        name={"Wing shack"}
-        street={"1815 65th Ave WEST, Greeley, CO 80634"}
+        name={"Test Shack3"}
+        street={"1819 65th Ave WEST, Greeley, CO 80634"}
+        phone_number={"1234567890"}
+        pricerange={"null"}
+        photo={"test.jpg"}
         />
     </ApolloProvider>
     )
