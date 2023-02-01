@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import axios from "axios"
-import CitiesList from "./citiesList"
+import CitiesList from "../fragments/citiesList"
 
 const SearchBar = () => {
 
@@ -9,7 +9,7 @@ const SearchBar = () => {
   const [cities, setCities] = useState([])
 
   useEffect(() => {
-    axios.get("city_info2.JSON")
+    axios.get("/static/files/city_info2.JSON")
     .then((res) => setCities(res.data))
     .catch((err) => console.log(err));
   }, []);
@@ -46,7 +46,7 @@ const SearchBar = () => {
       return
     })
 
-  return <div>
+  return <>
 
     <input
       type="search"
@@ -58,7 +58,7 @@ const SearchBar = () => {
       <CitiesList cityList={filteredData}/>
     </div>
 
-  </div>
+  </>
 
 
 };

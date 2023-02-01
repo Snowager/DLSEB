@@ -1,17 +1,15 @@
-import './SplashPage.css';
-import Navbar from '../../components/fragments/Navbar.js';
+import React from 'react';
+
+import '../styles/SplashPage.css';
 import Searchbar from '../../components/fragments/Searchbar.js';
 
 
 function SplashPage() {
+    // comment blah
     return (
         <body>
 
-            <Navbar />
-
             <h1 class="text-center text-white display-5 font-weight-bold mt-5 pt-5 fw-bold"> TR!P </h1>
-
-            <Searchbar />
 
             <div class="container text-center mt-4">
                 <div class="row">
@@ -26,6 +24,10 @@ function SplashPage() {
                     </div>
                 </div>
             </div>
+
+            <Searchbar />
+
+            
 
         </body>
     );
