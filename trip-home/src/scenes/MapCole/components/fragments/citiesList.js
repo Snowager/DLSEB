@@ -23,7 +23,7 @@ const CitiesList = (props) => {
 
     return (
         <>
-            <h1>{cty}  {ste}</h1>
+            <h1>{cty}  {ste}</h1> 
             {props.cityList.map((city, index) => {
                 if (city) {
                     

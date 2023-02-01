@@ -1,35 +1,40 @@
 import React, {Component}from 'react';
 import'../styles/TravelSection.css';
 import SearchBar from '../../../MapCole/components/fragments/searchBar';
+import Button from './Button';
+import { Link } from 'react-router-dom';
 
 
-class TravelSection extends Component {
 
-    state = { 
-        locations: [
-        { name : 'Enter Location' }
-    ]}
+const TravelSection = (props) => {
 
-    nameChangedHandler = (event) => {
-      this.setState({locations: [
-        { name : event.target.value }
-      ]})
-    }
-  
-    render(){ 
-      
-  
   return (
     <div className='travel-continer'>
-        <SearchBar
-        name ={this.state.locations[0].name}
-        changed={this.nameChangedHandler}> 
-        </SearchBar>
-
-
-        
-        <div className="travel-btns">
-          "placeholder for buttons"
+        <SearchBar> </SearchBar>
+       {/* <div className="travel-btns">
+          <Button
+            className='btns'
+            buttonStyle='btn--primary'
+            buttonSize='btn--large'
+          >
+            Resturants
+          </Button>
+          <Button
+            className='btns'
+            buttonStyle='btn--primary'
+            buttonSize='btn--large'
+            onClick={console.log('hey')}
+          >
+            Hotels
+          </Button>
+          <Button
+            className='btns'
+            buttonStyle='btn--primary'
+            buttonSize='btn--large'
+          >
+            Activities
+          </Button>
+          <Link to="/map" className="btn--primary">Sign up</Link>
         </div>
         <div class="container text-center mt-4">
                 <div class="row">
@@ -44,8 +49,9 @@ class TravelSection extends Component {
                     </div>
                 </div>
                 </div>
+              */}
     </div>
   )
 }
-}
+
 export default TravelSection
