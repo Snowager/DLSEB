@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import '../styles/login.css';
+import '../styles/Login.css';
 
 import Navbar from '../../components/fragments/navbar';
 import { Login } from '../../components/fragments/login';
