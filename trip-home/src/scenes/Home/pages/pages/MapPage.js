@@ -10,7 +10,8 @@ function MapPage() {
   return (
       <>
         <p>{type}</p>
-
+        <h2>{location.state.cty}</h2>
+        {/*<MapContainer lat={lat} lng={lng} status={map} zoom={10} /> */}
       </>
   );
 }

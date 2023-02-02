@@ -100,13 +100,13 @@ const SearchBar = (props) => {
     <MapContainer lat={lat} lng={lng} status={map} zoom={10} />
 */}
     <Link 
-    to="/MapPage" 
+    to={`MapPage/Hotels/${cty}/${ste}`} 
     className='btns'
     state={{ type: "Hotel" }}>
       Hotel
     </Link>
     <Link 
-    to="/MapPage" 
+    to={`MapPage/Activities/${cty}/${ste}`}
     className='btns'
     state={{ type: "Activity" ,
             state: {ste}
@@ -114,7 +114,7 @@ const SearchBar = (props) => {
       Activity
     </Link>
     <Link 
-    to="/MapPage" 
+    to={`MapPage/Resturants/${cty}/${ste}`}
     className='btns'
     state={{ type: "Resturant" }}>
       Resturant
