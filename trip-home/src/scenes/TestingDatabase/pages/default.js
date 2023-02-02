@@ -21,6 +21,7 @@ const client = new ApolloClient({
     link: authLink.concat(httpLink)
 })
 
+
 const Default = () => {
 
     return (

@@ -88,13 +88,11 @@ export function HotelInDatabase({name, street}) {
         }
     );
   
-    console.log("hotel entered = name:" + name + " street:" + street);
+    //console.log("hotel entered = name:" + name + " street:" + street);
   
     if (error) return "error";
     if (loading) return "loading";
-    if(data.hotel_by_pk != null){
-        return true;
-    }
+    if(data.hotel_by_pk != null) return true;
   
     return false;
 }
@@ -119,7 +117,7 @@ export function RestaurantInDatabase({name, street}) {
     return false;
 }
 
-/*
+
 export function CreateHotel({name, street, phone_number, pricerange, photo, lat, lng}){
 
     const [DoIt, { loading, error, data }] = useMutation(
@@ -130,6 +128,7 @@ export function CreateHotel({name, street, phone_number, pricerange, photo, lat,
     );
 
     if(HotelInDatabase({name, street})) return "hotel already in database";
+    DoIt()
 
     if (error) {
         console.log("Couldn't create hotel with values: NAME:" + name + " STREET:" + street + " PHONENUMBER:" + phone_number + " PRICERANGE:" + pricerange + " PHOTO:" + photo + " LAT:" + lat + " LNG:" + lng)
@@ -146,4 +145,3 @@ export function CreateHotel({name, street, phone_number, pricerange, photo, lat,
     }
     return false;
 }
-*/

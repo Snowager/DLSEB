@@ -21,34 +21,11 @@ function GetUsers({email}) {
 
 export default function Users({user_id, email, fakeEmail, lat, lng, name, street, phone_number, pricerange, photo}) {
 
-    const [DoIt, { loading, error, data }] = useMutation(
-        CREATE_HOTEL_PHOTO_PRICERANGE,
-        {
-            variables: {name, street, phone_number, pricerange, photo, lat, lng}
-        }
-    );
-  
-    if(HotelInDatabase({name, street})) return "hotel already in database";
-  
-    if (error) {
-        console.log("Couldn't create hotel with values: NAME:" + name + " STREET:" + street + " PHONENUMBER:" + phone_number + " PRICERANGE:" + pricerange + " PHOTO:" + photo + " LAT:" + lat + " LNG:" + lng)
-        console.log(`${error.message}`);
-        return "error";
-    }
-    if (loading) {
-        console.log("Creating Hotel")
-        return "loading";
-    }
-    if(data && data.insert_activity_one != null){
-        console.log("Successfully created hotel with values: NAME:" + name + " STREET:" + street + " PHONENUMBER:" + phone_number + " PRICERANGE:" + pricerange + " PHOTO:" + photo + " LAT:" + lat + " LNG:" + lng)
-        return true;
-    }
-
     const cole = GetUsers({email})
     let name1 = null;
     let street1 = "1815 65th Ave WEST, Greeley, CO 80634";
-    //console.log(CreateHotel({name, street, phone_number, pricerange, photo, lat, lng}))
-    console.log("is service in database? ==> " + HotelInDatabase({name, street}))
+    console.log(CreateHotel({name, street, phone_number, pricerange, photo, lat, lng}))
+    console.log("is Hotel in database? ==> " + HotelInDatabase({name, street}))
 
     if(cole == "error") return <h1>error</h1>;
     if(cole == "loading") return <h1>loading</h1>;
@@ -59,7 +36,7 @@ export default function Users({user_id, email, fakeEmail, lat, lng, name, street
           <p>
               {user_id} | {user_name} | {first_name} | {last_name} | {email} | {phone_number}
           </p>
-          <div onClick={DoIt}>doit</div>
+          {/*<p onClick={onClick({name,street})}> click to update</p>*/}
       </div>
   ))
 }
