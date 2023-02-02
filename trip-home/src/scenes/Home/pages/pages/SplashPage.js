@@ -6,15 +6,15 @@ import TravelSection from '../../../Splash/components/fragments/TravelSection';
 
 function SplashPage() {
     return (
-        <body>
-            <div class="container text-center mt-5">
-            <div class="row">
-                <div class="col-md-1"> </div>
-                <div class="col-md-10"></div>
+        <>
+            <div className="container text-center mt-5">
+            <div className="row">
+                <div className="col-md-1"> </div>
+                <div className="col-md-10"></div>
                 <TravelSection />
             </div>
             </div>
-        </body>
+        </>
     );
 }
 

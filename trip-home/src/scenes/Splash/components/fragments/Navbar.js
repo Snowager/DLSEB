@@ -26,7 +26,7 @@ function Navbar() {
   return (
     <>
 
-       <div class="">
+       <div className="">
            <nav className= "navbar navbar-opaque" >
             <div className= "navbar-container">
                 <Link to="/" className="navbar-logo" onClick={closeMobileMenu}>

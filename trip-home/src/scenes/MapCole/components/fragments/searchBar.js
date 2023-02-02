@@ -17,6 +17,15 @@ const SearchBar = (props) => {
   const [lng, setLng] = useState(0)
   const [cty, setCty] = useState()
   const [ste, setSte] = useState()
+  const data=[
+    {
+        "City":"City",
+        "State":"State",
+        "Longitude":"000",
+        "Latitude":"000"
+    }]
+
+  
 
   const ListhandleChange = (lat, lng, cty, ste) => {
       setMap(!map)
@@ -25,7 +34,8 @@ const SearchBar = (props) => {
       setCty(cty)
       setSte(ste)
       console.log(lat)
-      setValue(cty,ste)  ;{/* only puts city in search bar. WIP*/}
+      setValue(cty + ", " + ste)
+
   }
 
   useEffect(() => {
@@ -114,9 +124,15 @@ const SearchBar = (props) => {
       Activity
     </Link>
     <Link 
-    to={`MapPage/Resturants/${cty}/${ste}`}
+    to={
+      {pathname: `MapPage/Resturants/${cty}/${ste}`
+  }
+}
     className='btns'
-    state={{ type: "Resturant" }}>
+    state={{ type: "Resturant" }}> 
+    {/*
+    state={{ type: {cty} }}> //Passing objects through links gives an error. Needs to be saved as an array. WIP
+    */}
       Resturant
     </Link>
   </>
