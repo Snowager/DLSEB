@@ -9,7 +9,7 @@ function MapPage(props) {
     console.log(location.state)
     return (
       <>
-        <h2>{location.state.city}</h2>
+        <h2>{location.state.city}, looking for a {location.state.type}</h2>
         {/*<MapContainer lat={lat} lng={lng} status={map} zoom={10} /> */}
       </>
   );
