@@ -10,13 +10,10 @@ const SearchBar = (props) => {
   const [searchInput, setSearchInput] = useState("");
 
   const [cities, setCities] = useState([]);
+  const [city, setCity] = useState([]);
 
   const [value, setValue] = useState("");
   const [map, setMap] = useState(false)
-  const [lat, setLat] = useState(0)
-  const [lng, setLng] = useState(0)
-  const [cty, setCty] = useState()
-  const [ste, setSte] = useState()
   const data=[
     {
         "City":"City",
@@ -27,15 +24,15 @@ const SearchBar = (props) => {
 
   
 
-  const ListhandleChange = (lat, lng, cty, ste) => {
+  const ListhandleChange = (city) => {
       setMap(!map)
-      setLat(lat)
-      setLng(lng)
-      setCty(cty)
-      setSte(ste)
-      console.log(lat)
-      setValue(cty + ", " + ste)
+      setCity(city)
 
+      setValue(city.city + ", " + city.state_name)
+      }
+
+  const pushType = (type) => {
+    city.type = type
   }
 
   useEffect(() => {
@@ -98,7 +95,7 @@ const SearchBar = (props) => {
                 if (city) {
                   return (
                       <div><button className= "HomeList" key={index} type='button' onClick={() => {
-                          ListhandleChange(city.lat, city.lng, city.city, city.state_name) 
+                          ListhandleChange(city) 
                           } }>{city.city}, {city.state_name}</button>
                       </div>
                         )
@@ -109,27 +106,30 @@ const SearchBar = (props) => {
     <h1>{cty}  {ste}</h1> 
     <MapContainer lat={lat} lng={lng} status={map} zoom={10} />
 */}
+
     <Link 
-    to={`MapPage/Hotels/${cty}/${ste}`} 
+    to={`MapPage/hotel/${city.city}/${city.state_name}`} 
     className='btns'
-    state={{ type: "Hotel" }}>
+    onClick={() => pushType("hotel")}
+    state={city}>
       Hotel
     </Link>
     <Link 
-    to={`MapPage/Activities/${cty}/${ste}`}
+    to={`MapPage/activity/${city.city}/${city.state_name}`}
     className='btns'
-    state={{ type: "Activity" ,
-            state: {ste}
-    }}>
+    onClick={() => pushType("activity")}
+    state={city}
+    >
       Activity
     </Link>
     <Link 
     to={
-      {pathname: `MapPage/Resturants/${cty}/${ste}`
+      {pathname: `MapPage/restaurant/${city.city}/${city.state_name}`
   }
 }
     className='btns'
-    state={{ type: "Resturant" }}> 
+    onClick={() => pushType("restaurant")}
+    state={city}> 
     {/*
     state={{ type: {cty} }}> //Passing objects through links gives an error. Needs to be saved as an array. WIP
     */}
