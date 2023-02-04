@@ -10,8 +10,8 @@ const SearchBar = () => {
 
   useEffect(() => {
     axios.get("city_info2.JSON")
-    .then((res) => setCities(res.data))
-    .catch((err) => console.log(err));
+      .then((res) => setCities(res.data))
+      .catch((err) => console.log(err));
   }, []);
 
   const handleChange = (e) => {
@@ -40,7 +40,7 @@ const SearchBar = () => {
       else if ((location.state_name.toLowerCase().includes(searchInput.toLowerCase()) && searchInput.length > 2)) {
         while (count < 5) {
           count++
-        return location.state_name.toLowerCase().includes(searchInput.toLowerCase());
+          return location.state_name.toLowerCase().includes(searchInput.toLowerCase());
         }
       }
       return
@@ -55,7 +55,7 @@ const SearchBar = () => {
       value={searchInput} />
 
     <div>
-      <CitiesList cityList={filteredData}/>
+      <CitiesList cityList={filteredData} />
     </div>
 
   </div>

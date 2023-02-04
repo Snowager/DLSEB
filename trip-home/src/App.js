@@ -1,10 +1,9 @@
-import Test from './scenes/Home/pages/pages/Test.js';
-
+import Map from './scenes/Home/components/fragments/MapSearchBar.js';
 
 function Home() {
   return (
     <>
-      <Test />
+      <Map />
     </>
   );
 }

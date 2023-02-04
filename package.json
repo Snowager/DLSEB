@@ -6,7 +6,10 @@
     "@reach/combobox": "^0.18.0",
     "@react-google-maps/api": "^2.18.1",
     "google-map-react": "^2.2.0",
-    "react-hook-google-maps": "^0.0.3"
+    "link-react": "^3.0.0",
+    "react-hook-google-maps": "^0.0.3",
+    "react-router-dom": "^6.8.0",
+    "use-places-autocomplete": "^4.0.0"
   },
   "devDependencies": {
     "@ubilabs/google-maps-react-hooks": "^2.0.2"
