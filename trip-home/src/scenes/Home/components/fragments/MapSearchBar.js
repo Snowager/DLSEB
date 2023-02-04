@@ -2,7 +2,7 @@ import { useMemo } from "react";
 import { GoogleMap, useLoadScript, Marker } from "@react-google-maps/api";
 import '../../../Home/pages/styles/Map.css';
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link } from 'react-router-dom';
 
 import usePlacesAutocomplete, {
     getGeocode,
@@ -40,8 +40,12 @@ function Map() {
             </div>
 
             <div>
-                <Link to="https://stackoverflow.com/questions/44387318/linking-button-to-another-page">
-                    <button>Click</button>
+                <Link
+                    to={`https://www.npmjs.com/package/use-places-autocomplete`}
+                    className='btns'
+                    onClick={() => pushType("hotel")}
+                    state={null}>
+                    Hotel
                 </Link>
             </div>
         </>
