@@ -2,7 +2,6 @@ import { useMemo } from "react";
 import { GoogleMap, useLoadScript, Marker } from "@react-google-maps/api";
 import '../../../Home/pages/styles/Map.css';
 import React, { useState } from "react";
-import { Link } from 'react-router-dom';
 
 import usePlacesAutocomplete, {
     getGeocode,
@@ -28,6 +27,11 @@ export default function Home() {
     return <Map />;
 }
 
+const data = [
+    {
+        "Longitude": "setSelected({ lng })",
+        "Latitude": "setSelected({ lat })"
+    }]
 
 function Map() {
     const center = useMemo(() => ({ lat: 40.4152, lng: -104.7706 }), []);
@@ -39,15 +43,6 @@ function Map() {
                 <PlacesAutocomplete setSelected={setSelected} />
             </div>
 
-            <div>
-                <Link
-                    to={`https://www.npmjs.com/package/use-places-autocomplete`}
-                    className='btns'
-                    onClick={() => pushType("hotel")}
-                    state={null}>
-                    Hotel
-                </Link>
-            </div>
         </>
     );
 }
