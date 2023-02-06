@@ -27,13 +27,8 @@ const CitiesList = (props) => {
                 if (city) {
 
                     return (
-<<<<<<< HEAD
-                        <div><button key={index} type='button' onClick={() => handleChange(city.lat, city.lng)}>{city.city}, {city.state_name}</button></div>
-                    )
-=======
                         <div><button className= "HomeList" key={index} type='button' onClick={() => handleChange(city.lat, city.lng, city.city, city.state_name)}>{city.city}, {city.state_name}</button></div>
                         )
->>>>>>> SearchBar
                 }
             })} <MapContainer lat={lat} lng={lng} status={map} zoom={10} />
         </>
