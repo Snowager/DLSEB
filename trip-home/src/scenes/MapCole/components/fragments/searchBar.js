@@ -14,13 +14,6 @@ const SearchBar = (props) => {
 
   const [value, setValue] = useState("");
   const [map, setMap] = useState(false)
-  const data=[
-    {
-        "City":"City",
-        "State":"State",
-        "Longitude":"000",
-        "Latitude":"000"
-    }]
 
   
 
