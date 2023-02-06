@@ -87,8 +87,7 @@ const MapContainer = (props) => {
   if (props.status) {
     return (
     <>
-    <input type="text" id="myText" defaultValue="1"/>
-    <button id="button" onClick={() => changeMarker(document.getElementById("myText").value)}>Try it</button>
+
      <LoadScript
        googleMapsApiKey='AIzaSyCbEViNtWBZefKVLluU-rWvH4fVKYz5Uuk'>
         <GoogleMap

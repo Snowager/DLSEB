@@ -7,8 +7,7 @@ const STYLES = ['btn--primary', 'btn--outline'];
 const SIZES = ['btn--medium', 'btn--large'];
 
 
-
-export const Button = ({
+const Button = ({
     children, 
     type, 
     onClick, 
@@ -19,7 +18,7 @@ export const Button = ({
     const checkButtonSize = SIZES.includes(buttonSize) ? buttonSize : SIZES[0];
 
     return (
-        <Link to='/home' className='btn-mobile'>
+        <Link to='/map' className='btn-mobile'>
             <button className={`btn ${checkButtonStyle} ${checkButtonSize}`}
             onClick={onClick}
             type={type}
@@ -29,3 +28,5 @@ export const Button = ({
         </Link>
     )
 };
+
+export default Button
