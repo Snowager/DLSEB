@@ -61,6 +61,7 @@ const PlacesAutocomplete = ({ setSelected }) => {
         clearSuggestions();
 
         const results = await getGeocode({ address });
+        console.log(results)
         const { lat, lng } = await getLatLng(results[0]);
         setSelected({ lat, lng });
     };
