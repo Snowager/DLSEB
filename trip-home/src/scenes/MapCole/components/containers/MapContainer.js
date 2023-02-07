@@ -7,6 +7,7 @@ const MapContainer = (props) => {
   const google = window.google;
   const [selected, setSelected] = useState(null);
   const [markers, setMarkers] = useState([]);
+  const [trip, setTrip] = useState([]);
   const places = []
 
   const onLoad = React.useCallback(
@@ -82,6 +83,12 @@ const MapContainer = (props) => {
         <p>
           Business is: {selected.business_status}
         </p>
+        <button
+        onClick={() => {
+          setTrip([...selected, selected])
+        }}>
+          Add to trip
+        </button>
 
       </div>
     </InfoWindow>): null}
@@ -91,6 +98,15 @@ const MapContainer = (props) => {
     return (
       <>
         {map}
+        {trip && (
+          trip.map(tripNodes => (
+            <div>
+              <p>
+                {tripNodes.name}
+              </p>
+            </div>
+          ))
+        )}
       </>
     )
   }
