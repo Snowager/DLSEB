@@ -17,6 +17,7 @@ const MapContainer = (props) => {
         location: map.center,
         radius: "5",
         query: "restaurant"
+        query: "hotel"
       };
       service.textSearch(request, callback);
       function callback(results, status) {
@@ -103,7 +104,7 @@ const MapContainer = (props) => {
             console.log(tripNodes.geometry.location),
             <div style={{color:'white'}}>
               <h1>
-                {tripNodes.name}
+                {tripNodes.name.length > 12? (tripNodes.name.substr(0,20)+"..."):tripNodes.name}
               </h1>
               <p>lat:{tripNodes.geometry.location.lat()}</p>
             </div>
