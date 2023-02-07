@@ -1,34 +1,20 @@
 import React, {Component}from 'react';
 import'../styles/TravelSection.css';
-import SearchBar from './SearchBar';
+import SearchBar from '../../../MapCole/components/fragments/searchBar';
+import MapPage from '../../../Home/pages/pages/MapPage';
+import Button from './Button';
+import { Link } from 'react-router-dom';
 
 
-class TravelSection extends Component {
 
-    state = { 
-        locations: [
-        { name : 'Enter Location' }
-    ]}
+const TravelSection = (props) => {
 
-    nameChangedHandler = (event) => {
-      this.setState({locations: [
-        { name : event.target.value }
-      ]})
-    }
-  
-    render(){ 
-      
-  
   return (
     <div className='travel-continer'>
-        <SearchBar
-        name ={this.state.locations[0].name}
-        changed={this.nameChangedHandler}> 
-        </SearchBar>
-        <div className="travel-btns">
-        </div>
+        <SearchBar> </SearchBar>
+        <MapPage></MapPage>
     </div>
   )
 }
-}
+
 export default TravelSection
