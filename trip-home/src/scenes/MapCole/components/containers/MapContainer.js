@@ -16,7 +16,6 @@ const MapContainer = (props) => {
       var request = {
         location: map.center,
         radius: "5",
-        query: "restaurant"
         query: "hotel"
       };
       service.textSearch(request, callback);
