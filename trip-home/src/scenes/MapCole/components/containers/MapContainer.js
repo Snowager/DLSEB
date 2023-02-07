@@ -5,7 +5,7 @@ import { GoogleMap, LoadScript, Marker, InfoWindow } from '@react-google-maps/ap
 const MapContainer = (props) => {
 
   const google = window.google;
-  const [selected, setSelected] = useState({});
+  const [selected, setSelected] = useState(null);
   const [markers, setMarkers] = useState([]);
   const places = []
 
@@ -46,69 +46,6 @@ const MapContainer = (props) => {
     lat: props.lat, lng: props.lng
   }
 
-  //list of locations used for testing the google markers and infoWindows
-  const locations = [
-    {
-      num: "1",
-      name: "Location 1",
-      desc: "Something cool",
-      location: {
-        lat: 41.3954,
-        lng: 2.162
-      },
-    },
-    {
-      num: "2",
-      name: "Location 2",
-      desc: "Something fresh",
-      location: {
-        lat: 41.3917,
-        lng: 2.1649
-      },
-    },
-    {
-      num: "3",
-      name: "Location 3",
-      desc: "Something wild",
-      location: {
-        lat: 41.3773,
-        lng: 2.1585
-      },
-    },
-    {
-      num: "4",
-      name: "Location 4",
-      desc: "Something frisky",
-      location: {
-        lat: 41.3797,
-        lng: 2.1682
-      },
-    },
-    {
-      num: "5",
-      name: "Location 5",
-      desc: "Something damn right awesome",
-      location: {
-        lat: 41.4055,
-        lng: 2.1915
-      },
-    }
-  ];
-
-
-  let newName;
-  let newPos;
-  let item;
-  var markerElement = <Marker key={newName} position={newPos} onClick={() => onSelect(item)} />
-
-  function changeMarker(newMark) {
-    var listItem = locations[newMark];
-    var newName = listItem.name;
-    var newPos = listItem.location;
-    console.log("listItem = " + listItem + "newName = " + newName + "newPos = " + newPos);
-    //root1.render(<Marker key={newName} position={newPos} onClick={() => onSelect(item)} />);
-  }
-
   const map = <GoogleMap
     mapContainerStyle={mapStyles}
     zoom={props.zoom}
@@ -125,18 +62,34 @@ const MapContainer = (props) => {
         markers.map(places => (
           <Marker
             key={places.place_id}
-            position={places.geometry.location} />
+            position={places.geometry.location}
+            onClick={() => {
+              setSelected(places)
+            }} />
         )
         )
       )
     }
+    {selected? (<InfoWindow
+    position={selected.geometry.location}
+    onCloseClick={() => {
+      setSelected(null)
+    }}>
+      <div>
+        <h1>
+          {selected.name}
+        </h1>
+        <p>
+          Business is: {selected.business_status}
+        </p>
+
+      </div>
+    </InfoWindow>): null}
   </GoogleMap>
 
   if (props.status) {
     return (
       <>
-        <input type="text" id="myText" defaultValue="1" />
-        <button id="button" onClick={() => changeMarker(document.getElementById("myText").value)}>Try it</button>
         {map}
       </>
     )
