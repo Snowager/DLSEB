@@ -85,7 +85,7 @@ const MapContainer = (props) => {
         </p>
         <button
         onClick={() => {
-          setTrip([...selected, selected])
+          setTrip([...trip, selected])
         }}>
           Add to trip
         </button>
@@ -100,10 +100,12 @@ const MapContainer = (props) => {
         {map}
         {trip && (
           trip.map(tripNodes => (
-            <div>
-              <p>
+            console.log(tripNodes.geometry.location),
+            <div style={{color:'white'}}>
+              <h1>
                 {tripNodes.name}
-              </p>
+              </h1>
+              <p>lat:{tripNodes.geometry.location.lat()}</p>
             </div>
           ))
         )}
