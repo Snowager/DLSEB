@@ -1,5 +1,7 @@
-//import "./App.css";
-import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
+import React from 'react';
+import Navbar from './scenes/Splash/components/fragments/Navbar';
+import {BrowserRouter as Router, Routes, Route} from 'react-router-dom';
+import SplashPage from './scenes/Home/pages/pages/SplashPage';
 
 import Login from './scenes/Sign/pages/pages/Login'; //login//
 import Register from './scenes/Sign/pages/pages/Register';

@@ -1,9 +1,9 @@
 
-import './App.css';
+import '../../components/styles/map.css';
 //import { Wrapper, Status } from "@googlemaps/react-wrapper";
 import React, {useState, useEffect, useRef} from 'react';
 //import MapContainer from './MapContainer.js'; 
-import SearchBar from './components/searchBar.js';
+import SearchBar from '../../components/fragments/searchBar';
 /*global google*/
 
 function App() {
