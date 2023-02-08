@@ -1,5 +1,5 @@
 import { useMemo } from "react";
-import { GoogleMap, useLoadScript, Marker } from "@react-google-maps/api";
+import { useLoadScript } from "@react-google-maps/api";
 import '../../../Home/pages/styles/Map.css';
 import React, { useState } from "react";
 import { Link } from 'react-router-dom';
@@ -62,7 +62,6 @@ const PlacesAutocomplete = ({ setSelected }) => {
 
 
 function MapSearchBar() {
-    const center = useMemo(() => ({ lat: 40.4152, lng: -104.7706 }), []);
     const [selected, setSelected] = useState(null);
 
     const { isLoaded } = useLoadScript({
