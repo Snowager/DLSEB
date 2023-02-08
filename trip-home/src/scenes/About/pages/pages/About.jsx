@@ -4,20 +4,12 @@ import "../styles/about.css";
 
 export function About() {
     return (
-        <>
-        <div className= "About" > 
-            <div class= "container">
-                <div class= "row aligin-items-center my-5">
-                </div>
+        <div class= "app">
+            <div class= "header"> 
+                <h1 class= "font-weight-light">What is TR!P?</h1>
             </div>
-        </div>
 
-        <div class= "col-lg-5">
-            <h1 class= "font-weight-light">About</h1>
-    
-
-        <div class= "col-lg-6">
-            <h2 class= "font-weight-light">What is TR!P</h2>
+        <div class= "headPara">
             <p> 
             TR!P offers a solution for the influx of people who want to travel and experience the world but don’t want to be bogged down 
             with all the planning that comes with going out. TR!P will allow a user to designate specific conditions 
@@ -28,14 +20,51 @@ export function About() {
             all-encompassing solution at their fingers. For older customers, our app provides a hassle-free system with a clear 
             UI to help book that dream vacation or just that needed night out.  
             </p>
-            <div class= "image">
-                <div class= "row align-items-left my-5">
-                    <img src = {Zac} alt="Zac" />
+        </div>
+
+        <div class= "header"> 
+                <h1>Meet the TR!P Team</h1>
+            </div>
+
+        <div class='outside-parent'>
+            <div class='outside-child'>
+                <div class='inside-parent'>
+                    <div class='child'>
+                        <img src = {Zac} alt="Zac" />
+                    </div>
+                </div>
+                <div class='inside-parent'>
+                    <div class='child'>
+                        <img src = {Zac} alt="Zac" />
+                    </div>
+                </div>
+                <div class='inside-parent'>
+                    <div class='child'>
+                        <img src = {Zac} alt="Zac" />
+                    </div>
+                </div>
+            </div>
+
+            <div class='outside-child'>
+                <div class='inside-parent'>
+                    <div class='child'>
+                        <img src = {Zac} alt="Zac" />
+                    </div>
+                </div>
+                <div class='inside-parent'>
+                    <div class='child'>
+                        <img src = {Zac} alt="Zac" />
+                    </div>
+                </div>
+                <div class='inside-parent'>
+                    <div class='child'>
+                        <img src = {Zac} alt="Zac" />
+                    </div>
                 </div>
             </div>
         </div>
-        </div>          
-    </>       
+
+        </div>              
     )
 }
 export default About;
