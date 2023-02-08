@@ -18,48 +18,6 @@ import {
 } from "@reach/combobox";
 import "@reach/combobox/styles.css";
 
-export default function Home() {
-    const { isLoaded } = useLoadScript({
-        googleMapsApiKey: "AIzaSyCqZGpZi8NbIqDp7jvaKZKCWDqMT3-_kr4",
-        libraries: ["places"],
-    });
-
-    if (!isLoaded) return <div>Loading...</div>
-    return <MapSearchBar />;
-}
-
-const data = [
-    {
-        "Longitude": "setSelected({ lng })",
-        "Latitude": "setSelected({ lat })"
-    }]
-
-function MapSearchBar() {
-    const center = useMemo(() => ({ lat: 40.4152, lng: -104.7706 }), []);
-    const [selected, setSelected] = useState(null);
-
-    const pushType = (type) => {
-        selected.type = type
-    }
-
-    return (
-        <>
-            <div class="places-container">
-                <PlacesAutocomplete setSelected={setSelected} />
-            </div>
-
-            <div>
-                <Link
-                    to={`MapPage/hotels/${setSelected.lat}/${setSelected.lng}`}
-                    className='btns'
-                    onClick={() => pushType("hotels")}
-                    state={selected}>
-                    Destination
-                </Link>
-            </div>
-        </>
-    );
-}
 
 const PlacesAutocomplete = ({ setSelected }) => {
     const {
@@ -100,4 +58,41 @@ const PlacesAutocomplete = ({ setSelected }) => {
         </Combobox>
     );
 };
+
+
+
+function MapSearchBar() {
+    const center = useMemo(() => ({ lat: 40.4152, lng: -104.7706 }), []);
+    const [selected, setSelected] = useState(null);
+
+    const { isLoaded } = useLoadScript({
+        googleMapsApiKey: "AIzaSyCbEViNtWBZefKVLluU-rWvH4fVKYz5Uuk",
+        libraries: ["places"],
+    });
+
+    const pushType = (type) => {
+        selected.type = type
+    }
+
+    if (!isLoaded) return <div>Loading...</div>
+    return (
+        <>
+            <div class="places-container">
+                <PlacesAutocomplete setSelected={setSelected} />
+            </div>
+
+            <div>
+                <Link
+                    to={`MapPage/hotel/${setSelected.lat}/${setSelected.lng}`}
+                    className='btns'
+                    onClick={() => pushType("hotel")}
+                    state={selected}>
+                    Hotel
+                </Link>
+            </div>
+        </>
+    );
+};
+
+export default MapSearchBar;
 

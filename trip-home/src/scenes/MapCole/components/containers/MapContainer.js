@@ -1,21 +1,21 @@
-import React, {useState, useEffect, useRef} from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import ReactDOM, { createRoot } from "react-dom/client";
 import { GoogleMap, LoadScript, Marker, InfoWindow } from '@react-google-maps/api';
 
 const MapContainer = (props) => {
 
-    const [ selected, setSelected ] = useState({});
-  
-    const onSelect = item => {
+  const [selected, setSelected] = useState({});
+
+  const onSelect = item => {
     setSelected(item);
   }
-  
+
   //map needs constraints in order to show up
-  const mapStyles = {        
+  const mapStyles = {
     height: "100vh",
     width: "100%"
   };
-  
+
   //coordinates of the center of the map
   const defaultCenter = {
     lat: props.lat, lng: props.lng
@@ -27,16 +27,16 @@ const MapContainer = (props) => {
       num: "1",
       name: "Location 1",
       desc: "Something cool",
-      location: { 
+      location: {
         lat: 41.3954,
-        lng: 2.162 
+        lng: 2.162
       },
     },
     {
       num: "2",
       name: "Location 2",
       desc: "Something fresh",
-      location: { 
+      location: {
         lat: 41.3917,
         lng: 2.1649
       },
@@ -45,7 +45,7 @@ const MapContainer = (props) => {
       num: "3",
       name: "Location 3",
       desc: "Something wild",
-      location: { 
+      location: {
         lat: 41.3773,
         lng: 2.1585
       },
@@ -54,7 +54,7 @@ const MapContainer = (props) => {
       num: "4",
       name: "Location 4",
       desc: "Something frisky",
-      location: { 
+      location: {
         lat: 41.3797,
         lng: 2.1682
       },
@@ -63,7 +63,7 @@ const MapContainer = (props) => {
       num: "5",
       name: "Location 5",
       desc: "Something damn right awesome",
-      location: { 
+      location: {
         lat: 41.4055,
         lng: 2.1915
       },
@@ -86,41 +86,37 @@ const MapContainer = (props) => {
 
   if (props.status) {
     return (
-    <>
-
-     <LoadScript
-       googleMapsApiKey='AIzaSyCbEViNtWBZefKVLluU-rWvH4fVKYz5Uuk'>
+      <>
         <GoogleMap
           mapContainerStyle={mapStyles}
           zoom={props.zoom}
           center={defaultCenter}>
-            
 
-                  <div id="root1"></div>
-                  {console.log("updated")}
-            
-            {
-                selected.location &&
-                (
-                    <InfoWindow
-                    position={selected.location}
-                    clickable={true}
-                    onCloseClick={() => setSelected({})}
-                    >
-                        {/*commenting in jsx is dumb*/}
-                        <p>
-                            <h1>{selected.name}</h1>
-                            <h2>{selected.desc}</h2>
-                        </p>
-                        </InfoWindow>
-                )
-            }
-            </GoogleMap>
-     </LoadScript>
-     </>
-  )
+
+          <div id="root1"></div>
+          {console.log("updated")}
+
+          {
+            selected.location &&
+            (
+              <InfoWindow
+                position={selected.location}
+                clickable={true}
+                onCloseClick={() => setSelected({})}
+              >
+                {/*commenting in jsx is dumb*/}
+                <p>
+                  <h1>{selected.name}</h1>
+                  <h2>{selected.desc}</h2>
+                </p>
+              </InfoWindow>
+            )
           }
-          return null
+        </GoogleMap>
+      </>
+    )
+  }
+  return null
 }
 
 export default MapContainer;
