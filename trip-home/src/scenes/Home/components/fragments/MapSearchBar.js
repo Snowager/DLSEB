@@ -1,4 +1,3 @@
-import { useMemo } from "react";
 import { useLoadScript } from "@react-google-maps/api";
 import '../../../Home/pages/styles/Map.css';
 import React, { useState } from "react";
@@ -80,7 +79,7 @@ function MapSearchBar() {
                 <PlacesAutocomplete setSelected={setSelected} />
             </div>
 
-            <div>
+            <div class="mt-5">
                 <Link
                     to={`MapPage/hotel/${setSelected.lat}/${setSelected.lng}`}
                     className='btns'

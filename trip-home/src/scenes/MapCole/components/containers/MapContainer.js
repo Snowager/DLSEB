@@ -4,7 +4,33 @@ import { GoogleMap, LoadScript, Marker, InfoWindow } from '@react-google-maps/ap
 
 const MapContainer = (props) => {
 
-  const [selected, setSelected] = useState({});
+  const google = window.google;
+  const [selected, setSelected] = useState(null);
+  const [markers, setMarkers] = useState([]);
+  const [trip, setTrip] = useState([]);
+  const places = []
+
+  const onLoad = React.useCallback(
+    function onLoad(map) {
+      const service = new google.maps.places.PlacesService(map)
+      var request = {
+        location: map.center,
+        radius: "5",
+        query: "hotel"
+      };
+      service.textSearch(request, callback);
+      function callback(results, status) {
+        if (status === google.maps.places.PlacesServiceStatus.OK) {
+          for (var i = 0; i < results.length; i++) {
+            console.log(results[i])
+            places.push(results[i])
+          }
+          console.log(places.length)
+          setMarkers(places)
+        }
+      }
+    }
+  )
 
   const onSelect = item => {
     setSelected(item);
@@ -21,98 +47,68 @@ const MapContainer = (props) => {
     lat: props.lat, lng: props.lng
   }
 
-  //list of locations used for testing the google markers and infoWindows
-  const locations = [
+  const map = <GoogleMap
+    mapContainerStyle={mapStyles}
+    zoom={props.zoom}
+    center={defaultCenter}
+    onLoad={onLoad}
+  >
+
+    <div id="root1"></div>
+    {console.log("updated")}
+
     {
-      num: "1",
-      name: "Location 1",
-      desc: "Something cool",
-      location: {
-        lat: 41.3954,
-        lng: 2.162
-      },
-    },
-    {
-      num: "2",
-      name: "Location 2",
-      desc: "Something fresh",
-      location: {
-        lat: 41.3917,
-        lng: 2.1649
-      },
-    },
-    {
-      num: "3",
-      name: "Location 3",
-      desc: "Something wild",
-      location: {
-        lat: 41.3773,
-        lng: 2.1585
-      },
-    },
-    {
-      num: "4",
-      name: "Location 4",
-      desc: "Something frisky",
-      location: {
-        lat: 41.3797,
-        lng: 2.1682
-      },
-    },
-    {
-      num: "5",
-      name: "Location 5",
-      desc: "Something damn right awesome",
-      location: {
-        lat: 41.4055,
-        lng: 2.1915
-      },
+      places &&
+      (
+        markers.map(places => (
+          <Marker
+            key={places.place_id}
+            position={places.geometry.location}
+            onClick={() => {
+              setSelected(places)
+            }} />
+        )
+        )
+      )
     }
-  ];
+    {selected ? (<InfoWindow
+      position={selected.geometry.location}
+      onCloseClick={() => {
+        setSelected(null)
+      }}>
+      <div>
+        <h1>
+          {selected.name}
+        </h1>
+        <p>
+          Business is: {selected.business_status}
+        </p>
+        <button
+          onClick={() => {
+            setTrip([...trip, selected])
+          }}>
+          Add to trip
+        </button>
 
-
-  let newName;
-  let newPos;
-  let item;
-  var markerElement = <Marker key={newName} position={newPos} onClick={() => onSelect(item)} />
-
-  function changeMarker(newMark) {
-    var listItem = locations[newMark];
-    var newName = listItem.name;
-    var newPos = listItem.location;
-    console.log("listItem = " + listItem + "newName = " + newName + "newPos = " + newPos);
-    //root1.render(<Marker key={newName} position={newPos} onClick={() => onSelect(item)} />);
-  }
+      </div>
+    </InfoWindow>) : null}
+  </GoogleMap>
 
   if (props.status) {
     return (
       <>
-        <GoogleMap
-          mapContainerStyle={mapStyles}
-          zoom={props.zoom}
-          center={defaultCenter}>
-
-
-          <div id="root1"></div>
-          {console.log("updated")}
-
-          {
-            selected.location &&
-            (
-              <InfoWindow
-                position={selected.location}
-                clickable={true}
-                onCloseClick={() => setSelected({})}
-              >
-                {/*commenting in jsx is dumb*/}
-                <p>
-                  <h1>{selected.name}</h1>
-                  <h2>{selected.desc}</h2>
-                </p>
-              </InfoWindow>
-            )
-          }
-        </GoogleMap>
+        {map}
+        {trip && (
+          trip.map(tripNodes => (
+            console.log(tripNodes.geometry.location),
+            <div style={{ color: 'white' }}>
+              <h1>
+                {tripNodes.name.length > 12 ? (tripNodes.name.substr(0, 20) + "...") : tripNodes.name}
+              </h1>
+              <p>lat:{tripNodes.geometry.location.lat()}</p>
+            </div>
+          ))
+        )}
       </>
     )
   }
