@@ -1,5 +1,6 @@
 import React from 'react';
-import Zac from './Zac.jpg';
+import Zac from '../../images/Zac.jpg';
+import "../styles/about.css";
 
 export function About() {
     return (
@@ -31,14 +32,10 @@ export function About() {
                 <div class= "row align-items-left my-5">
                     <img src = {Zac} alt="Zac" />
                 </div>
+            </div>
         </div>
-        </div>
-        </div>
-           
-
-                
+        </div>          
     </>       
     )
-
-
 }
+export default About;
