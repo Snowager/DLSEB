@@ -6,7 +6,7 @@ export function About() {
     return (
         <div class= "app">
             <div class= "header"> 
-                <h1 class= "font-weight-light">What is TR!P?</h1>
+                What is TR!P?
             </div>
 
         <div class= "headPara">
@@ -23,42 +23,66 @@ export function About() {
         </div>
 
         <div class= "header"> 
-                <h1>Meet the TR!P Team</h1>
-            </div>
+            Meet the TR!P Team
+        </div>
 
         <div class='outside-parent'>
             <div class='outside-child'>
                 <div class='inside-parent'>
-                    <div class='child'>
+                    <div class='inside-child'>
                         <img src = {Zac} alt="Zac" />
+                    </div>
+                    <div class='inside-child'>
+                        <p className = 'nameHeader'>Cole Robinson</p>
+                        <p>Database Architect, Software Developer, Security Engineer</p>
                     </div>
                 </div>
                 <div class='inside-parent'>
-                    <div class='child'>
+                    <div class='inside-child'>
                         <img src = {Zac} alt="Zac" />
+                    </div>
+                    <div class='inside-child'>
+                        <p className = 'nameHeader'>Tiffany Kouakou</p>
+                        <p>Business Analyst, UI / UX Designer, Database Architect</p>
                     </div>
                 </div>
                 <div class='inside-parent'>
-                    <div class='child'>
+                    <div class='inside-child'>
                         <img src = {Zac} alt="Zac" />
+                    </div>
+                    <div class='inside-child'>
+                        <p className = 'nameHeader'>Niko Antuna</p>
+                        <p>Coordinator, Web Developer, UI / UX Designer</p>
                     </div>
                 </div>
             </div>
 
             <div class='outside-child'>
                 <div class='inside-parent'>
-                    <div class='child'>
+                    <div class='inside-child'>
                         <img src = {Zac} alt="Zac" />
+                    </div>
+                    <div class='inside-child'>
+                        <p className = 'nameHeader'>Alex Bradberry</p>
+                        <p>Software Developer, Web Developer, Network Architect</p>
                     </div>
                 </div>
                 <div class='inside-parent'>
-                    <div class='child'>
+                    <div class='inside-child'>
                         <img src = {Zac} alt="Zac" />
+                    </div>
+                    <div class='inside-child'>
+                        <p className = 'nameHeader'>Rachel Godina</p>
+                        <p>Business Analyst, UI / UX Designer, Security Engineer</p>
                     </div>
                 </div>
                 <div class='inside-parent'>
-                    <div class='child'>
+                    <div class='inside-child'>
                         <img src = {Zac} alt="Zac" />
+                    </div>
+                    <div class='inside-child'>
+                        <p className = 'nameHeader'>Nate Burdick</p>
+                        <p>Software Developer, Web Developer, UI / UX Designer</p>
                     </div>
                 </div>
             </div>
