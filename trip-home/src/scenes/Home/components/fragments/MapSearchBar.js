@@ -2,6 +2,7 @@ import { useMemo } from "react";
 import { GoogleMap, useLoadScript, Marker } from "@react-google-maps/api";
 import '../../../Home/pages/styles/Map.css';
 import React, { useState } from "react";
+import { Link } from 'react-router-dom';
 
 import usePlacesAutocomplete, {
     getGeocode,
@@ -24,7 +25,7 @@ export default function Home() {
     });
 
     if (!isLoaded) return <div>Loading...</div>
-    return <Map />;
+    return <MapSearchBar />;
 }
 
 const data = [
@@ -33,9 +34,13 @@ const data = [
         "Latitude": "setSelected({ lat })"
     }]
 
-function Map() {
+function MapSearchBar() {
     const center = useMemo(() => ({ lat: 40.4152, lng: -104.7706 }), []);
     const [selected, setSelected] = useState(null);
+
+    const pushType = (type) => {
+        selected.type = type
+    }
 
     return (
         <>
@@ -43,6 +48,15 @@ function Map() {
                 <PlacesAutocomplete setSelected={setSelected} />
             </div>
 
+            <div>
+                <Link
+                    to={`MapPage/hotels/${setSelected.lat}/${setSelected.lng}`}
+                    className='btns'
+                    onClick={() => pushType("hotels")}
+                    state={selected}>
+                    Destination
+                </Link>
+            </div>
         </>
     );
 }
@@ -86,5 +100,4 @@ const PlacesAutocomplete = ({ setSelected }) => {
         </Combobox>
     );
 };
-
 
