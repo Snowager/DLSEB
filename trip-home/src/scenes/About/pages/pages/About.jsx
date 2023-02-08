@@ -1,5 +1,11 @@
 import React from 'react';
 import Zac from '../../images/Zac.jpg';
+import Nate from '../../images/1.jpg';
+import Cole from '../../images/2.jpg';
+import Niko from '../../images/3.jpg';
+import Tiffany from '../../images/4.jpg';
+import Rachel from '../../images/5.jpg';
+import Alex from '../../images/6.jpg';
 import "../styles/about.css";
 
 export function About() {
@@ -30,7 +36,7 @@ export function About() {
             <div class='outside-child'>
                 <div class='inside-parent'>
                     <div class='inside-child'>
-                        <img src = {Zac} alt="Zac" />
+                        <img src = {Cole} alt="2" />
                     </div>
                     <div class='inside-child'>
                         <p className = 'nameHeader'>Cole Robinson</p>
@@ -39,7 +45,7 @@ export function About() {
                 </div>
                 <div class='inside-parent'>
                     <div class='inside-child'>
-                        <img src = {Zac} alt="Zac" />
+                        <img src = {Tiffany} alt="4" />
                     </div>
                     <div class='inside-child'>
                         <p className = 'nameHeader'>Tiffany Kouakou</p>
@@ -48,7 +54,7 @@ export function About() {
                 </div>
                 <div class='inside-parent'>
                     <div class='inside-child'>
-                        <img src = {Zac} alt="Zac" />
+                        <img src = {Niko} alt="3" />
                     </div>
                     <div class='inside-child'>
                         <p className = 'nameHeader'>Niko Antuna</p>
@@ -60,7 +66,7 @@ export function About() {
             <div class='outside-child'>
                 <div class='inside-parent'>
                     <div class='inside-child'>
-                        <img src = {Zac} alt="Zac" />
+                        <img src = {Alex} alt="6" />
                     </div>
                     <div class='inside-child'>
                         <p className = 'nameHeader'>Alex Bradberry</p>
@@ -69,7 +75,7 @@ export function About() {
                 </div>
                 <div class='inside-parent'>
                     <div class='inside-child'>
-                        <img src = {Zac} alt="Zac" />
+                        <img src = {Rachel} alt="5" />
                     </div>
                     <div class='inside-child'>
                         <p className = 'nameHeader'>Rachel Godina</p>
@@ -78,7 +84,7 @@ export function About() {
                 </div>
                 <div class='inside-parent'>
                     <div class='inside-child'>
-                        <img src = {Zac} alt="Zac" />
+                        <img src = {Nate} alt="1" />
                     </div>
                     <div class='inside-child'>
                         <p className = 'nameHeader'>Nate Burdick</p>
