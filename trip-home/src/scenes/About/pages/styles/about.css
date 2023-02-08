@@ -9,8 +9,10 @@ body {
   flex-direction: column;
   text-align: center;
   background-color: rgba(0,0,0,.5);
-  padding: 10px;
+  padding: 20px;
   color: white;
+  margin-right: 1rem;
+  margin-left: 1rem;
 }
 
 img {
@@ -28,30 +30,41 @@ img {
   padding: 1rem;
 }
 
+.header {
+  font-size: 35px;
+}
+
+.nameHeader {
+  font-size: 20px;
+
+}
+
 .outside-parent {
   border: 1px solid black;
   text-align: left;
   background-color: rgba(0,0,0,.5);
   color: white;
+  margin-right: 1rem;
+  margin-left: 1rem;
 }
 
 .inside-parent {
-  margin: 1rem;
+  margin-right: 1rem;
+  margin-left: 1rem;
   padding: 0.5rem 0.5rem;
   text-align: left;
 }
 
 .outside-child {
   display: inline-block;
-  border: 1px solid red;
   padding: 0.5rem 0.5rem;
   vertical-align: middle;
   width:50%;
+  line-height: 15px;
 }
 
 .inside-child {
   display: inline-block;
-  border: 1px solid red;
   padding: 0.5rem 0.5rem;
   vertical-align: middle;
 }
