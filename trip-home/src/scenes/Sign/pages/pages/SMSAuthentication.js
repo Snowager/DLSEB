@@ -4,20 +4,13 @@ import {
     PhoneAuthProvider,
     PhoneMultiFactorGenerator,
     RecaptchaVerifier,
-    signInWithEmailAndPassword
+    signInWithEmailAndPassword,
+    email, password, selectedIndex, verificationCode
 } from "firebase/auth";
 
-//const recaptchaVerifier = new RecaptchaVerifier('recaptcha-container-id', undefined, auth);
-const recaptchaVerifier = new RecaptchaVerifier("sign-in-button", {
-    "size": "invisible",
-    "callback": function(response) {
-        onSolvedRecaptcha();
-    }
-}, auth);
+const recaptchaVerifier = new RecaptchaVerifier('recaptcha-container-id', undefined, auth);
 
-// multi-tenancy
-const auth = getAuth(TRIP);
-auth.tenantId = "myTenantID1";
+const auth = getAuth();
 
 signInWithEmailAndPassword(auth, email, password)
     .then(function (userCredential) {
