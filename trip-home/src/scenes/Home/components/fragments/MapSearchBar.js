@@ -32,9 +32,11 @@ const PlacesAutocomplete = ({ setSelected }) => {
         clearSuggestions();
 
         const results = await getGeocode({ address });
-        console.log(results)
+        console.log(results[0])
         const { lat, lng } = await getLatLng(results[0]);
-        setSelected({ lat, lng });
+        const cityName = results[0].address_components[0].long_name
+        const stateName = results[0].address_components[2].short_name
+        setSelected({ lat, lng, cityName, stateName});
     };
 
     return (
@@ -81,7 +83,7 @@ function MapSearchBar() {
 
             <div class="mt-5">
                 <Link
-                    to={`MapPage/hotel/${setSelected.lat}/${setSelected.lng}`}
+                    to={`MapPage/restaurant/${setSelected.lat}/${setSelected.lng}`}
                     className='btns'
                     onClick={() => pushType("restaurant")}
                     state={selected}>
@@ -95,7 +97,7 @@ function MapSearchBar() {
                     Hotel
                 </Link>
                 <Link
-                    to={`MapPage/hotel/${setSelected.lat}/${setSelected.lng}`}
+                    to={`MapPage/activity/${setSelected.lat}/${setSelected.lng}`}
                     className='btns'
                     onClick={() => pushType("fun")}
                     state={selected}>

@@ -11,7 +11,7 @@ function MapPage(props) {
 
     return (
       <>
-        <h2>{location.state.lat}, nate WHO? {location.state.lng}</h2>
+        <h2>Currently in {location.state.cityName}, {location.state.stateName} looking for: {location.state.type}</h2>
         <MapContainer className="Map" lat={location.state.lat} lng={location.state.lng} status={map} type={location.state.type} zoom={10} />
       </>
     );
