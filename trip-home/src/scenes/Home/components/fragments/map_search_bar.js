@@ -1,6 +1,6 @@
 import { useLoadScript } from "@react-google-maps/api";
-import '../../../Home/pages/styles/Map.css';
-import '../../../Splash/components/styles/Button.css';
+import '../../../Home/pages/styles/map.css';
+import '../../../Splash/components/styles/button.css';
 import React, { useState } from "react";
 import { Link } from 'react-router-dom';
 

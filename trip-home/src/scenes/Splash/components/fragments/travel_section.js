@@ -1,9 +1,7 @@
 import React, { Component } from 'react';
-import '../styles/TravelSection.css';
-import MapSearchBar from '../../../Home/components/fragments/MapSearchBar';
-import MapPage from '../../../Home/pages/pages/MapPage';
-import Button from './button1';
-import { Link } from 'react-router-dom';
+import '../styles/travel_section.css';
+import MapSearchBar from '../../../Home/components/fragments/map_search_bar';
+import MapPage from '../../../Home/pages/pages/map_page';
 
 
 

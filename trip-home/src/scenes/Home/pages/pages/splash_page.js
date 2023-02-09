@@ -1,6 +1,6 @@
 import React from 'react';
-import '../styles/SplashPage.css';
-import Navbar from '../../../Splash/components/fragments/navbar1';
+import '../styles/splash_page.css';
+import Navbar from '../../../Splash/components/fragments/navbar';
 import TravelSection from '../../../Splash/components/fragments/travel_section';
 
 

@@ -1,6 +1,6 @@
 import React from 'react';
 import {BrowserRouter as Router, Routes, Route} from 'react-router-dom';
-import SplashPage from './scenes/Home/pages/pages/splashPage';
+import SplashPage from './scenes/Home/pages/pages/splash_page';
 import MapPage from './scenes/Home/pages/pages/map_page';
 import About from './scenes/About/pages/pages/about';
 //import Login from './scenes/Sign/pages/pages/login'; //login//
