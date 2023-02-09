@@ -67,7 +67,7 @@ const SearchBar = (props) => {
       else if ((location.state_name.toLowerCase().includes(searchInput.toLowerCase()) && searchInput.length > 2)) {
         while (count < 5) {
           count++
-        return location.state_name.toLowerCase().includes(searchInput.toLowerCase());
+          return location.state_name.toLowerCase().includes(searchInput.toLowerCase());
         }
       }
       return

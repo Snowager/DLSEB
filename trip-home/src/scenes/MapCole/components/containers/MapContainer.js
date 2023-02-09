@@ -16,7 +16,7 @@ const MapContainer = (props) => {
       var request = {
         location: map.center,
         radius: "5",
-        query: "restaurant"
+        query: "hotel"
       };
       service.textSearch(request, callback);
       function callback(results, status) {
@@ -71,11 +71,11 @@ const MapContainer = (props) => {
         )
       )
     }
-    {selected? (<InfoWindow
-    position={selected.geometry.location}
-    onCloseClick={() => {
-      setSelected(null)
-    }}>
+    {selected ? (<InfoWindow
+      position={selected.geometry.location}
+      onCloseClick={() => {
+        setSelected(null)
+      }}>
       <div>
         <h1>
           {selected.name}
@@ -84,14 +84,14 @@ const MapContainer = (props) => {
           Business is: {selected.business_status}
         </p>
         <button
-        onClick={() => {
-          setTrip([...trip, selected])
-        }}>
+          onClick={() => {
+            setTrip([...trip, selected])
+          }}>
           Add to trip
         </button>
 
       </div>
-    </InfoWindow>): null}
+    </InfoWindow>) : null}
   </GoogleMap>
 
   if (props.status) {
@@ -101,9 +101,9 @@ const MapContainer = (props) => {
         {trip && (
           trip.map(tripNodes => (
             console.log(tripNodes.geometry.location),
-            <div style={{color:'white'}}>
+            <div style={{ color: 'white' }}>
               <h1>
-                {tripNodes.name.length > 12? (tripNodes.name.substr(0,20)+"..."):tripNodes.name}
+                {tripNodes.name.length > 12 ? (tripNodes.name.substr(0, 20) + "...") : tripNodes.name}
               </h1>
               <p>lat:{tripNodes.geometry.location.lat()}</p>
             </div>

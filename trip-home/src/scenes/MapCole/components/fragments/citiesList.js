@@ -1,6 +1,5 @@
 import React, { useState } from 'react'
-import MapContainer from '../containers/MapContainer';
-
+import MapContainer from '../../components/containers/MapContainer.js';
 const CitiesList = (props) => {
 
     const [map, setMap] = useState(false)
@@ -26,7 +25,7 @@ const CitiesList = (props) => {
             <h1>{cty}  {ste}</h1> 
             {props.cityList.map((city, index) => {
                 if (city) {
-                    
+
                     return (
                         <div><button className= "HomeList" key={index} type='button' onClick={() => handleChange(city.lat, city.lng, city.city, city.state_name)}>{city.city}, {city.state_name}</button></div>
                         )

@@ -4,6 +4,7 @@
 
 .navbar-opaque :hover {
     opacity: 1.0;
+    transition: 1.0s;
 }
 
 .navbar-transparent {
