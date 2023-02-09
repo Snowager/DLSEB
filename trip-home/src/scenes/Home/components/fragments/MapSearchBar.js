@@ -83,10 +83,25 @@ function MapSearchBar() {
                 <Link
                     to={`MapPage/hotel/${setSelected.lat}/${setSelected.lng}`}
                     className='btns'
+                    onClick={() => pushType("restaurant")}
+                    state={selected}>
+                    Food
+                </Link>
+                <Link
+                    to={`MapPage/hotel/${setSelected.lat}/${setSelected.lng}`}
+                    className='btns'
                     onClick={() => pushType("hotel")}
                     state={selected}>
                     Hotel
                 </Link>
+                <Link
+                    to={`MapPage/hotel/${setSelected.lat}/${setSelected.lng}`}
+                    className='btns'
+                    onClick={() => pushType("fun")}
+                    state={selected}>
+                    Activity
+                </Link>
+
             </div>
         </>
     );
