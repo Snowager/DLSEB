@@ -1,6 +1,6 @@
 import React, {useState, useEffect} from 'react';
 import { Link } from 'react-router-dom';
-import { Button } from '../fragments/Button';
+import { Button } from './button1';
 import '../styles/Navbar.css';
 
 function Navbar() {

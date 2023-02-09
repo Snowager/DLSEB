@@ -1,8 +1,7 @@
 import React from 'react';
 import '../styles/SplashPage.css';
-import Navbar from '../../../Splash/components/fragments/Navbar';
-import Searchbar from "../../../MapCole/components/fragments/searchBar"
-import TravelSection from '../../../Splash/components/fragments/TravelSection';
+import Navbar from '../../../Splash/components/fragments/navbar1';
+import TravelSection from '../../../Splash/components/fragments/travel_section';
 
 
 function SplashPage() {
