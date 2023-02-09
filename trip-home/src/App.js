@@ -1,12 +1,12 @@
 import React from 'react';
 import {BrowserRouter as Router, Routes, Route} from 'react-router-dom';
-import SplashPage from './scenes/Home/pages/pages/SplashPage';
-import MapPage from './scenes/Home/pages/pages/MapPage';
-import About from './scenes/About/pages/pages/About';
-//import Login from './scenes/Sign/pages/pages/Login'; //login//
-//import Register from './scenes/Sign/pages/pages/Register';
-//import Reset from './scenes/Sign/pages/pages/Reset';
-//import Dashboard from './scenes/Sign/pages/pages/Dashboard';
+import SplashPage from './scenes/Home/pages/pages/splashPage';
+import MapPage from './scenes/Home/pages/pages/map_page';
+import About from './scenes/About/pages/pages/about';
+//import Login from './scenes/Sign/pages/pages/login'; //login//
+//import Register from './scenes/Sign/pages/pages/register';
+//import Reset from './scenes/Sign/pages/pages/reset';
+//import Dashboard from './scenes/Sign/pages/pages/dashboard';
 
 function App() {
   return (
