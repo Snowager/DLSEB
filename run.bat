@@ -2,10 +2,6 @@
 
 cd trip-home
 cd src
-@ECHO OFF
-
-cd trip-home
-cd src
 
 call npm install react-scripts  
 call npm install react-google-login --legacy-peer-deps
