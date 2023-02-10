@@ -1,5 +1,6 @@
 import { useLoadScript } from "@react-google-maps/api";
-import '../../../Home/pages/styles/Map.css';
+import '../../../Home/pages/styles/map.css';
+import '../../../Splash/components/styles/button.css';
 import React, { useState } from "react";
 import { Link } from 'react-router-dom';
 
@@ -84,21 +85,21 @@ function MapSearchBar() {
             <div class="mt-5">
                 <Link
                     to={`MapPage/restaurant/${setSelected.lat}/${setSelected.lng}`}
-                    className='btns'
+                    className='btn btn--primary'
                     onClick={() => pushType("restaurant")}
                     state={selected}>
                     Food
                 </Link>
                 <Link
                     to={`MapPage/hotel/${setSelected.lat}/${setSelected.lng}`}
-                    className='btns'
+                    className='btn btn--primary'
                     onClick={() => pushType("hotel")}
                     state={selected}>
                     Hotel
                 </Link>
                 <Link
                     to={`MapPage/activity/${setSelected.lat}/${setSelected.lng}`}
-                    className='btns'
+                    className='btn btn--primary'
                     onClick={() => pushType("fun")}
                     state={selected}>
                     Activity

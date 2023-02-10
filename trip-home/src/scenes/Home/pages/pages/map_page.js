@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useLocation } from 'react-router-dom'
-import MapContainer from '../../../MapCole/components/containers/MapContainer';
+import MapContainer from '../../../Map/components/containers/map_container';
 import "../styles/text.css"
 
 
