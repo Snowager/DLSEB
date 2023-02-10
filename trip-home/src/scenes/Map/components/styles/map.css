@@ -13,17 +13,15 @@
   .starContainer {
     display: flex;
     flex-direction: row;
-    justify-content: center;
-    justify-items: center;
-    align-items: flex-end;
+    align-items: center;
     font-size: 18px;
     
   }
 
   .star {
-    padding: .5em
+    padding-bottom: 4px;
   }
 
   .rating {
-    padding: .5em
+    padding: .5em;
   }

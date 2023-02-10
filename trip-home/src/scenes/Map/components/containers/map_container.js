@@ -81,14 +81,14 @@ const MapContainer = (props) => {
       <div>
         <div className='photoContainer card'>
         <img src={selected.photos[0].getUrl()}></img>
-        <div className="starContainer"><StarRatings
+        <div className="starContainer"><div className='star'><StarRatings
         rating={selected.rating}
         starRatedColor="purple"
         starDimension="20px"
         starSpacing="8px"
-      /><div style={{color:"blue"}}><strong>{selected.rating}</strong></div></div>
+      /></div><span className="rating" style={{color:"blue"}}>{selected.rating}</span></div>
         
-      <p>total: ({selected.user_ratings_total})</p>
+      <p>ratings total: ({selected.user_ratings_total})</p>
       <h4>
           {selected.name}
         </h4>
