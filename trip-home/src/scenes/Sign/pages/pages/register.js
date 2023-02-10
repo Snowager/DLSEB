@@ -52,7 +52,17 @@ function Register() {
           onChange={(e) => setPassword(e.target.value)}
           placeholder="Password"
         />
-        <button className="register__btn" onClick={register}>
+        <button className="register__btn" onClick={
+          register,
+          db_register({ variables: {
+            email: email,
+            password: password,
+            phone_number: "9704206969", //temporary until we add a field for user to input their phone number
+            user_name: name, // temporary until we add a field for user to input their user name
+            first_name: name.split(" "),
+            last_name: name.split(" ")
+          }})
+        }>
           Register
         </button>
         <button
