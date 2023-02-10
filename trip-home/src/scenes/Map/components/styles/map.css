@@ -1,6 +1,14 @@
 #map {
     height:150px;
     width:150px;
+  }
+
+  .photoContainer {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
   .starContainer {
     display: flex;
     flex-direction: row;

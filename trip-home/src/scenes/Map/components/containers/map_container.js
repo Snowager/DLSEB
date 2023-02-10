@@ -79,6 +79,8 @@ const MapContainer = (props) => {
         setSelected(null)
       }}>
       <div>
+        <div className='photoContainer card'>
+        <img src={selected.photos[0].getUrl()}></img>
         <div className="starContainer"><StarRatings
         rating={selected.rating}
         starRatedColor="purple"
@@ -99,7 +101,7 @@ const MapContainer = (props) => {
           }}>
           Add to trip
         </button>
-
+        </div>
       </div>
     </InfoWindow>) : null}
   </GoogleMap>
