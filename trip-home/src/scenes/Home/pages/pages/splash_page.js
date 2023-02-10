@@ -7,14 +7,14 @@ import TravelSection from '../../../Splash/components/fragments/travel_section';
 function SplashPage() {
     // comment blah
     return (
-        <>  
-            <Navbar/>
+        <>
+            <Navbar />
             <div className="container text-center mt-5">
-            <div className="row">
-                <div className="col-md-1"> </div>
-                <div className="col-md-10"></div>
-                <TravelSection />
-            </div>
+                <div className="row">
+                    <div className="col-md-1"> </div>
+                    <div className="col-md-10"></div>
+                    <TravelSection />
+                </div>
             </div>
         </>
     );
