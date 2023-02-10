@@ -7,6 +7,7 @@
     display: flex;
     flex-direction: column;
     align-items: center;
+    padding: 1em;
   }
 
   .starContainer {
@@ -16,4 +17,13 @@
     justify-items: center;
     align-items: flex-end;
     font-size: 18px;
+    
+  }
+
+  .star {
+    padding: .5em
+  }
+
+  .rating {
+    padding: .5em
   }

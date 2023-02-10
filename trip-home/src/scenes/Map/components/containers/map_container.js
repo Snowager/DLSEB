@@ -93,7 +93,7 @@ const MapContainer = (props) => {
           {selected.name}
         </h4>
         <p>
-          Business is: {selected.business_status}
+          {selected.formatted_address}
         </p>
         <button
           onClick={() => {
