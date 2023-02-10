@@ -1,12 +1,14 @@
 import React, { useEffect, useState } from "react";
 import { useAuthState } from "react-firebase-hooks/auth";
 import { Link, useNavigate } from "react-router-dom";
+import {useMutation} from '@apollo/client';
 import {
   auth,
   registerWithEmailAndPassword,
   signInWithGoogle,
 } from "./firebase";
 import "../styles/register.css";
+import {CREATE_TRIP_USER} from '../../../TestingDatabase/GraphQL/inserts.js';
 
 function Register() {
   const [email, setEmail] = useState("");
@@ -22,6 +24,10 @@ function Register() {
     if (loading) return;
     if (user) navigate.replace("/dashboard");
   }, [user, loading]);
+
+  //mutation call for adding the user to our personal database
+  const [db_register, {db_loading, db_error, db_data}] = useMutation(CREATE_TRIP_USER)
+
   return (
     <div className="register">
       <div className="register__container">
