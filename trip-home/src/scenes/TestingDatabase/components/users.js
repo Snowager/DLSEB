@@ -2,7 +2,7 @@ import React from 'react';
 import { useQuery, useLazyQuery, gql, useMutation } from '@apollo/client';
 import {GET_TRIP_USER_BY_ID, GET_TRIP_USER_BY_EMAIL} from '../GraphQL/queries.js';
 import {CREATE_HOTEL_PHOTO_PRICERANGE} from '../GraphQL/inserts.js';
-import {UserIdInDatabase, UserEmailInDatabase, ServiceInDatabase, ActivityInDatabase, HotelInDatabase, RestaurantInDatabase, CreateHotel} from './DBCommands.js';
+import {UserIdInDatabase, UserEmailInDatabase, ServiceInDatabase, ActivityInDatabase, HotelInDatabase, RestaurantInDatabase, CreateHotel} from './db_commands.js';
 
 function GetUsers({email}) {
     
