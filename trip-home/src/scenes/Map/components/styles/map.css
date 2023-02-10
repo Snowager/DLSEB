@@ -1,4 +1,11 @@
 #map {
     height:150px;
     width:150px;
+  .starContainer {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    justify-items: center;
+    align-items: flex-end;
+    font-size: 18px;
   }

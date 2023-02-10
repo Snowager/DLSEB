@@ -1,6 +1,8 @@
 import React, { useState, useEffect, useRef } from 'react';
 import ReactDOM, { createRoot } from "react-dom/client";
 import { GoogleMap, LoadScript, Marker, InfoWindow } from '@react-google-maps/api';
+import StarRatings from 'react-star-ratings';
+import "../styles/map.css"
 
 const MapContainer = (props) => {
 
@@ -77,9 +79,17 @@ const MapContainer = (props) => {
         setSelected(null)
       }}>
       <div>
-        <h1>
+        <div className="starContainer"><StarRatings
+        rating={selected.rating}
+        starRatedColor="purple"
+        starDimension="20px"
+        starSpacing="8px"
+      /><div style={{color:"blue"}}><strong>{selected.rating}</strong></div></div>
+        
+      <p>total: ({selected.user_ratings_total})</p>
+      <h4>
           {selected.name}
-        </h1>
+        </h4>
         <p>
           Business is: {selected.business_status}
         </p>
