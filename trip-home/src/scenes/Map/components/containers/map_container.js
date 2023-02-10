@@ -42,7 +42,12 @@ const MapContainer = (props) => {
         // only pushes results if it gets an OK status
         if (status === google.maps.places.PlacesServiceStatus.OK) {
           for (var i = 0; i < results.length; i++) {
-            console.log(results[i])
+            console.log(results[0])
+            var price = ""
+            for (var j = 0; j < results[i].price_level; j++) {
+              price += "$"
+            }
+            results[i].priceString = price;
             places.push(results[i])
           }
           console.log(places.length)
@@ -108,7 +113,7 @@ const MapContainer = (props) => {
           </div>
           <p>ratings total: ({selected.user_ratings_total})</p>
           <h4>
-            {selected.name}
+            {selected.name} ({selected.priceString})
           </h4>
           <p>
             {selected.formatted_address}
