@@ -42,7 +42,6 @@ const MapContainer = (props) => {
         // only pushes results if it gets an OK status
         if (status === google.maps.places.PlacesServiceStatus.OK) {
           for (var i = 0; i < results.length; i++) {
-            console.log(results[0])
             var price = ""
             for (var j = 0; j < results[i].price_level; j++) {
               price += "$"
@@ -50,7 +49,6 @@ const MapContainer = (props) => {
             results[i].priceString = price;
             places.push(results[i])
           }
-          console.log(places.length)
           setMarkers(places)
         }
         // --TODO-- add "else" block for a failed status return
@@ -66,9 +64,6 @@ const MapContainer = (props) => {
     zoom={props.zoom}
     center={defaultCenter}
     onLoad={onLoad}>
-
-    <div id="root1"></div>
-    {console.log("updated")}
 
 
     {/* brackets let us use javascript inline */}
