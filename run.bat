@@ -9,5 +9,5 @@ call npm install react-google-maps --legacy-peer-deps
 call npm install gapi-script --legacy-peer-deps
 call npm install firebase --legacy-peer-deps 
 call npm install i @reach/combobox --legacy-peer-deps
-call npm install --save react-star-ratings 
+call npm install react-star-ratings 
 call npm start
