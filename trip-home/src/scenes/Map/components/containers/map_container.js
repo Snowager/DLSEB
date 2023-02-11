@@ -113,7 +113,7 @@ const MapContainer = (props) => {
           </div>
           <p>ratings total: ({selected.user_ratings_total})</p>
           <h4>
-            {selected.name} ({selected.priceString})
+            {selected.name} {selected.priceString? "("+selected.priceString+")": ""}
           </h4>
           <p>
             {selected.formatted_address}
