@@ -22,11 +22,11 @@ function Register() {
   };
   useEffect(() => {
     if (loading) return;
-    if (user) navigate.replace("/dashboard");
+    //if (user) navigate.replace("/dashboard");
   }, [user, loading]);
 
   //mutation call for adding the user to our personal database
-  const [db_register, {db_loading, db_error, db_data}] = useMutation(CREATE_TRIP_USER)
+  const [db_register, {db_loading, db_error, db_data}] = useMutation(CREATE_TRIP_USER);
 
   return (
     <div className="register">
@@ -52,17 +52,17 @@ function Register() {
           onChange={(e) => setPassword(e.target.value)}
           placeholder="Password"
         />
-        <button className="register__btn" onClick={
+        <button className="register__btn" disabled={db_loading} onClick={() => {
           register,
-          db_register({ variables: {
+          db_register({ variables: { 
             email: email,
             password: password,
             phone_number: "9704206969", //temporary until we add a field for user to input their phone number
             user_name: name, // temporary until we add a field for user to input their user name
-            first_name: name.split(" "),
-            last_name: name.split(" ")
+            first_name: name.split(" ")[0],
+            last_name: name.split(" ")[1]
           }})
-        }>
+        }}>
           Register
         </button>
         <button
