@@ -15,6 +15,8 @@ function Register() {
   const [password, setPassword] = useState("");
   const [name, setName] = useState("");
   const [user, loading, error] = useAuthState(auth);
+  const [phone_number, setPhone_number] = useState("");
+  const [user_name, setUser_name] = useState("");
   const navigate = useNavigate();
   const register = () => {
     if (!name) alert("Please enter name");
@@ -30,8 +32,8 @@ function Register() {
     variables: {
       email: email,
       password: password,
-      phone_number: "9704206969", //temporary until we add a field for user to input their phone number
-      user_name: name, // temporary until we add a field for user to input their user name
+      phone_number: phone_number, //temporary until we add a field for user to input their phone number
+      user_name: user_name, // temporary until we add a field for user to input their user name
       first_name: name.split(" ")[0],
       last_name: name.split(" ")[1]
     }
@@ -53,6 +55,20 @@ function Register() {
           value={email}
           onChange={(e) => setEmail(e.target.value)}
           placeholder="E-mail Address"
+        />
+        <input
+          type="text"
+          className="register__textBox"
+          value={user_name}
+          onChange={(e) => setUser_name(e.target.value)}
+          placeholder="Username"
+        />
+        <input
+          type="text"
+          className="register__textBox"
+          value={phone_number}
+          onChange={(e) => setPhone_number(e.target.value)}
+          placeholder="Phone number"
         />
         <input
           type="password"
