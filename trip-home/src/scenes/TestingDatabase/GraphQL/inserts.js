@@ -26,6 +26,7 @@ mutation MyMutation($address: String, $lat: String, $lng: String, $name: String,
 }
 `;
 
+//This one needs to be updated to match the current object in database
 export const CREATE_IN_TRIP = gql`
 mutation MyMutation($id: Int = 10, $trip_id: String = "") {
   insert_in_trip_one(object: {id: $id, trip_id: $trip_id}) {
