@@ -22,7 +22,7 @@ const MapContainer = (props) => {
   //map needs constraints in order to show up
   const mapStyles = {
     height: "100vh",
-    width: "100%"
+    width: "80%"
   };
 
 
@@ -67,19 +67,20 @@ const MapContainer = (props) => {
 
 
     {/* brackets let us use javascript inline */}
-    
-    
+
+
     {/* this format (item + && + (functional output)) checks for places being not null, before trying to map the markers in our array*/}
     {
       places &&
       (
-        ({/* Marker options. Needs a key and position to display on map. position is lat/lng coords */}),
+        ({/* Marker options. Needs a key and position to display on map. position is lat/lng coords */ }),
         markers.map(places => (
           <Marker
             key={places.place_id}
             position={places.geometry.location}
             onClick={() => {
               setSelected(places)
+              console.log(selected)
             }} />
         )
         )
@@ -92,7 +93,7 @@ const MapContainer = (props) => {
       onCloseClick={() => {
         setSelected(null)
       }}>
-        {/* infoWindow can have one child div. Can still include other components inside the window via nesting and flex arrangement*/}
+      {/* infoWindow can have one child div. Can still include other components inside the window via nesting and flex arrangement*/}
       <div>
         <div className='photoContainer card'>
           <img src={selected.photos[0].getUrl()}></img>
@@ -108,7 +109,7 @@ const MapContainer = (props) => {
           </div>
           <p>ratings total: ({selected.user_ratings_total})</p>
           <h4>
-            {selected.name} {selected.priceString? "("+selected.priceString+")": ""}
+            {selected.name} {selected.priceString ? "(" + selected.priceString + ")" : ""}
           </h4>
           <p>
             {selected.formatted_address}
@@ -128,19 +129,24 @@ const MapContainer = (props) => {
   if (props.status) {
     return (
       <>
-        {map}
-        {/* conditional function to display mapped divs only if the "trip" array is not empty */}
-        {/* This returns our list --TODO-- add overlay div (z-index, position: absolute in css) */}
-        {trip && (
-          trip.map(tripNodes => (
-            <div style={{ color: 'white' }}>
-              <h1>
-                {tripNodes.name.length > 12 ? (tripNodes.name.substr(0, 20) + "...") : tripNodes.name}
-              </h1>
-              <p>lat:{tripNodes.geometry.location.lat()}</p>
-            </div>
-          ))
-        )}
+        <div className='mapContainer'>
+          {map}
+          {/* conditional function to display mapped divs only if the "trip" array is not empty */}
+          {/* This returns our list --TODO-- add overlay div (z-index, position: absolute in css) */}
+
+          <div className="tripContainer">
+            {trip && (
+              trip.map(tripNodes => (
+                <div style={{ color: 'white' }}>
+                  <h1>
+                    {tripNodes.name.length > 12 ? (tripNodes.name.substr(0, 20) + "...") : tripNodes.name}
+                  </h1>
+                  <p>lat:{tripNodes.geometry.location.lat()}</p>
+                </div>
+              ))
+            )}
+          </div>
+        </div>
       </>
     )
   }

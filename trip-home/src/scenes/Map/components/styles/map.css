@@ -26,3 +26,13 @@
   .rating {
     padding: .5em;
   }
+
+  .mapContainer {
+    display: flex;
+    flex-direction: row-reverse
+  }
+
+  .tripContainer {
+    display: flex;
+    flex-direction: column;
+  }
