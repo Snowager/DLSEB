@@ -40,11 +40,14 @@ mutation MyMutation($lat: String!, $lng: String!, $trip_id: String!) {
   trip_id
 }
 `;
-/*
-export const CREATE_ = gql`
 
+export const CREATE_TRIP = gql`
+mutation MyMutation($city: String!, $duration: numeric!, $trip_id: String!, $user_id: Int!) {
+  insert_trip_one(object: {city: $city, duration: $duration, user_id: $user_id})
+  trip_id
+}
 `;
-
+/*
 export const CREATE_ = gql`
 
 `;
