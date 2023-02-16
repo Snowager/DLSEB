@@ -95,7 +95,8 @@ const MapContainer = (props) => {
         {/* infoWindow can have one child div. Can still include other components inside the window via nesting and flex arrangement*/}
       <div>
         <div className='photoContainer card'>
-          <img src={selected.photos[0].getUrl()}></img>
+          {selected.photos ? (<img src={selected.photos[0].getUrl()}></img>) : null}
+          
           <div className="starContainer"><div className='star'><StarRatings
             rating={selected.rating}
             starRatedColor="purple"
