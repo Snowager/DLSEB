@@ -1,5 +1,5 @@
 import { useLoadScript } from "@react-google-maps/api";
-import '../../../Home/pages/styles/map.css';
+import '../../../Home/pages/styles/map_search_bar.css';
 import '../../../Splash/components/styles/button.css';
 import React, { useState } from "react";
 import { Link } from 'react-router-dom';
@@ -37,7 +37,7 @@ const PlacesAutocomplete = ({ setSelected }) => {
         const { lat, lng } = await getLatLng(results[0]);
         const cityName = results[0].address_components[0].long_name
         const stateName = results[0].address_components[2].short_name
-        setSelected({ lat, lng, cityName, stateName});
+        setSelected({ lat, lng, cityName, stateName });
     };
 
     return (
