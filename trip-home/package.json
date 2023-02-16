@@ -3,6 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "@apollo/client": "^3.7.7",
     "@fortawesome/fontawesome-svg-core": "^6.2.1",
     "@fortawesome/free-regular-svg-icons": "^6.2.1",
     "@fortawesome/free-solid-svg-icons": "^6.2.1",
@@ -15,6 +16,7 @@
     "axios": "^1.2.5",
     "firebase": "^9.17.1",
     "gapi-script": "^1.2.0",
+    "graphql": "^16.6.0",
     "i": "^0.3.7",
     "react": "^18.2.0",
     "react-bootstrap-icons": "^1.10.2",
