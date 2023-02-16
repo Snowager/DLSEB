@@ -7,8 +7,9 @@ import {GET_TRIP} from "../../../TestingDatabase/GraphQL/queries.js";
 const Save_trip_button = (props) => {
 
     const [trip_id, setTrip_id] = useState("");
-    const trip_list = props.trip_list;
+    const trip_list = props.trip;
     const [trip_item, setTrip_item] = useState("");
+    const [status, setStatus] = useState("");
     
     //used for making a random trip_id 
     function makeid(length) {
@@ -23,8 +24,8 @@ const Save_trip_button = (props) => {
         return result;
     }
 
-    //checks if the trip_id appears in the database
-    function trip_id_in_db(id){
+    //function that runs a query to check if the trip_id appears in the database
+    const Trip_id_in_db = id => {
         const {loading, error, data} = useQuery(GET_TRIP, {
             variables: {
                 trip_id: id
@@ -33,7 +34,7 @@ const Save_trip_button = (props) => {
 
         if (loading) {
             console.log("loading")
-            return "loading"
+            setStatus("loading")
         }
         if (error) {
             console.log(`Error! ${error.message}`)
@@ -44,10 +45,10 @@ const Save_trip_button = (props) => {
             return true;
         }
         return false;
-    }
+    };
 
     //while loop that assigns trip_id a new value until it creates one that isn't already in the database
-    do{setTrip_id(makeid(Math.random() * 12));}while(trip_id_in_db(trip_id));
+    do{setTrip_id(makeid(Math.random() * 12));}while(Trip_id_in_db(trip_id));
 
     //pushes a new trip entry to the database
     const [new_trip, trip_loading, trip_error, trip_data] = useMutation(CREATE_TRIP, {
