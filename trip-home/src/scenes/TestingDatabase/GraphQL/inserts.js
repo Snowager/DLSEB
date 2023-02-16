@@ -27,19 +27,20 @@ mutation MyMutation($address: String, $lat: String, $lng: String, $name: String,
 `;
 
 //This one needs to be updated to match the current object in database
-export const CREATE_IN_TRIP = gql`
-mutation MyMutation($id: Int = 10, $trip_id: String = "") {
-  insert_in_trip_one(object: {id: $id, trip_id: $trip_id}) {
-    trip_id
-    id
-  }
+export const CREATE_IN_TRIP_DB = gql`
+mutation MyMutation($id: Int!, $lat: String!, $lng: String!, $trip_id: String!) {
+  insert_in_trip_one(object: {id: $id, lat: $lat, lng: $lng, trip_id: $trip_id})
+  trip_id
+}
+`;
+
+export const CREATE_IN_TRIP_GOOGLE = gql`
+mutation MyMutation($lat: String!, $lng: String!, $trip_id: String!) {
+  insert_in_trip_one(object: {lat: $lat, lng: $lng, trip_id: $trip_id})
+  trip_id
 }
 `;
 /*
-export const CREATE_ = gql`
-
-`;
-
 export const CREATE_ = gql`
 
 `;
