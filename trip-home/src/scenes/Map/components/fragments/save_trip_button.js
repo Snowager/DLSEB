@@ -78,7 +78,8 @@ const Save_trip_button = (props) => {
         }
     }
 
-    return <button onClick={onClick}> Save Trip </button>
+    return <button disabled={status=="loading"} onClick={onClick}> Save Trip </button>
 }
 
 export default Save_trip_button;
+//poopy
