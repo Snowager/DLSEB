@@ -4,6 +4,8 @@ import { GoogleMap, LoadScript, Marker, InfoWindow } from '@react-google-maps/ap
 import StarRatings from 'react-star-ratings';
 import "../styles/map.css"
 
+//comment test
+
 // passes props to the map container
 const MapContainer = (props) => {
 
