@@ -8,8 +8,6 @@ const Save_trip_button = (props) => {
     const trip_list = props.trip;
     const [trip_item, setTrip_item] = useState("");
     const [status, setStatus] = useState("");
-    //console.log("tripList: " + trip_list)
-    //console.log(trip_list)
     
     //used for making a random trip_id 
     function makeid(length) {
@@ -39,19 +37,18 @@ const Save_trip_button = (props) => {
         variables: {
             id:         props.id,
             trip_id:    trip_id,
-            //lat:        trip_item.geometry.location.lat(),
-            //lng:        trip_item.position.lng
+            lat:        trip_item.geometry.location.lat(),
+            lng:        trip_item.geometry.location.lng()
         }
     })
-    
     const onClick = () => {
         if(trip_list != 0){
             setTrip_id(makeid(Math.random() * 12 + 6));
             if(trip_id != null){
                 new_trip();
                 for(const item in trip_list){
-                    setTrip_item(item);
-                    console.log(trip_item)
+                    setTrip_item(trip_list[item]);
+                    console.log(trip_list[item])
                     new_in_trip();
                 }
             }
@@ -59,7 +56,16 @@ const Save_trip_button = (props) => {
     }
 
     return(
-    <button disabled={status=="loading"} onClick={onClick}> Save Trip </button>
+        <>
+            <button onClick={() => {
+                for(const item in trip_list){
+                    console.log(trip_list[item])
+                }
+            }}>
+                button lol
+                </button>
+            <button disabled={status=="loading"} onClick={onClick}> Save Trip </button>
+        </>
     )
 }
 
