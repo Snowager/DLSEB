@@ -24,31 +24,34 @@ const Save_trip_button = (props) => {
         return result;
     }
 
-    //function that runs a query to check if the trip_id appears in the database
+    //recursive function that will check if trip_id appears in the db and if it does will assign it a new value
     const Trip_id_in_db = id => {
         const {loading, error, data} = useQuery(GET_TRIP, {
             variables: {
-                trip_id: id
+                trip_id: id 
             }
         });
 
         if (loading) {
             console.log("loading")
             setStatus("loading")
+            return ("loading")
         }
         if (error) {
             console.log(`Error! ${error.message}`)
+            setStatus("error")
             return `Error! ${error.message}`
         }
         if(data && data.trip_by_pk != null){
             console.log("found trip_id: " + id + " in the database")
+            setStatus(true)
+            setTrip_id(makeid(Math.random() * 12));
+            Trip_id_in_db(trip_id)
             return true;
         }
+        setStatus(false);
         return false;
     };
-
-    //while loop that assigns trip_id a new value until it creates one that isn't already in the database
-    do{setTrip_id(makeid(Math.random() * 12));}while(Trip_id_in_db(trip_id));
 
     //pushes a new trip entry to the database
     const [new_trip, trip_loading, trip_error, trip_data] = useMutation(CREATE_TRIP, {
