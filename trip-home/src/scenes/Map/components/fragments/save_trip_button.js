@@ -37,8 +37,8 @@ const Save_trip_button = (props) => {
         variables: {
             id:         props.id,
             trip_id:    trip_id,
-            lat:        trip_item.geometry.location.lat(),
-            lng:        trip_item.geometry.location.lng()
+            lat:        trip_item.geometry.getlat(),
+            lng:        trip_item.geometry.getlng()
         }
     })
     const onClick = () => {
