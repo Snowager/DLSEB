@@ -4,15 +4,25 @@ import {CREATE_TRIP, CREATE_IN_TRIP_DB, CREATE_IN_TRIP_GOOGLE} from "../../../Te
 import {GET_TRIP} from "../../../TestingDatabase/GraphQL/queries.js";
 
 const Save_trip_button = (props) => {
+    const dummyItem = {
+        geometry: {
+            location: {
+                lat: function (){return 1},
+                lng: function (){return 1}
+            }
+        }
+    }
     const [trip_id, setTrip_id] = useState("");
-    const trip_list = props.trip;
-    const [trip_item, setTrip_item] = useState("");
+    const [trip_list, setTrip_list] = useState([]);
+    const [trip_item, setTrip_item] = useState(dummyItem);
     const [status, setStatus] = useState("");
+    const [lat, setLat] = useState("");
+    const [lng, setLng] = useState("");
     
     //used for making a random trip_id 
     function makeid(length) {
         let result = '';
-        const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+        const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz';
         const charactersLength = characters.length;
         let counter = 0;
         while (counter < length) {
@@ -26,44 +36,57 @@ const Save_trip_button = (props) => {
     const [new_trip, trip_loading, trip_error, trip_data] = useMutation(CREATE_TRIP, {
         variables:{
             city:       props.city,
-            user_id:    props.user_id,
+            user_id:    props.id,
             trip_id:    trip_id,
-            duration:   trip_list.length
+            duration:   props.trip.length
         }
     })
+    const newList = () => {
+        props.trip.map(item => (
+            console.log(item),
+            setTrip_list([...trip_list, {
+                item: item,
+                lat: item.geometry.location.lat().toString(),
+                lng: item.geometry.location.lng().toString()
+            }])
+        ));
+        console.log(trip_list)
+    }
+
+    const newTrip = (() => {
+        setTrip_id(makeid(Math.random() * 12 + 6));
+        console.log("trip_id: " + trip_id);
+        if(trip_id != null){
+            new_trip();
+        }
+    })
+
     
     //pushes a new in_trip entry to the database
-    const [new_in_trip, in_trip_loading, in_trip_error] = useMutation(CREATE_IN_TRIP_DB, {
-        variables: {
-            id:         props.id,
-            trip_id:    trip_id,
-            lat:        trip_item.geometry.getlat(),
-            lng:        trip_item.geometry.getlng()
-        }
-    })
+    const [new_in_trip, in_trip_loading, in_trip_error] = useMutation(CREATE_IN_TRIP_DB)
+
     const onClick = () => {
-        if(trip_list != 0){
-            setTrip_id(makeid(Math.random() * 12 + 6));
+        if(props.trip != 0){
             if(trip_id != null){
-                new_trip();
-                for(const item in trip_list){
-                    setTrip_item(trip_list[item]);
-                    console.log(trip_list[item])
-                    new_in_trip();
-                }
+                    for(const item in trip_list){
+                        new_in_trip({ 
+                            variables: {
+                                service_id: null,
+                                trip_id:    trip_id,
+                                lat:        trip_list[item].lat,
+                                lng:        trip_list[item].lng
+                        }})
+                        console.log("props lat:" + props.trip[item].geometry.location.lat() + " ||| " + trip_list[item].lat)
+                        console.log("props lng:" + props.trip[item].geometry.location.lng() + " ||| " + trip_list[item].lng)
+                    }
             }
         }
     }
 
     return(
         <>
-            <button onClick={() => {
-                for(const item in trip_list){
-                    console.log(trip_list[item])
-                }
-            }}>
-                button lol
-                </button>
+            <button onClick={newList}> new list </button>
+            <button onClick={newTrip}> new trip </button>
             <button disabled={status=="loading"} onClick={onClick}> Save Trip </button>
         </>
     )
