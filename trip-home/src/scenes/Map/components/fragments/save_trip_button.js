@@ -82,4 +82,3 @@ const Save_trip_button = (props) => {
 }
 
 export default Save_trip_button;
-//poopy
