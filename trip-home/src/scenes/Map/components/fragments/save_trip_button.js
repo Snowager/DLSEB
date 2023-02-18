@@ -1,11 +1,10 @@
 import React, { useEffect, useState } from "react";
-import {useMutation, useQuery} from '@apollo/client';
+import {useMutation, useQuery, useLazyQuery} from '@apollo/client';
 import {CREATE_TRIP, CREATE_IN_TRIP_DB, CREATE_IN_TRIP_GOOGLE} from "../../../TestingDatabase/GraphQL/inserts.js";
 import {GET_TRIP} from "../../../TestingDatabase/GraphQL/queries.js";
 
 
 const Save_trip_button = (props) => {
-
     const [trip_id, setTrip_id] = useState("");
     const trip_list = props.trip;
     const [trip_item, setTrip_item] = useState("");
@@ -16,6 +15,7 @@ const Save_trip_button = (props) => {
         let result = '';
         const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
         const charactersLength = characters.length;
+        console.log(charactersLength + "is the length")
         let counter = 0;
         while (counter < length) {
           result += characters.charAt(Math.floor(Math.random() * charactersLength));
@@ -23,36 +23,8 @@ const Save_trip_button = (props) => {
         }
         return result;
     }
-
-    //recursive function that will check if trip_id appears in the db and if it does will assign it a new value
-    const Trip_id_in_db = id => {
-        const {loading, error, data} = useQuery(GET_TRIP, {
-            variables: {
-                trip_id: id 
-            }
-        });
-
-        if (loading) {
-            console.log("loading")
-            setStatus("loading")
-            return ("loading")
-        }
-        if (error) {
-            console.log(`Error! ${error.message}`)
-            setStatus("error")
-            return `Error! ${error.message}`
-        }
-        if(data && data.trip_by_pk != null){
-            console.log("found trip_id: " + id + " in the database")
-            setStatus(true)
-            setTrip_id(makeid(Math.random() * 12));
-            Trip_id_in_db(trip_id)
-            return true;
-        }
-        setStatus(false);
-        return false;
-    };
-
+    setTrip_id(makeid(Math.random() * 12 + 6));
+    
     //pushes a new trip entry to the database
     const [new_trip, trip_loading, trip_error, trip_data] = useMutation(CREATE_TRIP, {
         variables:{
@@ -62,7 +34,7 @@ const Save_trip_button = (props) => {
             duration:   trip_list.length
         }
     })
-
+    
     //pushes a new in_trip entry to the database
     const [new_in_trip, in_trip_loading, in_trip_error] = useMutation(CREATE_IN_TRIP_DB, {
         variables: {
@@ -72,16 +44,19 @@ const Save_trip_button = (props) => {
             lng:        trip_item.lng
         }
     })
-
+    
     const onClick = () => {
-        new_trip();
-        for(const item in trip_list){
-            setTrip_item(item);
-            new_in_trip();
+        if(trip_id != null){
+            new_trip();
+            for(const item in trip_list){
+                setTrip_item(item);
+                new_in_trip();
+            }
         }
     }
-
-    return <button disabled={status=="loading"} onClick={onClick}> Save Trip </button>
+    return(
+    <button disabled={status=="loading"} onClick={onClick}> Save Trip </button>
+    )
 }
 
 export default Save_trip_button;

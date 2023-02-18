@@ -4,7 +4,6 @@ import { GoogleMap, LoadScript, Marker, InfoWindow } from '@react-google-maps/ap
 import Save_trip_button from '../fragments/save_trip_button.js';
 
 const MapContainer = (props) => {
-
   const google = window.google;
   const [selected, setSelected] = useState(null);
   const [markers, setMarkers] = useState([]);
@@ -109,7 +108,8 @@ const MapContainer = (props) => {
             </div>
           ))
         )}
-        <Save_trip_button id={1} trip={trip}/>
+        <Save_trip_button id={1} trip={trip} city={"greeley" /*needs to be acquire city info from search bar*/}/>
+        {console.log("were here")}
       </>
     )
   }
