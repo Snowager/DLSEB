@@ -99,6 +99,7 @@ const MapContainer = (props) => {
         {map}
         {trip && (
           trip.map(tripNodes => (
+            console.log(tripNodes),
             console.log(tripNodes.geometry.location),
             <div style={{ color: 'white' }}>
               <h1>
@@ -108,8 +109,14 @@ const MapContainer = (props) => {
             </div>
           ))
         )}
-        <Save_trip_button id={1} trip={trip} city={"greeley" /*needs to be acquire city info from search bar*/}/>
-        {console.log("were here")}
+        <button onClick={() => {
+          for(const tripNodes in trip){
+            console.log("item name " + tripNodes.name)
+          }
+        }}>
+          trip trip
+          </button>
+        <Save_trip_button id={props.id} trip={trip} city={"greeley" /*needs to be acquire city info from search bar*/}/>
       </>
     )
   }

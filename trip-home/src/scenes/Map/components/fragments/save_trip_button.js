@@ -3,19 +3,19 @@ import {useMutation, useQuery, useLazyQuery} from '@apollo/client';
 import {CREATE_TRIP, CREATE_IN_TRIP_DB, CREATE_IN_TRIP_GOOGLE} from "../../../TestingDatabase/GraphQL/inserts.js";
 import {GET_TRIP} from "../../../TestingDatabase/GraphQL/queries.js";
 
-console.log("uppermost")
 const Save_trip_button = (props) => {
     const [trip_id, setTrip_id] = useState("");
     const trip_list = props.trip;
     const [trip_item, setTrip_item] = useState("");
     const [status, setStatus] = useState("");
+    //console.log("tripList: " + trip_list)
+    //console.log(trip_list)
     
     //used for making a random trip_id 
     function makeid(length) {
         let result = '';
         const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
         const charactersLength = characters.length;
-        console.log(charactersLength + "is the length")
         let counter = 0;
         while (counter < length) {
           result += characters.charAt(Math.floor(Math.random() * charactersLength));
@@ -37,23 +37,27 @@ const Save_trip_button = (props) => {
     //pushes a new in_trip entry to the database
     const [new_in_trip, in_trip_loading, in_trip_error] = useMutation(CREATE_IN_TRIP_DB, {
         variables: {
-            id:         trip_item.id,
+            id:         props.id,
             trip_id:    trip_id,
-            lat:        trip_item.lat,
-            lng:        trip_item.lng
+            //lat:        trip_item.geometry.location.lat(),
+            //lng:        trip_item.position.lng
         }
     })
     
     const onClick = () => {
-        setTrip_id(makeid(Math.random() * 12 + 6));
-        if(trip_id != null){
-            new_trip();
-            for(const item in trip_list){
-                setTrip_item(item);
-                new_in_trip();
+        if(trip_list != 0){
+            setTrip_id(makeid(Math.random() * 12 + 6));
+            if(trip_id != null){
+                new_trip();
+                for(const item in trip_list){
+                    setTrip_item(item);
+                    console.log(trip_item)
+                    new_in_trip();
+                }
             }
         }
     }
+
     return(
     <button disabled={status=="loading"} onClick={onClick}> Save Trip </button>
     )
