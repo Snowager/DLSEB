@@ -3,7 +3,7 @@ import {useMutation, useQuery, useLazyQuery} from '@apollo/client';
 import {CREATE_TRIP, CREATE_IN_TRIP_DB, CREATE_IN_TRIP_GOOGLE} from "../../../TestingDatabase/GraphQL/inserts.js";
 import {GET_TRIP} from "../../../TestingDatabase/GraphQL/queries.js";
 
-
+console.log("uppermost")
 const Save_trip_button = (props) => {
     const [trip_id, setTrip_id] = useState("");
     const trip_list = props.trip;
@@ -23,8 +23,7 @@ const Save_trip_button = (props) => {
         }
         return result;
     }
-    setTrip_id(makeid(Math.random() * 12 + 6));
-    
+
     //pushes a new trip entry to the database
     const [new_trip, trip_loading, trip_error, trip_data] = useMutation(CREATE_TRIP, {
         variables:{
@@ -46,6 +45,7 @@ const Save_trip_button = (props) => {
     })
     
     const onClick = () => {
+        setTrip_id(makeid(Math.random() * 12 + 6));
         if(trip_id != null){
             new_trip();
             for(const item in trip_list){
