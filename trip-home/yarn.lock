@@ -2659,9 +2659,9 @@
     "@types/react" "*"
 
 "@types/react@*":
-  "integrity" "sha512-hCR3PJQsAIXyxhTNSiDFY//LhnMZWpNNr5etoCqx/iUfGc5gXWtQR2Phl908jVR6uPXacojQWTg4qRpkxTuGug=="
-  "resolved" "https://registry.npmjs.org/@types/react/-/react-18.0.26.tgz"
-  "version" "18.0.26"
+  "integrity" "sha512-NUEiwmSS1XXtmBcsm1NyRRPYjoZF2YTE89/5QiLt5mlGffYK9FQqOKuOLuXNrjPQV04oQgaZG+Yq02ZfHoFyyg=="
+  "resolved" "https://registry.npmjs.org/@types/react/-/react-16.14.35.tgz"
+  "version" "16.14.35"
   dependencies:
     "@types/prop-types" "*"
     "@types/scheduler" "*"
