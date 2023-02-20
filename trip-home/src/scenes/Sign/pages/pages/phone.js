@@ -1,7 +1,7 @@
-import firebase from firebase;
-import PhoneInput from 'react-phone-input-2'
+import React from 'react';
 import { Button, Divider, Grid, TextField } from '@material-ui/core';
-import { FirebaseError } from "firebase/app"
+import PhoneInput from 'react-phone-input-2'
+import firebase from 'firebase';
 
 const PhoneNum = () => {
     const [phone, setPhone] = React.useState('');
