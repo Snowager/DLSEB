@@ -7,8 +7,7 @@ const Save_trip_button = (props) => {
     const [trip_id, setTrip_id] = useState("");
     const [trip_list, setTrip_list] = useState([]);
     const [status, setStatus] = useState("");
-    const [lat, setLat] = useState("");
-    const [lng, setLng] = useState("");
+
     
     //used for making a random trip_id 
     function makeid(length) {
@@ -26,6 +25,7 @@ const Save_trip_button = (props) => {
     //adds the most recent trip_id to the trip_list
     const update_list = () => {
         setTrip_list([...trip_list, trip_id])
+        setStatus("complete")
     }
 
     //creates a function (new_trip) that pushes a new trip entry to the database
@@ -41,6 +41,7 @@ const Save_trip_button = (props) => {
     useEffect(() => {
         console.log("trip_id: " + trip_id);
         if(trip_id != ""){
+            setStatus("loading")
             console.log("pushing new trip to db")
             new_trip({variables:{
                 city:       props.city,
