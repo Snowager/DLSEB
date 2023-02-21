@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { auth, signInWithEmailAndPassword, signInWithGoogle } from "./firebase";
-import { Button, Divider, Grid, TextField } from '@material-ui/core';
-import PhoneInput from 'react-phone-input-2';
+//import { Button, Divider, Grid, TextField } from '@material-ui/core';
+//import PhoneInput from 'react-phone-input-2';
 import { useAuthState } from "react-firebase-hooks/auth";
 import "../styles/login.css";
 
