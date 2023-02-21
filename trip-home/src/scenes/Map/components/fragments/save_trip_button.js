@@ -48,7 +48,7 @@ const Save_trip_button = (props) => {
         }
     }, [trip_id])
     
-    //pushes a new in_trip entry to the database
+    //creates a function (new_in_trip) that pushes a new in_trip entry to the database
     const [new_in_trip, in_trip_loading, in_trip_error] = useMutation(CREATE_IN_TRIP_DB)
 
     const onClick = () => {
@@ -61,7 +61,8 @@ const Save_trip_button = (props) => {
                             service_id: null,
                             trip_id:    trip_id,
                             lat:        props.trip[item].geometry.location.lat().toString(),
-                            lng:        props.trip[item].geometry.location.lng().toString()
+                            lng:        props.trip[item].geometry.location.lng().toString(),
+                            loc_name:   props.trip[item].name
                         }
                     })
                     console.log("props lat:" + props.trip[item].geometry.location.lat())
