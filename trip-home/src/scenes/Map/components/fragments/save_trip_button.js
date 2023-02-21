@@ -32,61 +32,50 @@ const Save_trip_button = (props) => {
         return result;
     }
 
-    //pushes a new trip entry to the database
-    const [new_trip, trip_loading, trip_error, trip_data] = useMutation(CREATE_TRIP, {
-        variables:{
-            city:       props.city,
-            user_id:    props.id,
-            trip_id:    trip_id,
-            duration:   props.trip.length
-        }
-    })
-    const newList = () => {
-        props.trip.map(item => (
-            console.log(item),
-            setTrip_list([...trip_list, {
-                item: item,
-                lat: item.geometry.location.lat().toString(),
-                lng: item.geometry.location.lng().toString()
-            }])
-        ));
-        console.log(trip_list)
-    }
-
-    const newTrip = (() => {
-        setTrip_id(makeid(Math.random() * 12 + 6));
+    //creates a function (new_trip) that pushes a new trip entry to the database
+    const [new_trip, trip_loading, trip_error, trip_data] = useMutation(CREATE_TRIP)
+    
+    //pushes a new trip entry every time the trip_id variable is updated
+    useEffect(() => {
         console.log("trip_id: " + trip_id);
         if(trip_id != null){
-            new_trip();
+            new_trip({variables:{
+                city:       props.city,
+                user_id:    props.id,
+                trip_id:    trip_id,
+                duration:   props.trip.length
+            }});
         }
-    })
-
+    }, [trip_id])
     
     //pushes a new in_trip entry to the database
     const [new_in_trip, in_trip_loading, in_trip_error] = useMutation(CREATE_IN_TRIP_DB)
 
     const onClick = () => {
+        setTrip_id(makeid(Math.random() * 12 + 6));
         if(props.trip != 0){
             if(trip_id != null){
-                    for(const item in trip_list){
-                        new_in_trip({ 
-                            variables: {
-                                service_id: null,
-                                trip_id:    trip_id,
-                                lat:        trip_list[item].lat,
-                                lng:        trip_list[item].lng
-                        }})
-                        console.log("props lat:" + props.trip[item].geometry.location.lat() + " ||| " + trip_list[item].lat)
-                        console.log("props lng:" + props.trip[item].geometry.location.lng() + " ||| " + trip_list[item].lng)
-                    }
+                for(const item in props.trip){
+                    new_in_trip({ 
+                        variables: {
+                            service_id: null,
+                            trip_id:    trip_id,
+                            lat:        props.trip[item].geometry.location.lat().toString(),
+                            lng:        props.trip[item].geometry.location.lng().toString()
+                        }
+                    })
+                    console.log("props lat:" + props.trip[item].geometry.location.lat())
+                    console.log("props lng:" + props.trip[item].geometry.location.lng())
+                }
             }
+        }
+        else{
+            console.log("Nothing in the props list");
         }
     }
 
     return(
         <>
-            <button onClick={newList}> new list </button>
-            <button onClick={newTrip}> new trip </button>
             <button disabled={status=="loading"} onClick={onClick}> Save Trip </button>
         </>
     )
