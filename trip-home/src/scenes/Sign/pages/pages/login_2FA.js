@@ -57,7 +57,6 @@ function Login() {
     }
   }
 
-
   useEffect(() => {
     if (loading) {
       // maybe trigger a loading screen
@@ -96,7 +95,7 @@ function Login() {
           <div>
             <input
               type="tel"
-              className="login__textBox"
+              className="otp__textBox"
               value={phone_number}
               onChange={(e) => setPhone_number(e.target.value)}
               placeholder="Phone number"
@@ -106,7 +105,7 @@ function Login() {
           <>
             <input
             type="number"
-            className="login__textBox"
+            className="otp__textBox"
             id="otpInput"
             value={OTP}
             onChange={verifyOTP}
@@ -117,7 +116,7 @@ function Login() {
           null
           }
           { expandForm === false?
-            <button type="submit" className ="login__btn">
+            <button type="submit" className ="otp__btn">
               Request OPT
             </button>
             :
