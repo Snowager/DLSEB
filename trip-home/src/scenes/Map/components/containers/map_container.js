@@ -4,8 +4,60 @@ import { GoogleMap, LoadScript, Marker, InfoWindow } from '@react-google-maps/ap
 import StarRatings from 'react-star-ratings';
 import "../styles/map.css"
 
+
 // passes props to the map container
+function TodoForm({ addTodo }) {
+  const [value, setValue] = React.useState("");
+
+  const handleSubmit = e => {
+    e.preventDefault();
+    if (!value) return;
+    addTodo(value);
+    setValue("");
+  };
+
+  return (
+    <form onSubmit={handleSubmit}>
+      <input
+        type="text"
+        className="input"
+        value={value}
+        onChange={e => setValue(e.target.value)}
+        placeholder="Add Your Own Place!"
+      />
+    </form>
+  );
+}
+function Todo({ todo, index, removeTodo }) {
+  return (
+    <div
+      className="todo"
+    >
+      {todo.text}
+      <div>
+        <button className = "Remove_Button" onClick={() => removeTodo(index)}>Remove <i class="fa fa-trash" aria-hidden="true"></i>
+</button>
+      </div>
+    </div>
+  );
+}
+
 const MapContainer = (props) => {
+  const [todos, setTodos] = React.useState([
+  ]);
+
+  const addTodo = text => {
+    const newTodos = [...todos, { text }];
+    setTodos(newTodos);
+  };
+
+
+  const removeTodo = index => {
+    const newTodos = [...todos];
+    newTodos.splice(index, 1);
+    setTodos(newTodos);
+  };
+  const [value, setValue] = React.useState("");
 
   // these are our constant variables, anything using const [foo, bar] is a get/set essentially
   const google = window.google;
@@ -116,7 +168,7 @@ const MapContainer = (props) => {
           </p>
           <button
             onClick={() => {
-              setTrip([...trip, selected])
+              addTodo(selected.name, selected.place_id);
             }}>
             Add to trip
           </button>
@@ -127,13 +179,25 @@ const MapContainer = (props) => {
 
   // only displays map if true is returned
   if (props.status) {
+    
     return (
       <>
         <div className='mapContainer'>
+        <div className="todo-list">
+        {todos.map((todo, index) => (
+          <Todo
+            key={index}
+            index={index}
+            todo={todo}
+            removeTodo={removeTodo}
+          />
+        ))}
+        <TodoForm addTodo={addTodo} />
+      </div>
           {map}
           {/* conditional function to display mapped divs only if the "trip" array is not empty */}
           {/* This returns our list --TODO-- add overlay div (z-index, position: absolute in css) */}
-
+          
           <div className="tripContainer">
             {trip && (
               trip.map(tripNodes => (
