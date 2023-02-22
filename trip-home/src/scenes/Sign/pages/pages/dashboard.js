@@ -4,6 +4,7 @@ import { useNavigate } from "react-router-dom";
 import "../styles/dashboard.css";
 import { auth, db, logout } from "./firebase";
 import { query, collection, getDocs, where } from "firebase/firestore";
+import Saved_activities from "../../components/dashboardFragments/saved_activities.js"
 
 function Dashboard() {
   const [user, loading, error] = useAuthState(auth);
@@ -35,6 +36,7 @@ function Dashboard() {
           Logout
          </button>
        </div>
+       <Saved_activities/>
      </div>
   );
 }
