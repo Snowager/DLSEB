@@ -36,7 +36,7 @@ function Dashboard() {
           Logout
          </button>
        </div>
-       <Saved_activities/>
+       <Saved_activities email={user?.email}/>
      </div>
   );
 }

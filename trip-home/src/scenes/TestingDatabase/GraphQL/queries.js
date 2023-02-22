@@ -109,3 +109,15 @@ query Search($admin_id: String!) {
   }
 }
 `;
+
+export const GET_SAVED_ACTIVITY_BY_USER = gql`
+query MyQuery($user_id: Int!) {
+  saved_activity(where: {user_id: {_eq: $user_id}}) {
+    user_id
+    service_id
+    name
+    lng
+    lat
+  }
+}
+`;
