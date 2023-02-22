@@ -19,7 +19,8 @@ const db_httpLink = createHttpLink({
 
 const db_client = new ApolloClient({
     cache: new InMemoryCache(),
-    link: db_authLink.concat(db_httpLink)
+    link: db_authLink.concat(db_httpLink),
+    connectToDevTools: true
 })
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
