@@ -9,4 +9,6 @@ call npm install react-google-maps --legacy-peer-deps
 call npm install gapi-script --legacy-peenpm r-deps
 call npm install firebase --legacy-peer-deps 
 call npm install i @reach/combobox --legacy-peer-deps 
+call npm install @apollo/client --legacy-peer-deps
+call npm install graphql --legacy-peer-deps
 call npm start

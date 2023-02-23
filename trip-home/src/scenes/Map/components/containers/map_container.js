@@ -1,9 +1,9 @@
 import React, { useState, useEffect, useRef } from 'react';
 import ReactDOM, { createRoot } from "react-dom/client";
 import { GoogleMap, LoadScript, Marker, InfoWindow } from '@react-google-maps/api';
+import Save_trip_button from '../fragments/save_trip_button.js';
 
 const MapContainer = (props) => {
-
   const google = window.google;
   const [selected, setSelected] = useState(null);
   const [markers, setMarkers] = useState([]);
@@ -93,7 +93,6 @@ const MapContainer = (props) => {
       </div>
     </InfoWindow>) : null}
   </GoogleMap>
-
   if (props.status) {
     return (
       <>
@@ -109,6 +108,7 @@ const MapContainer = (props) => {
             </div>
           ))
         )}
+        <Save_trip_button id={props.id} trip={trip} city={props.city}/>
       </>
     )
   }
