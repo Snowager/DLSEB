@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import ReactDOM, { createRoot } from "react-dom/client";
 import { GoogleMap, LoadScript, Marker, InfoWindow } from '@react-google-maps/api';
-import MarkerStyle from '../../images/MarkerTemplate2.svg'
+import MarkerStyle from '../../images/MarkerTemplate4.svg'
 
 const MapContainer = (props) => {
 
@@ -45,7 +45,7 @@ const MapContainer = (props) => {
 
   const icon = {
     url: MarkerStyle, // url
-    scaledSize: new google.maps.Size(50, 50), // scaled size
+    scaledSize: new google.maps.Size(40, 40), // scaled size
     origin: new google.maps.Point(0,0), // origin
     anchor: new google.maps.Point(0, 0) // anchor
   };
