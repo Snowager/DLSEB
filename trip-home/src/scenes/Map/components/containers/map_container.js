@@ -176,6 +176,7 @@ const MapContainer = (props) => {
           <button
             onClick={() => {
               addTodo(selected.name, selected.place_id);
+              setTrip([...trip, selected])
             }}>
             Add to trip
           </button>
