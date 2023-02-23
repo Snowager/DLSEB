@@ -39,23 +39,18 @@
 
 .todo-list {
   color: white;
-  font-size: 16px;
+  font-size: 20px;
   background: rgb(86, 86, 86);
   display: flex;
   order: 1;
   flex-direction: column;
-  overflow-x: hidden;
-  overflow-y: scroll;
-  overflow-wrap: break-word;
-  max-height: 100vh;
-  width: 30%
 }
 
 .Remove_Button {
   background-color: red;
   border: none;
   color: white;
-  padding: 1px 6px;
+  padding: 5px 12px;
   text-align: center;
   text-decoration: none;
   display: inline-block;
