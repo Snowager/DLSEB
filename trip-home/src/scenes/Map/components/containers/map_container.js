@@ -67,7 +67,7 @@ const MapContainer = (props) => {
     }, [center]
   )
 
-  const changeMarker = () => {
+  const changeMarker = (query, center) => {
     var request = {
       location: center,
       radius: "5",
