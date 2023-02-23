@@ -4,6 +4,8 @@ import { GoogleMap, LoadScript, Marker, InfoWindow } from '@react-google-maps/ap
 import {Modal} from '@mui/material';
 import { Typography } from "@mui/material";
 import {Box} from "@mui/material";
+import "../../../Splash/components/styles/button.css"
+import { display } from '@mui/system';
 
 const MapContainer = (props) => {
 
@@ -131,12 +133,15 @@ const MapContainer = (props) => {
             >
                 <Box sx={style}>
                     <Typography id="modal-modal-title" variant="h6" component="h2">
-                        Text in a modal
+                        Now where?
                     </Typography>
                     <Typography id="modal-modal-description" sx={{ mt: 2 }}>
-                        Duis mollis, est non commodo luctus, nisi erat porttitor ligula.
+                        Click one of the buttons below to change your available locations.
                     </Typography>
-                    <button onClick={modifyMarkers}>try me</button>
+                    <div style={{display: "flex", flexDirection: "row"}}><button className='btn--primary btn' onClick={modifyMarkers}>food</button>
+                    <button className='btn--primary btn' onClick={modifyMarkers}>hotel</button>
+                    <button className='btn--primary btn' onClick={modifyMarkers}>activity</button></div>
+                    
                 </Box>
             </Modal> : null}
         {trip && (
