@@ -1,10 +1,20 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect, useRef, useMemo } from 'react';
 import ReactDOM, { createRoot } from "react-dom/client";
 import { GoogleMap, LoadScript, Marker, InfoWindow } from '@react-google-maps/api';
+import {Modal} from '@mui/material';
+import { Typography } from "@mui/material";
+import {Box} from "@mui/material";
 
 const MapContainer = (props) => {
 
   const google = window.google;
+  const [center, setCenter] = useState({lat: props.lat, lng: props.lng});
+  const [mapStyles, setMapStyles] = useState({
+    height: "100vh",
+    width: "100%"
+  })
+  const [query, setQuery] = useState(props.type)
+  const [open, setOpen] = useState(false);
   const [selected, setSelected] = useState(null);
   const [markers, setMarkers] = useState([]);
   const [trip, setTrip] = useState([]);
@@ -12,12 +22,12 @@ const MapContainer = (props) => {
 
   const onLoad = React.useCallback(
     function onLoad(map) {
-      const service = new google.maps.places.PlacesService(map)
       var request = {
-        location: map.center,
+        location: center,
         radius: "5",
-        query: props.type
+        query: query
       };
+      const service = new google.maps.places.PlacesService(map)
       service.textSearch(request, callback);
       function callback(results, status) {
         if (status === google.maps.places.PlacesServiceStatus.OK) {
@@ -29,34 +39,15 @@ const MapContainer = (props) => {
           setMarkers(places)
         }
       }
-    }
+    }, [query]
   )
-
-  const onSelect = item => {
-    setSelected(item);
-  }
-
-  //map needs constraints in order to show up
-  const mapStyles = {
-    height: "100vh",
-    width: "100%"
-  };
-
-  //coordinates of the center of the map
-  const defaultCenter = {
-    lat: props.lat, lng: props.lng
-  }
 
   const map = <GoogleMap
     mapContainerStyle={mapStyles}
     zoom={props.zoom}
-    center={defaultCenter}
+    center={center}
     onLoad={onLoad}
   >
-
-    <div id="root1"></div>
-    {console.log("updated")}
-
     {
       places &&
       (
@@ -86,6 +77,7 @@ const MapContainer = (props) => {
         <button
           onClick={() => {
             setTrip([...trip, selected])
+            handleOpen()
           }}>
           Add to trip
         </button>
@@ -94,10 +86,59 @@ const MapContainer = (props) => {
     </InfoWindow>) : null}
   </GoogleMap>
 
+  
+
+  const handleOpen = () => setOpen(true);
+  const handleClose = () => setOpen(false);
+
+  const modifyMarkers = ()  => {
+    setMarkers([])
+    setQuery("hotel")
+    onLoad()
+  }
+
+  const onSelect = item => {
+    setSelected(item);
+  }
+
+  const style = {
+    position: 'absolute',
+    top: '50%',
+    left: '50%',
+    transform: 'translate(-50%, -50%)',
+    width: 400,
+    bgcolor: 'background.paper',
+    border: '2px solid #000',
+    boxShadow: 24,
+    p: 4,
+  };
+
+  //map needs constraints in order to show up
+
+  //coordinates of the center of the map
+  
+
   if (props.status) {
     return (
       <>
         {map}
+        {onLoad()}
+        {open ? <Modal
+                open={open}
+                onClose={handleClose}
+                aria-labelledby="modal-modal-title"
+                aria-describedby="modal-modal-description"
+            >
+                <Box sx={style}>
+                    <Typography id="modal-modal-title" variant="h6" component="h2">
+                        Text in a modal
+                    </Typography>
+                    <Typography id="modal-modal-description" sx={{ mt: 2 }}>
+                        Duis mollis, est non commodo luctus, nisi erat porttitor ligula.
+                    </Typography>
+                    <button onClick={modifyMarkers}>try me</button>
+                </Box>
+            </Modal> : null}
         {trip && (
           trip.map(tripNodes => (
             console.log(tripNodes.geometry.location),
