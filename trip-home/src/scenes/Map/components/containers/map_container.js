@@ -98,6 +98,7 @@ const MapContainer = (props) => {
     setSelected(null)
     setMarkers([])
     setQuery(query)
+    handleClose()
   }
 
   const onSelect = item => {
@@ -140,7 +141,8 @@ const MapContainer = (props) => {
               Click one of the buttons below to change your available locations.
             </Typography>
             <div style={{ display: "flex", flexDirection: "row" }}>
-              <button className='btn--primary btn' onClick={() => modifyMarkers("food")}>food</button>
+              <button className='btn--primary btn' onClick={() => (
+                modifyMarkers("food")) }>food</button>
               <button className='btn--primary btn' onClick={() => modifyMarkers("hotel")}>hotel</button>
               <button className='btn--primary btn' onClick={() => modifyMarkers("fun")}>activity</button>
             </div>
