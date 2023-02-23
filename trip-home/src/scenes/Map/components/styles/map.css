@@ -2,3 +2,27 @@
     height:150px;
     width:150px;
   }
+
+  .photoContainer {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 1em;
+  }
+
+  .starContainer {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    font-size: 18px;
+    padding-left: 40px;
+    
+  }
+
+  .star {
+    padding-bottom: 4px;
+  }
+
+  .rating {
+    padding: .5em;
+  }
