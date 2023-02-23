@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef, useMemo } from 'react';
 import ReactDOM, { createRoot } from "react-dom/client";
-import { GoogleMap, LoadScript, Marker, InfoWindow } from '@react-google-maps/api';
+import { GoogleMap, LoadScript, Marker, InfoWindow, } from '@react-google-maps/api';
 import { Modal } from '@mui/material';
 import { Typography } from "@mui/material";
 import { Box } from "@mui/material";
@@ -10,12 +10,14 @@ import { display } from '@mui/system';
 const MapContainer = (props) => {
 
   const google = window.google;
+  const [currMap, setMap] = useState({})
   const [center, setCenter] = useState({ lat: props.lat, lng: props.lng });
   const [mapStyles, setMapStyles] = useState({
     height: "100vh",
     width: "100%"
   })
   const [query, setQuery] = useState(props.type)
+  const service = useRef(null)
   const [open, setOpen] = useState(false);
   const [selected, setSelected] = useState(null);
   const [markers, setMarkers] = useState([]);
@@ -29,22 +31,43 @@ const MapContainer = (props) => {
         radius: "5",
         query: query
       };
-      const service = new google.maps.places.PlacesService(map)
-      service.textSearch(request, callback);
+      service.current = new google.maps.places.PlacesService(map)
+      console.log(service)
+      service.current.textSearch(request, callback);
       function callback(results, status) {
+        console.log(status)
         if (status === google.maps.places.PlacesServiceStatus.OK) {
           for (var i = 0; i < results.length; i++) {
-            console.log(results[i])
             places.push(results[i])
           }
-          console.log(places.length)
           setMarkers(places)
         }
       }
-    }, [query]
+    }, [center]
   )
 
+  const changeMarker = () => {
+    var request = {
+      location: center,
+      radius: "5",
+      query: query
+    };
+    console.log(service)
+    service.current.textSearch(request, callback);
+    function callback(results, status) {
+      console.log(status)
+      if (status === google.maps.places.PlacesServiceStatus.OK) {
+        for (var i = 0; i < results.length; i++) {
+          places.push(results[i])
+        }
+        setMarkers(places)
+      }
+    }
+  }
+
+
   const map = <GoogleMap
+    ref={(map) => setMap(map)}
     mapContainerStyle={mapStyles}
     zoom={props.zoom}
     center={center}
@@ -88,8 +111,6 @@ const MapContainer = (props) => {
     </InfoWindow>) : null}
   </GoogleMap>
 
-
-
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
 
@@ -99,6 +120,7 @@ const MapContainer = (props) => {
     setMarkers([])
     setQuery(query)
     handleClose()
+    changeMarker()
   }
 
   const onSelect = item => {
@@ -117,16 +139,10 @@ const MapContainer = (props) => {
     p: 4,
   };
 
-  //map needs constraints in order to show up
-
-  //coordinates of the center of the map
-
-
   if (props.status) {
     return (
       <>
         {map}
-        {onLoad()}
         {open ? <Modal
           open={open}
           onClose={handleClose}
