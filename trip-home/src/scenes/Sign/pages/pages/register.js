@@ -1,18 +1,22 @@
 import React, { useEffect, useState } from "react";
 import { useAuthState } from "react-firebase-hooks/auth";
 import { Link, useNavigate } from "react-router-dom";
+import {useMutation} from '@apollo/client';
 import {
   auth,
   registerWithEmailAndPassword,
   signInWithGoogle,
 } from "./firebase";
-import "../styles/Register.css";
+import "../styles/register.css";
+import {CREATE_TRIP_USER} from '../../../TestingDatabase/GraphQL/inserts.js';
 
 function Register() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [name, setName] = useState("");
   const [user, loading, error] = useAuthState(auth);
+  const [phone_number, setPhone_number] = useState("");
+  const [user_name, setUser_name] = useState("");
   const navigate = useNavigate();
   const register = () => {
     if (!name) alert("Please enter name");
@@ -20,8 +24,21 @@ function Register() {
   };
   useEffect(() => {
     if (loading) return;
-    if (user) navigate.replace("/dashboard");
+    //if (user) navigate.replace("/dashboard");
   }, [user, loading]);
+
+  //mutation call for adding the user to our personal database
+  const [db_register, {db_loading, db_error, db_data}] = useMutation(CREATE_TRIP_USER, {
+    variables: {
+      email: email,
+      password: password,
+      phone_number: phone_number, //temporary until we add a field for user to input their phone number
+      user_name: user_name, // temporary until we add a field for user to input their user name
+      first_name: name.split(" ")[0],
+      last_name: name.split(" ")[1]
+    }
+  });
+
   return (
     <div className="register">
       <div className="register__container">
@@ -40,13 +57,30 @@ function Register() {
           placeholder="E-mail Address"
         />
         <input
+          type="text"
+          className="register__textBox"
+          value={user_name}
+          onChange={(e) => setUser_name(e.target.value)}
+          placeholder="Username"
+        />
+        <input
+          type="text"
+          className="register__textBox"
+          value={phone_number}
+          onChange={(e) => setPhone_number(e.target.value)}
+          placeholder="Phone number"
+        />
+        <input
           type="password"
           className="register__textBox"
           value={password}
           onChange={(e) => setPassword(e.target.value)}
           placeholder="Password"
         />
-        <button className="register__btn" onClick={register}>
+        <button className="register__btn" disabled={db_loading} onClick={() => {
+          register();
+          db_register();
+        }}>
           Register
         </button>
         <button
