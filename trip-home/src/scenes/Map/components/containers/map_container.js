@@ -1,16 +1,16 @@
 import React, { useState, useEffect, useRef, useMemo } from 'react';
 import ReactDOM, { createRoot } from "react-dom/client";
 import { GoogleMap, LoadScript, Marker, InfoWindow } from '@react-google-maps/api';
-import {Modal} from '@mui/material';
+import { Modal } from '@mui/material';
 import { Typography } from "@mui/material";
-import {Box} from "@mui/material";
+import { Box } from "@mui/material";
 import "../../../Splash/components/styles/button.css"
 import { display } from '@mui/system';
 
 const MapContainer = (props) => {
 
   const google = window.google;
-  const [center, setCenter] = useState({lat: props.lat, lng: props.lng});
+  const [center, setCenter] = useState({ lat: props.lat, lng: props.lng });
   const [mapStyles, setMapStyles] = useState({
     height: "100vh",
     width: "100%"
@@ -88,15 +88,16 @@ const MapContainer = (props) => {
     </InfoWindow>) : null}
   </GoogleMap>
 
-  
+
 
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
 
-  const modifyMarkers = ()  => {
+  const modifyMarkers = (query) => {
+    setCenter(selected.geometry.location)
+    setSelected(null)
     setMarkers([])
-    setQuery("hotel")
-    onLoad()
+    setQuery(query)
   }
 
   const onSelect = item => {
@@ -118,7 +119,7 @@ const MapContainer = (props) => {
   //map needs constraints in order to show up
 
   //coordinates of the center of the map
-  
+
 
   if (props.status) {
     return (
@@ -126,24 +127,26 @@ const MapContainer = (props) => {
         {map}
         {onLoad()}
         {open ? <Modal
-                open={open}
-                onClose={handleClose}
-                aria-labelledby="modal-modal-title"
-                aria-describedby="modal-modal-description"
-            >
-                <Box sx={style}>
-                    <Typography id="modal-modal-title" variant="h6" component="h2">
-                        Now where?
-                    </Typography>
-                    <Typography id="modal-modal-description" sx={{ mt: 2 }}>
-                        Click one of the buttons below to change your available locations.
-                    </Typography>
-                    <div style={{display: "flex", flexDirection: "row"}}><button className='btn--primary btn' onClick={modifyMarkers}>food</button>
-                    <button className='btn--primary btn' onClick={modifyMarkers}>hotel</button>
-                    <button className='btn--primary btn' onClick={modifyMarkers}>activity</button></div>
-                    
-                </Box>
-            </Modal> : null}
+          open={open}
+          onClose={handleClose}
+          aria-labelledby="modal-modal-title"
+          aria-describedby="modal-modal-description"
+        >
+          <Box sx={style}>
+            <Typography id="modal-modal-title" variant="h6" component="h2">
+              Now where?
+            </Typography>
+            <Typography id="modal-modal-description" sx={{ mt: 2 }}>
+              Click one of the buttons below to change your available locations.
+            </Typography>
+            <div style={{ display: "flex", flexDirection: "row" }}>
+              <button className='btn--primary btn' onClick={() => modifyMarkers("food")}>food</button>
+              <button className='btn--primary btn' onClick={() => modifyMarkers("hotel")}>hotel</button>
+              <button className='btn--primary btn' onClick={() => modifyMarkers("fun")}>activity</button>
+            </div>
+
+          </Box>
+        </Modal> : null}
         {trip && (
           trip.map(tripNodes => (
             console.log(tripNodes.geometry.location),
