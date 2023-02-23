@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import ReactDOM, { createRoot } from "react-dom/client";
 import { GoogleMap, LoadScript, Marker, InfoWindow } from '@react-google-maps/api';
+import MarkerStyle from '../../images/MarkerTemplate2.svg'
 
 const MapContainer = (props) => {
 
@@ -42,6 +43,13 @@ const MapContainer = (props) => {
     width: "100%"
   };
 
+  const icon = {
+    url: MarkerStyle, // url
+    scaledSize: new google.maps.Size(50, 50), // scaled size
+    origin: new google.maps.Point(0,0), // origin
+    anchor: new google.maps.Point(0, 0) // anchor
+  };
+
   //coordinates of the center of the map
   const defaultCenter = {
     lat: props.lat, lng: props.lng
@@ -62,6 +70,8 @@ const MapContainer = (props) => {
       (
         markers.map(places => (
           <Marker
+            icon={icon}
+            
             key={places.place_id}
             position={places.geometry.location}
             onClick={() => {
