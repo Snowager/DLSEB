@@ -20,7 +20,7 @@ function TodoForm({ addTodo }) {
     <form onSubmit={handleSubmit}>
       <input
         type="text"
-        className="input"
+        className="input todo-list-margin"
         value={value}
         onChange={e => setValue(e.target.value)}
         placeholder="Add Your Own Place!"
@@ -30,13 +30,20 @@ function TodoForm({ addTodo }) {
 }
 function Todo({ todo, index, removeTodo }) {
   return (
-    <div
-      className="todo"
-    >
-      {todo.text}
-      <div>
-        <button className = "Remove_Button" onClick={() => removeTodo(index)}>Remove <i class="fa fa-trash" aria-hidden="true"></i>
-</button>
+    <div className="container">
+      <div className="row">
+        <div className="col-md-4 todo todo-list-margin align-items-center">
+          <img className="" src="https://bacibacirestaurant.files.wordpress.com/2020/02/chairs-cutlery-fork-9315.jpg" alt="temp food place" />
+        </div>
+        <div className="col-md-1"></div>
+        <div className="col-lg-5 todo-list-margin align-items-center">
+          {todo.text}
+        </div>
+        <div className="col-md-1 todo-list-margin align-items-start">
+          <button className="Remove_Button" onClick={() => removeTodo(index)}>
+            <i class="fa fa-trash" aria-hidden="true"> </i>
+          </button>
+        </div>
       </div>
     </div>
   );
@@ -74,7 +81,7 @@ const MapContainer = (props) => {
   //map needs constraints in order to show up
   const mapStyles = {
     height: "100vh",
-    width: "80%"
+    width: "70%"
   };
 
 
@@ -179,25 +186,25 @@ const MapContainer = (props) => {
 
   // only displays map if true is returned
   if (props.status) {
-    
+
     return (
       <>
         <div className='mapContainer'>
-        <div className="todo-list">
-        {todos.map((todo, index) => (
-          <Todo
-            key={index}
-            index={index}
-            todo={todo}
-            removeTodo={removeTodo}
-          />
-        ))}
-        <TodoForm addTodo={addTodo} />
-      </div>
+          <div className="todo-list">
+            {todos.map((todo, index) => (
+              <Todo
+                key={index}
+                index={index}
+                todo={todo}
+                removeTodo={removeTodo}
+              />
+            ))}
+            <TodoForm addTodo={addTodo} />
+          </div>
           {map}
           {/* conditional function to display mapped divs only if the "trip" array is not empty */}
           {/* This returns our list --TODO-- add overlay div (z-index, position: absolute in css) */}
-          
+
           <div className="tripContainer">
             {trip && (
               trip.map(tripNodes => (
