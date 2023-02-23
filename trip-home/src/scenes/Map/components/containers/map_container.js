@@ -152,13 +152,12 @@ const MapContainer = (props) => {
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
 
-  const modifyMarkers = (query) => {
+  const modifyMarkers = (query, center) => {
     setCenter(selected.geometry.location)
     setSelected(null)
     setMarkers([])
-    setQuery(query)
     handleClose()
-    changeMarker()
+    changeMarker(query, center)
   }
 
   const onSelect = item => {
@@ -196,10 +195,9 @@ const MapContainer = (props) => {
               Click one of the buttons below to change your available locations.
             </Typography>
             <div style={{ display: "flex", flexDirection: "row" }}>
-              <button className='btn--primary btn' onClick={() => (
-                modifyMarkers("food")) }>food</button>
-              <button className='btn--primary btn' onClick={() => modifyMarkers("hotel")}>hotel</button>
-              <button className='btn--primary btn' onClick={() => modifyMarkers("fun")}>activity</button>
+              <button className='btn--primary btn' onClick={() => (modifyMarkers("food", selected.geometry.location)) }>food</button>
+              <button className='btn--primary btn' onClick={() => modifyMarkers("hotel", selected.geometry.location)}>hotel</button>
+              <button className='btn--primary btn' onClick={() => modifyMarkers("fun", selected.geometry.location)}>activity</button>
             </div>
 
           </Box>
