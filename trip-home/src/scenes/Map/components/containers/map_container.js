@@ -1,6 +1,11 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect, useRef, useMemo } from 'react';
 import ReactDOM, { createRoot } from "react-dom/client";
-import { GoogleMap, LoadScript, Marker, InfoWindow } from '@react-google-maps/api';
+import { GoogleMap, LoadScript, Marker, InfoWindow, } from '@react-google-maps/api';
+import { Modal } from '@mui/material';
+import { Typography } from "@mui/material";
+import { Box } from "@mui/material";
+import "../../../Splash/components/styles/button.css"
+import { display } from '@mui/system';
 import Save_trip_button from '../fragments/save_trip_button.js';
 import StarRatings from 'react-star-ratings';
 import "../styles/map.css"
@@ -12,6 +17,15 @@ const MapContainer = (props) => {
 
   // these are our constant variables, anything using const [foo, bar] is a get/set essentially
   const google = window.google;
+  const [currMap, setMap] = useState({})
+  const [center, setCenter] = useState({ lat: props.lat, lng: props.lng });
+  const [mapStyles, setMapStyles] = useState({
+    height: "100vh",
+    width: "100%"
+  })
+  const [query, setQuery] = useState(props.type)
+  const service = useRef(null)
+  const [open, setOpen] = useState(false);
   const [selected, setSelected] = useState(null);
   const [markers, setMarkers] = useState([]);
   const [trip, setTrip] = useState([]);
@@ -33,14 +47,14 @@ const MapContainer = (props) => {
   // React callback to load map
   const onLoad = React.useCallback(
     function onLoad(map) {
-      const service = new google.maps.places.PlacesService(map)
       var request = {
-        location: map.center,
+        location: center,
         radius: "5",
-        query: props.type
+        query: query
       };
-      // -places- text search returns locations that fit the partial search provided with props.type
-      service.textSearch(request, callback);
+      service.current = new google.maps.places.PlacesService(map)
+      console.log(service)
+      service.current.textSearch(request, callback);
       function callback(results, status) {
         // only pushes results if it gets an OK status
         if (status === google.maps.places.PlacesServiceStatus.OK) {
@@ -56,23 +70,36 @@ const MapContainer = (props) => {
         }
         // --TODO-- add "else" block for a failed status return
       }
-    }
+    }, [center]
   )
 
-  // container for the map
+  const changeMarker = () => {
+    var request = {
+      location: center,
+      radius: "5",
+      query: query
+    };
+    console.log(service)
+    service.current.textSearch(request, callback);
+    function callback(results, status) {
+      console.log(status)
+      if (status === google.maps.places.PlacesServiceStatus.OK) {
+        for (var i = 0; i < results.length; i++) {
+          places.push(results[i])
+        }
+        setMarkers(places)
+      }
+    }
+  }
 
-  // lines underneath are options
+
   const map = <GoogleMap
+    ref={(map) => setMap(map)}
     mapContainerStyle={mapStyles}
     zoom={props.zoom}
-    center={defaultCenter}
-    onLoad={onLoad}>
-
-
-    {/* brackets let us use javascript inline */}
-    
-    
-    {/* this format (item + && + (functional output)) checks for places being not null, before trying to map the markers in our array*/}
+    center={center}
+    onLoad={onLoad}
+  >
     {
       places &&
       (
@@ -128,13 +155,61 @@ const MapContainer = (props) => {
     </InfoWindow>) : null}
   </GoogleMap>
 
-  // only displays map if true is returned
+  const handleOpen = () => setOpen(true);
+  const handleClose = () => setOpen(false);
+
+  const modifyMarkers = (query) => {
+    setCenter(selected.geometry.location)
+    setSelected(null)
+    setMarkers([])
+    setQuery(query)
+    handleClose()
+    changeMarker()
+  }
+
+  const onSelect = item => {
+    setSelected(item);
+  }
+
+  const style = {
+    position: 'absolute',
+    top: '50%',
+    left: '50%',
+    transform: 'translate(-50%, -50%)',
+    width: 400,
+    bgcolor: 'background.paper',
+    border: '2px solid #000',
+    boxShadow: 24,
+    p: 4,
+  };
+
+  
   if (props.status) {
     return (
       <>
         {map}
-        {/* conditional function to display mapped divs only if the "trip" array is not empty */}
-        {/* This returns our list --TODO-- add overlay div (z-index, position: absolute in css) */}
+        {open ? <Modal
+          open={open}
+          onClose={handleClose}
+          aria-labelledby="modal-modal-title"
+          aria-describedby="modal-modal-description"
+        >
+          <Box sx={style}>
+            <Typography id="modal-modal-title" variant="h6" component="h2">
+              Now where?
+            </Typography>
+            <Typography id="modal-modal-description" sx={{ mt: 2 }}>
+              Click one of the buttons below to change your available locations.
+            </Typography>
+            <div style={{ display: "flex", flexDirection: "row" }}>
+              <button className='btn--primary btn' onClick={() => (
+                modifyMarkers("food")) }>food</button>
+              <button className='btn--primary btn' onClick={() => modifyMarkers("hotel")}>hotel</button>
+              <button className='btn--primary btn' onClick={() => modifyMarkers("fun")}>activity</button>
+            </div>
+
+          </Box>
+        </Modal> : null}
         {trip && (
           trip.map(tripNodes => (
             <div style={{ color: 'white' }}>
