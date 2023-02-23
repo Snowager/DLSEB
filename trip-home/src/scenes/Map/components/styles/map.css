@@ -63,5 +63,11 @@
 }
 
 .todo-list-margin {
-  margin-top: 10px;
+  margin-top: 20px;
+}
+
+.todo-form {
+  width: 56.5vh;
+  margin-left: 10px;
+  margin-right: 10px;
 }
