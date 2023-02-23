@@ -36,12 +36,6 @@ const MapContainer = (props) => {
     lat: props.lat, lng: props.lng
   };
 
-  //map needs constraints in order to show up
-  const mapStyles = {
-    height: "100vh",
-    width: "100%"
-  };
-
 
 
   // React callback to load map
