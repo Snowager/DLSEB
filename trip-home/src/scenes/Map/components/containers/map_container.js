@@ -12,67 +12,8 @@ import "../styles/map.css"
 
 
 // passes props to the map container
-function TodoForm({ addTodo }) {
-  const [value, setValue] = React.useState("");
-
-  const handleSubmit = e => {
-    e.preventDefault();
-    if (!value) return;
-    addTodo(value);
-    setValue("");
-  };
-
-  return (
-    <form onSubmit={handleSubmit}>
-      <input
-        type="text"
-        className="input todo-list-margin todo-form "
-        value={value}
-        onChange={e => setValue(e.target.value)}
-        placeholder="Add Your Own Place!"
-      />
-    </form>
-  );
-}
-function Todo({ todo, index, removeTodo }) {
-  return (
-    <div className="container">
-      <div className="row todo-list-margin">
-        <div className="col-md-4 todo">
-          <img className="" src="https://bacibacirestaurant.files.wordpress.com/2020/02/chairs-cutlery-fork-9315.jpg" alt="temp food place" />
-        </div>
-        <div className="col-md-1"></div>
-        <div className="col-xl-5">
-          {todo.text}
-        </div>
-        <div className="col-md-1">
-          <button className="Remove_Button" onClick={() => removeTodo(index)}>
-            <i class="fa fa-trash" aria-hidden="true"> </i>
-          </button>
-        </div>
-      </div>
-    </div>
-  );
-}
 
 const MapContainer = (props) => {
-  const [todos, setTodos] = React.useState([
-  ]);
-
-  const addTodo = text => {
-    const newTodos = [...todos, { text }];
-    setTodos(newTodos);
-  };
-
-
-  const removeTodo = index => {
-    const newTodos = [...todos];
-    newTodos.splice(index, 1);
-    setTodos(newTodos);
-  };
-  const [value, setValue] = React.useState("");
-
-  // these are our constant variables, anything using const [foo, bar] is a get/set essentially
   const google = window.google;
   const [currMap, setMap] = useState({})
   const [center, setCenter] = useState({ lat: props.lat, lng: props.lng });
@@ -86,12 +27,70 @@ const MapContainer = (props) => {
   const [selected, setSelected] = useState(null);
   const [markers, setMarkers] = useState([]);
   const [trip, setTrip] = useState([]);
+  // const [photo, setPhoto] = useState(null);
   const places = [];
+  const [todos, setTodos] = React.useState([
+  ]);
 
-  //coordinates of the center of the map
-  const defaultCenter = {
-    lat: props.lat, lng: props.lng
+  const addTodo = text => {
+    const newTodos = [...todos, { text }];
+    setTodos(newTodos);
   };
+
+  function TodoForm({ addTodo }) {
+    const [value, setValue] = React.useState("");
+  
+    const handleSubmit = e => {
+      e.preventDefault();
+      if (!value) return;
+      addTodo(value);
+      setValue("");
+    };
+  
+    return (
+      <form onSubmit={handleSubmit}>
+        <input
+          type="text"
+          className="input todo-list-margin todo-form "
+          value={value}
+          onChange={e => setValue(e.target.value)}
+          placeholder="Add Your Own Place!"
+        />
+      </form>
+    );
+  }
+  function Todo({ todo, index, removeTodo }) {
+    return (
+      <div className="container">
+        <div className="row todo-list-margin">
+          <div className="col-md-4 todo">
+            {selected.photos ? <img className="" src={selected.photos[0].getUrl()} alt={selected.name} /> : <img className="" src="https://bacibacirestaurant.files.wordpress.com/2020/02/chairs-cutlery-fork-9315.jpg" alt="temp food place" />}
+            
+          </div>
+          <div className="col-md-1"></div>
+          <div className="col-xl-5">
+            {todo.text}
+          </div>
+          <div className="col-md-1">
+            <button className="Remove_Button" onClick={() => removeTodo(index)}>
+              <i class="fa fa-trash" aria-hidden="true"> </i>
+            </button>
+          </div>
+        </div>
+      </div>
+    );
+  }
+
+
+  const removeTodo = index => {
+    const newTodos = [...todos];
+    newTodos.splice(index, 1);
+    setTodos(newTodos);
+  };
+  const [value, setValue] = React.useState("");
+
+  // these are our constant variables, anything using const [foo, bar] is a get/set essentially
+  
 
 
 
@@ -177,7 +176,7 @@ const MapContainer = (props) => {
       {/* infoWindow can have one child div. Can still include other components inside the window via nesting and flex arrangement*/}
       <div>
         <div className='photoContainer card'>
-          {selected.photos ? (<img src={selected.photos[0].getUrl()}></img>) : null}
+          {selected.photos ? <img src={selected.photos[0].getUrl()}></img> : null}
           
           <div className="starContainer"><div className='star'><StarRatings
             rating={selected.rating}
