@@ -33,6 +33,13 @@ const MapContainer = (props) => {
   const [todos, setTodos] = React.useState([
   ]);
 
+  const icon = {
+    url: MarkerStyle, // url
+    scaledSize: new google.maps.Size(40, 40), // scaled size
+    origin: new google.maps.Point(0,0), // origin
+    anchor: new google.maps.Point(0, 0) // anchor
+  };
+
   const addTodo = text => {
     const newTodos = [...todos, { text }];
     setTodos(newTodos);
