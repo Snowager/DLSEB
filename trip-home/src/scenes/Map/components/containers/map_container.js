@@ -9,9 +9,6 @@ import { display } from '@mui/system';
 import Save_trip_button from '../fragments/save_trip_button.js';
 import StarRatings from 'react-star-ratings';
 import "../styles/map.css"
-
-
-// passes props to the map container
 import MarkerStyle from '../../images/markerTemplate4.svg'
 
 const MapContainer = (props) => {
@@ -35,7 +32,7 @@ const MapContainer = (props) => {
 
   const icon = {
     url: MarkerStyle, // url
-    scaledSize: new google.maps.Size(40, 40), // scaled size
+    scaledSize: new google.maps.Size(50, 50), // scaled size
     origin: new google.maps.Point(0,0), // origin
     anchor: new google.maps.Point(0, 0) // anchor
   };
@@ -72,8 +69,8 @@ const MapContainer = (props) => {
       <div className="container">
         <div className="row todo-list-margin">
           <div className="col-md-4 todo">
-            {todo.photos ? (<img className="" src={todo.photos[0].getUrl()} alt={"picture of "+todo.name} />) :
-            <img className="" src="https://bacibacirestaurant.files.wordpress.com/2020/02/chairs-cutlery-fork-9315.jpg" alt="temp food place" />}
+            {todo.photos ? (<img className="img-fluid w-80" src={todo.photos[0].getUrl()} alt={"picture of "+todo.name} />) :
+            <img className="img-fluid w-80" src="https://bacibacirestaurant.files.wordpress.com/2020/02/chairs-cutlery-fork-9315.jpg" alt="temp food place" />}
             
           </div>
           <div className="col-md-1"></div>
