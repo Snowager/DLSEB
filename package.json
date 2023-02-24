@@ -7,13 +7,16 @@
     "@react-google-maps/api": "^2.18.1",
     "google-map-react": "^2.2.0",
     "link-react": "^3.0.0",
+    "react-google-maps": "^9.4.5",
     "react-hook-google-maps": "^0.0.3",
     "react-router-dom": "^6.8.0",
+    "react-scripts": "^5.0.1",
+    "react-star-rating-component": "^1.4.1",
     "use-places-autocomplete": "^4.0.0"
   },
   "devDependencies": {
     "@ubilabs/google-maps-react-hooks": "^2.0.2",
-    "firebase": "^9.16.0",
+    "firebase": "^9.17.1",
     "gapi-script": "^1.2.0",
     "react-firebase-hooks": "^5.1.1",
     "react-google-login": "^5.2.2",

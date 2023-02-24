@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import ReactDOM, { createRoot } from "react-dom/client";
 import { GoogleMap, LoadScript, Marker, InfoWindow } from '@react-google-maps/api';
+import Save_trip_button from '../fragments/save_trip_button.js';
 import StarRatings from 'react-star-ratings';
 import "../styles/map.css"
 
@@ -177,6 +178,7 @@ const MapContainer = (props) => {
           <button
             onClick={() => {
               addTodo(selected.name, selected.place_id);
+              setTrip([...trip, selected])
             }}>
             Add to trip
           </button>
@@ -219,6 +221,7 @@ const MapContainer = (props) => {
             )}
           </div>
         </div>
+        <Save_trip_button id={props.id} trip={trip} city={props.city}/>
       </>
     )
   }
