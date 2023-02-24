@@ -56,7 +56,7 @@ const MapContainer = (props) => {
       <form onSubmit={handleSubmit}>
         <input
           type="text"
-          className="input todo-list-margin todo-form "
+          className="input"
           value={value}
           onChange={e => setValue(e.target.value)}
           placeholder="Add Your Own Place!"
@@ -67,7 +67,7 @@ const MapContainer = (props) => {
   function Todo({ todo, index, removeTodo }) {
     return (
       <div className="container">
-        <div className="row todo-list-margin">
+        <div className="row ">
           <div className="col-md-4 todo">
             {todo.photos ? (<img className="img-fluid w-80" src={todo.photos[0].getUrl()} alt={"picture of "+todo.name} />) :
             <img className="img-fluid w-80" src="https://bacibacirestaurant.files.wordpress.com/2020/02/chairs-cutlery-fork-9315.jpg" alt="temp food place" />}
@@ -83,7 +83,8 @@ const MapContainer = (props) => {
             </button>
           </div>
         </div>
-      </div>
+        <div className="todo-list-splitters"></div>
+    </div>
     );
   }
 
