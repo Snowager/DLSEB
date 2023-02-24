@@ -12,7 +12,7 @@ import "../styles/map.css"
 
 
 // passes props to the map container
-import MarkerStyle from '../../images/MarkerTemplate4.svg'
+import MarkerStyle from '../../images/markerTemplate4.svg'
 
 const MapContainer = (props) => {
   const google = window.google;
