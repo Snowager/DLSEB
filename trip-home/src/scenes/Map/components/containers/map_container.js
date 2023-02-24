@@ -64,7 +64,7 @@ const MapContainer = (props) => {
       <div className="container">
         <div className="row todo-list-margin">
           <div className="col-md-4 todo">
-            {selected.photos ? <img className="" src={selected.photos[0].getUrl()} alt={selected.name} /> : <img className="" src="https://bacibacirestaurant.files.wordpress.com/2020/02/chairs-cutlery-fork-9315.jpg" alt="temp food place" />}
+            <img className="" src="https://bacibacirestaurant.files.wordpress.com/2020/02/chairs-cutlery-fork-9315.jpg" alt="temp food place" />
             
           </div>
           <div className="col-md-1"></div>
@@ -176,7 +176,7 @@ const MapContainer = (props) => {
       {/* infoWindow can have one child div. Can still include other components inside the window via nesting and flex arrangement*/}
       <div>
         <div className='photoContainer card'>
-          {selected.photos ? <img src={selected.photos[0].getUrl()}></img> : null}
+          {selected.photos ? <img src={selected.photos[0].getUrl()} alt={"picture of "+selected.name}></img> : null}
           
           <div className="starContainer"><div className='star'><StarRatings
             rating={selected.rating}
