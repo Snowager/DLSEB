@@ -20,7 +20,7 @@ function TodoForm({ addTodo }) {
     <form onSubmit={handleSubmit}>
       <input
         type="text"
-        className="input todo-list-margin todo-form "
+        className="input"
         value={value}
         onChange={e => setValue(e.target.value)}
         placeholder="Add Your Own Place!"
@@ -31,7 +31,7 @@ function TodoForm({ addTodo }) {
 function Todo({ todo, index, removeTodo }) {
   return (
     <div className="container">
-      <div className="row todo-list-margin">
+      <div className="row ">
         <div className="col-md-4 todo">
           <img className="" src="https://bacibacirestaurant.files.wordpress.com/2020/02/chairs-cutlery-fork-9315.jpg" alt="temp food place" />
         </div>
@@ -45,6 +45,7 @@ function Todo({ todo, index, removeTodo }) {
           </button>
         </div>
       </div>
+      <div className="todo-list-splitters"></div>
     </div>
   );
 }
