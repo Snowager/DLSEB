@@ -64,12 +64,13 @@ const MapContainer = (props) => {
       <div className="container">
         <div className="row todo-list-margin">
           <div className="col-md-4 todo">
-            <img className="" src="https://bacibacirestaurant.files.wordpress.com/2020/02/chairs-cutlery-fork-9315.jpg" alt="temp food place" />
+            {todo.photos ? (<img className="" src={todo.photos[0].getUrl()} alt={"picture of "+todo.name} />) :
+            <img className="" src="https://bacibacirestaurant.files.wordpress.com/2020/02/chairs-cutlery-fork-9315.jpg" alt="temp food place" />}
             
           </div>
           <div className="col-md-1"></div>
           <div className="col-xl-5">
-            {todo.text}
+            {todo.name}
           </div>
           <div className="col-md-1">
             <button className="Remove_Button" onClick={() => removeTodo(index)}>
@@ -197,8 +198,7 @@ const MapContainer = (props) => {
           </p>
           <button
             onClick={() => {
-              addTodo(selected.name, selected.place_id);
-              setTrip([...trip, selected])
+              setTodos([...todos, selected]);
               handleOpen()
             }}>
             Add to trip
