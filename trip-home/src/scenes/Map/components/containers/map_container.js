@@ -141,6 +141,7 @@ const MapContainer = (props) => {
           <button
             onClick={() => {
               setTrip([...trip, selected])
+              handleOpen()
             }}>
             Add to trip
           </button>
