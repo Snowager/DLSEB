@@ -12,6 +12,7 @@ import "../styles/map.css"
 
 
 // passes props to the map container
+import MarkerStyle from '../../images/MarkerTemplate4.svg'
 
 const MapContainer = (props) => {
   const google = window.google;
@@ -157,6 +158,8 @@ const MapContainer = (props) => {
         ({/* Marker options. Needs a key and position to display on map. position is lat/lng coords */ }),
         markers.map(places => (
           <Marker
+            icon={icon}
+            
             key={places.place_id}
             position={places.geometry.location}
             onClick={() => {
