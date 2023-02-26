@@ -40,17 +40,20 @@ const Saved_activities = (props) => {
 
     //once the above query has finished, grab all items in the returned list
     useEffect(() => {
-      if(activity_status == "complete"){
-        setActivity_status("waiting")
-        if(activity_data == undefined){
-          console.log("were here babes")
-          get_activities({variables: {user_id: 1}, onCompleted: setActivity_status("complete")})
-        }
-        
+      if(activity_status == "complete" && activity_data != undefined){        
         console.log("activity data")
         console.log("here be the user id " + user_id)
         console.log(activity_data)
         setActivities(activity_data.saved_activity)
+      }
+      if(activity_status == "waiting"){
+        console.log("just wait")
+      }
+      else{
+        setActivity_status("waiting")
+        console.log("something")
+        get_activities({variables: {user_id: 1}, onCompleted: setActivity_status("complete")})
+
       }
     }, [activity_status])
     
