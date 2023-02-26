@@ -1,4 +1,83 @@
 #map {
-    height:150px;
-    width:150px;
-  }
+  height: 150px;
+  width: 150px;
+}
+
+.photoContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 1em;
+}
+
+.starContainer {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  font-size: 18px;
+  padding-left: 40px;
+
+}
+
+.star {
+  padding-bottom: 4px;
+}
+
+.rating {
+  padding: .5em;
+}
+
+.mapContainer {
+  display: flex;
+  flex-direction: row-reverse
+}
+
+.tripContainer {
+  display: flex;
+  flex-direction: column;
+}
+
+.todo-list {
+  color: white;
+  font-size: 16px;
+  background: rgb(86, 86, 86);
+  display: flex;
+  order: 1;
+  flex-direction: column;
+  overflow-x: hidden;
+  overflow-y: scroll;
+  overflow-wrap: break-word;
+  max-height: 100vh;
+  width: 30%;
+  padding-top: 10px;
+  padding-bottom: 10px;
+}
+
+.Remove_Button {
+  background-color: red;
+  border: none;
+  color: white;
+  padding: 1px 6px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+}
+
+.todo-list-margin {
+  margin-top: 20px;
+}
+
+/* .todo-form {
+  width: 56.5vh;
+  margin-left: 10px;
+  margin-right: 10px;
+} */
+
+.todo-list-splitters {
+  border: 1px solid rgba(211, 211, 211, 0.37);
+  margin-left: 5px;
+  margin-right: 5px;
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
