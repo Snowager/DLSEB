@@ -71,6 +71,7 @@ function MapSearchBar() {
         setDrop_value(event.target.value);
     };
 
+
     const { isLoaded } = useLoadScript({
         googleMapsApiKey: "AIzaSyCbEViNtWBZefKVLluU-rWvH4fVKYz5Uuk",
         libraries: ["places"],
@@ -110,13 +111,20 @@ function MapSearchBar() {
                     Activity
                 </Link>
                 <label> Packages
-                <select value={drop_value} onChange={handleChange}>
-                    <option value="Dinner and a Movie" className='btn btn-light'> Dinner and a Movie</option>
+                    <select value={drop_value} onChange={handleChange}>
+                        <option value="Dinner and a Movie" className='btn btn-light'> Dinner and a Movie</option>
 
-                    <option value="family day" className='btn btn-light'>         Family Day</option>
+                        <option value="family day" className='btn btn-light'>         Family Day</option>
 
-                    <option value="Weekend vacation" className='btn btn-light'>   Weekend Vacation</option>
-                </select>
+                        <option value="Weekend vacation" className='btn btn-light'>   Weekend Vacation</option>
+                    </select>
+                    <Link
+                        to={`MapPage/${drop_value}$/${setSelected.lat}/${setSelected.lng}`}
+                        className='btn btn-light'
+                        onClick={() => pushType("package")}
+                        state={selected}>
+                        Choose Package
+                    </Link>
                 </label>
             </div>
         </>
