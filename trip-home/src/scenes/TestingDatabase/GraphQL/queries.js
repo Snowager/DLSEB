@@ -2,7 +2,7 @@ import React from 'react';
 import { useQuery, useLazyQuery, gql } from '@apollo/client';
 
 export const GET_TRIP_USER_BY_ID = gql`
-query Search($user_id: Int) {
+query getuserbyid($user_id: Int) {
     trip_user(where: {user_id: {_eq: $user_id}}) {
       email
       first_name
@@ -16,7 +16,7 @@ query Search($user_id: Int) {
 `;
 
 export const GET_TRIP_USER_BY_EMAIL = gql`
-query Search($email: String) {
+query getuserbyemail($email: String) {
     trip_user(where: {email: {_eq: $email}}) {
       email
       first_name
@@ -136,6 +136,17 @@ query MyQuery($trip_id: String!) {
   in_trip(where: {trip_id: {_eq: $trip_id}}) {
     id
     trip_id
+  }
+}
+`;
+
+export const GET_SAVED_ACTIVITY = gql`
+query getsavedactivities($user_id: Int!) {
+  saved_activity(where: {user_id: {_eq: $user_id}}) {
+    service_id
+    name
+    lng
+    lat
   }
 }
 `;
