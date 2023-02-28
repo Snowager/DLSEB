@@ -70,7 +70,7 @@ function MapSearchBar() {
         type: "yours ;)",
     }
     const [selected, setSelected] = useState(dummyitem);
-    const [drop_value, setDrop_value] = React.useState('fruit');
+    const [drop_value, setDrop_value] = React.useState('dinner_movie');
     
     const handleChange = (event) => {
         setDrop_value(event.target.value);
