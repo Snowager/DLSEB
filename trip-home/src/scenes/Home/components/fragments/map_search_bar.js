@@ -117,14 +117,14 @@ function MapSearchBar() {
                 </Link>
                 <label> Packages
                     <select value={drop_value} onChange={handleChange}>
-                        <option value="Dinner and a Movie" className='btn btn-light'> Dinner and a Movie</option>
+                        <option value="dinner_movie" className='btn btn-light'> Dinner and a Movie</option>
 
-                        <option value="family day" className='btn btn-light'>         Family Day</option>
+                        <option value="family" className='btn btn-light'>         Family Day</option>
 
-                        <option value="Weekend vacation" className='btn btn-light'>   Weekend Vacation</option>
+                        <option value="weekend_vacation" className='btn btn-light'>   Weekend Vacation</option>
                     </select>
                     <Link
-                        to={`MapPage/${drop_value}$/${selected.lat}/${selected.lng}`}
+                        to={`Package/${drop_value}/${selected.lat}/${selected.lng}`}
                         className='btn btn-light'
                         onClick={() => pushType("package")}
                         state={selected}>
