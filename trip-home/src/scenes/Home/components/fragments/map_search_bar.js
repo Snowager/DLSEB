@@ -64,7 +64,12 @@ const PlacesAutocomplete = ({ setSelected }) => {
 
 
 function MapSearchBar() {
-    const [selected, setSelected] = useState(null);
+    const dummyitem = {
+        lat: 69,
+        lng: 420,
+        type: "yours ;)",
+    }
+    const [selected, setSelected] = useState(dummyitem);
     const [drop_value, setDrop_value] = React.useState('fruit');
     
     const handleChange = (event) => {
@@ -90,21 +95,21 @@ function MapSearchBar() {
 
             <div className="places-container mx-auto">
                 <Link
-                    to={`MapPage/restaurant/${setSelected.lat}/${setSelected.lng}`}
+                    to={`MapPage/restaurant/${selected.lat}/${selected.lng}`}
                     className='btn btn-light'
                     onClick={() => pushType("restaurant")}
                     state={selected}>
                     Food
                 </Link>
                 <Link
-                    to={`MapPage/hotel/${setSelected.lat}/${setSelected.lng}`}
+                    to={`MapPage/hotel/${selected.lat}/${selected.lng}`}
                     className='btn btn-light'
                     onClick={() => pushType("hotel")}
                     state={selected}>
                     Hotel
                 </Link>
                 <Link
-                    to={`MapPage/activity/${setSelected.lat}/${setSelected.lng}`}
+                    to={`MapPage/activity/${selected.lat}/${selected.lng}`}
                     className='btn btn-light'
                     onClick={() => pushType("fun")}
                     state={selected}>
@@ -119,7 +124,7 @@ function MapSearchBar() {
                         <option value="Weekend vacation" className='btn btn-light'>   Weekend Vacation</option>
                     </select>
                     <Link
-                        to={`MapPage/${drop_value}$/${setSelected.lat}/${setSelected.lng}`}
+                        to={`MapPage/${drop_value}$/${selected.lat}/${selected.lng}`}
                         className='btn btn-light'
                         onClick={() => pushType("package")}
                         state={selected}>
