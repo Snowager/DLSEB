@@ -81,3 +81,14 @@
   margin-top: 10px;
   margin-bottom: 10px;
 }
+
+.todo-list-opacity:hover {
+  opacity: 0.5;
+  transition: 0.3s;
+}
+
+.center {
+  display: "flex";
+  justify-content: "center";
+  align-items: "center";
+}
