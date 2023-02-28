@@ -1,4 +1,3 @@
-import React from 'react';
 import { gql } from '@apollo/client';
 
 export const CREATE_TRIP_USER = gql`

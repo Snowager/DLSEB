@@ -65,6 +65,11 @@ const PlacesAutocomplete = ({ setSelected }) => {
 
 function MapSearchBar() {
     const [selected, setSelected] = useState(null);
+    const [drop_value, setDrop_value] = React.useState('fruit');
+    
+    const handleChange = (event) => {
+        setDrop_value(event.target.value);
+    };
 
     const { isLoaded } = useLoadScript({
         googleMapsApiKey: "AIzaSyCbEViNtWBZefKVLluU-rWvH4fVKYz5Uuk",
@@ -104,6 +109,15 @@ function MapSearchBar() {
                     state={selected}>
                     Activity
                 </Link>
+                <label> Packages
+                <select value={drop_value} onChange={handleChange}>
+                    <option value="Dinner and a Movie" className='btn btn-light'> Dinner and a Movie</option>
+
+                    <option value="family day" className='btn btn-light'>         Family Day</option>
+
+                    <option value="Weekend vacation" className='btn btn-light'>   Weekend Vacation</option>
+                </select>
+                </label>
             </div>
         </>
     );
