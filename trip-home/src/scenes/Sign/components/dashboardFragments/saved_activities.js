@@ -33,7 +33,7 @@ const Saved_activities = (props) => {
    
     //once the user_id is changed to an actual id in db, run the above query
     useEffect(() => {
-      if(user_id != ""){
+      if(user_id !== ""){
         get_activities({variables: {user_id: 1}, onCompleted: setActivity_status("complete")})
       }
     }, [user_id])
@@ -60,6 +60,7 @@ const Saved_activities = (props) => {
     
     if(activity_loading) return  <div> loading, please hold </div>
     if(activity_error) return    <div> {`Error! ${user_error.message}`}</div>
+    if(activity_data == undefined) return <div> error, try something else lol </div>
     if(activity_data && activity_data.saved_activity.length != 0){
         console.log("email: " + email)
 
