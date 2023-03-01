@@ -14,7 +14,6 @@ import MarkerStyle from '../../images/markerTemplate4.svg'
 const MapContainer = (props) => {
   const google = window.google;
   const [currMap, setMap] = useState({})
-  const [details, setDetails] = useState(false)
   const [center, setCenter] = useState({ lat: props.lat, lng: props.lng });
   const [mapStyles, setMapStyles] = useState({
     height: "100vh",
@@ -67,9 +66,12 @@ const MapContainer = (props) => {
   }
 
   function Todo({ todo, index, removeTodo }) {
+    const [open, setOpen] = React.useState(false);
+    const handleOpen = () => setOpen(true);
+    const handleClose = () => setOpen(false);
     return (
       <div className="container">
-        {details ? <Modal open={details} onClose={() => setDetails(false)} aria-labelledby="modal-modal-title" aria-describedby="modal-modal-description">
+        {open ? <Modal open={open} onClose={handleClose} aria-labelledby="modal-modal-title" aria-describedby="modal-modal-description">
           <Box sx={style}>
             <Typography id="modal-modal-title" variant="h6" component="h2">
               <img className="img-fluid w-80" src={todo.photos[0].getUrl()} alt={"picture of " + todo.name} />
@@ -77,20 +79,21 @@ const MapContainer = (props) => {
             <Typography id="modal-modal-description" sx={{ mt: 2 }}>
               <div className="starContainer">
                 <div className='star'>
-                  <StarRatings rating={selected.rating} starRatedColor="purple" starDimension="20px" starSpacing="8px" />
+                  <StarRatings rating={todo.rating} starRatedColor="purple" starDimension="20px" starSpacing="8px" />
                 </div>
-                <span className="rating" style={{ color: "blue" }}>{selected.rating} </span>
+                <span className="rating" style={{ color: "blue" }}>{todo.rating} </span>
               </div>
               <p>ratings total: ({todo.user_ratings_total})</p>
               <p>{todo.name}</p>
-              <p> {selected.formatted_address} </p>
+              <p> {todo.formatted_address} </p>
             </Typography>
           </Box>
         </Modal> : null}
-        <div className="row todo-list-opacity" onClick={() => setDetails(true)}>
-          <div className="col-md-4 todo">
-            {todo.photos ? (<img className="img-fluid w-80" src={todo.photos[0].getUrl()} alt={"picture of " + todo.name} />) :
+        <div className="row todo-list-opacity todo-list-margin" onClick={handleOpen}>
+          <div className="col-md-4 todo todo-list-photos">
+            {todo.photos ? (<img className="img-fluid w-80 todo-list-photos" src={todo.photos[0].getUrl()} alt={"picture of " + todo.name} />) :
               <img className="img-fluid w-80" src="https://bacibacirestaurant.files.wordpress.com/2020/02/chairs-cutlery-fork-9315.jpg" alt="temp food place" />}
+
           </div>
           <div className="col-md-1"></div>
           <div className="col-xl-5">
@@ -106,6 +109,7 @@ const MapContainer = (props) => {
       </div>
     );
   }
+
 
 
   const removeTodo = index => {
