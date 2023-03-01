@@ -67,8 +67,10 @@ const MapContainer = (props) => {
 
   function Todo({ todo, index, removeTodo }) {
     const [open, setOpen] = React.useState(false);
+    const [del, setDel] = React.useState(false);
     const handleOpen = () => setOpen(true);
-    const handleClose = () => setOpen(false);
+    const handleDel = () => setDel(true);
+    const handleClose = () => setOpen(false) + setDel(false);
     return (
       <div className="container">
         {open ? <Modal open={open} onClose={handleClose} aria-labelledby="modal-modal-title" aria-describedby="modal-modal-description">
@@ -89,18 +91,30 @@ const MapContainer = (props) => {
             </Typography>
           </Box>
         </Modal> : null}
+        {del ? <Modal open={del} onClose={handleClose} aria-labelledby="modal-modal-title" aria-describedby="modal-modal-description">
+          <Box sx={style}>
+            <Typography id="modal-modal-title" variant="h6" component="h2">
+              Delete Item?
+            </Typography>
+            <Typography id="modal-modal-description" sx={{ mt: 2 }}>
+              <p>Are you sure you would like to remove {todo.name} from your trip?</p>
+            </Typography>
+            <button className='btn btn-success' onClick={() => handleClose()}>Keep</button>
+            <button className='btn btn-danger' onClick={() => removeTodo(index)}>DELETE</button>
+          </Box>
+        </Modal> : null}
+
         <div className="row todo-list-opacity todo-list-margin" onClick={handleOpen}>
           <div className="col-md-4 todo todo-list-photos">
             {todo.photos ? (<img className="img-fluid w-80 todo-list-photos" src={todo.photos[0].getUrl()} alt={"picture of " + todo.name} />) :
               <img className="img-fluid w-80" src="https://bacibacirestaurant.files.wordpress.com/2020/02/chairs-cutlery-fork-9315.jpg" alt="temp food place" />}
-
           </div>
           <div className="col-md-1"></div>
           <div className="col-xl-5">
             {todo.name}
           </div>
           <div className="col-md-1">
-            <button className="Remove_Button" onClick={() => removeTodo(index)}>
+            <button className="Remove_Button" onClick={() => handleDel()}>
               <i class="fa fa-trash" aria-hidden="true"> </i>
             </button>
           </div>
@@ -206,6 +220,7 @@ const MapContainer = (props) => {
         setSelected(null)
       }}>
       {/* infoWindow can have one child div. Can still include other components inside the window via nesting and flex arrangement*/}
+     {/* FIX This container is being called when the "delete" button is pressed*/}
       <div>
         <div className='photoContainer card'>
           {selected.photos ? <img src={selected.photos[0].getUrl()} alt={"picture of " + selected.name}></img> : null}
@@ -305,7 +320,7 @@ const MapContainer = (props) => {
 
             </Box>
           </Modal> : null}
-
+          
 
         </div>
         <Save_trip_button id={props.id} trip={trip} city={props.city} />
