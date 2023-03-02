@@ -3,10 +3,9 @@ import { GoogleMap, Marker, } from '@react-google-maps/api';
 import "../../../Splash/components/styles/button.css"
 import Save_trip_button from '../fragments/save_trip_button.js';
 import "../styles/map.css"
-import MarkerStyle from '../../images/markerTemplate4.svg'
-import MarkerWindow from "../fragments/markerWindow"
 import TodoList from "../fragments/todoList"
 import ChoiceModal from '../fragments/choiceModal';
+import MarkerInterface from '../fragments/markerInterface';
 
 const MapContainer = (props) => {
   const google = window.google;
@@ -28,13 +27,6 @@ const MapContainer = (props) => {
 
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
-
-  const icon = {
-    url: MarkerStyle, // url
-    scaledSize: new google.maps.Size(50, 50), // scaled size
-    origin: new google.maps.Point(0, 0), // origin
-    anchor: new google.maps.Point(0, 0) // anchor
-  };
 
   // React callback to load map
   const onLoad = React.useCallback(
@@ -92,35 +84,17 @@ const MapContainer = (props) => {
     center={center}
     onLoad={onLoad}
   >
-    {
-      places &&
-      (
-        ({/* Marker options. Needs a key and position to display on map. position is lat/lng coords */ }),
-        markers.map(places => (
-          <Marker
-            icon={icon}
+    <MarkerInterface 
+    places={places}
+    markers={markers}
+    selected={selected}
+    setSelected={setSelected}
+    setOpen={setOpen}
+    todos={todos}
+    setTodos={setTodos}
+    google={google}
+    />
 
-            key={places.place_id}
-            position={places.geometry.location}
-            onClick={() => {
-              setSelected(places)
-              console.log(selected)
-            }} />
-        )
-        )
-      )
-    }
-
-    {/*another conditional function for the infoWindow. Checks for marker existence to display, closes by changing the selected object back to null*/}
-    {selected ? (console.log("working"),
-      <MarkerWindow
-        selected={selected}
-        todos = {todos}
-        onClose={() => setSelected(null)}
-        setTodos={setTodos}
-        onClick={() => setOpen(!open)}
-
-      />) : null}
   </GoogleMap>
 
   const modifyMarkers = (query, center) => {
