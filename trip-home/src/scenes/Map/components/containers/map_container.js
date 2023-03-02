@@ -57,7 +57,7 @@ const MapContainer = (props) => {
         if (status === google.maps.places.PlacesServiceStatus.OK) {
           // 
           for (var i = 0; i < results.length; i++) {
-            setPrices(results)
+            setPrices(results[i])
             places.push(results[i])
           }
           setMarkers(places)
@@ -70,10 +70,10 @@ const MapContainer = (props) => {
   // Set a price value for generated locations with price data
   const setPrices = (results) => {
     var price = ""
-    for (var j = 0; j < results[i].price_level; j++) {
+    for (var j = 0; j < results.price_level; j++) {
       price += "$"
     }
-    results[i].priceString = price;
+    results.priceString = price;
   }
 
   // call this to modify markers properly (query - tag to search for, center - where to center the search)
@@ -96,7 +96,7 @@ const MapContainer = (props) => {
     function callback(results, status) {
       if (status === google.maps.places.PlacesServiceStatus.OK) {
         for (var i = 0; i < results.length; i++) {
-          setPrices(results)
+          setPrices(results[i])
           places.push(results[i])
         }
         setMarkers(places)
