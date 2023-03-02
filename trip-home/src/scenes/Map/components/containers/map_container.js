@@ -1,4 +1,4 @@
-import React, { useState, useRef } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import { GoogleMap, Marker, } from '@react-google-maps/api';
 import "../../../Splash/components/styles/button.css"
 import Save_trip_button from '../fragments/save_trip_button.js';
@@ -33,6 +33,7 @@ const MapContainer = (props) => {
   // const [photo, setPhoto] = useState(null);
   const places = [];
   const [todos, setTodos] = React.useState([]);
+  const [package_status, setPackage_status] = useState("loading");
 
   const handleClose = () => setOpen(false);
 
@@ -102,26 +103,56 @@ const MapContainer = (props) => {
 
   //Creates a trip consisting of a dinner and a movie node
   const dinner_movie = () => {
-      modifyMarkers("dinner", center);
-      setTodos([...todos, places[Math.random() * places.length]]);
-      modifyMarkers("movie", center);
-      setTodos([...todos, places[Math.random() * places.length]]);
+    setPackage_status("complete");
+    var dinner = {
+      location: center,
+      radius: "5",
+      query: "dinner"
     }
+    var movie = {
+      location: center,
+      radius: "5",
+      query: "movie"
+    }
+    service.current.textSearch(dinner, callback);
+    function callback(results, status) {
+      var num = Math.floor(Math.random() * (results.length -1));
+      console.log(num)
+      if (status === google.maps.places.PlacesServiceStatus.OK) {
+        setTodos([...todos, results[num]]);
+        service.current.textSearch(movie, addMovie);
+      }
+    }
+    function addMovie(results, status){
+      var num = Math.floor(Math.random() * (results.length -1));
+      console.log(num)
+      if (status === google.maps.places.PlacesServiceStatus.OK) {
+        setTodos([...todos, results[num]]);
+      }
+    }
+  }
 
   //Generate packages if necessary
   const packages = () => { // ---TODO--- Not sure where the appropriate place to put this is, Everything needs to be loaded on the map before it can be executed
-    if(props.package === "dinner_movie"){
+    console.log(service.current)
+    if(props.package === "dinner_movie" && package_status === "ready"){
       console.log("dinner_movie package loading");
       dinner_movie();
     }
-    else if(props.package === "family"){
+    else if(props.package === "family" && package_status === "ready"){
       console.log("family package loading");
     }
-    else if(props.package === "weekend_vacation"){
+    else if(props.package === "weekend_vacation" && package_status === "ready"){
       console.log("weekend_vacation package loading");
     }
     else{console.log("no package chosen");}
   }
+
+  useEffect(() => {
+    console.log(markers.length)
+    if(service.current !== null && markers.length > 0){ packages();}
+  }, [package_status])
+  
 
   // map object
   const map = <GoogleMap
