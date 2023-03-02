@@ -25,7 +25,6 @@ const MapContainer = (props) => {
   const places = [];
   const [todos, setTodos] = React.useState([]);
 
-  const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
 
   // React callback to load map
@@ -56,6 +55,14 @@ const MapContainer = (props) => {
       }
     }, [center]
   )
+
+  const modifyMarkers = (query, center) => {
+    setCenter(selected.geometry.location)
+    setSelected(null)
+    setMarkers([])
+    handleClose()
+    changeMarker(query, center)
+  }
 
   const changeMarker = (query, center) => {
     var request = {
@@ -90,6 +97,7 @@ const MapContainer = (props) => {
     selected={selected}
     setSelected={setSelected}
     setOpen={setOpen}
+    open={open}
     todos={todos}
     setTodos={setTodos}
     google={google}
@@ -97,17 +105,7 @@ const MapContainer = (props) => {
 
   </GoogleMap>
 
-  const modifyMarkers = (query, center) => {
-    setCenter(selected.geometry.location)
-    setSelected(null)
-    setMarkers([])
-    handleClose()
-    changeMarker(query, center)
-  }
 
-  const onSelect = item => {
-    setSelected(item);
-  }
 
   
 

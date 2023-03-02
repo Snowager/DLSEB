@@ -5,7 +5,6 @@ import MarkerWindow from "../fragments/markerWindow"
 
 const MarkerInterface = (props) => {
 
-    const [open, setOpen] = useState(false)
 
     const icon = {
         url: MarkerStyle, // url
@@ -42,7 +41,7 @@ const MarkerInterface = (props) => {
                     todos={props.todos}
                     onClose={() => props.setSelected(null)}
                     setTodos={props.setTodos}
-                    onClick={() => setOpen(!open)}
+                    onClick={() => props.setOpen(!props.open)}
 
                 /> : null}
         </div>
