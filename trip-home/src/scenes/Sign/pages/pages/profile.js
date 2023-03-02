@@ -4,11 +4,14 @@ import { useNavigate } from "react-router-dom";
 import "../styles/profile.css";
 import { auth, db, logout } from "./firebase";
 import { query, collection, getDocs, where } from "firebase/firestore";
+import { getAuth, onAuthStateChanged } from "firebase/auth";
 
 function Profile() {
+  const auth = getAuth();
   const [user, loading, error] = useAuthState(auth);
   const [name, setName] = useState("");
   const navigate = useNavigate();
+
   const fetchUserName = async () => {
     try {
       const q = query(collection(db, "users"), where("uid", "==", user?.uid));
@@ -25,10 +28,11 @@ function Profile() {
     if (!user) return navigate("/");
     fetchUserName();
   }, [user, loading]);
+
   return (
     <div className="profile">
        <div className="profile__container">
-        Logged in as
+        Welcome, logged in as:
          <div>{name}</div>
          <div>{user?.email}</div>
          <button className="profile__btn" onClick={logout}>

@@ -1,12 +1,8 @@
 import React, { useEffect, useState } from "react";
 import { useAuthState } from "react-firebase-hooks/auth";
 import { Link, useNavigate } from "react-router-dom";
-import {useMutation} from '@apollo/client';
-import {
-  auth,
-  registerWithEmailAndPassword,
-  signInWithGoogle,
-} from "./firebase";
+import { useMutation } from '@apollo/client';
+import { auth, registerWithEmailAndPassword, signInWithGoogle } from "./firebase";
 import "../styles/register.css";
 import {CREATE_TRIP_USER} from '../../../TestingDatabase/GraphQL/inserts.js';
 
@@ -24,7 +20,7 @@ function Register() {
   };
   useEffect(() => {
     if (loading) return;
-    //if (user) navigate.replace("/dashboard");
+    if (user) navigate.replace("/profile");
   }, [user, loading]);
 
   //mutation call for adding the user to our personal database

@@ -62,7 +62,7 @@ function Login() {
       // maybe trigger a loading screen
       return;
     }
-    if (user) navigate("/dashboard");
+    if (user) navigate("/profile");
   }, [user, loading]);
 
   return (
@@ -125,12 +125,10 @@ function Login() {
           <div id="recaptcha-container"></div>
         </form>
 
-        <button
-          className="login__btn"
-          onClick={() => signInWithEmailAndPassword(email, password)}
-        >
-          Login
-        </button>
+        <button className="login__btn" onClick={() => signInWithEmailAndPassword(email, password)} >
+              Login
+            </button>
+
         <button className="login__btn login__google" onClick={signInWithGoogle}>
           Login with Google
         </button>

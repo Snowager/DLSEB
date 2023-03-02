@@ -10,7 +10,7 @@
     flex-direction: column;
     text-align: center;
     background-color: rgba(0,0,0,.5);
-    padding: 30px;
+    padding: 80px;
     color:white;
   }
   .profile__btn {
@@ -27,7 +27,7 @@
   body {
     background-image: url("../../images/background.jpg");
     background-repeat: no-repeat;
-    background-size:cover;
+    background-size: cover;
   }
   a:visited {
     color: lightblue;
