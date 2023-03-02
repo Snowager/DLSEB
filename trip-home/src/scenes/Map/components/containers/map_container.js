@@ -132,13 +132,11 @@ const MapContainer = (props) => {
     return (
       <>
         <div className='mapContainer'>
-          <div className="todo-list">
             {/* TodoList handles the list of Todo trip items */}
             <TodoList
              todos={todos}
              setTodos={setTodos}
             />              
-          </div>
           {map}
           {/* ChoiceModal is the modal for making a new trip choice */}
           {/* only opens if marker added to trip (tracked using open bool)*/}

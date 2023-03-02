@@ -1,5 +1,6 @@
 import { React, useState } from 'react'
 import Todo from "../fragments/todo"
+import "../styles/map.css"
 
 /*
 
@@ -20,7 +21,7 @@ const TodoList = (props) => {
     }
 
     return (
-        <div>
+        <div className='todo-list'>
         {
             props.todos.map((todo, index) => (
                 <Todo
