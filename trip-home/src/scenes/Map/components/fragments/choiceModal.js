@@ -4,6 +4,16 @@ import { Typography } from "@mui/material";
 import { Box } from "@mui/material";
 
 
+/*
+
+The choice Modal is a popup menu that allows a user to pick a new "trip type" for the next set of markers to look at on the map
+
+Generated using Material UI Modal component
+
+Passed the currently selected marker, as well as handling functions from map parent to modify map's state
+*/
+
+
 const ChoiceModal = (props) => {
 
     const style = {

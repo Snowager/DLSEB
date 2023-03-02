@@ -4,6 +4,14 @@ import "../../../Splash/components/styles/button.css"
 import StarRatings from 'react-star-ratings';
 import "../styles/map.css"
 
+/*
+
+The Marker Window is a custom infoWindow component that renders trip details for the user.
+
+Passed the selected marker, and current todos (add to trip button modifies list)
+
+*/
+
 const MarkerWindow = (props) => {
     return (
         <>

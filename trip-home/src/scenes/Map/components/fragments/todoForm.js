@@ -1,5 +1,10 @@
 import React from "react"
 
+/* 
+
+TodoForm is a component for adding user Todos via a form
+
+*/
 
 const TodoForm = (props) => {
     const addTodo = text => {

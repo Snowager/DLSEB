@@ -3,6 +3,13 @@ import { Marker, } from '@react-google-maps/api';
 import MarkerStyle from '../../images/markerTemplate4.svg'
 import MarkerWindow from "../fragments/markerWindow"
 
+/*
+
+The Marker Interface is an intermediate layer that handles rendering markers and infowindows for markers.
+
+Passed a list of locations, markers, the selected marker, and google.window to generate google objects
+*/
+
 const MarkerInterface = (props) => {
 
 
