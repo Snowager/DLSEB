@@ -51,18 +51,13 @@ const MapContainer = (props) => {
       };
       // initialize our service's current state to reuse later (place service)
       service.current = new google.maps.places.PlacesService(map)
-      console.log(service)
       service.current.textSearch(request, callback);
       function callback(results, status) {
         // only pushes results if it gets an OK status
         if (status === google.maps.places.PlacesServiceStatus.OK) {
           // 
           for (var i = 0; i < results.length; i++) {
-            var price = ""
-            for (var j = 0; j < results[i].price_level; j++) {
-              price += "$"
-            }
-            results[i].priceString = price;
+            setPrices(results)
             places.push(results[i])
           }
           setMarkers(places)
@@ -71,6 +66,15 @@ const MapContainer = (props) => {
       }
     }, [center]
   )
+
+  // Set a price value for generated locations with price data
+  const setPrices = (results) => {
+    var price = ""
+    for (var j = 0; j < results[i].price_level; j++) {
+      price += "$"
+    }
+    results[i].priceString = price;
+  }
 
   // call this to modify markers properly (query - tag to search for, center - where to center the search)
   const modifyMarkers = (query, center) => {
@@ -89,12 +93,11 @@ const MapContainer = (props) => {
       radius: "5",
       query: query
     };
-    console.log(service)
     service.current.textSearch(request, callback);
     function callback(results, status) {
-      console.log(status)
       if (status === google.maps.places.PlacesServiceStatus.OK) {
         for (var i = 0; i < results.length; i++) {
+          setPrices(results)
           places.push(results[i])
         }
         setMarkers(places)
