@@ -104,11 +104,13 @@ const MapContainer = (props) => {
   // React callback to load map
   const onLoad = React.useCallback(
     function onLoad(map) {
+      console.log("ON LOAD IS RUNNING")
       var request = {
         location: center,
         radius: "5",
         query: query
       };
+      console.log("what")
       service.current = new google.maps.places.PlacesService(map)
       console.log(service)
       service.current.textSearch(request, callback);
@@ -243,6 +245,20 @@ const MapContainer = (props) => {
     p: 4,
   };
 
+  //function for creating a trip with a dinner node and a movie node
+  const dinner_movie = () => { // --TODO-- Either wait for the map to be loaded so new markers can be made, or find a way to set selected to a valid value
+    console.log(markers)
+    setSelected(markers[0])
+    modifyMarkers("dinner", center);
+    addTodo(places[Math.random() * places.length]);
+    modifyMarkers("movie", center);
+    addTodo(places[Math.random() * places.length]);
+  }
+
+  //run one of the packages functions if necessary
+  if(props.package === "dinner_movie"){
+    dinner_movie();
+  }
   
   if (props.status) {
 
