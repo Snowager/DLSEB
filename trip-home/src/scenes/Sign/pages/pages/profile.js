@@ -32,12 +32,18 @@ function Profile() {
   return (
     <div className="profile">
        <div className="profile__container">
-        Welcome, logged in as:
-         <div>{name}</div>
-         <div>{user?.email}</div>
-         <button className="profile__btn" onClick={logout}>
+        <div className="profile__title">
+          Welcome, {name}! 
+        </div>
+        {user?.photoURL}
+        <div className="profile__body">
+          <div>Email: {user?.email}</div>
+          <div>Phone Number: {user?.phoneNumber}</div>
+          
+        </div>
+        <button className="profile__btn" onClick={logout}>
           Logout
-         </button>
+        </button>
        </div>
      </div>
   );
