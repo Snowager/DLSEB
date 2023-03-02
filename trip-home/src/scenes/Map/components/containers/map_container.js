@@ -7,6 +7,18 @@ import TodoList from "../fragments/todoList"
 import ChoiceModal from '../fragments/choiceModal';
 import MarkerInterface from '../fragments/markerInterface';
 
+/*
+
+The map container is a container-type file that holds all the different components that interact with the map (Markers, 
+  API services, Popup windows, Trip information)
+
+it loads the places Service in an onload callback function (only renders once on initial map load)
+
+The map is rendered with an initial set of height/width constraints (necessary to display)
+
+Passed initial lat/long for centering, and query type to use as argument parameters
+*/
+
 const MapContainer = (props) => {
   const google = window.google;
   const [currMap, setMap] = useState({})
@@ -16,6 +28,7 @@ const MapContainer = (props) => {
     width: "100%"
   })
   const [query, setQuery] = useState(props.type)
+  // use ref allows us to maintain state even when in a function's scope
   const service = useRef(null)
   const [open, setOpen] = useState(false);
   const [selected, setSelected] = useState(null);
@@ -30,17 +43,20 @@ const MapContainer = (props) => {
   // React callback to load map
   const onLoad = React.useCallback(
     function onLoad(map) {
+      // request is an object with a center, radius for search, and initial query for getting search results
       var request = {
         location: center,
         radius: "5",
         query: query
       };
+      // initialize our service's current state to reuse later (place service)
       service.current = new google.maps.places.PlacesService(map)
       console.log(service)
       service.current.textSearch(request, callback);
       function callback(results, status) {
         // only pushes results if it gets an OK status
         if (status === google.maps.places.PlacesServiceStatus.OK) {
+          // 
           for (var i = 0; i < results.length; i++) {
             var price = ""
             for (var j = 0; j < results[i].price_level; j++) {
@@ -56,6 +72,7 @@ const MapContainer = (props) => {
     }, [center]
   )
 
+  // call this to modify markers properly (query - tag to search for, center - where to center the search)
   const modifyMarkers = (query, center) => {
     setCenter(selected.geometry.location)
     setSelected(null)
@@ -64,6 +81,8 @@ const MapContainer = (props) => {
     changeMarker(query, center)
   }
 
+
+  // reusable helper service function to modify marker positions
   const changeMarker = (query, center) => {
     var request = {
       location: center,
@@ -83,14 +102,16 @@ const MapContainer = (props) => {
     }
   }
 
-
+  // map object
   const map = <GoogleMap
+    // create map reference
     ref={(map) => setMap(map)}
     mapContainerStyle={mapStyles}
     zoom={props.zoom}
     center={center}
     onLoad={onLoad}
   >
+    {/* MarkerInterface component handles the markers and marker infoWindows on the map  */}
     <MarkerInterface 
     places={places}
     markers={markers}
@@ -116,20 +137,21 @@ const MapContainer = (props) => {
       <>
         <div className='mapContainer'>
           <div className="todo-list">
+            {/* TodoList handles the list of Todo trip items */}
             <TodoList
              todos={todos}
              setTodos={setTodos}
             />              
           </div>
           {map}
+          {/* ChoiceModal is the modal for making a new trip choice */}
+          {/* only opens if marker added to trip (tracked using open bool)*/}
           {open ? <ChoiceModal 
           selected={selected} 
           open={open}
           handleClose={handleClose}
           modifyMarkers={modifyMarkers}
           /> : null}
-
-
         </div>
         <Save_trip_button id={props.id} trip={trip} city={props.city} />
       </>
