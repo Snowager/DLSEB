@@ -1,5 +1,5 @@
 import React, { useState, useRef } from 'react';
-import { GoogleMap, Marker, } from '@react-google-maps/api';
+import { DirectionsRenderer, GoogleMap, Marker, } from '@react-google-maps/api';
 import "../../../Splash/components/styles/button.css"
 import Save_trip_button from '../fragments/save_trip_button.js';
 import "../styles/map.css"
@@ -30,13 +30,15 @@ const MapContainer = (props) => {
   const [query, setQuery] = useState(props.type)
   // use ref allows us to maintain state even when in a function's scope
   const service = useRef(null)
+  const route = useRef(null)
   const [open, setOpen] = useState(false);
   const [selected, setSelected] = useState(null);
   const [markers, setMarkers] = useState([]);
   const [trip, setTrip] = useState([]);
   // const [photo, setPhoto] = useState(null);
   const places = [];
-  const [todos, setTodos] = React.useState([]);
+  const [todos, setTodos] = useState([]);
+  const [directions, setDirections] = useState({});
 
   const handleClose = () => setOpen(false);
 
@@ -51,6 +53,7 @@ const MapContainer = (props) => {
       };
       // initialize our service's current state to reuse later (place service)
       service.current = new google.maps.places.PlacesService(map)
+      route.current = new google.maps.DirectionsService()
       service.current.textSearch(request, callback);
       function callback(results, status) {
         // only pushes results if it gets an OK status
@@ -104,6 +107,28 @@ const MapContainer = (props) => {
     }
   }
 
+  const makeRoute = (a, b) => {
+    const origin = a.geometry.location
+    const destination = b.geometry.location
+    route.current.route(
+      {
+        origin: origin,
+        destination: destination,
+        travelMode: google.maps.TravelMode.DRIVING
+      },
+      (result, status) => {
+        if (status === google.maps.DirectionsStatus.OK) {
+          console.log(result)
+          setDirections(result)
+        } else {
+          console.error(`error fetching directions ${result}`);
+        }
+
+      }
+    )
+
+  }
+
   // map object
   const map = <GoogleMap
     // create map reference
@@ -125,6 +150,10 @@ const MapContainer = (props) => {
       setTodos={setTodos}
       google={google}
     />
+    {directions ? 
+    <DirectionsRenderer
+    directions={directions}
+    /> : null}
   </GoogleMap>
 
   if (props.status) {
@@ -136,6 +165,7 @@ const MapContainer = (props) => {
           <TodoList
             todos={todos}
             setTodos={setTodos}
+            makeRoute={makeRoute}
           />
           {map}
           {/* ChoiceModal is the modal for making a new trip choice */}
