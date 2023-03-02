@@ -36,37 +36,6 @@ const MapContainer = (props) => {
     anchor: new google.maps.Point(0, 0) // anchor
   };
 
-  const addTodo = text => {
-    const newTodos = [...todos, { text }];
-    setTodos(newTodos);
-  };
-
-  function TodoForm({ addTodo }) {
-    const [value, setValue] = React.useState("");
-
-    const handleSubmit = e => {
-      e.preventDefault();
-      if (!value) return;
-      addTodo(value);
-      setValue("");
-    };
-
-    return (
-      <form onSubmit={handleSubmit}>
-        <input
-          type="text"
-          className="input"
-          value={value}
-          onChange={e => setValue(e.target.value)}
-          placeholder="Add Your Own Place!"
-        />
-      </form>
-    );
-  }
-
-
-
-
   // React callback to load map
   const onLoad = React.useCallback(
     function onLoad(map) {
@@ -179,7 +148,6 @@ const MapContainer = (props) => {
              todos={todos}
              setTodos={setTodos}
             />              
-            <TodoForm addTodo={addTodo} />
           </div>
           {map}
           {open ? <ChoiceModal 
