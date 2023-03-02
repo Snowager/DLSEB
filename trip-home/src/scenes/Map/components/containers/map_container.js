@@ -100,6 +100,29 @@ const MapContainer = (props) => {
     }
   }
 
+  //Creates a trip consisting of a dinner and a movie node
+  const dinner_movie = () => {
+      modifyMarkers("dinner", center);
+      setTodos([...todos, places[Math.random() * places.length]]);
+      modifyMarkers("movie", center);
+      setTodos([...todos, places[Math.random() * places.length]]);
+    }
+
+  //Generate packages if necessary
+  const packages = () => { // ---TODO--- Not sure where the appropriate place to put this is, Everything needs to be loaded on the map before it can be executed
+    if(props.package === "dinner_movie"){
+      console.log("dinner_movie package loading");
+      dinner_movie();
+    }
+    else if(props.package === "family"){
+      console.log("family package loading");
+    }
+    else if(props.package === "weekend_vacation"){
+      console.log("weekend_vacation package loading");
+    }
+    else{console.log("no package chosen");}
+  }
+
   // map object
   const map = <GoogleMap
     // create map reference
@@ -124,7 +147,6 @@ const MapContainer = (props) => {
   </GoogleMap>
 
   if (props.status) {
-
     return (
       <>
         <div className='mapContainer'>
