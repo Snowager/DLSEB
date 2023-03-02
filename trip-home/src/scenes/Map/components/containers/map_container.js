@@ -85,7 +85,6 @@ const MapContainer = (props) => {
     changeMarker(query, center)
   }
 
-
   // reusable helper service function to modify marker positions
   const changeMarker = (query, center) => {
     var request = {
@@ -126,13 +125,7 @@ const MapContainer = (props) => {
     setTodos={setTodos}
     google={google}
     />
-
   </GoogleMap>
-
-
-
-  
-
 
   if (props.status) {
 
