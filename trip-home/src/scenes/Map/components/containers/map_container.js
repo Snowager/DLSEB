@@ -8,6 +8,7 @@ import Save_trip_button from '../fragments/save_trip_button.js';
 import "../styles/map.css"
 import MarkerStyle from '../../images/markerTemplate4.svg'
 import MarkerWindow from "../fragments/markerWindow"
+import TodoList from "../fragments/todoList"
 
 const MapContainer = (props) => {
   const google = window.google;
@@ -25,8 +26,7 @@ const MapContainer = (props) => {
   const [trip, setTrip] = useState([]);
   // const [photo, setPhoto] = useState(null);
   const places = [];
-  const [todos, setTodos] = React.useState([
-  ]);
+  const [todos, setTodos] = React.useState([]);
 
   const icon = {
     url: MarkerStyle, // url
@@ -62,39 +62,6 @@ const MapContainer = (props) => {
       </form>
     );
   }
-  function Todo({ todo, index, removeTodo }) {
-    return (
-      <div className="container">
-        <div className="row ">
-          <div className="col-md-4 todo">
-            {todo.photos ? (<img className="img-fluid w-80" src={todo.photos[0].getUrl()} alt={"picture of " + todo.name} />) :
-              <img className="img-fluid w-80" src="https://bacibacirestaurant.files.wordpress.com/2020/02/chairs-cutlery-fork-9315.jpg" alt="temp food place" />}
-
-          </div>
-          <div className="col-md-1"></div>
-          <div className="col-xl-5">
-            {todo.name}
-          </div>
-          <div className="col-md-1">
-            <button className="Remove_Button" onClick={() => removeTodo(index)}>
-              <i class="fa fa-trash" aria-hidden="true"> </i>
-            </button>
-          </div>
-        </div>
-        <div className="todo-list-splitters"></div>
-      </div>
-    );
-  }
-
-
-  const removeTodo = index => {
-    const newTodos = [...todos];
-    newTodos.splice(index, 1);
-    setTodos(newTodos);
-  };
-  const [value, setValue] = React.useState("");
-
-  // these are our constant variables, anything using const [foo, bar] is a get/set essentially
 
 
 
@@ -178,9 +145,11 @@ const MapContainer = (props) => {
     {selected ? (console.log("working"),
       <MarkerWindow
         selected={selected}
+        todos = {todos}
         onClose={() => setSelected(null)}
-        onClick={() => (setTodos([...todos, props.selected]),
-          setOpen(!open))}
+        setTodos={setTodos}
+        onClick={() => setOpen(!open)}
+
       />) : null}
   </GoogleMap>
 
@@ -218,14 +187,10 @@ const MapContainer = (props) => {
       <>
         <div className='mapContainer'>
           <div className="todo-list">
-            {todos.map((todo, index) => (
-              <Todo
-                key={index}
-                index={index}
-                todo={todo}
-                removeTodo={removeTodo}
-              />
-            ))}
+            <TodoList
+             todos={todos}
+             setTodos={setTodos}
+            />              
             <TodoForm addTodo={addTodo} />
           </div>
           {map}

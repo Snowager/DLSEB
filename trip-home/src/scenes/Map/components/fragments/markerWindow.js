@@ -36,6 +36,7 @@ const MarkerWindow = (props) => {
                     </p>
                     <button
                         onClick={() => {
+                            props.setTodos(prevTodos => [...prevTodos, props.selected])
                             props.onClick()
                         }}>
                         Add to trip
