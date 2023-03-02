@@ -1,15 +1,13 @@
-import React, { useState, useEffect, useRef, useMemo } from 'react';
-import ReactDOM, { createRoot } from "react-dom/client";
-import { GoogleMap, LoadScript, Marker, InfoWindow, } from '@react-google-maps/api';
+import React, { useState, useRef } from 'react';
+import { GoogleMap, Marker, } from '@react-google-maps/api';
 import { Modal } from '@mui/material';
 import { Typography } from "@mui/material";
 import { Box } from "@mui/material";
 import "../../../Splash/components/styles/button.css"
-import { display } from '@mui/system';
 import Save_trip_button from '../fragments/save_trip_button.js';
-import StarRatings from 'react-star-ratings';
 import "../styles/map.css"
 import MarkerStyle from '../../images/markerTemplate4.svg'
+import MarkerWindow from "../fragments/markerWindow"
 
 const MapContainer = (props) => {
   const google = window.google;
@@ -33,7 +31,7 @@ const MapContainer = (props) => {
   const icon = {
     url: MarkerStyle, // url
     scaledSize: new google.maps.Size(50, 50), // scaled size
-    origin: new google.maps.Point(0,0), // origin
+    origin: new google.maps.Point(0, 0), // origin
     anchor: new google.maps.Point(0, 0) // anchor
   };
 
@@ -44,14 +42,14 @@ const MapContainer = (props) => {
 
   function TodoForm({ addTodo }) {
     const [value, setValue] = React.useState("");
-  
+
     const handleSubmit = e => {
       e.preventDefault();
       if (!value) return;
       addTodo(value);
       setValue("");
     };
-  
+
     return (
       <form onSubmit={handleSubmit}>
         <input
@@ -69,9 +67,9 @@ const MapContainer = (props) => {
       <div className="container">
         <div className="row ">
           <div className="col-md-4 todo">
-            {todo.photos ? (<img className="img-fluid w-80" src={todo.photos[0].getUrl()} alt={"picture of "+todo.name} />) :
-            <img className="img-fluid w-80" src="https://bacibacirestaurant.files.wordpress.com/2020/02/chairs-cutlery-fork-9315.jpg" alt="temp food place" />}
-            
+            {todo.photos ? (<img className="img-fluid w-80" src={todo.photos[0].getUrl()} alt={"picture of " + todo.name} />) :
+              <img className="img-fluid w-80" src="https://bacibacirestaurant.files.wordpress.com/2020/02/chairs-cutlery-fork-9315.jpg" alt="temp food place" />}
+
           </div>
           <div className="col-md-1"></div>
           <div className="col-xl-5">
@@ -84,7 +82,7 @@ const MapContainer = (props) => {
           </div>
         </div>
         <div className="todo-list-splitters"></div>
-    </div>
+      </div>
     );
   }
 
@@ -97,7 +95,7 @@ const MapContainer = (props) => {
   const [value, setValue] = React.useState("");
 
   // these are our constant variables, anything using const [foo, bar] is a get/set essentially
-  
+
 
 
 
@@ -164,7 +162,7 @@ const MapContainer = (props) => {
         markers.map(places => (
           <Marker
             icon={icon}
-            
+
             key={places.place_id}
             position={places.geometry.location}
             onClick={() => {
@@ -177,43 +175,13 @@ const MapContainer = (props) => {
     }
 
     {/*another conditional function for the infoWindow. Checks for marker existence to display, closes by changing the selected object back to null*/}
-    {selected ? (<InfoWindow
-      position={selected.geometry.location}
-      onCloseClick={() => {
-        setSelected(null)
-      }}>
-      {/* infoWindow can have one child div. Can still include other components inside the window via nesting and flex arrangement*/}
-      <div>
-        <div className='photoContainer card'>
-          {selected.photos ? <img src={selected.photos[0].getUrl()} alt={"picture of "+selected.name}></img> : null}
-          
-          <div className="starContainer"><div className='star'><StarRatings
-            rating={selected.rating}
-            starRatedColor="purple"
-            starDimension="20px"
-            starSpacing="8px"
-          />
-          </div>
-            <span className="rating" style={{ color: "blue" }}>{selected.rating}
-            </span>
-          </div>
-          <p>ratings total: ({selected.user_ratings_total})</p>
-          <h4>
-            {selected.name} {selected.priceString ? "(" + selected.priceString + ")" : ""}
-          </h4>
-          <p>
-            {selected.formatted_address}
-          </p>
-          <button
-            onClick={() => {
-              setTodos([...todos, selected]);
-              handleOpen()
-            }}>
-            Add to trip
-          </button>
-        </div>
-      </div>
-    </InfoWindow>) : null}
+    {selected ? (console.log("working"),
+      <MarkerWindow
+        selected={selected}
+        onClose={() => setSelected(null)}
+        onClick={() => (setTodos([...todos, props.selected]),
+          setOpen(!open))}
+      />) : null}
   </GoogleMap>
 
   const handleOpen = () => setOpen(true);
@@ -243,7 +211,7 @@ const MapContainer = (props) => {
     p: 4,
   };
 
-  
+
   if (props.status) {
 
     return (
@@ -262,30 +230,30 @@ const MapContainer = (props) => {
           </div>
           {map}
           {open ? <Modal
-          open={open}
-          onClose={handleClose}
-          aria-labelledby="modal-modal-title"
-          aria-describedby="modal-modal-description"
-        >
-          <Box sx={style}>
-            <Typography id="modal-modal-title" variant="h6" component="h2">
-              Now where?
-            </Typography>
-            <Typography id="modal-modal-description" sx={{ mt: 2 }}>
-              Click one of the buttons below to change your available locations.
+            open={open}
+            onClose={handleClose}
+            aria-labelledby="modal-modal-title"
+            aria-describedby="modal-modal-description"
+          >
+            <Box sx={style}>
+              <Typography id="modal-modal-title" variant="h6" component="h2">
+                Now where?
               </Typography>
-            <div style={{ display: "flex", flexDirection: "row" }}>
-              <button className='btn--primary btn' onClick={() => (modifyMarkers("food", selected.geometry.location)) }>food</button>
-              <button className='btn--primary btn' onClick={() => modifyMarkers("hotel", selected.geometry.location)}>hotel</button>
-              <button className='btn--primary btn' onClick={() => modifyMarkers("fun", selected.geometry.location)}>activity</button>
-            </div>
+              <Typography id="modal-modal-description" sx={{ mt: 2 }}>
+                Click one of the buttons below to change your available locations.
+              </Typography>
+              <div style={{ display: "flex", flexDirection: "row" }}>
+                <button className='btn--primary btn' onClick={() => (modifyMarkers("food", selected.geometry.location))}>food</button>
+                <button className='btn--primary btn' onClick={() => modifyMarkers("hotel", selected.geometry.location)}>hotel</button>
+                <button className='btn--primary btn' onClick={() => modifyMarkers("fun", selected.geometry.location)}>activity</button>
+              </div>
 
-          </Box>
-        </Modal> : null}
+            </Box>
+          </Modal> : null}
 
-      
+
         </div>
-        <Save_trip_button id={props.id} trip={trip} city={props.city}/>
+        <Save_trip_button id={props.id} trip={trip} city={props.city} />
       </>
     )
   }
