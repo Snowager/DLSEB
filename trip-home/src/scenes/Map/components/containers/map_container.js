@@ -114,16 +114,16 @@ const MapContainer = (props) => {
     onLoad={onLoad}
   >
     {/* MarkerInterface component handles the markers and marker infoWindows on the map  */}
-    <MarkerInterface 
-    places={places}
-    markers={markers}
-    selected={selected}
-    setSelected={setSelected}
-    setOpen={setOpen}
-    open={open}
-    todos={todos}
-    setTodos={setTodos}
-    google={google}
+    <MarkerInterface
+      places={places}
+      markers={markers}
+      selected={selected}
+      setSelected={setSelected}
+      setOpen={setOpen}
+      open={open}
+      todos={todos}
+      setTodos={setTodos}
+      google={google}
     />
   </GoogleMap>
 
@@ -132,19 +132,19 @@ const MapContainer = (props) => {
     return (
       <>
         <div className='mapContainer'>
-            {/* TodoList handles the list of Todo trip items */}
-            <TodoList
-             todos={todos}
-             setTodos={setTodos}
-            />              
+          {/* TodoList handles the list of Todo trip items */}
+          <TodoList
+            todos={todos}
+            setTodos={setTodos}
+          />
           {map}
           {/* ChoiceModal is the modal for making a new trip choice */}
           {/* only opens if marker added to trip (tracked using open bool)*/}
-          {open ? <ChoiceModal 
-          selected={selected} 
-          open={open}
-          handleClose={handleClose}
-          modifyMarkers={modifyMarkers}
+          {open ? <ChoiceModal
+            selected={selected}
+            open={open}
+            handleClose={handleClose}
+            modifyMarkers={modifyMarkers}
           /> : null}
         </div>
         <Save_trip_button id={props.id} trip={trip} city={props.city} />
