@@ -8,14 +8,10 @@ import ChoiceModal from '../fragments/choiceModal';
 import MarkerInterface from '../fragments/markerInterface';
 
 /*
-
 The map container is a container-type file that holds all the different components that interact with the map (Markers, 
   API services, Popup windows, Trip information)
-
 it loads the places Service in an onload callback function (only renders once on initial map load)
-
 The map is rendered with an initial set of height/width constraints (necessary to display)
-
 Passed initial lat/long for centering, and query type to use as argument parameters
 */
 
@@ -127,48 +123,6 @@ const MapContainer = (props) => {
     />
   </GoogleMap>
 
-  const handleOpen = () => setOpen(true);
-  const handleClose = () => setOpen(false);
-
-  const modifyMarkers = (query, center) => {
-    setCenter(selected.geometry.location)
-    setSelected(null)
-    setMarkers([])
-    handleClose()
-    changeMarker(query, center)
-  }
-
-  const onSelect = item => {
-    setSelected(item);
-  }
-
-  const style = {
-    position: 'absolute',
-    top: '50%',
-    left: '50%',
-    transform: 'translate(-50%, -50%)',
-    width: 400,
-    bgcolor: 'background.paper',
-    border: '2px solid #000',
-    boxShadow: 24,
-    p: 4,
-  };
-
-  //function for creating a trip with a dinner node and a movie node
-  const dinner_movie = () => { // --TODO-- Either wait for the map to be loaded so new markers can be made, or find a way to set selected to a valid value
-    console.log(markers)
-    setSelected(markers[0])
-    modifyMarkers("dinner", center);
-    addTodo(places[Math.random() * places.length]);
-    modifyMarkers("movie", center);
-    addTodo(places[Math.random() * places.length]);
-  }
-
-  //run one of the packages functions if necessary
-  if(props.package === "dinner_movie"){
-    dinner_movie();
-  }
-  
   if (props.status) {
 
     return (
