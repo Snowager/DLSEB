@@ -1,14 +1,12 @@
 import React, { useState, useRef } from 'react';
 import { GoogleMap, Marker, } from '@react-google-maps/api';
-import { Modal } from '@mui/material';
-import { Typography } from "@mui/material";
-import { Box } from "@mui/material";
 import "../../../Splash/components/styles/button.css"
 import Save_trip_button from '../fragments/save_trip_button.js';
 import "../styles/map.css"
 import MarkerStyle from '../../images/markerTemplate4.svg'
 import MarkerWindow from "../fragments/markerWindow"
 import TodoList from "../fragments/todoList"
+import ChoiceModal from '../fragments/choiceModal';
 
 const MapContainer = (props) => {
   const google = window.google;
@@ -27,6 +25,9 @@ const MapContainer = (props) => {
   // const [photo, setPhoto] = useState(null);
   const places = [];
   const [todos, setTodos] = React.useState([]);
+
+  const handleOpen = () => setOpen(true);
+  const handleClose = () => setOpen(false);
 
   const icon = {
     url: MarkerStyle, // url
@@ -153,9 +154,6 @@ const MapContainer = (props) => {
       />) : null}
   </GoogleMap>
 
-  const handleOpen = () => setOpen(true);
-  const handleClose = () => setOpen(false);
-
   const modifyMarkers = (query, center) => {
     setCenter(selected.geometry.location)
     setSelected(null)
@@ -168,17 +166,7 @@ const MapContainer = (props) => {
     setSelected(item);
   }
 
-  const style = {
-    position: 'absolute',
-    top: '50%',
-    left: '50%',
-    transform: 'translate(-50%, -50%)',
-    width: 400,
-    bgcolor: 'background.paper',
-    border: '2px solid #000',
-    boxShadow: 24,
-    p: 4,
-  };
+  
 
 
   if (props.status) {
@@ -194,27 +182,12 @@ const MapContainer = (props) => {
             <TodoForm addTodo={addTodo} />
           </div>
           {map}
-          {open ? <Modal
-            open={open}
-            onClose={handleClose}
-            aria-labelledby="modal-modal-title"
-            aria-describedby="modal-modal-description"
-          >
-            <Box sx={style}>
-              <Typography id="modal-modal-title" variant="h6" component="h2">
-                Now where?
-              </Typography>
-              <Typography id="modal-modal-description" sx={{ mt: 2 }}>
-                Click one of the buttons below to change your available locations.
-              </Typography>
-              <div style={{ display: "flex", flexDirection: "row" }}>
-                <button className='btn--primary btn' onClick={() => (modifyMarkers("food", selected.geometry.location))}>food</button>
-                <button className='btn--primary btn' onClick={() => modifyMarkers("hotel", selected.geometry.location)}>hotel</button>
-                <button className='btn--primary btn' onClick={() => modifyMarkers("fun", selected.geometry.location)}>activity</button>
-              </div>
-
-            </Box>
-          </Modal> : null}
+          {open ? <ChoiceModal 
+          selected={selected} 
+          open={open}
+          handleClose={handleClose}
+          modifyMarkers={modifyMarkers}
+          /> : null}
 
 
         </div>
