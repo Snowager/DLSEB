@@ -119,7 +119,7 @@ const MapContainer = (props) => {
       (result, status) => {
         if (status === google.maps.DirectionsStatus.OK) {
           console.log(result)
-          setDirections(result)
+          directions.push(result)
         } else {
           console.error(`error fetching directions ${result}`);
         }
@@ -145,6 +145,7 @@ const MapContainer = (props) => {
       selected={selected}
       setSelected={setSelected}
       setOpen={setOpen}
+      makeRoute={makeRoute}
       open={open}
       todos={todos}
       setTodos={setTodos}
