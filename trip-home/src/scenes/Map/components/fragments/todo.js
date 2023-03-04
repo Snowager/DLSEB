@@ -2,6 +2,7 @@ import React, { useState } from 'react'
 import { Modal } from '@mui/material';
 import { Typography } from "@mui/material";
 import { Box } from "@mui/material";
+import StarRatings from 'react-star-ratings';
 import "../styles/map.css"
 
 /*
@@ -26,11 +27,15 @@ const Todo = (props) => {
         p: 4,
     };
 
+    const [open, setOpen] = React.useState(false);
+    const handleOpen = () => setOpen(true);
+    const handleClose = () => setOpen(false);
+
     return (
         <>
             {console.log(props.todo.name)}
             <div className="container">
-                <Modal open={props.open} onClose={props.handleClose} className="todo-info-modal" aria-labelledby="modal-modal-title" aria-describedby="modal-modal-description">
+                <Modal open={open} onClose={handleClose} className="todo-info-modal" aria-labelledby="modal-modal-title" aria-describedby="modal-modal-description">
                     <Box sx={style}>
                         <Typography id="modal-modal-title" variant="h6" component="h2">
                             <img className="img-fluid w-80" src={props.todo.photos[0].getUrl()} alt={"picture of " + props.todo.name} />
@@ -47,13 +52,13 @@ const Todo = (props) => {
                     </Box>
                 </Modal>
                 <div className="row todo-list-opacity todo-list-margin">
-                    <div className="col-md-4 todo todo-list-photos">
+                    <div className="col-md-4 todo todo-list-photos" onClick={handleOpen}>
                         {/* renders photo only if the photo key/value isn't null */}
                         {props.todo.photos ? (<img className="img-fluid w-80 todo-list-photos" src={props.todo.photos[0].getUrl()} alt={"picture of " + props.todo.name} />) :
                             <img className="img-fluid w-80" src="https://bacibacirestaurant.files.wordpress.com/2020/02/chairs-cutlery-fork-9315.jpg" alt="temp food place" />}
                     </div>
-                    <div className="col-md-1"></div>
-                    <div className="col-xl-5">
+                    <div className="col-md-1" onClick={handleOpen}></div>
+                    <div className="col-xl-5" onClick={handleOpen}>
                         {props.todo.name}
                     </div>
                     <div className="col-md-1">
