@@ -31,9 +31,6 @@ const TodoList = (props) => {
                 />
             ))
         }
-        {props.todos.length == 2 ? 
-        (props.makeRoute(props.todos[0], props.todos[1])) : null
-        }
         </div>
 
     )

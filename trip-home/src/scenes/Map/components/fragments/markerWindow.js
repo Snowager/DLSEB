@@ -45,9 +45,6 @@ const MarkerWindow = (props) => {
                     <button
                         onClick={() => {
                             props.setTodos(prevTodos => [...prevTodos, props.selected])
-                            if (props.todos.length >= 2) {
-                                props.makeRoute(props.todos[props.todos.length-2], props.todos[props.todos.length-1])
-                            }
                             props.onClick()
                         }}>
                         Add to trip

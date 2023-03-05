@@ -46,7 +46,6 @@ const MarkerInterface = (props) => {
                 <MarkerWindow
                     selected={props.selected}
                     todos={props.todos}
-                    makeRoute={props.makeRoute}
                     onClose={() => props.setSelected(null)}
                     setTodos={props.setTodos}
                     onClick={() => props.setOpen(!props.open)}

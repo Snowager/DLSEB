@@ -13,7 +13,6 @@ const Todo = (props) => {
 
     return (
         <>
-        {console.log(props.todo.name)}
             <div className="container">
                 <div className="row ">
                     <div className="col-md-4 todo">

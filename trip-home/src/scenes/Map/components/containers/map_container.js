@@ -38,7 +38,7 @@ const MapContainer = (props) => {
   // const [photo, setPhoto] = useState(null);
   const places = [];
   const [todos, setTodos] = useState([]);
-  const [directions, setDirections] = useState({});
+  const [directions, setDirections] = useState([]);
 
   const handleClose = () => setOpen(false);
 
@@ -86,6 +86,7 @@ const MapContainer = (props) => {
     setMarkers([])
     handleClose()
     changeMarker(query, center)
+    if (todos.length >= 2) makeRoute(todos[todos.length-2], todos[todos.length-1]) 
   }
 
   // reusable helper service function to modify marker positions
@@ -116,18 +117,19 @@ const MapContainer = (props) => {
         destination: destination,
         travelMode: google.maps.TravelMode.DRIVING
       },
-      (result, status) => {
+      function callback(result, status) {
         if (status === google.maps.DirectionsStatus.OK) {
           console.log(result)
           directions.push(result)
         } else {
           console.error(`error fetching directions ${result}`);
+          return null
         }
-
       }
     )
 
   }
+
 
   // map object
   const map = <GoogleMap
@@ -145,16 +147,16 @@ const MapContainer = (props) => {
       selected={selected}
       setSelected={setSelected}
       setOpen={setOpen}
-      makeRoute={makeRoute}
       open={open}
       todos={todos}
       setTodos={setTodos}
       google={google}
     />
-    {directions ? 
-    <DirectionsRenderer
-    directions={directions}
-    /> : null}
+    {directions ? (directions.map((direction) => (
+      <DirectionsRenderer
+      directions={direction} />
+    ))
+    ) : null}
   </GoogleMap>
 
   if (props.status) {
@@ -176,6 +178,8 @@ const MapContainer = (props) => {
             open={open}
             handleClose={handleClose}
             modifyMarkers={modifyMarkers}
+            makeRoute={makeRoute}
+            todos={todos}
           /> : null}
         </div>
         <Save_trip_button id={props.id} trip={trip} city={props.city} />
