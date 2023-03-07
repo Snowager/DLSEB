@@ -64,12 +64,7 @@ const PlacesAutocomplete = ({ setSelected }) => {
 
 
 function MapSearchBar() {
-    const dummyitem = {
-        lat: 69,
-        lng: 420,
-        type: "yours ;)",
-    }
-    const [selected, setSelected] = useState(dummyitem);
+    const [selected, setSelected] = useState({});
     const [drop_value, setDrop_value] = React.useState('dinner_movie');
     
     const handleChange = (event) => {
@@ -97,7 +92,7 @@ function MapSearchBar() {
                 <Link
                     to={`MapPage/restaurant/${selected.lat}/${selected.lng}`}
                     className='btn btn-light'
-                    onClick={() => pushType("restaurant")}
+                    onClick={() => pushType("movie")}
                     state={selected}>
                     Food
                 </Link>
@@ -117,16 +112,16 @@ function MapSearchBar() {
                 </Link>
                 <label> Packages
                     <select value={drop_value} onChange={handleChange}>
-                        <option value="dinner_movie" className='btn btn-light'> Dinner and a Movie</option>
+                        <option value="restaurant_movie" className='btn btn-light'> Dinner and a Movie</option>
 
-                        <option value="family" className='btn btn-light'>         Family Day</option>
+                        <option value="restaurant_park_movie" className='btn btn-light'>         Family Day</option>
 
-                        <option value="weekend_vacation" className='btn btn-light'>   Weekend Vacation</option>
+                        <option value="park_outdoors_cabin" className='btn btn-light'>   Weekend Vacation</option>
                     </select>
                     <Link
-                        to={`Package/${drop_value}/${selected.lat}/${selected.lng}`}
+                        to={`MapPage/activity/${drop_value}/${selected.lat}/${selected.lng}`}
                         className='btn btn-light'
-                        onClick={() => pushType("package")}
+                        onClick={() => (console.log(drop_value),pushType(drop_value))}
                         state={selected}>
                         Choose Package
                     </Link>

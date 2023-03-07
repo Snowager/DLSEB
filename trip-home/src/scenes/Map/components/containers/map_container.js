@@ -19,11 +19,13 @@ const MapContainer = (props) => {
   const google = window.google;
   const [currMap, setMap] = useState({})
   const [center, setCenter] = useState({ lat: props.lat, lng: props.lng });
+  console.log(center)
   const [mapStyles, setMapStyles] = useState({
     height: "100vh",
     width: "100%"
   })
-  const [query, setQuery] = useState(props.type)
+  const [query, setQuery] = useState(props.type.split("_"))
+  console.log(query[0])
   // use ref allows us to maintain state even when in a function's scope
   const service = useRef(null)
   const [open, setOpen] = useState(false);
@@ -37,31 +39,54 @@ const MapContainer = (props) => {
 
   const handleClose = () => setOpen(false);
 
+  function getRandomInt(max) {
+    return Math.floor(Math.random() * max);
+  }
+
   // React callback to load map
   const onLoad = React.useCallback(
     function onLoad(map) {
-      // request is an object with a center, radius for search, and initial query for getting search results
-      var request = {
-        location: center,
-        radius: "5",
-        query: query
-      };
       // initialize our service's current state to reuse later (place service)
       service.current = new google.maps.places.PlacesService(map)
-      service.current.textSearch(request, callback);
-      function callback(results, status) {
-        // only pushes results if it gets an OK status
-        if (status === google.maps.places.PlacesServiceStatus.OK) {
-          // 
-          for (var i = 0; i < results.length; i++) {
-            setPrices(results[i])
-            places.push(results[i])
+      if (query.length == 1) {
+        var request = {
+          location: center,
+          radius: "5",
+          query: query[0]
+        };
+        service.current.textSearch(request, callback);
+        function callback(results, status) {
+          // only pushes results if it gets an OK status
+          if (status === google.maps.places.PlacesServiceStatus.OK) {
+            // 
+            for (var i = 0; i < results.length; i++) {
+              setPrices(results[i])
+              places.push(results[i])
+            }
+            setMarkers(places)
           }
-          setMarkers(places)
+          // --TODO-- add "else" block for a failed status return
         }
-        // --TODO-- add "else" block for a failed status return
+      } else {
+        for (var x = 0; x < query.length; x++) {
+          var request = {
+            location: center,
+            radius: "5",
+            query: query[x]
+          };
+          service.current.textSearch(request, callback);
+          function callback(results, status) {
+            // only pushes results if it gets an OK status
+            if (status === google.maps.places.PlacesServiceStatus.OK) {
+              var choice = results[getRandomInt(results.length)]
+              console.log(choice.name)
+              setPrices(choice)
+              setTodos(prevTodos => [...prevTodos, choice])
+            }
+          }
+        }
       }
-    }, [center]
+    }
   )
 
   // Set a price value for generated locations with price data
@@ -101,81 +126,29 @@ const MapContainer = (props) => {
     }
   }
 
-  //Creates a trip consisting of a dinner and a movie node
-  const dinner_movie = () => {
-    setPackage_status("complete");
-    var dinner = {
-      location: center,
-      radius: "5",
-      query: "dinner"
-    }
-    var movie = {
-      location: center,
-      radius: "5",
-      query: "movie"
-    }
-    service.current.textSearch(dinner, callback);
-    function callback(results, status) {
-      var num = Math.floor(Math.random() * (results.length -1));
-      console.log(num)
-      if (status === google.maps.places.PlacesServiceStatus.OK) {
-        setTodos([...todos, results[num]]);
-        service.current.textSearch(movie, addMovie);
-      }
-    }
-    function addMovie(results, status){
-      var num = Math.floor(Math.random() * (results.length -1));
-      console.log(num)
-      if (status === google.maps.places.PlacesServiceStatus.OK) {
-        setTodos([...todos, results[num]]);
-      }
-    }
-  }
-
-  //Generate packages if necessary
-  const packages = () => { // ---TODO--- Not sure where the appropriate place to put this is, Everything needs to be loaded on the map before it can be executed
-    console.log(service.current)
-    if(props.package === "dinner_movie" && package_status === "ready"){
-      console.log("dinner_movie package loading");
-      dinner_movie();
-    }
-    else if(props.package === "family" && package_status === "ready"){
-      console.log("family package loading");
-    }
-    else if(props.package === "weekend_vacation" && package_status === "ready"){
-      console.log("weekend_vacation package loading");
-    }
-    else{console.log("no package chosen");}
-  }
-
-  useEffect(() => {
-    console.log(markers.length)
-    if(service.current !== null && markers.length > 0){ packages();}
-  }, [package_status])
-  
-
   // map object
-  const map = <GoogleMap
-    // create map reference
-    ref={(map) => setMap(map)}
-    mapContainerStyle={mapStyles}
-    zoom={props.zoom}
-    center={center}
-    onLoad={onLoad}
-  >
-    {/* MarkerInterface component handles the markers and marker infoWindows on the map  */}
-    <MarkerInterface
-      places={places}
-      markers={markers}
-      selected={selected}
-      setSelected={setSelected}
-      setOpen={setOpen}
-      open={open}
-      todos={todos}
-      setTodos={setTodos}
-      google={google}
-    />
-  </GoogleMap>
+  const map =
+    <GoogleMap
+      // create map reference
+      ref={(map) => setMap(map)}
+      mapContainerStyle={mapStyles}
+      zoom={props.zoom}
+      center={center}
+      onLoad={onLoad}
+    >
+      {/* MarkerInterface component handles the markers and marker infoWindows on the map  */}
+      <MarkerInterface
+        places={places}
+        markers={markers}
+        selected={selected}
+        setSelected={setSelected}
+        setOpen={setOpen}
+        open={open}
+        todos={todos}
+        setTodos={setTodos}
+        google={google}
+      />
+    </GoogleMap>
 
   if (props.status) {
     return (
