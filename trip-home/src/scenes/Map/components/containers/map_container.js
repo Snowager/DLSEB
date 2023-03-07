@@ -1,11 +1,13 @@
 import React, { useState, useRef } from 'react';
 import { GoogleMap, TrafficLayer, } from '@react-google-maps/api';
-import "../../../Splash/components/styles/button.css"
+import "../../../Splash/components/styles/button.css";
 import Save_trip_button from '../fragments/save_trip_button.js';
-import "../styles/map.css"
-import TodoList from "../fragments/todoList"
+import "../styles/map.css";
+import TodoList from "../fragments/todoList";
 import ChoiceModal from '../fragments/choiceModal';
 import MarkerInterface from '../fragments/markerInterface';
+import { Fab } from '@mui/material';
+import TrafficIcon from '@mui/icons-material/Traffic';
 
 /*
 
@@ -115,6 +117,13 @@ const MapContainer = (props) => {
     center={center}
     onLoad={onLoad}
   >
+    <div className='d-flex justify-content-center'>
+    <Fab variant='extended' size='medium' color='success' aria-label='add' onClick={() => setTraffic(!traffic)}>
+      <TrafficIcon sx={{ mr: 1}} />
+      Traffic
+    </Fab>
+    </div>
+    
     {/* MarkerInterface component handles the markers and marker infoWindows on the map  */}
     <MarkerInterface
       places={places}
@@ -150,7 +159,6 @@ const MapContainer = (props) => {
             modifyMarkers={modifyMarkers}
           /> : null}
         </div>
-        <button onClick={() => setTraffic(!traffic)}>click me</button>
         <Save_trip_button id={props.id} trip={trip} city={props.city} />
       </>
     )
