@@ -45,7 +45,6 @@ const MapContainer = (props) => {
   const onLoad = React.useCallback(
     function onLoad(map) {
       // request is an object with a center, radius for search, and initial query for getting search results
-      // traffic.current = new google.maps.TrafficLayer()
       var request = {
         location: center,
         radius: "5",
@@ -90,8 +89,6 @@ const MapContainer = (props) => {
   // reusable helper service function to modify marker positions
   const changeMarker = (query, center) => {
     (console.log(currMap))
-    //const mapRef = currMap.getRef[0]
-    //traffic.current.setMap(mapRef)
     var request = {
       location: center,
       radius: "5",
