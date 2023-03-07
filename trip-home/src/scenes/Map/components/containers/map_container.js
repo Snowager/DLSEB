@@ -154,9 +154,10 @@ const MapContainer = (props) => {
       setTodos={setTodos}
       google={google}
     />
-    {directions ? (directions.map((direction) => (
+    {directions ? (directions.map((direction, index) => (
       <DirectionsRenderer
-      directions={direction} />
+      directions={direction}
+      key={index} />
     ))
     ) : null}
   </GoogleMap>

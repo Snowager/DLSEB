@@ -30,6 +30,7 @@ const TodoList = (props) => {
                 <Todo
                     todo={todo}
                     index={index}
+                    key={index}
                     removeTodo={removeTodo}
                 />
             ))
