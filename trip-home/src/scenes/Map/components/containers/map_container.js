@@ -1,5 +1,5 @@
 import React, { useState, useRef } from 'react';
-import { GoogleMap, Marker, } from '@react-google-maps/api';
+import { GoogleMap, TrafficLayer, } from '@react-google-maps/api';
 import "../../../Splash/components/styles/button.css"
 import Save_trip_button from '../fragments/save_trip_button.js';
 import "../styles/map.css"
@@ -30,6 +30,7 @@ const MapContainer = (props) => {
   const [query, setQuery] = useState(props.type)
   // use ref allows us to maintain state even when in a function's scope
   const service = useRef(null)
+  const [traffic, setTraffic] = useState(false)
   const [open, setOpen] = useState(false);
   const [selected, setSelected] = useState(null);
   const [markers, setMarkers] = useState([]);
@@ -44,6 +45,7 @@ const MapContainer = (props) => {
   const onLoad = React.useCallback(
     function onLoad(map) {
       // request is an object with a center, radius for search, and initial query for getting search results
+      // traffic.current = new google.maps.TrafficLayer()
       var request = {
         location: center,
         radius: "5",
@@ -87,6 +89,9 @@ const MapContainer = (props) => {
 
   // reusable helper service function to modify marker positions
   const changeMarker = (query, center) => {
+    (console.log(currMap))
+    //const mapRef = currMap.getRef[0]
+    //traffic.current.setMap(mapRef)
     var request = {
       location: center,
       radius: "5",
@@ -107,7 +112,7 @@ const MapContainer = (props) => {
   // map object
   const map = <GoogleMap
     // create map reference
-    ref={(map) => setMap(map)}
+    ref={ref => setMap(ref)}
     mapContainerStyle={mapStyles}
     zoom={props.zoom}
     center={center}
@@ -125,6 +130,7 @@ const MapContainer = (props) => {
       setTodos={setTodos}
       google={google}
     />
+    {traffic ? (<TrafficLayer/>) : null}
   </GoogleMap>
 
   if (props.status) {
@@ -147,6 +153,7 @@ const MapContainer = (props) => {
             modifyMarkers={modifyMarkers}
           /> : null}
         </div>
+        <button onClick={() => setTraffic(!traffic)}>click me</button>
         <Save_trip_button id={props.id} trip={trip} city={props.city} />
       </>
     )
