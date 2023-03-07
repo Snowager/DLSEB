@@ -92,7 +92,7 @@ function MapSearchBar() {
                 <Link
                     to={`MapPage/restaurant/${selected.lat}/${selected.lng}`}
                     className='btn btn-light'
-                    onClick={() => pushType("movie")}
+                    onClick={() => pushType("restaurant")}
                     state={selected}>
                     Food
                 </Link>
