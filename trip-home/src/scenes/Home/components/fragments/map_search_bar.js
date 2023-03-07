@@ -116,7 +116,18 @@ function MapSearchBar() {
 
                         <option value="restaurant_park_movie" className='btn btn-light'>         Family Day</option>
 
-                        <option value="park_outdoors_cabin" className='btn btn-light'>   Weekend Vacation</option>
+                        <option value="cabin_breakfast_park_outdoors_lunch_dinner_hotel_breakfast_hike_lunch_fun_dinner" className='btn btn-light'>   Weekend Vacation</option>
+
+                        <option value="" className='btn btn-light'> </option>
+                        <option value="strip-club_hooters" className='btn btn-light'> Bachelor party in your 40's</option>
+                        <option value="strip-club_wedding_divorce-attourney_planned-parrent-hood" className='btn btn-light'>shot gun wedding </option>
+                        <option value="panda-express_gym_gun-range" className='btn btn-light'>Nates package </option>
+                        <option value="gym_petco_fish" className='btn btn-light'>Nikos package </option>
+                        <option value="gym_DIA_Kilimanjaro_DIA_bike-path" className='btn btn-light'>Coles package </option>
+                        <option value="appartment_bakery_hair-salon_cat-cafe_best-buy" className='btn btn-light'>Alexs package </option>
+                        <option value="UNC_ulta_target_cava_starbucks_mcdonalds" className='btn btn-light'>Tiffany and Rachels package </option>
+                        <option value="" className='btn btn-light'> </option>
+                    
                     </select>
                     <Link
                         to={`MapPage/activity/${drop_value}/${selected.lat}/${selected.lng}`}
