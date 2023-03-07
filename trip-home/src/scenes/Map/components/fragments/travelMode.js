@@ -8,6 +8,12 @@ import FormLabel from '@mui/material/FormLabel';
 
 const TravelMode = (props) => {
     const size = props.size
+
+    const handleChange = (event) => {
+        props.setMode(event.target.value)
+        console.log(event.target.value)
+
+    }
     return (
     <FormControl>
       <FormLabel id="demo-radio-buttons-group-label" className='text-center'>Travel Mode</FormLabel>
@@ -16,23 +22,24 @@ const TravelMode = (props) => {
         defaultValue={props.option[0]}
         name="radio-buttons-group"
         row={true}
+        onChange={handleChange}
       >
-        <FormControlLabel value={props.option[0]} control={<Radio sx={{
+        <FormControlLabel value={props.value[0]} control={<Radio sx={{
           '& .MuiSvgIcon-root': {
             fontSize: size,
           },
         }}/>} label={props.option[0]} labelPlacement="top"/>
-        <FormControlLabel value={props.option[1]} control={<Radio sx={{
+        <FormControlLabel value={props.value[1]} control={<Radio sx={{
           '& .MuiSvgIcon-root': {
             fontSize: size,
           },
         }}/>} label={props.option[1]} labelPlacement="top"/>
-        <FormControlLabel value={props.option[2]} control={<Radio sx={{
+        <FormControlLabel value={props.value[2]} control={<Radio sx={{
           '& .MuiSvgIcon-root': {
             fontSize: size,
           },
         }}/>} label={props.option[2]} labelPlacement="top"/>
-        <FormControlLabel value={props.option[3]} control={<Radio sx={{
+        <FormControlLabel value={props.value[3]} control={<Radio sx={{
           '& .MuiSvgIcon-root': {
             fontSize: size,
           },

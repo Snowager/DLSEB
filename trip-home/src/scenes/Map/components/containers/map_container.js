@@ -40,6 +40,7 @@ const MapContainer = (props) => {
   const places = [];
   const [todos, setTodos] = useState([]);
   const [directions, setDirections] = useState([]);
+  const [mode, setMode] = useState("DRIVING");
 
   const handleClose = () => setOpen(false);
 
@@ -116,7 +117,7 @@ const MapContainer = (props) => {
       {
         origin: origin,
         destination: destination,
-        travelMode: google.maps.TravelMode.DRIVING
+        travelMode: mode
       },
       function callback(result, status) {
         if (status === google.maps.DirectionsStatus.OK) {
@@ -164,6 +165,7 @@ const MapContainer = (props) => {
 
     return (
       <>
+      {console.log(mode)}
         <div className='mapContainer'>
           {/* TodoList handles the list of Todo trip items */}
           
@@ -171,6 +173,7 @@ const MapContainer = (props) => {
             todos={todos}
             setTodos={setTodos}
             makeRoute={makeRoute}
+            setMode={setMode}
           />
           {map}
           {/* ChoiceModal is the modal for making a new trip choice */}

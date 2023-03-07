@@ -23,7 +23,7 @@ const TodoList = (props) => {
 
     return (
         <div className='todo-list'>
-            <TravelMode option={["Car", "Bus", "Bike", "Walk"]} size={30}/>
+            <TravelMode option={["Car", "Bus", "Bike", "Walk"]} value={["DRIVING", "TRANSIT", "BICYCLING", "WALKING"]} size={30} setMode={props.setMode} />
         {
             
             props.todos.map((todo, index) => (
