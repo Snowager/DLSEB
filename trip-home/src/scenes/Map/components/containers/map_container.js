@@ -24,8 +24,8 @@ const MapContainer = (props) => {
     height: "100vh",
     width: "100%"
   })
+  // query is now initially set to a string array to account for potentially multiple passed types
   const [query, setQuery] = useState(props.type.split("_"))
-  console.log(query[0])
   // use ref allows us to maintain state even when in a function's scope
   const service = useRef(null)
   const [open, setOpen] = useState(false);
@@ -39,6 +39,8 @@ const MapContainer = (props) => {
 
   const handleClose = () => setOpen(false);
 
+
+  // helper function to get a random value from 0-max (non-inclusive)
   function getRandomInt(max) {
     return Math.floor(Math.random() * max);
   }
@@ -48,6 +50,7 @@ const MapContainer = (props) => {
     function onLoad(map) {
       // initialize our service's current state to reuse later (place service)
       service.current = new google.maps.places.PlacesService(map)
+      // length == 1 means a button was pressed
       if (query.length == 1) {
         var request = {
           location: center,
@@ -67,7 +70,10 @@ const MapContainer = (props) => {
           }
           // --TODO-- add "else" block for a failed status return
         }
+
+      // a package was clicked
       } else {
+        // for loop to add trip todos using passed information
         for (var x = 0; x < query.length; x++) {
           var request = {
             location: center,
@@ -79,9 +85,11 @@ const MapContainer = (props) => {
             // only pushes results if it gets an OK status
             if (status === google.maps.places.PlacesServiceStatus.OK) {
               var choice = results[getRandomInt(results.length)]
-              console.log(choice.name)
               setPrices(choice)
               setTodos(prevTodos => [...prevTodos, choice])
+
+              // TODO --- Add some form of markers, or a choice modal for generating the next set of choices
+
             }
           }
         }
