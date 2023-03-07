@@ -1,0 +1,44 @@
+import React from 'react';
+
+import Radio from '@mui/material/Radio';
+import RadioGroup from '@mui/material/RadioGroup';
+import FormControlLabel from '@mui/material/FormControlLabel';
+import FormControl from '@mui/material/FormControl';
+import FormLabel from '@mui/material/FormLabel';
+
+const TravelMode = (props) => {
+    const size = props.size
+    return (
+    <FormControl>
+      <FormLabel id="demo-radio-buttons-group-label" className='text-center'>Travel Mode</FormLabel>
+      <RadioGroup
+        aria-labelledby="demo-radio-buttons-group-label"
+        defaultValue={props.option[0]}
+        name="radio-buttons-group"
+        row={true}
+      >
+        <FormControlLabel value={props.option[0]} control={<Radio sx={{
+          '& .MuiSvgIcon-root': {
+            fontSize: size,
+          },
+        }}/>} label={props.option[0]} labelPlacement="top"/>
+        <FormControlLabel value={props.option[1]} control={<Radio sx={{
+          '& .MuiSvgIcon-root': {
+            fontSize: size,
+          },
+        }}/>} label={props.option[1]} labelPlacement="top"/>
+        <FormControlLabel value={props.option[2]} control={<Radio sx={{
+          '& .MuiSvgIcon-root': {
+            fontSize: size,
+          },
+        }}/>} label={props.option[2]} labelPlacement="top"/>
+        <FormControlLabel value={props.option[3]} control={<Radio sx={{
+          '& .MuiSvgIcon-root': {
+            fontSize: size,
+          },
+        }}/>} label={props.option[3]} labelPlacement="top"/>
+      </RadioGroup>
+    </FormControl>
+    )
+}
+export default TravelMode

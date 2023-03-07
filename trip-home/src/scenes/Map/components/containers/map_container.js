@@ -7,6 +7,7 @@ import TodoList from "../fragments/todoList"
 import ChoiceModal from '../fragments/choiceModal';
 import MarkerInterface from '../fragments/markerInterface';
 
+
 /*
 
 The map container is a container-type file that holds all the different components that interact with the map (Markers, 
@@ -165,6 +166,7 @@ const MapContainer = (props) => {
       <>
         <div className='mapContainer'>
           {/* TodoList handles the list of Todo trip items */}
+          
           <TodoList
             todos={todos}
             setTodos={setTodos}
