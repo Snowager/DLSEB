@@ -22,18 +22,19 @@ const TodoList = (props) => {
 
     return (
         <div className='todo-list'>
-        {
-            props.todos.map((todo, index) => (
-                <Todo
-                    todo={todo}
-                    index={index}
-                    removeTodo={removeTodo}
-                />
-            ))
-        }
+            {
+                props.todos.map((todo, index) => (
+                    <Todo
+                        todo={todo}
+                        index={index}
+                        removeTodo={removeTodo}
+                    />
+                ))
+            }
         </div>
 
     )
 }
 
 export default TodoList
+
