@@ -22,7 +22,7 @@ const Saved_activities = (props) => {
 
     //grabs the user id from the only item in the get_trip_user query
     useEffect(() => {
-      if(status == "complete"){
+      if(status === "complete"){
         console.log(user_data)
         setUser_id(user_data.trip_user[0].user_id)
       }
@@ -34,46 +34,40 @@ const Saved_activities = (props) => {
     //once the user_id is changed to an actual id in db, run the above query
     useEffect(() => {
       if(user_id !== ""){
-        get_activities({variables: {user_id: 1}, onCompleted: setActivity_status("complete")})
+        get_activities({variables: {user_id: user_id}, onCompleted: setActivity_status("complete")})
       }
     }, [user_id])
 
     //once the above query has finished, grab all items in the returned list
     useEffect(() => {
       console.log("activity status use effect")
-      if(activity_status == "complete" && activity_data != undefined){        
-        console.log("activity data")
-        console.log("here be the user id " + user_id)
+      if(activity_status === "complete" && activity_data !== undefined){        
         console.log(activity_data)
         setActivities(activity_data.saved_activity)
       }
-      if(activity_status == "loading"){
+      if(activity_status === "loading"){
         console.log("just wait")
       }
       else{
         setActivity_status("loading")
-        console.log("something")
-        get_activities({variables: {user_id: 1}, onCompleted: setActivity_status("complete")})
+        get_activities({variables: {user_id: user_id}, onCompleted: setActivity_status("complete")})
       }
     }, [activity_status])
-   
     
     if(activity_loading) return  <div> loading, please hold </div>
     if(activity_error) return    <div> {`Error! ${user_error.message}`}</div>
-    if(activity_data == undefined) return <div> error, try something else lol </div>
-    if(activity_data && activity_data.saved_activity.length != 0){
+    if(activity_data && activity_data !== undefined){
         console.log("email: " + email)
-
         return (
-            <div>{
-                activities.map(activity => (
-                    <>
-                        <h1>{activity.name}</h1>
-                        <h2>lat: {activity.lat} || lng: {activity.lng}</h2>
-                    </>
-                ))
+            <div>
+                {
+                    activity_data.saved_activity.map(activity => (
+                        <div key={activity.name}>
+                            <h1>{activity.name}</h1>
+                            <h2>lat: {activity.lat} || lng: {activity.lng}</h2>
+                        </div>
+                    ))
                 }
-
             </div>
         )
     }
