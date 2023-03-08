@@ -28,50 +28,72 @@ const Todo = (props) => {
     };
 
     const [open, setOpen] = React.useState(false);
+    const [del, setDel] = React.useState(false);
     const handleOpen = () => setOpen(true);
-    const handleClose = () => setOpen(false);
-
+    const handleDel = () => setDel(true);
+    const handleClose = () => setOpen(false) + setDel(false);
     return (
         <>
-            {console.log(props.todo.name)}
-            <div className="container">
-                <Modal open={open} onClose={handleClose} className="todo-info-modal" aria-labelledby="modal-modal-title" aria-describedby="modal-modal-description">
-                    <Box sx={style}>
-                        <Typography id="modal-modal-title" variant="h6" component="h2">
-                            <img className="img-fluid w-80" src={props.todo.photos[0].getUrl()} alt={"picture of " + props.todo.name} />
-                        </Typography>
-                        <Typography id="modal-modal-description" sx={{ mt: 2 }}>
-                            <div className='star'>
-                                <StarRatings rating={props.todo.rating} starRatedColor="purple" starDimension="20px" starSpacing="8px" />
-                                <span className="rating" style={{ color: "blue" }}>{props.todo.rating} </span>
-                            </div>
-                            <p>ratings total: ({props.todo.user_ratings_total})</p>
-                            <p className="h4">{props.todo.name}</p>
-                            <p> {props.todo.formatted_address} </p>
-                        </Typography>
-                    </Box>
-                </Modal>
-                <div className="row todo-list-opacity todo-list-margin">
-                    <div className="col-md-4 todo todo-list-photos" onClick={handleOpen}>
-                        {/* renders photo only if the photo key/value isn't null */}
-                        {props.todo.photos ? (<img className="img-fluid w-80 todo-list-photos" src={props.todo.photos[0].getUrl()} alt={"picture of " + props.todo.name} />) :
-                            <img className="img-fluid w-80" src="https://bacibacirestaurant.files.wordpress.com/2020/02/chairs-cutlery-fork-9315.jpg" alt="temp food place" />}
-                    </div>
-                    <div className="col-md-1" onClick={handleOpen}></div>
-                    <div className="col-xl-5" onClick={handleOpen}>
-                        {props.todo.name}
-                    </div>
-                    <div className="col-md-1">
-                        <button className="Remove_Button" onClick={() => (props.removeTodo(props.index))}>
-                            <i class="fa fa-trash" aria-hidden="true"> </i>
-                        </button>
-                    </div>
+      <div className="container">
+        {open ? <Modal open={open} onClose={handleClose} aria-labelledby="modal-modal-title" aria-describedby="modal-modal-description">
+          <Box sx={style}>
+            <Typography id="modal-modal-title" variant="h6" component="h2">
+              <img className="img-fluid w-80" src={props.todo.photos[0].getUrl()} alt={"picture of " + props.todo.name} />
+            </Typography>
+            <Typography id="modal-modal-description" sx={{ mt: 2 }}>
+              <div className="starContainer">
+                <div className='star'>
+                  <StarRatings rating={props.todo.rating} starRatedColor="purple" starDimension="20px" starSpacing="8px" />
                 </div>
-                <div className="todo-list-splitters"></div>
-            </div>
-        </>
-    )
+                <span className="rating" style={{ color: "blue" }}>{props.todo.rating} </span>
+              </div>
+              <p>ratings total: ({props.todo.user_ratings_total})</p>
+              <p>{props.todo.name}</p>
+              <p> {props.todo.formatted_address} </p>
+            </Typography>
+          </Box>
+        </Modal> : null}
+        {del ? <Modal open={del} onClose={handleClose} aria-labelledby="modal-modal-title" aria-describedby="modal-modal-description">
+          <Box sx={style}>
+            <Typography id="modal-modal-title" variant="h6" component="h2">
+              Delete Item?
+            </Typography>
+            <Typography id="modal-modal-description" sx={{ mt: 2 }}>
+              <p>Are you sure you would like to remove {props.todo.name} from your trip?</p>
+            </Typography>
+            <button className='btn btn-success' onClick={() => handleClose()}>Keep</button>
+            <button className='btn btn-danger' onClick={() => props.removeTodo(props.index)}>DELETE</button>
+          </Box>
+        </Modal> : null}
+
+        <div className="row todo-list-opacity todo-list-margin" onClick={handleOpen}>
+          <div className="col-md-4 todo todo-list-photos">
+            {props.todo.photos ? (<img className="img-fluid w-80 todo-list-photos" src={props.todo.photos[0].getUrl()} alt={"picture of " + props.todo.name} />) :
+              <img className="img-fluid w-80" src="https://bacibacirestaurant.files.wordpress.com/2020/02/chairs-cutlery-fork-9315.jpg" alt="temp food place" />}
+          </div>
+          <div className="col-md-1"></div>
+          <div className="col-xl-5">
+            {props.todo.name}
+          </div>
+          <div className="col-md-1">
+            <button className="Remove_Button" onClick={() => handleDel()}>
+              <i class="fa fa-trash" aria-hidden="true"> </i>
+            </button>
+          </div>
+        </div>
+        <div className="todo-list-splitters"></div>
+      </div>
+      </>
+    );
 }
+
+
+
+
+
+
+
+    
 
 export default Todo
 
