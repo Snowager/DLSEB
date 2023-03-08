@@ -117,7 +117,7 @@ const MapContainer = (props) => {
     center={center}
     onLoad={onLoad}
   >
-    <div className='d-flex justify-content-center'>
+    <div className='d-flex justify-content-center p-2'>
     <Fab variant='extended' size='medium' color='success' aria-label='add' onClick={() => setTraffic(!traffic)}>
       <TrafficIcon sx={{ mr: 1}} />
       Traffic
