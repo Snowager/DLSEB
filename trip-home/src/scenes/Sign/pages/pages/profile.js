@@ -83,6 +83,10 @@ function Profile() {
                     <a href="#!"><MDBIcon fab icon="twitter me-3" size="lg" /></a>
                     <a href="#!"><MDBIcon fab icon="instagram me-3" size="lg" /></a>
                   </div>
+                  <button className="profile__btn" onClick={logout}>
+                    Logout
+                    </button>
+
                 </MDBCardBody>
               </MDBCol>
             </MDBRow>
