@@ -33,46 +33,57 @@ function Profile() {
   return (
     //setting the height 
     <section className="vh-100" >
-    <MDBContainer className="py-5 h-100">
+    <MDBContainer className="py-5 h-100" >
       <MDBRow className="justify-content-center align-items-center h-100">
-        <MDBCol lg="6" className="mb-4 mb-lg-0">
-          <MDBCard className="mb-4" style={{ borderRadius: '.5rem' }}>
+        <MDBCol lg="6" className="mb-4 mb-lg-0" >
+          <MDBCard className="mb-4 text-white" style={{ borderRadius: '.5rem', backgroundColor: 'black' }}>
             <MDBRow className="g-0">
     <MDBCol md="4" className="gradient-custom text-center text-black"
-                style={{ borderTopLeftRadius: '.8rem', borderBottomLeftRadius: '.8rem' }}>
+                style={{ borderTopLeftRadius: '.4rem', borderBottomLeftRadius: '.4rem' }}>
 
               {/* Setting the profile picture */}
-                <img src={user ? user.photoURL : ""} alt="profile-pic" />
+                <img src={user ? user.photoURL : ""} alt="profile-pic" 
+                className="my-5" style={{ width: '100' }} fluid />
+                <hr className="mt-0 mb-4" />
                 {/* Setting the name */}
                 <div className="profile__title">
                   {name}
                   </div>
-
+                 
+                
+      
                   {/* Information box */}
               </MDBCol>
               <MDBCol md="8">
                 <MDBCardBody className="p-4">
+                <div class="text-center">
                   <MDBTypography tag="h6">Personal Information</MDBTypography>
+                  </div>
                   <hr className="mt-0 mb-4" />
                   <MDBRow className="pt-1">
-
                   {/* Setting the size and displaying number + email */}
-                    <MDBCol size="8" className="mb-4">
+                    <MDBCol size="10" className="mb-4">
                       <div>Email: {user?.email}</div>
                     </MDBCol>
-                    <MDBCol size="8" className="mb-4">
+                    <MDBCol size="10" className="mb-4">
                       <div>Phone Number: {user?.phoneNumber}</div>
                     </MDBCol>
+                    <MDBCol size="10" className="mb-4">
+                      <div>Location: {user?.location}</div>
+                    </MDBCol>
+    
                   </MDBRow>
 
                   {/* New section for saved trip info*/}
+                  <div class="text-center">
                   <MDBTypography tag="h6">Saved Trip Information</MDBTypography>
+                  </div>
                     <hr className="mt-0 mb-4" />
                     <MDBRow className="pt-1">
-                      <MDBCol size="8" className="mb-4">
+                      <MDBCol size="10" className="mb-4">
                         <MDBTypography tag="h6">placeholder</MDBTypography>
                       </MDBCol>
-                      <MDBCol size="8" className="mb-4">
+                      <MDBCol size="10" className="mb-4">
                         <MDBTypography tag="h6">placeholder</MDBTypography>
                       </MDBCol>
                     </MDBRow>
@@ -83,9 +94,11 @@ function Profile() {
                     <a href="#!"><MDBIcon fab icon="twitter me-3" size="lg" /></a>
                     <a href="#!"><MDBIcon fab icon="instagram me-3" size="lg" /></a>
                   </div>
+                  <div class="text-center">
                   <button className="profile__btn" onClick={logout}>
                     Logout
                     </button>
+                  </div>
 
                 </MDBCardBody>
               </MDBCol>
