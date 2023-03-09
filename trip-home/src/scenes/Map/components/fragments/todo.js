@@ -62,7 +62,7 @@ const Todo = (props) => {
               <p>Are you sure you would like to remove {props.todo.name} from your trip?</p>
             </Typography>
             <button className='btn btn-success' onClick={() => handleClose()}>Keep</button>
-            <button className='btn btn-danger' onClick={() => props.removeTodo(props.index)}>DELETE</button>
+            <button className='btn btn-danger' onClick={() => {props.removeTodo(props.index) ; handleClose()}}>DELETE</button>
           </Box>
         </Modal> : null}
 
