@@ -32,13 +32,13 @@ function Profile() {
 
   return (
     //setting the height 
-    <section className="vh-100">
+    <section className="vh-100" >
     <MDBContainer className="py-5 h-100">
       <MDBRow className="justify-content-center align-items-center h-100">
         <MDBCol lg="6" className="mb-4 mb-lg-0">
           <MDBCard className="mb-4" style={{ borderRadius: '.5rem' }}>
             <MDBRow className="g-0">
-    <MDBCol md="4" className="gradient-custom text-center text-white"
+    <MDBCol md="4" className="gradient-custom text-center text-black"
                 style={{ borderTopLeftRadius: '.8rem', borderBottomLeftRadius: '.8rem' }}>
 
               {/* Setting the profile picture */}
