@@ -1,49 +1,10 @@
-.profile {
-    height: 100vh;
-    width: 100vw;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-  }
-  .profile__container {
-    display: flex;
-    flex-direction: column;
-    /* text-align: center; */
-    background-color: rgba(0,0,0,.5);
-    padding: 20px 50px 20px 50px;
-    width: 1300px;
-    height: 600px;
-    color:white;
-    position: relative;
-  }
-  .profile__btn {
-    padding: 13px;
-    font-size: 23px;
-    /* margin-top: 10px; */
-    width: 150px;
-    border: none;
-    color: white;
-    background-color: black;
-    float: left;
-    position: absolute;
-    bottom: 0; 
-    right: 0;
-  }
-  .profile div {
-    margin-top: 7px;
-  }
-  .profile__title {
-    text-align: left;
-    font-size: 4.0em;
-  }
-  .profile__body {
-    padding: 10px;
-  }
-  body {
-    background-image: url("../../images/background.jpg");
-    background-repeat: no-repeat;
-    background-size: cover;
-  }
-  a:visited {
-    color: lightblue;
-  }
+.gradient-custom {
+  /* fallback for old browsers */
+  background: #ba5370;
+
+  /* Chrome 10-25, Safari 5.1-6 */
+  background: -webkit-linear-gradient(to right bottom, rgb(37, 220, 248), rgb(244, 186, 170));
+
+  /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+  background: linear-gradient(to right bottom, rgb(37, 220, 248, 1), rgb(244, 186, 170, 1));
+}
