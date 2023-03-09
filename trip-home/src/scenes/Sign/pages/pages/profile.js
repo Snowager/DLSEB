@@ -66,7 +66,7 @@ function Profile() {
                       <div>Email: {user?.email}</div>
                     </MDBCol>
                     <MDBCol size="10" className="mb-4">
-                      <div>Phone Number: {user?.phoneNumber}</div>
+                      <div>Phone Number: {user?.phone_Number}</div>
                     </MDBCol>
                     <MDBCol size="10" className="mb-4">
                       <div>Location: {user?.location}</div>
