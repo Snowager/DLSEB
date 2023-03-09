@@ -42,7 +42,7 @@ const ChoiceModal = (props) => {
               <Typography id="modal-modal-description" sx={{ mt: 2 }}>
                 Click one of the buttons below to change your available locations.
               </Typography>
-              <div style={{ display: "flex", flexDirection: "row" }}>
+              <div style={{ display: "flex", flexDirection: "row",width:"40%" }}>
                 <button className='btn--primary btn' onClick={() => props.modifyMarkers("food", props.selected.geometry.location)}>food</button>
                 <button className='btn--primary btn' onClick={() => props.modifyMarkers("hotel", props.selected.geometry.location)}>hotel</button>
                 <button className='btn--primary btn' onClick={() => props.modifyMarkers("fun", props.selected.geometry.location)}>activity</button>

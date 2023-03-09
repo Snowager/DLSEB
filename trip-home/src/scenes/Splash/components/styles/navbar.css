@@ -10,24 +10,6 @@
   z-index: 999;
 }
 
-.navbar-opaque:hover {
-  opacity: 1.0;
-  transition: 1.0s;
-}
-
-.navbar-opaque {
-  opacity: 0.5;
-}
-
-#nav-dropdown-hidden {
-  transform: translateY(-80%);
-  transition: transform .5s cubic-bezier(.4, 0, .2, 1);
-}
-
-.nav-dropdown:hover #nav-dropdown-hidden {
-  transform: translateY(0%);
-}
-
 .navbar-container {
   display: flex;
   justify-content: center;
