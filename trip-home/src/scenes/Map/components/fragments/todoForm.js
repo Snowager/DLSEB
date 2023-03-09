@@ -1,39 +1,37 @@
-import React from "react"
+import { useState } from "react";
 
-/* 
+const TodoForm = () => {
+  const [restaurant, setRestaurant] = useState('');
+  const [address, setAddress] = useState('');
 
-TodoForm is a component for adding user Todos via a form
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    const object = { restaurant, address };
 
-*/
+    console.log(object);
+  }
 
-const TodoForm = (props) => {
-    const addTodo = text => {
-        const newTodos = [...todos, { text }];
-        setTodos(newTodos);
-      };
-    
-      function TodoForm({ addTodo }) {
-        const [value, setValue] = React.useState("");
-    
-        const handleSubmit = e => {
-          e.preventDefault();
-          if (!value) return;
-          addTodo(value);
-          setValue("");
-        };
-    
-        return (
-          <form onSubmit={handleSubmit}>
-            <input
-              type="text"
-              className="input"
-              value={value}
-              onChange={e => setValue(e.target.value)}
-              placeholder="Add Your Own Place!"
-            />
-          </form>
-        );
-      }03
+  return (
+    <div className="">
+      <h2 className="text-light">Add a Your Own Place</h2>
+      <form onSubmit={handleSubmit}>
+        <label className="text-light">Place Name:</label>
+        <input
+          type="text"
+          required
+          value={restaurant}
+          onChange={(e) => setRestaurant(e.target.value)}
+        />
+        <label className="text-light">Place Address:</label>
+        <textarea
+          required
+          value={address}
+          onChange={(e) => setAddress(e.target.value)}
+        ></textarea>
+        <button>Add Place</button>
+      </form>
+    </div>
+  );
 }
 
 export default TodoForm

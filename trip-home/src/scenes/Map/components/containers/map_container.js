@@ -6,6 +6,7 @@ import "../styles/map.css"
 import TodoList from "../fragments/todoList"
 import ChoiceModal from '../fragments/choiceModal';
 import MarkerInterface from '../fragments/markerInterface';
+import TodoForm from '../fragments/todoForm';
 
 /*
 
@@ -137,6 +138,7 @@ const MapContainer = (props) => {
             todos={todos}
             setTodos={setTodos}
           />
+          <TodoForm />
           {map}
           {/* ChoiceModal is the modal for making a new trip choice */}
           {/* only opens if marker added to trip (tracked using open bool)*/}
