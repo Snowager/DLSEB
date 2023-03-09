@@ -3,7 +3,10 @@ import { Link, useNavigate } from "react-router-dom";
 import { auth, signInWithEmailAndPassword, signInWithGoogle } from "./firebase";
 import { useAuthState } from "react-firebase-hooks/auth";
 import { RecaptchaVerifier, signInWithPhoneNumber } from "firebase/auth";
+import PhoneInput from 'react-phone-input-2'
+import 'react-phone-input-2/lib/style.css'
 import "../styles/login.css"; 
+
 
 function Login() {
   const [email, setEmail] = useState("");
@@ -26,9 +29,10 @@ function Login() {
 
   const requestOTP = (e) => {
     e.preventDefault();
-    if (phone_number.length >= 12) {
+    if (phone_number.length >= 10) {
       setExpandForm(true);
       generateRecaptcha();
+      console.log(phone_number);
       let appVerifier = window.recaptchaVerifier;
       signInWithPhoneNumber(auth, phone_number, appVerifier)
         .then(confirmationResult => {
@@ -92,14 +96,13 @@ function Login() {
         
         <form onSubmit = {requestOTP}>
           {/* Input phone number */}
-          <div>
-            <input
-              type="tel"
-              className="otp__textBox"
+          <div className="phoneInput__btn">
+            <PhoneInput
+              country={'us'}
               value={phone_number}
-              onChange={(e) => setPhone_number(e.target.value)}
-              placeholder="Phone number"
+              onChange={(e) => setPhone_number(e)}
             />
+            
           </div>
           {expandForm === true?
           <>

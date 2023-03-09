@@ -40,7 +40,12 @@
     border: none;
     color: white;
     background-color: black;
+    margin-top: 10px;
   }
+  .phoneInput__btn {
+    color:black;
+  }
+
   .login__google {
     background-color: #4285f4;
   }
