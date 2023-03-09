@@ -20,8 +20,13 @@ function Register() {
   };
   useEffect(() => {
     if (loading) return;
-    if (user) navigate.replace("/profile");
+    if (user) navigate.replace("/");
   }, [user, loading]);
+
+  const routeChange = () =>{ 
+    let path = '/'; 
+    navigate(path);
+  }
 
   //mutation call for adding the user to our personal database
   const [db_register, {db_loading, db_error, db_data}] = useMutation(CREATE_TRIP_USER, {
@@ -76,6 +81,7 @@ function Register() {
         <button className="register__btn" disabled={db_loading} onClick={() => {
           register();
           db_register();
+          routeChange();
         }}>
           Register
         </button>
