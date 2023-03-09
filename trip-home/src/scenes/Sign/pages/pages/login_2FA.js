@@ -98,9 +98,10 @@ function Login() {
           {/* Input phone number */}
           <div className="phoneInput__btn">
             <PhoneInput
+              type="tel"
               country={'us'}
               value={phone_number}
-              onChange={(e) => setPhone_number(e)}
+              onChange={(e) => setPhone_number("+"+e)}
             />
             
           </div>
