@@ -96,7 +96,7 @@ function Profile() {
                   </div>
                   <div class="text-center">
                   <button className="profile__btn" onClick={logout}>
-                    Logout
+                    Log out
                     </button>
                   </div>
 
