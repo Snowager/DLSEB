@@ -1,5 +1,5 @@
 import { React, useState } from 'react'
-import Todo from "../fragments/todo"
+import Places from "../fragments/places"
 import "../styles/map.css"
 
 /*
@@ -10,7 +10,7 @@ Passed todo list, as well as parent state function for setting todo list state
 
 */
 
-const TodoList = (props) => {
+const PlacesList = (props) => {
 
     // removes todo using a passed index value (accessed inside of actual todo)
     const removeTodo = (index) => {
@@ -21,11 +21,11 @@ const TodoList = (props) => {
     }
 
     return (
-        <div className='todo-list'>
-            <h1>Your Trip</h1>
+        <div className='places-list'>
+            <h1>Places</h1>
             {
                 props.todos.map((todo, index) => (
-                    <Todo
+                    <Places
                         todo={todo}
                         index={index}
                         removeTodo={removeTodo}
@@ -38,5 +38,5 @@ const TodoList = (props) => {
     )
 }
 
-export default TodoList
+export default PlacesList
 

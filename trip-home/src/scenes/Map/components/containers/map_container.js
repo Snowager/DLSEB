@@ -4,6 +4,7 @@ import "../../../Splash/components/styles/button.css"
 import Save_trip_button from '../fragments/save_trip_button.js';
 import "../styles/map.css"
 import TodoList from "../fragments/todoList"
+import PlacesList from "../fragments/placesList"
 import ChoiceModal from '../fragments/choiceModal';
 import MarkerInterface from '../fragments/markerInterface';
 
@@ -35,7 +36,8 @@ const MapContainer = (props) => {
   const [markers, setMarkers] = useState([]);
   const [trip, setTrip] = useState([]);
   // const [photo, setPhoto] = useState(null);
-  const places = [];
+ // const places = [];
+  const [places, setPlaces] = useState([]);
   const [todos, setTodos] = React.useState([]);
 
   const handleClose = () => setOpen(false);
@@ -136,9 +138,15 @@ const MapContainer = (props) => {
           <TodoList
             todos={todos}
             setTodos={setTodos}
+            
+          />
+          <PlacesList
+            todos={places}
+            setTodos={setTodos}
           />
           {map}
           {/* ChoiceModal is the modal for making a new trip choice */}
+          
           {/* only opens if marker added to trip (tracked using open bool)*/}
           {open ? <ChoiceModal
             selected={selected}
@@ -146,7 +154,10 @@ const MapContainer = (props) => {
             handleClose={handleClose}
             modifyMarkers={modifyMarkers}
           /> : null}
+
         </div>
+
+       {/*  {places ? (places.map((place, index) => (<div><p>{place.name}</p></div>) )): null  }*/}
         <Save_trip_button id={props.id} trip={trip} city={props.city} />
       </>
     )
