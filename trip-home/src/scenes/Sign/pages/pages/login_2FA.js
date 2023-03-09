@@ -24,7 +24,7 @@ function Login() {
     }, auth);
   }
 
-  const requestOPT = (e) => {
+  const requestOTP = (e) => {
     e.preventDefault();
     if (phone_number.length >= 12) {
       setExpandForm(true);
@@ -90,7 +90,7 @@ function Login() {
           placeholder="Username"
         />
         
-        <form onSubmit = {requestOPT}>
+        <form onSubmit = {requestOTP}>
           {/* Input phone number */}
           <div>
             <input
@@ -102,22 +102,20 @@ function Login() {
             />
           </div>
           {expandForm === true?
-          <>
-            <input
-            type="number"
-            className="otp__textBox"
-            id="otpInput"
-            value={OTP}
-            onChange={verifyOTP}
-            placeholder="Enter your one time pin."
-            />
-          </>
+              <input
+              type="number"
+              className="otp__textBox"
+              id="otpInput"
+              value={OTP}
+              onChange={verifyOTP}
+              placeholder="Enter your one time pin."
+              />
           :
           null
           }
           { expandForm === false?
             <button type="submit" className ="otp__btn">
-              Request OPT
+              Request One Time Pin
             </button>
             :
             null
