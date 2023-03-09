@@ -102,20 +102,22 @@ function Login() {
             />
           </div>
           {expandForm === true?
-              <input
-              type="number"
-              className="otp__textBox"
-              id="otpInput"
-              value={OTP}
-              onChange={verifyOTP}
-              placeholder="Enter your one time pin."
-              />
+          <>
+            <input
+            type="number"
+            className="otp__textBox"
+            id="otpInput"
+            value={OTP}
+            onChange={verifyOTP}
+            placeholder="Enter your one time pin."
+            />
+          </>
           :
           null
           }
           { expandForm === false?
             <button type="submit" className ="otp__btn">
-              Request One Time Pin
+              Request OTP
             </button>
             :
             null
