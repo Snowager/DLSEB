@@ -6,7 +6,7 @@ import About from './scenes/About/pages/pages/about';
 import LoginPage from './scenes/Splash/components/fragments/login_page';
 import RegisterPage from './scenes/Splash/components/fragments/register_page';
 import Reset from './scenes/Sign/pages/pages/reset';
-import Dashboard from './scenes/Sign/pages/pages/profile.js';
+import Profile from './scenes/Sign/pages/pages/profile.js';
 
 function App() {
   return (
@@ -18,7 +18,7 @@ function App() {
           <Route exact path="/login" element={<LoginPage />} />
           <Route exact path="/register" element={<RegisterPage />} />
           <Route exact path="/reset" element={<Reset />} /> 
-          <Route exact path="/profile" element={<Dashboard />} />
+          <Route exact path="/profile" element={<Profile />} />
           <Route path="/MapPage/*" element={<MapPage />} />
         </Routes>
       </Router>
