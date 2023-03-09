@@ -115,6 +115,10 @@ function Login() {
             onChange={verifyOTP}
             placeholder="Enter your one time pin."
             />
+            
+            <button className="login__btn" onClick={() => signInWithEmailAndPassword(email, password)} >
+              Login
+            </button>
           </>
           :
           null
@@ -129,19 +133,22 @@ function Login() {
           <div id="recaptcha-container"></div>
         </form>
 
-        <button className="login__btn" onClick={() => signInWithEmailAndPassword(email, password)} >
-              Login
-            </button>
+        {/* <button className="login__btn" onClick={() => signInWithEmailAndPassword(email, password)} >
+          Login
+        </button> */}
 
         <button className="login__btn login__google" onClick={signInWithGoogle}>
           Login with Google
         </button>
-        <div>
-          <Link to="/reset">Forgot Password</Link>
-        </div>
-        <div>
-          Don't have an account? <Link to="/register">Register</Link> now.
-        </div>
+
+        <div className="resetRegisterLink">
+            <div>
+              <Link to="/reset">Forgot Password</Link>
+            </div>
+            <div>
+              Don't have an account? <Link to="/register">Register</Link> now.
+            </div>
+          </div>
       </div>
     </div>
   );

@@ -11,20 +11,22 @@
     text-align: center;
     background-color: rgba(0,0,0,.5);
     padding: 30px;
-    color: white;
   }
   .login__textBox {
     padding: 10px;
     font-size: 18px;
     margin-bottom: 10px;
+    color: white;
   }
   .otp__textBox {
     width: 100%;
     padding: 10px;
     font-size: 18px;
     margin-bottom: 10px;
+    margin-top: 10px;
   }
   .login__btn {
+    width: 100%;
     padding: 10px;
     font-size: 18px;
     margin-bottom: 10px;
@@ -45,9 +47,11 @@
   .phoneInput__btn {
     color:black;
   }
-
   .login__google {
     background-color: #4285f4;
+  }
+  .resetRegisterLink {
+    color:white;
   }
   body {
     background-image: url("../../images/background.jpg");
