@@ -34,12 +34,13 @@ const MapContainer = (props) => {
   const [open, setOpen] = useState(false);
   const [selected, setSelected] = useState(null);
   const [trip, setTrip] = useState([]);
+  const [added, setAdded] = useState(false)
   // const [photo, setPhoto] = useState(null);
   // const places = [];
   const [places, setPlaces] = useState([]);
   const [todos, setTodos] = React.useState([]);
 
-  const handleClose = () => setOpen(false);
+  const handleChoiceClose = () => setAdded(false);
 
   // React callback to load map
   const onLoad = React.useCallback(
@@ -61,7 +62,6 @@ const MapContainer = (props) => {
             setPrices(results[i])
           }
           setPlaces(results)
-          console.log(places)
         }
         // --TODO-- add "else" block for a failed status return
       }
@@ -79,9 +79,9 @@ const MapContainer = (props) => {
 
   // call this to modify markers properly (query - tag to search for, center - where to center the search)
   const modifyMarkers = (query, center) => {
-    setCenter(selected.geometry.location)
+    setCenter(center)
     setSelected(null)
-    handleClose()
+    handleChoiceClose()
     changeMarker(query, center)
   }
 
@@ -117,8 +117,8 @@ const MapContainer = (props) => {
       places={places}
       selected={selected}
       setSelected={setSelected}
-      setOpen={setOpen}
-      open={open}
+      setOpen={setAdded}
+      open={added}
       todos={todos}
       setTodos={setTodos}
       google={google}
@@ -130,27 +130,30 @@ const MapContainer = (props) => {
     return (
       <>
         <div className='mapContainer'>
-        {places.length > 0 ? (<PlacesList
-            todos={places}
-            setTodos={setTodos}
-          />) : null}
-          {todos ? (<TodoList
-            todos={todos}
-            setTodos={setTodos}
-
-          />) : null}
+          {places.length > 0 ? (
+            <PlacesList
+              onClick={() => setAdded(true)}
+              todos={places}
+              setTodos={setTodos}
+              open={added}
+            />) : null}
+          {todos ? (
+            <TodoList
+              todos={todos}
+              setTodos={setTodos}
+            />) : null}
           {map}
           {/* TodoList handles the list of Todo trip items */}
-          
-          
+
+
 
           {/* ChoiceModal is the modal for making a new trip choice */}
 
           {/* only opens if marker added to trip (tracked using open bool)*/}
-          {open ? <ChoiceModal
-            selected={selected}
-            open={open}
-            handleClose={handleClose}
+          {added ? <ChoiceModal
+            selected={todos[todos.length - 1]}
+            open={added}
+            handleClose={handleChoiceClose}
             modifyMarkers={modifyMarkers}
           /> : null}
 

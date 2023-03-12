@@ -23,7 +23,6 @@ const MarkerInterface = (props) => {
 
     return (
         <div>
-            {console.log(props.places.length)}
             {
 
                     /* Marker options. Needs a key and position to display on map. position is lat/lng coords */

@@ -1,5 +1,13 @@
 import { React, useState } from 'react'
 import Places from "../fragments/places"
+
+import { Modal } from '@mui/material';
+import { Typography } from "@mui/material";
+import { Box } from "@mui/material";
+import StarRatings from 'react-star-ratings';
+
+import MarkerWindow from "../fragments/markerWindow"
+
 import "../styles/map.css"
 
 /*
@@ -12,15 +20,48 @@ Passed todo list, as well as parent state function for setting todo list state
 
 const PlacesList = (props) => {
 
-    // removes todo using a passed index value (accessed inside of actual todo)
-    const removeTodo = (index) => {
-        const newTodos = [...props.todos];
-        newTodos.splice(index, 1);
-        // calls setTodo parent state function with new todo list after splicing
-        props.setTodos(newTodos);
+    const [selectedPlace, setSelectedPlace] = useState()
+    const [open, setOpen] = useState(false)
+
+    const handleClose = () => {
+        setOpen(false)
+        setSelectedPlace(null)
     }
 
+    const style = {
+        position: 'absolute',
+        top: '50%',
+        left: '50%',
+        transform: 'translate(-50%, -50%)',
+        width: 400,
+        bgcolor: 'background.paper',
+        border: '2px solid #000',
+        boxShadow: 24,
+        p: 4,
+    };
+
     return (
+        <>
+        {open ? (
+        <Modal open={open} onClose={handleClose} aria-labelledby="modal-modal-title" aria-describedby="modal-modal-description">
+                <Box sx={style}>
+                  <Typography id="modal-modal-title" variant="h6" component="h2">
+                    <img className="img-fluid w-80" src={selectedPlace.photos[0].getUrl() || "https://bacibacirestaurant.files.wordpress.com/2020/02/chairs-cutlery-fork-9315.jpg"} alt={"picture of " + selectedPlace.name} />
+                  </Typography>
+                  <Typography id="modal-modal-description" sx={{ mt: 2 }}>
+                    <div className="starContainer">
+                      <div className='star'>
+                        <StarRatings rating={selectedPlace.rating} starRatedColor="purple" starDimension="20px" starSpacing="8px" />
+                      </div>
+                      <span className="rating" style={{ color: "blue" }}>{selectedPlace.rating} </span>
+                    </div>
+                    <p>ratings total: ({selectedPlace.user_ratings_total})</p>
+                    <p>{selectedPlace.name}</p>
+                    <p> {selectedPlace.formatted_address} </p>
+                    
+                  </Typography>
+                </Box>
+              </Modal>) : null}
         <div className='places-list'>
             <h1>Places</h1>
             {
@@ -28,12 +69,16 @@ const PlacesList = (props) => {
                     <Places
                         todo={todo}
                         index={index}
-                        removeTodo={removeTodo}
+                        setTodos={props.setTodos}
+                        setSelectedPlace={setSelectedPlace}
+                        setOpen={setOpen}
+                        onClick={props.onClick}
                     />
                 ))
                 
             }
         </div>
+        </>
 
     )
 }

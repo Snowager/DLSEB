@@ -77,7 +77,7 @@ const Todo = (props) => {
           </div>
           <div className="col-md-1">
             <button className="Remove_Button" onClick={() => handleDel()}>
-              <i class="fa fa-trash" aria-hidden="true"> </i>
+              <i className="fa fa-trash" aria-hidden="true"> </i>
             </button>
           </div>
         </div>
