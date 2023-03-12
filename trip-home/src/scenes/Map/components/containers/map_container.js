@@ -88,13 +88,8 @@ const MapContainer = (props) => {
     setMarkers([])
     handleClose()
     changeMarker(query, center)
-    /*
-    if (todos.length >= 3){
-      makeRoute(todos[todos.length-2], todos[todos.length-1])
-      makeRoute(todos[todos.length-3], todos[todos.length-2])
-    } 
-    */
-    //makeFullRoute();
+    //if (todos.length >= 2) makeRoute(todos[todos.length-2], todos[todos.length-1]) THIS IS WHAT YOU HAD BEFORE AND IT WORKED
+    //makeFullRoute(); THIS DOES PRETTY MUCH THE SAME EXACT THING BUT FOR SOME REASON THE DOM STILL THINKS THAT THERES NOTHING IN THE DIRECTIONS ARRAY
   }
 
   // reusable helper service function to modify marker positions
@@ -138,7 +133,6 @@ const MapContainer = (props) => {
   }
 
   //creates routes between all items in the todo List
-  /*
   const makeFullRoute = () => {
     console.log("making a full route") 
     setDirections([]);
@@ -150,19 +144,8 @@ const MapContainer = (props) => {
     }
     console.log(directions)
   }
-  */
-
-  function makeFullRoute() {
-    console.log("making a full route") 
-    setDirections([]);
-    for(var x = 0; x < todos.length -1; x++){
-        console.log("making a part of the route " + x)
-        makeRoute(todos[x], todos[x + 1])
-    }
-    console.log(directions)
-  }
-
   
+  //change the routes everytime the todos change
   useEffect(() => {
     if(todos.length > 1){makeFullRoute();}
   }, [todos])
