@@ -123,7 +123,8 @@ const MapContainer = (props) => {
       function callback(result, status) {
         if (status === google.maps.DirectionsStatus.OK) {
           console.log(result)
-          directions.push(result)
+          setDirections(prevDirections => [...prevDirections, result])
+          console.log(directions)
         } else {
           console.error(`error fetching directions ${result}`);
           return null
@@ -136,19 +137,13 @@ const MapContainer = (props) => {
   const makeFullRoute = () => {
     console.log("making a full route") 
     setDirections([]);
-    for(var x = 0; x < todos.length; x++){
-      if(x < todos.length - 1){
+    for(var x = 0; x < todos.length-1; x++){
         console.log("making a part of the route " + x)
         makeRoute(todos[x], todos[x + 1])
-      }
     }
-    console.log(directions)
   }
   
   //change the routes everytime the todos change
-  useEffect(() => {
-    if(todos.length > 1){makeFullRoute();}
-  }, [todos])
   useEffect(() => {
     console.log("directions changed")
   }, [directions])
