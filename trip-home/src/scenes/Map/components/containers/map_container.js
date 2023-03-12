@@ -73,12 +73,12 @@ const MapContainer = (props) => {
 
       // a package was clicked
       } else {
-        // for loop to add trip todos using passed information
         setPackage_status(0);
       }
     }
   )
 
+  //Runs after the package_status has been set in the onLoad function (line 76)
   useEffect(() => {
     if(package_status !== -1 && package_status < query.length) {
       var request = {
