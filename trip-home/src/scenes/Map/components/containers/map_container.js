@@ -1,5 +1,5 @@
 import React, { useState, useRef, useEffect } from 'react';
-import { GoogleMap, TrafficLayer, } from '@react-google-maps/api';
+import { DirectionsRenderer, GoogleMap, TrafficLayer, } from '@react-google-maps/api';
 import "../../../Splash/components/styles/button.css";
 import Save_trip_button from '../fragments/save_trip_button.js';
 import "../styles/map.css";
@@ -31,14 +31,17 @@ const MapContainer = (props) => {
   // use ref allows us to maintain state even when in a function's scope
   const service = useRef(null)
   const [traffic, setTraffic] = useState(false)
+  const route = useRef(null)
   const [open, setOpen] = useState(false);
   const [selected, setSelected] = useState(null);
   const [markers, setMarkers] = useState([]);
   const [trip, setTrip] = useState([]);
   // const [photo, setPhoto] = useState(null);
   const places = [];
-  const [todos, setTodos] = React.useState([]);
+  const [todos, setTodos] = useState([]);
+  const [directions, setDirections] = useState([]);
   const [package_status, setPackage_status] = useState(-1);
+  const [mode, setMode] = useState("DRIVING");
 
   const handleClose = () => setOpen(false);
 
@@ -60,7 +63,8 @@ const MapContainer = (props) => {
           radius: "5",
           query: query[0]
         };
-        service.current.textSearch(request, callback);
+        route.current = new google.maps.DirectionsService()
+      service.current.textSearch(request, callback);
         function callback(results, status) {
           // only pushes results if it gets an OK status
           if (status === google.maps.places.PlacesServiceStatus.OK) {
@@ -121,6 +125,7 @@ const MapContainer = (props) => {
     setMarkers([])
     handleClose()
     changeMarker(query, center)
+    if (todos.length >= 2) makeRoute(todos[todos.length-2], todos[todos.length-1]) 
   }
 
   // reusable helper service function to modify marker positions
@@ -142,6 +147,29 @@ const MapContainer = (props) => {
       }
     }
   }
+
+  const makeRoute = (a, b) => {
+    const origin = a.geometry.location
+    const destination = b.geometry.location
+    route.current.route(
+      {
+        origin: origin,
+        destination: destination,
+        travelMode: mode
+      },
+      function callback(result, status) {
+        if (status === google.maps.DirectionsStatus.OK) {
+          console.log(result)
+          directions.push(result)
+        } else {
+          console.error(`error fetching directions ${result}`);
+          return null
+        }
+      }
+    )
+
+  }
+
 
   // map object
   const map = <GoogleMap
@@ -171,17 +199,27 @@ const MapContainer = (props) => {
       setTodos={setTodos}
       google={google}
     />
+    {directions ? (directions.map((direction, index) => (
+      <DirectionsRenderer
+      directions={direction}
+      key={index} />
+    ))
+    ) : null}
     {traffic ? (<TrafficLayer/>) : null}
   </GoogleMap>
 
   if (props.status) {
     return (
       <>
+      {console.log(mode)}
         <div className='mapContainer'>
           {/* TodoList handles the list of Todo trip items */}
+          
           <TodoList
             todos={todos}
             setTodos={setTodos}
+            makeRoute={makeRoute}
+            setMode={setMode}
           />
           {map}
           {/* ChoiceModal is the modal for making a new trip choice */}
@@ -191,6 +229,8 @@ const MapContainer = (props) => {
             open={open}
             handleClose={handleClose}
             modifyMarkers={modifyMarkers}
+            makeRoute={makeRoute}
+            todos={todos}
           /> : null}
         </div>
         <Save_trip_button id={props.id} trip={trip} city={props.city} />

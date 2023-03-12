@@ -1,5 +1,6 @@
 import { React, useState } from 'react'
 import Todo from "../fragments/todo"
+import TravelMode from '../fragments/travelMode';
 import "../styles/map.css"
 
 /*
@@ -22,11 +23,14 @@ const TodoList = (props) => {
 
     return (
         <div className='todo-list'>
+            <TravelMode option={["Car", "Bus", "Bike", "Walk"]} value={["DRIVING", "TRANSIT", "BICYCLING", "WALKING"]} size={30} setMode={props.setMode} />
             {
+            
                 props.todos.map((todo, index) => (
                     <Todo
                         todo={todo}
                         index={index}
+                        key={index}
                         removeTodo={removeTodo}
                     />
                 ))
