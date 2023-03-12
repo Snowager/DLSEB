@@ -1,4 +1,4 @@
-import React, { useState, useRef } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import { DirectionsRenderer, GoogleMap, Marker, } from '@react-google-maps/api';
 import "../../../Splash/components/styles/button.css"
 import Save_trip_button from '../fragments/save_trip_button.js';
@@ -88,7 +88,7 @@ const MapContainer = (props) => {
     setMarkers([])
     handleClose()
     changeMarker(query, center)
-    if (todos.length >= 2) makeRoute(todos[todos.length-2], todos[todos.length-1]) 
+    //if (todos.length >= 2) makeRoute(todos[todos.length-2], todos[todos.length-1]) 
   }
 
   // reusable helper service function to modify marker positions
@@ -121,7 +121,7 @@ const MapContainer = (props) => {
       },
       function callback(result, status) {
         if (status === google.maps.DirectionsStatus.OK) {
-          console.log(result)
+          //console.log(result)
           directions.push(result)
         } else {
           console.error(`error fetching directions ${result}`);
@@ -129,8 +129,26 @@ const MapContainer = (props) => {
         }
       }
     )
-
   }
+
+  //creates routes between all items in the todo List
+  const makeFullRoute = () => {
+    console.log("making a full route") 
+    console.log(directions)
+    setDirections([]);
+    for(var x = 0; x < todos.length; x++){
+      if(x < todos.length - 1){
+        console.log("making a part of the route" + x)
+        makeRoute(todos[x], todos[x + 1])
+      }
+    }
+    console.log(directions)
+  }
+
+  useEffect(() => {
+    if(todos.length > 1){makeFullRoute();}
+  }, [todos])
+  
 
 
   // map object
@@ -166,7 +184,7 @@ const MapContainer = (props) => {
 
     return (
       <>
-      {console.log(mode)}
+      {/*console.log(mode) */}
         <div className='mapContainer'>
           {/* TodoList handles the list of Todo trip items */}
           
@@ -175,6 +193,7 @@ const MapContainer = (props) => {
             setTodos={setTodos}
             makeRoute={makeRoute}
             setMode={setMode}
+            makeFullRoute={makeFullRoute}
           />
           {map}
           {/* ChoiceModal is the modal for making a new trip choice */}
