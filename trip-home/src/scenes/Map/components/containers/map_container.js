@@ -1,11 +1,13 @@
 import React, { useState, useRef, useEffect } from 'react';
-import { GoogleMap, Marker, } from '@react-google-maps/api';
-import "../../../Splash/components/styles/button.css"
+import { GoogleMap, TrafficLayer, } from '@react-google-maps/api';
+import "../../../Splash/components/styles/button.css";
 import Save_trip_button from '../fragments/save_trip_button.js';
-import "../styles/map.css"
-import TodoList from "../fragments/todoList"
+import "../styles/map.css";
+import TodoList from "../fragments/todoList";
 import ChoiceModal from '../fragments/choiceModal';
 import MarkerInterface from '../fragments/markerInterface';
+import { Fab } from '@mui/material';
+import TrafficIcon from '@mui/icons-material/Traffic';
 
 /*
 The map container is a container-type file that holds all the different components that interact with the map (Markers, 
@@ -28,6 +30,7 @@ const MapContainer = (props) => {
   const [query, setQuery] = useState(props.type.split("_"))
   // use ref allows us to maintain state even when in a function's scope
   const service = useRef(null)
+  const [traffic, setTraffic] = useState(false)
   const [open, setOpen] = useState(false);
   const [selected, setSelected] = useState(null);
   const [markers, setMarkers] = useState([]);
@@ -122,6 +125,7 @@ const MapContainer = (props) => {
 
   // reusable helper service function to modify marker positions
   const changeMarker = (query, center) => {
+    (console.log(currMap))
     var request = {
       location: center,
       radius: "5",
@@ -140,28 +144,35 @@ const MapContainer = (props) => {
   }
 
   // map object
-  const map =
-    <GoogleMap
-      // create map reference
-      ref={(map) => setMap(map)}
-      mapContainerStyle={mapStyles}
-      zoom={props.zoom}
-      center={center}
-      onLoad={onLoad}
-    >
-      {/* MarkerInterface component handles the markers and marker infoWindows on the map  */}
-      <MarkerInterface
-        places={places}
-        markers={markers}
-        selected={selected}
-        setSelected={setSelected}
-        setOpen={setOpen}
-        open={open}
-        todos={todos}
-        setTodos={setTodos}
-        google={google}
-      />
-    </GoogleMap>
+  const map = <GoogleMap
+    // create map reference
+    ref={ref => setMap(ref)}
+    mapContainerStyle={mapStyles}
+    zoom={props.zoom}
+    center={center}
+    onLoad={onLoad}
+  >
+    <div className='d-flex justify-content-center p-2'>
+    <Fab variant='extended' size='medium' color='success' aria-label='add' onClick={() => setTraffic(!traffic)}>
+      <TrafficIcon sx={{ mr: 1}} />
+      Traffic
+    </Fab>
+    </div>
+    
+    {/* MarkerInterface component handles the markers and marker infoWindows on the map  */}
+    <MarkerInterface
+      places={places}
+      markers={markers}
+      selected={selected}
+      setSelected={setSelected}
+      setOpen={setOpen}
+      open={open}
+      todos={todos}
+      setTodos={setTodos}
+      google={google}
+    />
+    {traffic ? (<TrafficLayer/>) : null}
+  </GoogleMap>
 
   if (props.status) {
     return (
