@@ -1,5 +1,4 @@
-import React from 'react';
-import { useQuery, useLazyQuery, gql } from '@apollo/client';
+import { gql } from '@apollo/client';
 
 export const GET_TRIP_USER_BY_ID = gql`
 query getuserbyid($user_id: Int) {
