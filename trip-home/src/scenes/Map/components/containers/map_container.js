@@ -33,10 +33,9 @@ const MapContainer = (props) => {
   const service = useRef(null)
   const [open, setOpen] = useState(false);
   const [selected, setSelected] = useState(null);
-  const [markers, setMarkers] = useState([]);
   const [trip, setTrip] = useState([]);
   // const [photo, setPhoto] = useState(null);
- // const places = [];
+  // const places = [];
   const [places, setPlaces] = useState([]);
   const [todos, setTodos] = React.useState([]);
 
@@ -60,13 +59,13 @@ const MapContainer = (props) => {
           // 
           for (var i = 0; i < results.length; i++) {
             setPrices(results[i])
-            places.push(results[i])
           }
-          setMarkers(places)
+          setPlaces(results)
+          console.log(places)
         }
         // --TODO-- add "else" block for a failed status return
       }
-    }, [center]
+    }
   )
 
   // Set a price value for generated locations with price data
@@ -82,7 +81,6 @@ const MapContainer = (props) => {
   const modifyMarkers = (query, center) => {
     setCenter(selected.geometry.location)
     setSelected(null)
-    setMarkers([])
     handleClose()
     changeMarker(query, center)
   }
@@ -99,10 +97,9 @@ const MapContainer = (props) => {
       if (status === google.maps.places.PlacesServiceStatus.OK) {
         for (var i = 0; i < results.length; i++) {
           setPrices(results[i])
-          places.push(results[i])
         }
-        setMarkers(places)
       }
+      setPlaces(results)
     }
   }
 
@@ -118,7 +115,6 @@ const MapContainer = (props) => {
     {/* MarkerInterface component handles the markers and marker infoWindows on the map  */}
     <MarkerInterface
       places={places}
-      markers={markers}
       selected={selected}
       setSelected={setSelected}
       setOpen={setOpen}
@@ -134,19 +130,20 @@ const MapContainer = (props) => {
     return (
       <>
         <div className='mapContainer'>
+          {map}
           {/* TodoList handles the list of Todo trip items */}
-          <TodoList
+          {todos ? (<TodoList
             todos={todos}
             setTodos={setTodos}
-            
-          />
-          <PlacesList
+
+          />) : null}
+          {places.length > 0 ? (<PlacesList
             todos={places}
             setTodos={setTodos}
-          />
-          {map}
+          />) : null}
+
           {/* ChoiceModal is the modal for making a new trip choice */}
-          
+
           {/* only opens if marker added to trip (tracked using open bool)*/}
           {open ? <ChoiceModal
             selected={selected}
@@ -157,7 +154,7 @@ const MapContainer = (props) => {
 
         </div>
 
-       {/*  {places ? (places.map((place, index) => (<div><p>{place.name}</p></div>) )): null  }*/}
+        {/*  {places ? (places.map((place, index) => (<div><p>{place.name}</p></div>) )): null  }*/}
         <Save_trip_button id={props.id} trip={trip} city={props.city} />
       </>
     )
