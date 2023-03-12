@@ -88,7 +88,13 @@ const MapContainer = (props) => {
     setMarkers([])
     handleClose()
     changeMarker(query, center)
-    //if (todos.length >= 2) makeRoute(todos[todos.length-2], todos[todos.length-1]) 
+    /*
+    if (todos.length >= 3){
+      makeRoute(todos[todos.length-2], todos[todos.length-1])
+      makeRoute(todos[todos.length-3], todos[todos.length-2])
+    } 
+    */
+    //makeFullRoute();
   }
 
   // reusable helper service function to modify marker positions
@@ -121,7 +127,7 @@ const MapContainer = (props) => {
       },
       function callback(result, status) {
         if (status === google.maps.DirectionsStatus.OK) {
-          //console.log(result)
+          console.log(result)
           directions.push(result)
         } else {
           console.error(`error fetching directions ${result}`);
@@ -132,22 +138,37 @@ const MapContainer = (props) => {
   }
 
   //creates routes between all items in the todo List
+  /*
   const makeFullRoute = () => {
     console.log("making a full route") 
-    console.log(directions)
     setDirections([]);
     for(var x = 0; x < todos.length; x++){
       if(x < todos.length - 1){
-        console.log("making a part of the route" + x)
+        console.log("making a part of the route " + x)
         makeRoute(todos[x], todos[x + 1])
       }
     }
     console.log(directions)
   }
+  */
 
+  function makeFullRoute() {
+    console.log("making a full route") 
+    setDirections([]);
+    for(var x = 0; x < todos.length -1; x++){
+        console.log("making a part of the route " + x)
+        makeRoute(todos[x], todos[x + 1])
+    }
+    console.log(directions)
+  }
+
+  
   useEffect(() => {
     if(todos.length > 1){makeFullRoute();}
   }, [todos])
+  useEffect(() => {
+    console.log("directions changed")
+  }, [directions])
   
 
 
@@ -172,7 +193,7 @@ const MapContainer = (props) => {
       setTodos={setTodos}
       google={google}
     />
-    {directions ? (directions.map((direction, index) => (
+    {directions ? (directions.map((direction, index) => ( console.log("there are directions"),
       <DirectionsRenderer
       directions={direction}
       key={index} />
@@ -203,11 +224,13 @@ const MapContainer = (props) => {
             open={open}
             handleClose={handleClose}
             modifyMarkers={modifyMarkers}
+            makeFullRoute={makeFullRoute}
             makeRoute={makeRoute}
             todos={todos}
           /> : null}
         </div>
         <Save_trip_button id={props.id} trip={trip} city={props.city} />
+        <button onClick={() => (console.log("directions " + directions.length), makeFullRoute())}>click me </button>
       </>
     )
   }
