@@ -130,17 +130,19 @@ const MapContainer = (props) => {
     return (
       <>
         <div className='mapContainer'>
-          {map}
-          {/* TodoList handles the list of Todo trip items */}
+        {places.length > 0 ? (<PlacesList
+            todos={places}
+            setTodos={setTodos}
+          />) : null}
           {todos ? (<TodoList
             todos={todos}
             setTodos={setTodos}
 
           />) : null}
-          {places.length > 0 ? (<PlacesList
-            todos={places}
-            setTodos={setTodos}
-          />) : null}
+          {map}
+          {/* TodoList handles the list of Todo trip items */}
+          
+          
 
           {/* ChoiceModal is the modal for making a new trip choice */}
 
