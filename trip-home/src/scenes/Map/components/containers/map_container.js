@@ -77,17 +77,17 @@ const MapContainer = (props) => {
         for (var x = 0; x < query.length; x++) {
           var request = {
             location: center,
-            radius: "5",
+            radius: 100,
             query: query[x]
           };
           service.current.textSearch(request, callback);
           function callback(results, status) {
             // only pushes results if it gets an OK status
             if (status === google.maps.places.PlacesServiceStatus.OK) {
+              console.log(results[0])
               var choice = results[getRandomInt(results.length)]
               setPrices(choice)
               setTodos(prevTodos => [...prevTodos, choice])
-
               // TODO --- Add some form of markers, or a choice modal for generating the next set of choices
 
             }
