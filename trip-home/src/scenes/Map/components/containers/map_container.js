@@ -35,7 +35,7 @@ const MapContainer = (props) => {
   // const [photo, setPhoto] = useState(null);
   const places = [];
   const [todos, setTodos] = React.useState([]);
-  const [package_status, setPackage_status] = useState("loading");
+  const [package_status, setPackage_status] = useState(-1);
 
   const handleClose = () => setOpen(false);
 
@@ -74,28 +74,33 @@ const MapContainer = (props) => {
       // a package was clicked
       } else {
         // for loop to add trip todos using passed information
-        for (var x = 0; x < query.length; x++) {
-          var request = {
-            location: center,
-            radius: 100,
-            query: query[x]
-          };
-          service.current.textSearch(request, callback);
-          function callback(results, status) {
-            // only pushes results if it gets an OK status
-            if (status === google.maps.places.PlacesServiceStatus.OK) {
-              console.log(results[0])
-              var choice = results[getRandomInt(results.length)]
-              setPrices(choice)
-              setTodos(prevTodos => [...prevTodos, choice])
-              // TODO --- Add some form of markers, or a choice modal for generating the next set of choices
-
-            }
-          }
-        }
+        setPackage_status(0);
       }
     }
   )
+
+  useEffect(() => {
+    if(package_status !== -1 && package_status < query.length) {
+      var request = {
+        location: center,
+        radius: 100,
+        query: query[package_status]
+      };
+      service.current.textSearch(request, callback);
+      function callback(results, status) {
+        // only pushes results if it gets an OK status
+        if (status === google.maps.places.PlacesServiceStatus.OK) {
+          var choice = results[getRandomInt(results.length)]
+          setPrices(choice)
+          setTodos(prevTodos => [...prevTodos, choice])
+          setPackage_status(package_status + 1)
+          // TODO --- Add some form of markers, or a choice modal for generating the next set of choices
+
+        }
+      }
+    }
+  }, [package_status])
+  
 
   // Set a price value for generated locations with price data
   const setPrices = (results) => {
