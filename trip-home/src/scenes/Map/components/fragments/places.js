@@ -5,9 +5,9 @@ import "../styles/map.css"
 
 /*
 
-The Todo (not my name choice) is a Trip Node button that corresponds with a selected trip location 
+The place is a Trip Node button that corresponds with a visible trip location marker 
 
-Passed the current todo, as well as parent state function for deleting via index
+Passed parent state functions for setting the current selected place and opening the parent modal menu
 
 */
 
