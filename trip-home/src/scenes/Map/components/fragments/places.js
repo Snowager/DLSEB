@@ -13,14 +13,6 @@ Passed the current todo, as well as parent state function for deleting via index
 
 const Places = (props) => {
 
-
-
-  const [addtotrip, setAddtotrip] = React.useState(false);
-  const [open, setOpen] = React.useState(false)
-  const handleOpen = () => setOpen(true);
-  const handleAddtotrip = () => setAddtotrip(true);
-  const handleClose = () => setOpen(false)
-  console.log(open)
   return (
     <>
       <div className="container">
