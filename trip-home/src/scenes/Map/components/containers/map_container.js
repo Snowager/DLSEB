@@ -135,20 +135,16 @@ const MapContainer = (props) => {
 
   //creates routes between all items in the todo List
   const makeFullRoute = () => {
-    console.log("making a full route") 
     setDirections([]);
     for(var x = 0; x < todos.length-1; x++){
-        console.log("making a part of the route " + x)
         makeRoute(todos[x], todos[x + 1])
     }
   }
   
   //change the routes everytime the todos change
   useEffect(() => {
-    console.log("directions changed")
-  }, [directions])
-  
-
+    if(todos.length > 1) makeFullRoute();
+  }, [todos])
 
   // map object
   const map = <GoogleMap
