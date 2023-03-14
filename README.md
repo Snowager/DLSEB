@@ -1,6 +1,8 @@
-# DLSEB
-Repository for the BACS 388 Don't Be Lame, Silly Egg Boy team.
+# TR!P
+## TR!P is an online travel agent which allows users to create day/weekend/vacation plans all online for free. With the randomized functionality of the app, users will be shown places they've never been to, even in areas that they are very familiar with. THe app offers the perfect answer to the age old question: "Where do you want to eat tonight?" It is also an elegant solution to the troubles of road-trip planning, providing hotels and daily meals and fun activities to do along the way. 
 
+# DLSEB
+Repository for the BACS 488 Don't Be Lame, Silly Egg Boy team.
 
 DLSEB Team Composition
 - Niko Antuna (Coordinator, Web Developer, UI / UX Designer)
