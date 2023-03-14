@@ -1,0 +1,70 @@
+body {
+  background-image: url("../../images/background.jpg");
+  background-repeat: no-repeat;
+  background-size:cover;
+}
+
+.headPara {
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+  background-color: rgba(0,0,0,.5);
+  padding: 20px;
+  color: white;
+  margin-right: 1rem;
+  margin-left: 1rem;
+}
+
+img {
+  width: 125px;
+  border-radius: 4px;
+}
+
+.App, .header {
+  text-align: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  line-height: 150%;
+  padding: 1rem;
+}
+
+.header {
+  font-size: 35px;
+}
+
+.nameHeader {
+  font-size: 20px;
+
+}
+
+.outside-parent {
+  border: 1px solid black;
+  text-align: left;
+  background-color: rgba(0,0,0,.5);
+  color: white;
+  margin-right: 1rem;
+  margin-left: 1rem;
+}
+
+.inside-parent {
+  margin-right: 1rem;
+  margin-left: 1rem;
+  padding: 0.5rem 0.5rem;
+  text-align: left;
+}
+
+.outside-child {
+  display: inline-block;
+  padding: 0.5rem 0.5rem;
+  vertical-align: middle;
+  width:50%;
+  line-height: 15px;
+}
+
+.inside-child {
+  display: inline-block;
+  padding: 0.5rem 0.5rem;
+  vertical-align: middle;
+}
