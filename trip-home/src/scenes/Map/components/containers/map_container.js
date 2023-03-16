@@ -204,7 +204,6 @@ const MapContainer = (props) => {
           /> : null}
         </div>
         <Save_trip_button id={props.id} trip={trip} city={props.city} />
-        <button onClick={() => (console.log("directions " + directions.length), makeFullRoute())}>click me </button>
       </>
     )
   }
