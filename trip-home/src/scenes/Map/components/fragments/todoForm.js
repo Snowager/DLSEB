@@ -61,6 +61,8 @@ const TodoForm = (props, addTodo) => {
 
                 <button
                   onClick={() => {
+                    // passes back the modified function containing all previous todos (with spread syntax ...) 
+                    // and adds an object containing the e.target values from the form
                     props.setTodos(prevTodos => [...prevTodos, {name: name, formatted_address: address, rating: 0, user_rating_total: 0}])
                     props.onClick()
                   }}>

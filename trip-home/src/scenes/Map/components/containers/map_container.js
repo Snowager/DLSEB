@@ -138,6 +138,7 @@ const MapContainer = (props) => {
             todos={todos}
             setTodos={setTodos}
           />
+          {/* passes the state of our todo list into component as function to be modified and passed back up */}
           <TodoForm 
             todos={todos}
             setTodos={setTodos}
