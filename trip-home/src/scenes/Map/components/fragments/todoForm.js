@@ -61,7 +61,7 @@ const TodoForm = (props, addTodo) => {
 
                 <button
                   onClick={() => {
-                    props.setTodos(prevTodos => [...prevTodos, props.selected])
+                    props.setTodos(prevTodos => [...prevTodos, {name: name, formatted_address: address, rating: 0, user_rating_total: 0}])
                     props.onClick()
                   }}>
                   Add to trip
