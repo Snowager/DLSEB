@@ -3,13 +3,21 @@ import { Modal } from '@mui/material';
 import { Typography } from "@mui/material";
 import { Box } from "@mui/material";
 
-const TodoForm = (props) => {
-  const [props.selected.name, setRestaurant] = useState('');
+const TodoForm = (props, addTodo) => {
+  const [name, setName] = useState('');
   const [address, setAddress] = useState('');
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    const object = { props.selected.name, address };
+    const object = { name, address };
+
+    if (!name) return;
+    addTodo(name)
+    setName("");
+
+    if (!address) return;
+    addTodo(address)
+    setAddress("");
 
     console.log(object);
   }
@@ -41,8 +49,8 @@ const TodoForm = (props) => {
                 <input
                   type="text"
                   required
-                  value={props.selected.name}
-                  onChange={(e) => setRestaurant(e.target.value)}
+                  value={name}
+                  onChange={(e) => setName(e.target.value)}
                 />
                 <label>Place Address:</label>
                 <textarea
