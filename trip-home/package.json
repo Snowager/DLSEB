@@ -11,15 +11,24 @@
     "@fortawesome/free-solid-svg-icons": "^6.2.1",
     "@fortawesome/react-fontawesome": "^0.2.0",
     "@material-ui/core": "^4.12.4",
+<<<<<<< Updated upstream
     "@mui/material": "^5.11.12",
+=======
+    "@mui/icons-material": "^5.11.11",
+    "@mui/material": "^5.11.13",
+>>>>>>> Stashed changes
     "@reach/combobox": "^0.18.0",
     "@react-google-maps/api": "^2.17.1",
     "@testing-library/jest-dom": "^5.16.5",
     "@testing-library/react": "^13.4.0",
     "@testing-library/user-event": "^13.5.0",
     "axios": "^1.2.5",
+<<<<<<< Updated upstream
     "bootstrap": "^5.2.3",
     "firebase": "^9.17.2",
+=======
+    "firebase": "^9.18.0",
+>>>>>>> Stashed changes
     "gapi-script": "^1.2.0",
     "graphql": "^16.6.0",
     "i": "^0.3.7",
