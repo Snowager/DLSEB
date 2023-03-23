@@ -5,6 +5,7 @@ import "../styles/dashboard.css";
 import { auth, db, logout } from "./firebase";
 import { query, collection, getDocs, where } from "firebase/firestore";
 import Saved_activities from "../../components/dashboardFragments/saved_activities.js"
+import Saved_trips from "../../components/dashboardFragments/saved_trips.js"
 
 function Dashboard() {
   const [user, loading, error] = useAuthState(auth);
@@ -37,6 +38,7 @@ function Dashboard() {
          </button>
        </div>
        <Saved_activities email={user?.email}/>
+       <Saved_trips email = {user?.email}/>
      </div>
   );
 }

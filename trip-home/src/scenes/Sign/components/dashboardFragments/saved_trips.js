@@ -28,7 +28,7 @@ const Saved_trips = (props) => {
       }
     }, [status])
 
-    //finds all the items in the saved activities table that have a given user_id
+    //finds all the items in the saved trips table that have a given user_id
     const [get_trips, {loading: trip_loading, error: trip_error, data: trip_data}] = useLazyQuery(GET_TRIP_BY_USER_ID)
    
     //once the user_id is changed to an actual id in db, run the above query
@@ -40,7 +40,7 @@ const Saved_trips = (props) => {
 
     //once the above query has finished, grab all items in the returned list
     useEffect(() => {
-      console.log("activity status use effect")
+      console.log("trip status use effect")
       if(trip_status === "complete" && trip_data !== undefined){        
         console.log(trip_data)
         setTrips(trip_data.trip)
@@ -52,7 +52,7 @@ const Saved_trips = (props) => {
         setTrip_status("loading")
         get_trips({variables: {user_id: user_id}, onCompleted: setTrip_status("complete")})
       }
-    }, [activity_status])
+    }, [trip_status])
     
     if(trip_loading) return  <div> loading, please hold </div>
     if(trip_error) return    <div> {`Error! ${user_error.message}`}</div>
@@ -63,7 +63,7 @@ const Saved_trips = (props) => {
                 {
                     trip_data.trip.map(trip => (
                         <div key={trip.trip_id}>
-                            <h1>{trip.city}</h1>
+                            <h1>Trip in {trip.city}</h1>
                         </div>
                     ))
                 }
