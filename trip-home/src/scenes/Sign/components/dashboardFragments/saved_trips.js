@@ -1,12 +1,14 @@
 import React, { useEffect, useState } from "react"
 import {useQuery, useLazyQuery} from '@apollo/client';
-import {GET_TRIP_BY_USER_ID, GET_TRIP_USER_BY_EMAIL} from "../../../TestingDatabase/GraphQL/queries.js"
+import {GET_TRIP_BY_USER_ID, GET_TRIP_USER_BY_EMAIL, GET_IN_TRIP_BY_TRIP} from "../../../TestingDatabase/GraphQL/queries.js"
 
 const Saved_trips = (props) => {
     const [user_id, setUser_id] =                   useState("");
     const [status, setStatus] =                     useState("loading");
     const [trip_status, setTrip_status] =   useState("loading");
+    const [in_trip_status, setIn_trip_status] = useState(0)
     const [trips, setTrips] =             useState([]);
+    const [in_trips, setIn_trips] = useState([]);
     const email = props.email
 
     //changes status when the query completes without error
@@ -28,8 +30,11 @@ const Saved_trips = (props) => {
       }
     }, [status])
 
-    //finds all the items in the saved trips table that have a given user_id
+    //finds all the items in the trips table that have a given user_id
     const [get_trips, {loading: trip_loading, error: trip_error, data: trip_data}] = useLazyQuery(GET_TRIP_BY_USER_ID)
+
+    //finds all the items in the in_trip table that have a given trip_id
+    const [get_in_trips, {loading: in_trip_loading, error: in_trip_error, data: in_trip_data}] = useLazyQuery(GET_IN_TRIP_BY_TRIP)
    
     //once the user_id is changed to an actual id in db, run the above query
     useEffect(() => {
@@ -53,6 +58,16 @@ const Saved_trips = (props) => {
         get_trips({variables: {user_id: user_id}, onCompleted: setTrip_status("complete")})
       }
     }, [trip_status])
+
+    useEffect(() => {
+        console.log("in_trip status use effect")
+    }, [in_trip_status])
+
+    for(var trip in trips){
+        get_in_trips({variable: {trip_id: trip.trip_id}, onCompleted: setIn_trips(...in_trips, {trip_id: })})
+    }
+
+    
     
     if(trip_loading) return  <div> loading, please hold </div>
     if(trip_error) return    <div> {`Error! ${user_error.message}`}</div>
