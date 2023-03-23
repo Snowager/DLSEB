@@ -13,6 +13,11 @@ function Register() {
   const [user, loading, error] = useAuthState(auth);
   const [phone_number, setPhone_number] = useState("");
   const [user_name, setUser_name] = useState("");
+  const [touched, setTouched] = useState(false);
+  const isValidName = new RegExp(
+    '^[a-zA-Z0-9._:$!%-]+@[a-zA-Z0-9.-]+.[a-zA-Z]$'
+ );
+
   const navigate = useNavigate();
   const register = () => {
     if (!name) alert("Please enter name");
@@ -49,7 +54,10 @@ function Register() {
           value={name}
           onChange={(e) => setName(e.target.value)}
           placeholder="Full Name"
+          onBlur={() => setTouched(true)}
+          pattern="/^(([A-Za-z]+[\-\']?)*([A-Za-z]+)?\s)+([A-Za-z]+[\-\']?)*([A-Za-z]+)?$/"
         />
+        {touched ? (isValidName ? "" : "Invalid Name") : null}
         <input
           type="text"
           className="register__textBox"
