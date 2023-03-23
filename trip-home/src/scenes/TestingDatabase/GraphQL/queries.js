@@ -53,6 +53,17 @@ query Search($trip_id: Int) {
   }
 `;
 
+export const GET_TRIP_BY_USER_ID = gql`
+query MyQuery($user_id: Int) {
+  trip(where: {user_id: {_eq: $user_id}}) {
+    user_id
+    city
+    duration
+    trip_id
+  }
+}
+`;
+
 export const GET_ADMIN = gql`
 query Search($admin_id: String!) {
   admin_by_pk(admin_id: $admin_id) {
