@@ -46,8 +46,7 @@ const TodoForm = (props, addTodo) => {
               <h2>Add Your Own Place</h2>
               <form onSubmit={handleSubmit}>
                 <label>Place Name:</label>
-                <input
-                  type="text"
+                <textarea
                   required
                   value={name}
                   onChange={(e) => setName(e.target.value)}
@@ -57,13 +56,28 @@ const TodoForm = (props, addTodo) => {
                   required
                   value={address}
                   onChange={(e) => setAddress(e.target.value)}
-                ></textarea>
+                />
+
+
+
+                <input type="text" name="lat" id="lat" />
+
+                <input type="text" name="lng" id="lng" />
+
+                <button
+                  onClick={() => {
+                    handleClose()
+                  }}>
+                  Pick a location
+                </button>
+
+
 
                 <button
                   onClick={() => {
                     // passes back the modified function containing all previous todos (with spread syntax ...) 
                     // and adds an object containing the e.target values from the form
-                    props.setTodos(prevTodos => [...prevTodos, {name: name, formatted_address: address, rating: 0, user_rating_total: 0}])
+                    props.setTodos(prevTodos => [...prevTodos, { name: name, formatted_address: address, rating: 0, user_rating_total: 0 }])
                     handleClose()
                   }}>
                   Add to trip

@@ -64,6 +64,79 @@ const MapContainer = (props) => {
           setMarkers(places)
         }
         // --TODO-- add "else" block for a failed status return
+
+
+
+
+
+
+        let infoWindow = new google.maps.InfoWindow({
+          content: "Click the map to get Lat/Lng!",
+          position: center,
+        });
+
+        infoWindow.open(map);
+        // [START maps_event_click_latlng_listener]
+        // Configure the click listener.
+        map.addListener("click", (mapsMouseEvent) => {
+          // Close the current InfoWindow.
+          infoWindow.close();
+          // Create a new InfoWindow.
+          infoWindow = new google.maps.InfoWindow({
+            position: mapsMouseEvent.latLng,
+          });
+
+          document.getElementById('lat').value = mapsMouseEvent.latLng.lat();
+          document.getElementById('lng').value = mapsMouseEvent.latLng.lng();
+
+          infoWindow.setContent(
+            JSON.stringify(mapsMouseEvent.latLng.toJSON(), null, 2)
+          );
+          infoWindow.open(map);
+
+
+
+
+
+
+
+          var geocoder = new google.maps.Geocoder();             // create a geocoder object
+          var location = new google.maps.LatLng(mapsMouseEvent.latLng.lat(), mapsMouseEvent.latLng.lng());    // turn coordinates into an object          
+          geocoder.geocode({ 'latLng': location }, function (results, status) {
+            if (status == google.maps.GeocoderStatus.OK) {           // if geocode success
+              var address = results[0].formatted_address;         // if address found, pass to processing function
+              console.log(address);
+            }
+          });
+
+          // const Geocode = new google.maps.Geocoder();
+
+          // const input = (mapsMouseEvent.latLng.lat).value;
+          // const latlngStr = input.split("{ ", "lat:", 2);
+          // const latlng = {
+          //   lat: parseFloat(latlngStr[0]),
+          //   lng: parseFloat(latlngStr[1]),
+          // };
+          // Geocode.fromLatLng({ location: latlng }).then(
+          //   response => {
+          //     const address = response.results[0].formatted_address;
+          //     console.log(address);
+          //   },
+          //   error => {
+          //     console.error(error);
+          //   }
+          // );
+
+        });
+
+
+
+
+
+
+
+
+
       }
     }, [center]
   )
@@ -139,7 +212,7 @@ const MapContainer = (props) => {
             setTodos={setTodos}
           />
           {/* passes the state of our todo list into component as function to be modified and passed back up */}
-          <TodoForm 
+          <TodoForm
             todos={todos}
             setTodos={setTodos}
           />
@@ -154,6 +227,11 @@ const MapContainer = (props) => {
           /> : null}
         </div>
         <Save_trip_button id={props.id} trip={trip} city={props.city} />
+
+
+        <input type="text" name="lat" id="lat" />
+
+        <input type="text" name="lng" id="lng" />
       </>
     )
   }

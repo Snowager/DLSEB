@@ -38,11 +38,11 @@ const Todo = (props) => {
         {open ? <Modal open={open} onClose={handleClose} className="todo-info-modal" aria-labelledby="modal-modal-title" aria-describedby="modal-modal-description">
           <Box sx={style}>
             <Typography id="modal-modal-title" variant="h6" component="h2">
-            {props.todo.photos ? (<img className="img-fluid w-80 todo-list-photos" src={props.todo.photos[0].getUrl()} alt={"picture of " + props.todo.name} />) :
-              <img className="img-fluid w-80" src="https://bacibacirestaurant.files.wordpress.com/2020/02/chairs-cutlery-fork-9315.jpg" alt="temp food place" />}
+              {props.todo.photos ? (<img className="img-fluid w-80" src={props.todo.photos[0].getUrl()} alt={"picture of " + props.todo.name} />) :
+                <img className="img-fluid w-80" src="https://bacibacirestaurant.files.wordpress.com/2020/02/chairs-cutlery-fork-9315.jpg" alt="temp food place" />}
             </Typography>
             <Typography id="modal-modal-description" sx={{ mt: 2 }}>
-              <div className="starContainer">
+              <div className="starContainer todo-star-modal">
                 <div className='star'>
                   <StarRatings rating={props.todo.rating} starRatedColor="purple" starDimension="20px" starSpacing="8px" />
                 </div>
