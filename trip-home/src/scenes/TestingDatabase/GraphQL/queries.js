@@ -126,7 +126,10 @@ query MyQuery($lat: String!, $lng: String!) {
 export const GET_IN_TRIP = gql` 
 query MyQuery($id: Int!, $trip_id: String!) {
   in_trip_by_pk(id: $id, trip_id: $trip_id) {
-    id
+    lat
+    lng
+    loc_name
+    service_id
     trip_id
   }
 }
@@ -135,19 +138,26 @@ query MyQuery($id: Int!, $trip_id: String!) {
 export const GET_IN_TRIP_BY_SERVICE = gql`
 query MyQuery($id: Int!) {
   in_trip(where: {id: {_eq: $id}}) {
-    id
+    lat
+    lng
+    loc_name
+    service_id
     trip_id
   }
 }
 `;
 
 export const GET_IN_TRIP_BY_TRIP = gql`
-query MyQuery($trip_id: String!) {
+query GET_IN_TRIP_BY_TRIP($trip_id: String!) {
   in_trip(where: {trip_id: {_eq: $trip_id}}) {
-    id
+    lat
+    lng
+    loc_name
+    service_id
     trip_id
   }
 }
+
 `;
 
 export const GET_SAVED_ACTIVITY = gql`

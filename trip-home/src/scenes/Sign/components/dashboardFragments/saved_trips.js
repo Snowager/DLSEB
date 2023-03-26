@@ -45,10 +45,11 @@ const Saved_trips = (props) => {
 
     //once the above query has finished, grab all items in the returned list
     useEffect(() => {
-      console.log("trip status use effect")
+      console.log("trip status use effect " + trip_status)
       if(trip_status === "complete" && trip_data !== undefined){        
         console.log(trip_data)
-        setTrips(trip_data.trip)
+        console.log(trip_data.trip[0].trip_id)
+        get_in_trips({variables: {trip_id: trip_data.trip[0].trip_id}, onCompleted: add_in_trips(0)})
       }
       if(trip_status === "loading"){
         console.log("just wait")
@@ -59,14 +60,16 @@ const Saved_trips = (props) => {
       }
     }, [trip_status])
 
-    useEffect(() => {
-        console.log("in_trip status use effect")
-    }, [in_trip_status])
-
-    for(var trip in trips){
-        get_in_trips({variable: {trip_id: trip.trip_id}, onCompleted: setIn_trips(...in_trips, {trip_id: })})
+    function add_in_trips (i){
+      if(i >= trip_data.trip.length){console.log("found the end of the list after " + trip_data.trip.length + " trips")}
+      else if(in_trip_data){
+        console.log("found trip data, adding " + in_trip_data.in_trip[0] + " and other to list")
+        setIn_trips(...in_trips, in_trip_data.in_trip)
+        get_in_trips({variables: {trip_id: trip_data.trip[i].trip_id}, onCompleted: add_in_trips(i + 1)})
+      }
+      else{console.log("we ain't got no data")}
     }
-
+    
     
     
     if(trip_loading) return  <div> loading, please hold </div>
@@ -81,6 +84,13 @@ const Saved_trips = (props) => {
                             <h1>Trip in {trip.city}</h1>
                         </div>
                     ))
+                }
+                {
+                  in_trips.map(item => (
+                    <div key = {item[0].id}>
+                      <h2>in_trip for {item[0].loc_name}</h2>
+                    </div>
+                  ))
                 }
             </div>
         )
