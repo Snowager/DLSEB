@@ -10,6 +10,7 @@ const Saved_trips = (props) => {
     const [trips, setTrips] =             useState([]);
     const [in_trips, setIn_trips] = useState([]);
     const email = props.email
+    const [i, setI] = useState(0);
 
     //used for testing, should never show up for actual users. 
     //Simply for trips without any locations
@@ -77,13 +78,22 @@ const Saved_trips = (props) => {
       }
     }, [trip_status])
 
-    function add_in_trips (){
+    function add_in_trips (i){
+      // console.log("add_in_trips")
+      // if(i >= trip_data.trip.length){console.log("found the end of the list after " + i + " trips")}
+      // else if(in_trip_loading){console.log( "loading")}
+      // else if(in_trip_error){console.log( `Error! ${user_error.message}`)}
+      // else if(in_trip_data){
+      //   console.log(in_trip_data.in_trip)
+      //   in_trips[i] = in_trip_data.in_trip
+      //   get_in_trips({variables: {trip_id: trip_data.trip[i].trip_id}, onCompleted: add_in_trips(i + 1)})
+      // }
       trip_data.trip.map(trip => (
         console.log("getting in Trips for " + trip.trip_id),
-        get_in_trips({variables: {trip_id: trip.trip_id}, onCompleted: console.log(in_trip_data.in_trip[in_trip_data.in_trip.length - 1])})
+        get_in_trips({variables: {trip_id: trip.trip_id}})
       ))
       // if(i >= trip_data.trip.length){console.log("found the end of the list after " + i + " trips")}
-      // else if(in_trip_data.in_trip !== undefined){
+      // else if(in_trip_data !== undefined){
       //   console.log(in_trip_data.in_trip)
       //   in_trips[i] = in_trip_data.in_trip
       //   get_in_trips({variables: {trip_id: trip_data.trip[i].trip_id}, onCompleted: add_in_trips(i + 1)})}
@@ -93,14 +103,17 @@ const Saved_trips = (props) => {
       // }
       // else{console.log("we ain't got no data")}
     }
-
     useEffect(() => {
-      if(trip_data)add_in_trips()
+      if(trip_data) add_in_trips(0)//get_in_trips({variables: {trip_id: trip_data.trip[0].trip_id}, onCompleted: add_in_trips(1)})
     }, [trip_data])
 
-    // useEffect(() => {
-    //   if(in_trip_data !== undefined){console.log()}
-    // }, [in_trip_data])
+    useEffect(() => {
+      if(in_trip_data){
+        in_trips[i] = in_trip_data.in_trip
+        setI(i + 1)
+      }
+    }, [in_trip_data])
+    
     
     
     
