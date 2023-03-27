@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react"
-import {useQuery, useLazyQuery} from '@apollo/client';
+import {useQuery, useLazyQuery, cache} from '@apollo/client';
 import {GET_TRIP_BY_USER_ID, GET_TRIP_USER_BY_EMAIL, GET_IN_TRIP_BY_TRIP} from "../../../TestingDatabase/GraphQL/queries.js"
 
 const Saved_trips = (props) => {
@@ -102,12 +102,11 @@ const Saved_trips = (props) => {
     
     
     
-    
-    
     if(trip_loading) return  <div> loading, please hold </div>
     if(trip_error) return    <div> {`Error! ${user_error.message}`}</div>
     if(trip_data && trip_data !== undefined){
         console.log("email: " + email)
+        console.log(trip_data)
         return (
             <div>
                 {
@@ -117,13 +116,13 @@ const Saved_trips = (props) => {
                         </div>
                     ))
                 }
-                {
+                {/*
                   in_trips.map(item => (
                     <div key = {item[0].id}>
                       <h2>in_trip for {item[0].loc_name}</h2>
                     </div>
                   ))
-                }
+                  */}
             </div>
         )
     }
