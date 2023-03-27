@@ -37,7 +37,7 @@ function Dashboard() {
           Logout
          </button>
        </div>
-       <Saved_activities email={user?.email}/>
+       {/*<Saved_activities email={user?.email}/>*/}
        <Saved_trips email = {user?.email}/>
      </div>
   );

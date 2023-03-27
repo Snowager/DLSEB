@@ -77,33 +77,37 @@ const Saved_trips = (props) => {
       }
     }, [trip_status])
 
-    function add_in_trips (i){
-      if(i >= trip_data.trip.length){console.log("found the end of the list after " + i + " trips")}
-      else if(in_trip_data.in_trip !== undefined){
-        console.log(in_trip_data.in_trip)
-        setIn_trips(...in_trips, in_trip_data.in_trip)
-        get_in_trips({variables: {trip_id: trip_data.trip[i].trip_id}, onCompleted: add_in_trips(i + 1)})
-      }
-      else if(in_trip_data){
-        console.log("no in_trip entries for this trip")
-        setIn_trips(...in_trips, [dummy_item_1, dummy_item_2])
-      }
-      else{console.log("we ain't got no data")}
+    function add_in_trips (){
+      trip_data.trip.map(trip => (
+        console.log("getting in Trips for " + trip.trip_id),
+        get_in_trips({variables: {trip_id: trip.trip_id}, onCompleted: console.log(in_trip_data.in_trip[in_trip_data.in_trip.length - 1])})
+      ))
+      // if(i >= trip_data.trip.length){console.log("found the end of the list after " + i + " trips")}
+      // else if(in_trip_data.in_trip !== undefined){
+      //   console.log(in_trip_data.in_trip)
+      //   in_trips[i] = in_trip_data.in_trip
+      //   get_in_trips({variables: {trip_id: trip_data.trip[i].trip_id}, onCompleted: add_in_trips(i + 1)})}
+      // else if(in_trip_data){
+      //   console.log("no in_trip entries for this trip")
+      //   setIn_trips(...in_trips, [dummy_item_1, dummy_item_2])
+      // }
+      // else{console.log("we ain't got no data")}
     }
 
     useEffect(() => {
-      console.log("trip_data use effect: " + trip_data)
-      if(trip_data !== undefined){get_in_trips({variables: {trip_id: trip_data.trip[0].trip_id}})}
+      if(trip_data)add_in_trips()
     }, [trip_data])
 
-    useEffect(() => {
-      if(in_trip_data !== undefined){add_in_trips(0)}
-    }, [in_trip_data])
+    // useEffect(() => {
+    //   if(in_trip_data !== undefined){console.log()}
+    // }, [in_trip_data])
     
     
     
-    if(trip_loading) return  <div> loading, please hold </div>
-    if(trip_error) return    <div> {`Error! ${user_error.message}`}</div>
+    
+    
+    if(trip_loading || in_trip_loading) return  <div> loading, please hold </div>
+    if(trip_error || in_trip_error) return    <div> {`Error! ${user_error.message}`}</div>
     if(trip_data && trip_data !== undefined){
         console.log("email: " + email)
         console.log(trip_data)
@@ -116,13 +120,13 @@ const Saved_trips = (props) => {
                         </div>
                     ))
                 }
-                {/*
+                {
                   in_trips.map(item => (
                     <div key = {item[0].id}>
                       <h2>in_trip for {item[0].loc_name}</h2>
                     </div>
                   ))
-                  */}
+                  }
             </div>
         )
     }
