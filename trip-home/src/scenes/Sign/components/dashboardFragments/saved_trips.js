@@ -11,6 +11,23 @@ const Saved_trips = (props) => {
     const [in_trips, setIn_trips] = useState([]);
     const email = props.email
 
+    //used for testing, should never show up for actual users. 
+    //Simply for trips without any locations
+    const dummy_item_1 = {
+      sercive_id: null,
+      trip_id: null,
+      lat: 0,
+      lng: 0,
+      loc_name: "nowhere"
+    }
+    const dummy_item_2 = {
+      sercive_id: null,
+      trip_id: null,
+      lat: 0,
+      lng: 0,
+      loc_name: "nunya"
+    }
+
     //changes status when the query completes without error
     const update_status = () => {
         setStatus("complete")
@@ -46,29 +63,44 @@ const Saved_trips = (props) => {
     //once the above query has finished, grab all items in the returned list
     useEffect(() => {
       console.log("trip status use effect " + trip_status)
-      if(trip_status === "complete" && trip_data !== undefined){        
+      if((trip_status === "complete" || trip_status === "complete_2") && trip_data !== undefined){        
         console.log(trip_data)
         console.log(trip_data.trip[0].trip_id)
-        get_in_trips({variables: {trip_id: trip_data.trip[0].trip_id}, onCompleted: add_in_trips(0)})
       }
       if(trip_status === "loading"){
         console.log("just wait")
       }
       else{
+        console.log("reached else")
         setTrip_status("loading")
-        get_trips({variables: {user_id: user_id}, onCompleted: setTrip_status("complete")})
+        get_trips({variables: {user_id: user_id}, onCompleted: setTrip_status("complete_2")})
       }
     }, [trip_status])
 
     function add_in_trips (i){
-      if(i >= trip_data.trip.length){console.log("found the end of the list after " + trip_data.trip.length + " trips")}
-      else if(in_trip_data){
-        console.log("found trip data, adding " + in_trip_data.in_trip[0] + " and other to list")
+      if(i >= trip_data.trip.length){console.log("found the end of the list after " + i + " trips")}
+      else if(in_trip_data.in_trip !== undefined){
+        console.log(in_trip_data.in_trip)
         setIn_trips(...in_trips, in_trip_data.in_trip)
         get_in_trips({variables: {trip_id: trip_data.trip[i].trip_id}, onCompleted: add_in_trips(i + 1)})
       }
+      else if(in_trip_data){
+        console.log("no in_trip entries for this trip")
+        setIn_trips(...in_trips, [dummy_item_1, dummy_item_2])
+      }
       else{console.log("we ain't got no data")}
     }
+
+    useEffect(() => {
+      console.log("trip_data use effect: " + trip_data)
+      if(trip_data !== undefined){get_in_trips({variables: {trip_id: trip_data.trip[0].trip_id}})}
+    }, [trip_data])
+
+    useEffect(() => {
+      if(in_trip_data !== undefined){add_in_trips(0)}
+    }, [in_trip_data])
+    
+    
     
     
     
