@@ -16,9 +16,6 @@ const Places = (props) => {
   return (
     <>
       <div className="container">
-
-
-
         <div className="row todo-list-opacity todo-list-margin" onClick={() => (props.setSelectedPlace(props.todo), props.setOpen(true))}>
           <div className="col-md-4 todo todo-list-photos" >
             {props.todo.photos ? (<img className="img-fluid w-80 todo-list-photos" src={props.todo.photos[0].getUrl()} alt={"picture of " + props.todo.name} />) :
