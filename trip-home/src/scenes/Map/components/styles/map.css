@@ -38,10 +38,9 @@
 }
 
 .todo-list {
-  color: white;
+  color: rgb(0, 0, 0);
   font-size: 16px;
-  background: rgb(86, 86, 86);
-
+  background: rgb(235, 235, 235);
   overflow-x: hidden;
   overflow-y: scroll;
   overflow-wrap: break-word;
@@ -51,12 +50,12 @@
   padding-bottom: 10px;
 }
 .places-list {
-  color: white;
+  color: rgb(0, 0, 0);
   display: flex;
   order: 3;
   flex-direction: column;
   font-size: 16px;
-  background: rgb(86, 86, 86);
+  background: rgb(235, 235, 235);
   overflow-x: hidden;
   overflow-y: scroll;
   overflow-wrap: break-word;
@@ -84,20 +83,12 @@
 } */
 
 .todo-list-splitters {
-  border: 1px solid rgba(211, 211, 211, 0.37);
+  border: 1px solid rgba(0, 0, 0, 0.37);
   margin-left: 5px;
   margin-right: 5px;
   margin-top: 10px;
   margin-bottom: 10px;
 
-}
-
-.todo-list-splitters {
-  border: 1px solid rgba(211, 211, 211, 0.37);
-  margin-left: 5px;
-  margin-right: 5px;
-  margin-top: 10px;
-  margin-bottom: 10px;
 }
 
 .todo-list-opacity:hover {

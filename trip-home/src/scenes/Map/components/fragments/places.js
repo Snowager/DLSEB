@@ -30,7 +30,7 @@ const Places = (props) => {
           </div>
         </div>
         <div className="placeslisttemp">
-          <button
+          <button className='btn--primary'
             onClick={() => {
               props.setTodos(prevTodos => [...prevTodos, props.todo])
               props.onClick()

@@ -28,7 +28,8 @@ function Navbar() {
                 <nav id="nav-dropdown-hidden" className="navbar navbar-opaque" >
                     <div className="navbar-container">
                         <Link to="/" className="navbar-logo" onClick={closeMobileMenu}>
-                            TR!P <i className="fa fa-solid fa-plane" />
+                            TR!P  <i className="fa fa-solid fa-plane" />
+
                         </Link>
                         <div id="nav-dropdown-hidden" className="menu-icon" onClick={handleClick}>
                             <i className={click ? 'fas fa-times' : 'fas fa-bars'} />

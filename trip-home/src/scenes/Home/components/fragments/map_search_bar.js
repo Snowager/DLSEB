@@ -46,8 +46,9 @@ const PlacesAutocomplete = ({ setSelected }) => {
                 value={value}
                 onChange={(e) => setValue(e.target.value)}
                 disabled={!ready}
+                style={{ borderRadius: 10 }}
                 className="combobox-input"
-                placeholder="Search an address"
+                placeholder="Enter a location"
             />
             <ComboboxPopover>
                 <ComboboxList>
@@ -75,7 +76,7 @@ function MapSearchBar() {
         selected.type = type
     }
 
-    if (!isLoaded) return <div>Loading...</div>
+    if (!isLoaded) return 
     return (
         <>
             <div className="places-container">
