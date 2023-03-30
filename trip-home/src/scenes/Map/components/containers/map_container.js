@@ -31,7 +31,7 @@ const MapContainer = (props) => {
   const service = useRef(null)
   const [traffic, setTraffic] = useState(false)
   const route = useRef(null)
-  const [radius, setRadius] = useState(1)
+  const [radius, setRadius] = useState(5)
   const [open, setOpen] = useState(false);
   const [selected, setSelected] = useState(null);
   const [markers, setMarkers] = useState([]);
@@ -87,7 +87,6 @@ const MapContainer = (props) => {
     if (package_status !== -1 && package_status < query.length) {
       var request = {
         location: center,
-        radius: 100,
         query: query[package_status]
       };
       service.current.textSearch(request, callback);
@@ -150,7 +149,6 @@ const MapContainer = (props) => {
     (console.log(currMap))
     var request = {
       location: center,
-      radius: "5",
       query: query
     };
     service.current.textSearch(request, callback);
