@@ -1,6 +1,7 @@
 import { React, useState } from 'react'
 import Todo from "../fragments/todo"
 import TravelMode from '../fragments/travelMode';
+import RadiusSlider from './radiusSlider';
 import "../styles/map.css"
 
 /*
@@ -23,6 +24,7 @@ const TodoList = (props) => {
 
     return (
         <div className='todo-list'>
+            <RadiusSlider setRadius={props.setRadius} />
             <TravelMode option={["Car", "Bus", "Bike", "Walk"]} value={["DRIVING", "TRANSIT", "BICYCLING", "WALKING"]} size={30} setMode={props.setMode} />
             {
             

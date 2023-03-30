@@ -60,7 +60,6 @@ const MapContainer = (props) => {
       if (query.length == 1) {
         var request = {
           location: center,
-          radius: "5",
           query: query[0]
         };
         route.current = new google.maps.DirectionsService()
