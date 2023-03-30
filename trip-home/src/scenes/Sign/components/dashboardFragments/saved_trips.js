@@ -155,6 +155,7 @@ const Saved_trips = (props) => {
                   in_trips.map(item => (
                     <div key = {item[0].id}>
                       <h2>in_trip for {item[0].loc_name}</h2>
+                      {item[1] ? (<div> and {item[1].loc_name} </div>): null}
                     </div>
                   ))
                   }
