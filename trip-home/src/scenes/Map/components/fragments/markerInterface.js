@@ -28,6 +28,7 @@ const MarkerInterface = (props) => {
                 (
                     ({/* Marker options. Needs a key and position to display on map. position is lat/lng coords */ }),
                     props.markers.map(places => (
+                        (props.calculateDistance(props.center, places.geometry.location) < props.radius ? 
                         <Marker
                             icon={icon}
 
@@ -36,9 +37,9 @@ const MarkerInterface = (props) => {
                             onClick={() => {
                                 props.setSelected(places)
                             }} />
-                    )
-                    )
-                )
+                     : null
+                    ))
+                ))
             }
 
             {/*another conditional function for the infoWindow. Checks for marker existence to display, closes by changing the selected object back to null*/}

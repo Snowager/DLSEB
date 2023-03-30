@@ -2211,9 +2211,9 @@
     "@babel/runtime" "^7.21.0"
 
 "@mui/material@^5.11.10":
-  "integrity" "sha512-hs1WErbiedqlJIZsljgoil908x4NMp8Lfk8di+5c7o809roqKcFTg2+k3z5ucKvs29AXcsdXrDB/kn2K6dGYIw=="
-  "resolved" "https://registry.npmjs.org/@mui/material/-/material-5.11.10.tgz"
-  "version" "5.11.10"
+  "integrity" "sha512-M6BiIeJjySeEzWeiFJQ9pIjJy6mx5mHPWeMT99wjQdAmA2GxCQhE9A0fh6jQP4jMmYzxhOIhjsGcp0vSdpseXg=="
+  "resolved" "https://registry.npmjs.org/@mui/material/-/material-5.11.12.tgz"
+  "version" "5.11.12"
   dependencies:
     "@babel/runtime" "^7.21.0"
     "@mui/base" "5.0.0-alpha.119"

@@ -32,6 +32,7 @@ const MapContainer = (props) => {
   const service = useRef(null)
   const [traffic, setTraffic] = useState(false)
   const route = useRef(null)
+  const [radius, setRadius] = useState(1)
   const [open, setOpen] = useState(false);
   const [selected, setSelected] = useState(null);
   const [markers, setMarkers] = useState([]);
