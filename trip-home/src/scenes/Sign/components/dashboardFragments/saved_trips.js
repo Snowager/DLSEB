@@ -57,10 +57,12 @@ const Saved_trips = (props) => {
       }
     }, [trip_status])
 
+    //grabs in_trip information as soon as the trips are loaded
     useEffect(() => {
       if(trip_data !== undefined && trip_data.trip[0].trip_id) get_in_trips({variables: {trip_id: trip_data.trip[0].trip_id}, onCompleted: console.log("got data for " + trip_data.trip[0].trip_id)})
     }, [trip_data])
  
+    //puts in_trip info into the in_trips list and updates I
     useEffect(() => {
       if(in_trip_data !==  undefined){
         in_trips[i] = in_trip_data.in_trip
@@ -68,6 +70,7 @@ const Saved_trips = (props) => {
       }
     }, [in_trip_data])
 
+    //Once the in_trip list is updated, get more in_trips for the rest of the objects in trips
     useEffect(() => {
       if(trip_data !== undefined && i < trip_data.trip.length){
         get_in_trips({variables: {trip_id: trip_data.trip[i].trip_id}, onCompleted: (console.log("got data for " + trip_data.trip[i].trip_id))})
