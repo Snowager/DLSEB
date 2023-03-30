@@ -121,7 +121,8 @@ const MapContainer = (props) => {
       Math.sin(dLong / 2) * Math.sin(dLong / 2);
     var c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
     var d = R * c;
-    return d * 0.000621371; // returns the distance converted from meter to miles
+    d = d * 0.000621371
+    return d; // returns the distance converted from meter to miles
   }
 
 
