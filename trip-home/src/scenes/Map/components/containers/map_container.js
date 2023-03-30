@@ -65,8 +65,8 @@ const MapContainer = (props) => {
           query: query[0]
         };
         route.current = new google.maps.DirectionsService()
-      service.current.textSearch(request, callback);
-        function callback(results, status) {
+        service.current.textSearch(request, serviceCallback);
+        function serviceCallback(results, status) {
           // only pushes results if it gets an OK status
           if (status === google.maps.places.PlacesServiceStatus.OK) {
             // 
@@ -77,9 +77,7 @@ const MapContainer = (props) => {
             setMarkers(places)
           }
           // --TODO-- add "else" block for a failed status return
-        }
-
-      // a package was clicked
+        }    // a package was clicked
       } else {
         setPackage_status(0);
       }
