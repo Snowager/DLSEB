@@ -112,13 +112,21 @@ const Saved_trips = (props) => {
 
     useEffect(() => {
       console.log("i'm here ")
-      if(trip_data !==  undefined && i < trip_data.trip.length){
+      if(in_trip_data !==  undefined){
         console.log("in_trip_data useEffect")
         in_trips[i] = in_trip_data.in_trip
         setI(i + 1)
-        get_in_trips({variables: {trip_id: trip_data.trip[i].trip_id}, onCompleted: console.log("got data for " + trip_data.trip[i].trip_id)})
       }
     }, [in_trip_data])
+
+    useEffect(() => {
+      console.log("i useEffect")
+      if(trip_data !== undefined && i < trip_data.trip.length){
+        console.log("inside if statement" + i)
+        get_in_trips({variables: {trip_id: trip_data.trip[i].trip_id}, onCompleted: (console.log("got data for " + trip_data.trip[i].trip_id), setI(i + 1))})
+      }
+    }, [i])
+    
 
     // function update_in_trips (id){
     //   in_trips.id = in_trip_data
