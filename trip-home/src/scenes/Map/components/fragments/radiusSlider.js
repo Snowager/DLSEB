@@ -60,7 +60,7 @@ const RadiusSlider = (props) => {
 
     return (
         <>
-            <Box sx={{ display: "flex" }}>
+            <Box sx={{ display: "flex", margin: "40px" }}>
                 <Slider
                     aria-label="Radius"
                     defaultValue={5}
