@@ -234,6 +234,7 @@ const MapContainer = (props) => {
     return (
       <>
         {console.log(mode)}
+        
         <div className='mapContainer'>
           {/* TodoList handles the list of Todo trip items */}
 
@@ -242,6 +243,7 @@ const MapContainer = (props) => {
             setTodos={setTodos}
             makeRoute={makeRoute}
             setMode={setMode}
+            setRadius={setRadius}
           />
           {map}
           {/* ChoiceModal is the modal for making a new trip choice */}
