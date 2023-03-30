@@ -21,7 +21,6 @@ const MapContainer = (props) => {
   const google = window.google;
   const [currMap, setMap] = useState({})
   const [center, setCenter] = useState({ lat: props.lat, lng: props.lng });
-  console.log(center)
   const [mapStyles, setMapStyles] = useState({
     height: "100vh",
     width: "100%"
@@ -143,7 +142,7 @@ const MapContainer = (props) => {
     setMarkers([])
     handleClose()
     changeMarker(query, center)
-    if (todos.length >= 2) makeRoute(todos[todos.length-2], todos[todos.length-1]) 
+    if (todos.length >= 2) makeRoute(todos[todos.length - 2], todos[todos.length - 1])
   }
 
   // reusable helper service function to modify marker positions
@@ -199,18 +198,21 @@ const MapContainer = (props) => {
     onLoad={onLoad}
   >
     <div className='d-flex justify-content-center p-2'>
-    <Fab variant='extended' size='medium' color='success' aria-label='add' onClick={() => setTraffic(!traffic)}>
-      <TrafficIcon sx={{ mr: 1}} />
-      Traffic
-    </Fab>
+      <Fab variant='extended' size='medium' color='success' aria-label='add' onClick={() => setTraffic(!traffic)}>
+        <TrafficIcon sx={{ mr: 1 }} />
+        Traffic
+      </Fab>
     </div>
-    
+
     {/* MarkerInterface component handles the markers and marker infoWindows on the map  */}
     <MarkerInterface
       places={places}
       markers={markers}
+      center={center}
       selected={selected}
       setSelected={setSelected}
+      calculateDistance={calculateDistance}
+      radius={radius}
       setOpen={setOpen}
       open={open}
       todos={todos}
@@ -218,21 +220,23 @@ const MapContainer = (props) => {
       google={google}
     />
     {directions ? (directions.map((direction, index) => (
-      <DirectionsRenderer
-      directions={direction}
-      key={index} />
+      <>
+        <DirectionsRenderer
+          directions={direction}
+          key={index} />
+      </>
     ))
     ) : null}
-    {traffic ? (<TrafficLayer/>) : null}
+    {traffic ? (<TrafficLayer />) : null}
   </GoogleMap>
 
   if (props.status) {
     return (
       <>
-      {console.log(mode)}
+        {console.log(mode)}
         <div className='mapContainer'>
           {/* TodoList handles the list of Todo trip items */}
-          
+
           <TodoList
             todos={todos}
             setTodos={setTodos}
@@ -252,6 +256,7 @@ const MapContainer = (props) => {
           /> : null}
         </div>
         <Save_trip_button id={props.id} trip={trip} city={props.city} />
+        <button onClick={() => (setRadius(radius-.01), console.log(radius))} >radius</button>
       </>
     )
   }
