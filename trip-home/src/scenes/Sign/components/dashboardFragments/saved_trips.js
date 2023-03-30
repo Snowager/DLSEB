@@ -58,9 +58,9 @@ const Saved_trips = (props) => {
     }, [trip_status])
 
     useEffect(() => {
-      if(trip_data) get_in_trips({variables: {trip_id: trip_data.trip[0].trip_id}, onCompleted: console.log("got data for " + trip_data.trip[i].trip_id)})
+      if(trip_data !== undefined && trip_data.trip[0].trip_id) get_in_trips({variables: {trip_id: trip_data.trip[0].trip_id}, onCompleted: console.log("got data for " + trip_data.trip[0].trip_id)})
     }, [trip_data])
-
+ 
     useEffect(() => {
       if(in_trip_data !==  undefined){
         in_trips[i] = in_trip_data.in_trip
@@ -79,7 +79,7 @@ const Saved_trips = (props) => {
     if(trip_error || in_trip_error) return    <div> {`Error! ${user_error.message}`}</div>
     if(trip_data && trip_data !== undefined){
         return (
-            <div>
+            <div key="saved_trips">
                 {
                     trip_data.trip.map(trip => (
                         <div key={trip.trip_id}>
