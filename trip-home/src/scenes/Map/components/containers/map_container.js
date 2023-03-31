@@ -141,7 +141,8 @@ const MapContainer = (props) => {
     setMarkers([])
     handleClose()
     changeMarker(query, center)
-    if (todos.length >= 2) makeRoute(todos[todos.length - 2], todos[todos.length - 1])
+    //if (todos.length >= 2) makeRoute(todos[todos.length-2], todos[todos.length-1]) THIS IS WHAT YOU HAD BEFORE AND IT WORKED
+    //makeFullRoute(); THIS DOES PRETTY MUCH THE SAME EXACT THING BUT FOR SOME REASON THE DOM STILL THINKS THAT THERES NOTHING IN THE DIRECTIONS ARRAY
   }
 
   // reusable helper service function to modify marker positions
@@ -175,16 +176,28 @@ const MapContainer = (props) => {
       function callback(result, status) {
         if (status === google.maps.DirectionsStatus.OK) {
           console.log(result)
-          directions.push(result)
+          setDirections(prevDirections => [...prevDirections, result])
+          console.log(directions)
         } else {
           console.error(`error fetching directions ${result}`);
           return null
         }
       }
     )
-
   }
 
+  //creates routes between all items in the todo List
+  const makeFullRoute = () => {
+    setDirections([]);
+    for(var x = 0; x < todos.length-1; x++){
+        makeRoute(todos[x], todos[x + 1])
+    }
+  }
+  
+  //change the routes everytime the todos change
+  useEffect(() => {
+    if(todos.length > 1) makeFullRoute();
+  }, [todos])
 
   // map object
   const map = <GoogleMap
@@ -231,8 +244,7 @@ const MapContainer = (props) => {
   if (props.status) {
     return (
       <>
-        {console.log(mode)}
-        
+      {/*console.log(mode) */}
         <div className='mapContainer'>
           {/* TodoList handles the list of Todo trip items */}
 
@@ -241,6 +253,7 @@ const MapContainer = (props) => {
             setTodos={setTodos}
             makeRoute={makeRoute}
             setMode={setMode}
+            makeFullRoute={makeFullRoute}
             setRadius={setRadius}
           />
           {map}
@@ -251,6 +264,7 @@ const MapContainer = (props) => {
             open={open}
             handleClose={handleClose}
             modifyMarkers={modifyMarkers}
+            makeFullRoute={makeFullRoute}
             makeRoute={makeRoute}
             todos={todos}
           /> : null}
