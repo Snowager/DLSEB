@@ -1,4 +1,4 @@
-import React from "react"
+import {React, useState} from "react"
 import { Modal } from '@mui/material';
 import { Typography } from "@mui/material";
 import { Box } from "@mui/material";
@@ -28,6 +28,8 @@ const ChoiceModal = (props) => {
         p: 4,
       };
 
+    const [selected, setSelected] = useState(props.selected)
+
     return (
         <Modal
             open={props.open}
@@ -42,10 +44,10 @@ const ChoiceModal = (props) => {
               <Typography id="modal-modal-description" sx={{ mt: 2 }}>
                 Click one of the buttons below to change your available locations.
               </Typography>
-              <div style={{ display: "flex", flexDirection: "row" }}>
-                <button className='btn--primary btn' onClick={() => props.modifyMarkers("food", props.selected.geometry.location)}>food</button>
-                <button className='btn--primary btn' onClick={() => props.modifyMarkers("hotel", props.selected.geometry.location)}>hotel</button>
-                <button className='btn--primary btn' onClick={() => props.modifyMarkers("fun", props.selected.geometry.location)}>activity</button>
+              <div style={{ display: "flex", flexDirection: "row",width:"40%" }}>
+                <button className='btn--primary btn' onClick={() => props.modifyMarkers("food", selected.geometry.location)}>food</button>
+                <button className='btn--primary btn' onClick={() => props.modifyMarkers("hotel", selected.geometry.location)}>hotel</button>
+                <button className='btn--primary btn' onClick={() => props.modifyMarkers("fun", selected.geometry.location)}>activity</button>
               </div>
 
             </Box>

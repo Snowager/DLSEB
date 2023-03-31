@@ -36,19 +36,34 @@
   display: flex;
   flex-direction: column;
 }
-
+/* .containerToDo{
+  opacity: .95;
+  background: rgb(99, 99, 99);
+  padding:1px;
+  margin-left: 4px;
+  margin-bottom: 10px;
+  border-radius: 5px;
+} */
 .todo-list {
-  color: white;
+  color: rgb(255, 255, 255);
   font-size: 16px;
-  background: rgb(86, 86, 86);
-  display: flex;
-  order: 1;
-  flex-direction: column;
   overflow-x: hidden;
   overflow-y: scroll;
   overflow-wrap: break-word;
   max-height: 100vh;
-  width: 30%;
+  width: 35%;
+}
+.places-list {
+  color: rgb(0, 0, 0);
+  display: flex;
+  order: 3;
+  flex-direction: column;
+  font-size: 16px;
+  overflow-x: hidden;
+  overflow-y: scroll;
+  overflow-wrap: break-word;
+  max-height: 100vh;
+  width: 35%;
   padding-top: 10px;
   padding-bottom: 10px;
 }
@@ -70,31 +85,23 @@
   margin-right: 10px;
 } */
 
-.todo-list-splitters {
-  border: 1px solid rgba(211, 211, 211, 0.37);
+ .todo-list-splitters {
+  border: 1px solid rgba(0, 0, 0, 0.37);
   margin-left: 5px;
   margin-right: 5px;
   margin-top: 10px;
   margin-bottom: 10px;
-
-}
-
-.todo-list-splitters {
-  border: 1px solid rgba(211, 211, 211, 0.37);
-  margin-left: 5px;
-  margin-right: 5px;
-  margin-top: 10px;
-  margin-bottom: 10px;
-}
+} 
 
 .todo-list-opacity:hover {
-  opacity: 0.5;
+  opacity: 0.9;
   transition: 0.3s;
+  background: rgb(226, 226, 226);
 }
 
 .todo-list-photos {
-  width: 100px;
-  height: 50px;
+  width: 150px;
+  height: 80px;
   object-fit: cover;
 }
 

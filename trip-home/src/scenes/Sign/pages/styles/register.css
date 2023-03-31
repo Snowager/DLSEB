@@ -1,5 +1,5 @@
 .register {
-    height: 100vh;
+    height: 80vh;
     width: 100vw;
     display: flex;
     align-items: center;
@@ -32,11 +32,4 @@
   .register div {
     margin-top: 7px;
   }
-  body {
-    background-image: url("../../images/background.jpg");
-    background-repeat: no-repeat;
-    background-size:cover;
-  }
-  a:visited {
-    color: lightblue;
-  }
+  

@@ -1,6 +1,7 @@
 import { React, useState } from 'react'
 import Todo from "../fragments/todo"
 import TravelMode from '../fragments/travelMode';
+import RadiusSlider from './radiusSlider';
 import "../styles/map.css"
 
 /*
@@ -23,7 +24,9 @@ const TodoList = (props) => {
 
     return (
         <div className='todo-list'>
+            <RadiusSlider setRadius={props.setRadius} />
             <TravelMode option={["Car", "Bus", "Bike", "Walk"]} value={["DRIVING", "TRANSIT", "BICYCLING", "WALKING"]} size={30} setMode={props.setMode} />
+            <h1 className='text-center'>Your Trip</h1>
             {
             
                 props.todos.map((todo, index) => (
@@ -34,6 +37,7 @@ const TodoList = (props) => {
                         removeTodo={removeTodo}
                     />
                 ))
+                
             }
         </div>
 
