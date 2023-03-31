@@ -1,6 +1,12 @@
 body {
-    background-image: url('../../images/sunset.jpg');
+    background-image: url("../../images/background.jpg");
+    background-size:cover;
+    background-color: black;
     background-repeat: no-repeat;
-    background-attachment: fixed;
-    background-size: cover;
+  background-attachment: fixed;
+  
+  }
+.homescreen_logo{
+    height: 180px;
+    width: 450px;
 }

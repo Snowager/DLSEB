@@ -50,14 +50,5 @@
   .login__google {
     background-color: #4285f4;
   }
-  .resetRegisterLink {
-    color:white;
-  }
-  body {
-    background-image: url("../../images/background.jpg");
-    background-repeat: no-repeat;
-    background-size:cover;
-  }
-  a:visited {
-    color: lightblue;
-  }
+
+ 

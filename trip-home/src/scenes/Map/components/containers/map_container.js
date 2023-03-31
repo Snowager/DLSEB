@@ -2,8 +2,9 @@ import React, { useState, useRef, useEffect } from 'react';
 import { DirectionsRenderer, GoogleMap, TrafficLayer, } from '@react-google-maps/api';
 import "../../../Splash/components/styles/button.css";
 import Save_trip_button from '../fragments/save_trip_button.js';
-import "../styles/map.css";
-import TodoList from "../fragments/todoList";
+import "../styles/map.css"
+import TodoList from "../fragments/todoList"
+import PlacesList from "../fragments/placesList"
 import ChoiceModal from '../fragments/choiceModal';
 import MarkerInterface from '../fragments/markerInterface';
 import { Fab } from '@mui/material';
@@ -34,14 +35,21 @@ const MapContainer = (props) => {
   const [radius, setRadius] = useState(5)
   const [open, setOpen] = useState(false);
   const [selected, setSelected] = useState(null);
-  const [markers, setMarkers] = useState([]);
   const [trip, setTrip] = useState([]);
+  const [added, setAdded] = useState(false)
+  const [markers, setMarkers] = useState([]);
   const [todos, setTodos] = useState([]);
   const [directions, setDirections] = useState([]);
   const [package_status, setPackage_status] = useState(-1);
   const [mode, setMode] = useState("DRIVING");
 
-  const handleClose = () => setOpen(false);
+  const handleChoiceClose = () => setAdded(false);
+
+
+  // helper function to get a random value from 0-max (non-inclusive)
+  function getRandomInt(max) {
+    return Math.floor(Math.random() * max);
+  }
 
 
   // helper function to get a random value from 0-max (non-inclusive)
@@ -135,8 +143,7 @@ const MapContainer = (props) => {
   const modifyMarkers = (query, center) => {
     setCenter({lat: selected.geometry.location.lat(), lng: selected.geometry.location.lng()})
     setSelected(null)
-    setMarkers([])
-    handleClose()
+    handleChoiceClose()
     changeMarker(query, center)
     //if (todos.length >= 2) makeRoute(todos[todos.length-2], todos[todos.length-1]) THIS IS WHAT YOU HAD BEFORE AND IT WORKED
     //makeFullRoute(); THIS DOES PRETTY MUCH THE SAME EXACT THING BUT FOR SOME REASON THE DOM STILL THINKS THAT THERES NOTHING IN THE DIRECTIONS ARRAY
@@ -156,6 +163,7 @@ const MapContainer = (props) => {
         }
         setMarkers(results)
       }
+      setMarkers(results)
     }
   }
 
@@ -237,29 +245,39 @@ const MapContainer = (props) => {
     return (
       <>
         <div className='mapContainer'>
+          {markers.length > 0 ? (
+            <PlacesList
+              onClick={() => setAdded(true)}
+              todos={markers}
+              setTodos={setTodos}
+              open={added}
+            />) : null}
+          {todos ? (
+            <TodoList
+              todos={todos}
+              setTodos={setTodos}
+            />) : null}
+          {map}
           {/* TodoList handles the list of Todo trip items */}
 
-          <TodoList
-            todos={todos}
-            setTodos={setTodos}
-            makeRoute={makeRoute}
-            setMode={setMode}
-            makeFullRoute={makeFullRoute}
-            setRadius={setRadius}
-          />
-          {map}
+
+
           {/* ChoiceModal is the modal for making a new trip choice */}
+
           {/* only opens if marker added to trip (tracked using open bool)*/}
-          {open ? <ChoiceModal
-            selected={selected}
-            open={open}
-            handleClose={handleClose}
+          {added ? <ChoiceModal
+            selected={todos[todos.length - 1]}
+            open={added}
+            handleClose={handleChoiceClose}
             modifyMarkers={modifyMarkers}
             makeFullRoute={makeFullRoute}
             makeRoute={makeRoute}
             todos={todos}
           /> : null}
+
         </div>
+
+        {/*  {places ? (places.map((place, index) => (<div><p>{place.name}</p></div>) )): null  }*/}
         <Save_trip_button id={props.id} trip={trip} city={props.city} />
         <button onClick={() => (setRadius(radius-.01))} >radius</button>
       </>

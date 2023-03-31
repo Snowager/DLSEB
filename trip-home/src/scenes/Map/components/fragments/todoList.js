@@ -26,6 +26,7 @@ const TodoList = (props) => {
         <div className='todo-list'>
             <RadiusSlider setRadius={props.setRadius} />
             <TravelMode option={["Car", "Bus", "Bike", "Walk"]} value={["DRIVING", "TRANSIT", "BICYCLING", "WALKING"]} size={30} setMode={props.setMode} />
+            <h1>Your Trip</h1>
             {
             
                 props.todos.map((todo, index) => (
@@ -36,6 +37,7 @@ const TodoList = (props) => {
                         removeTodo={removeTodo}
                     />
                 ))
+                
             }
         </div>
 
