@@ -1,15 +1,21 @@
-import React, { useState, useEffect, useRef, useMemo } from 'react';
-import ReactDOM, { createRoot } from "react-dom/client";
-import { GoogleMap, LoadScript, Marker, InfoWindow, } from '@react-google-maps/api';
-import { Modal } from '@mui/material';
-import { Typography } from "@mui/material";
-import { Box } from "@mui/material";
-import "../../../Splash/components/styles/button.css"
-import { display } from '@mui/system';
+import React, { useState, useRef, useEffect } from 'react';
+import { DirectionsRenderer, GoogleMap, TrafficLayer, } from '@react-google-maps/api';
+import "../../../Splash/components/styles/button.css";
 import Save_trip_button from '../fragments/save_trip_button.js';
-import StarRatings from 'react-star-ratings';
-import "../styles/map.css"
-import MarkerStyle from '../../images/markerTemplate4.svg'
+import "../styles/map.css";
+import TodoList from "../fragments/todoList";
+import ChoiceModal from '../fragments/choiceModal';
+import MarkerInterface from '../fragments/markerInterface';
+import { Fab } from '@mui/material';
+import TrafficIcon from '@mui/icons-material/Traffic';
+
+/*
+The map container is a container-type file that holds all the different components that interact with the map (Markers, 
+  API services, Popup windows, Trip information)
+it loads the places Service in an onload callback function (only renders once on initial map load)
+The map is rendered with an initial set of height/width constraints (necessary to display)
+Passed initial lat/long for centering, and query type to use as argument parameters
+*/
 
 const MapContainer = (props) => {
   const google = window.google;
@@ -19,129 +25,137 @@ const MapContainer = (props) => {
     height: "100vh",
     width: "100%"
   })
-  const [query, setQuery] = useState(props.type)
+  // query is now initially set to a string array to account for potentially multiple passed types
+  const [query, setQuery] = useState(props.type.split("_"))
+  // use ref allows us to maintain state even when in a function's scope
   const service = useRef(null)
+  const [traffic, setTraffic] = useState(false)
+  const route = useRef(null)
+  const [radius, setRadius] = useState(5)
   const [open, setOpen] = useState(false);
   const [selected, setSelected] = useState(null);
   const [markers, setMarkers] = useState([]);
   const [trip, setTrip] = useState([]);
   // const [photo, setPhoto] = useState(null);
   const places = [];
-  const [todos, setTodos] = React.useState([
-  ]);
+  const [todos, setTodos] = useState([]);
+  const [directions, setDirections] = useState([]);
+  const [package_status, setPackage_status] = useState(-1);
+  const [mode, setMode] = useState("DRIVING");
 
-  const icon = {
-    url: MarkerStyle, // url
-    scaledSize: new google.maps.Size(50, 50), // scaled size
-    origin: new google.maps.Point(0,0), // origin
-    anchor: new google.maps.Point(0, 0) // anchor
-  };
+  const handleClose = () => setOpen(false);
 
-  const addTodo = text => {
-    const newTodos = [...todos, { text }];
-    setTodos(newTodos);
-  };
 
-  function TodoForm({ addTodo }) {
-    const [value, setValue] = React.useState("");
-  
-    const handleSubmit = e => {
-      e.preventDefault();
-      if (!value) return;
-      addTodo(value);
-      setValue("");
-    };
-  
-    return (
-      <form onSubmit={handleSubmit}>
-        <input
-          type="text"
-          className="input"
-          value={value}
-          onChange={e => setValue(e.target.value)}
-          placeholder="Add Your Own Place!"
-        />
-      </form>
-    );
+  // helper function to get a random value from 0-max (non-inclusive)
+  function getRandomInt(max) {
+    return Math.floor(Math.random() * max);
   }
-  function Todo({ todo, index, removeTodo }) {
-    return (
-      <div className="container">
-        <div className="row ">
-          <div className="col-md-4 todo">
-            {todo.photos ? (<img className="img-fluid w-80" src={todo.photos[0].getUrl()} alt={"picture of "+todo.name} />) :
-            <img className="img-fluid w-80" src="https://bacibacirestaurant.files.wordpress.com/2020/02/chairs-cutlery-fork-9315.jpg" alt="temp food place" />}
-            
-          </div>
-          <div className="col-md-1"></div>
-          <div className="col-xl-5">
-            {todo.name}
-          </div>
-          <div className="col-md-1">
-            <button className="Remove_Button" onClick={() => removeTodo(index)}>
-              <i class="fa fa-trash" aria-hidden="true"> </i>
-            </button>
-          </div>
-        </div>
-        <div className="todo-list-splitters"></div>
-    </div>
-    );
-  }
-
-
-  const removeTodo = index => {
-    const newTodos = [...todos];
-    newTodos.splice(index, 1);
-    setTodos(newTodos);
-  };
-  const [value, setValue] = React.useState("");
-
-  // these are our constant variables, anything using const [foo, bar] is a get/set essentially
-  
-
-
 
   // React callback to load map
   const onLoad = React.useCallback(
     function onLoad(map) {
+      // initialize our service's current state to reuse later (place service)
+      service.current = new google.maps.places.PlacesService(map)
+      // length == 1 means a button was pressed
+      if (query.length == 1) {
+        var request = {
+          location: center,
+          query: query[0]
+        };
+        route.current = new google.maps.DirectionsService()
+        service.current.textSearch(request, serviceCallback);
+        function serviceCallback(results, status) {
+          // only pushes results if it gets an OK status
+          if (status === google.maps.places.PlacesServiceStatus.OK) {
+            // 
+            for (var i = 0; i < results.length; i++) {
+              setPrices(results[i])
+              places.push(results[i])
+            }
+            setMarkers(places)
+          }
+          // --TODO-- add "else" block for a failed status return
+        }    // a package was clicked
+      } else {
+        setPackage_status(0);
+      }
+    }
+  )
+
+  //Runs after the package_status has been set in the onLoad function (line 76)
+  useEffect(() => {
+    if (package_status !== -1 && package_status < query.length) {
       var request = {
         location: center,
-        radius: "5",
-        query: query
+        query: query[package_status]
       };
-      service.current = new google.maps.places.PlacesService(map)
-      console.log(service)
       service.current.textSearch(request, callback);
       function callback(results, status) {
         // only pushes results if it gets an OK status
         if (status === google.maps.places.PlacesServiceStatus.OK) {
-          for (var i = 0; i < results.length; i++) {
-            var price = ""
-            for (var j = 0; j < results[i].price_level; j++) {
-              price += "$"
-            }
-            results[i].priceString = price;
-            places.push(results[i])
-          }
-          setMarkers(places)
-        }
-        // --TODO-- add "else" block for a failed status return
-      }
-    }, [center]
-  )
+          var choice = results[getRandomInt(results.length)]
+          setPrices(choice)
+          setTodos(prevTodos => [...prevTodos, choice])
+          setPackage_status(package_status + 1)
+          // TODO --- Add some form of markers, or a choice modal for generating the next set of choices
 
+        }
+      }
+    }
+  }, [package_status])
+
+  // 
+  const rad = (x) => {
+    return x * Math.PI / 180;
+  };
+
+  // Haversine formula to calculate distance between two points on the planet
+  // credit to https://stackoverflow.com/questions/1502590/calculate-distance-between-two-points-in-google-maps-v3
+  const calculateDistance = (p1, p2) => {
+    var R = 6378137; // Earth’s mean radius in meter
+    var dLat = rad(p2.lat() - p1.lat);
+    var dLong = rad(p2.lng() - p1.lng);
+    var a = Math.sin(dLat / 2) * Math.sin(dLat / 2) +
+      Math.cos(rad(p1.lat)) * Math.cos(rad(p2.lat())) *
+      Math.sin(dLong / 2) * Math.sin(dLong / 2);
+    var c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+    var d = R * c;
+    d = d * 0.000621371
+    return d; // returns the distance converted from meter to miles
+  }
+
+
+  // Set a price value for generated locations with price data
+  const setPrices = (results) => {
+    var price = ""
+    for (var j = 0; j < results.price_level; j++) {
+      price += "$"
+    }
+    results.priceString = price;
+  }
+
+  // call this to modify markers properly (query - tag to search for, center - where to center the search)
+  const modifyMarkers = (query, center) => {
+    setCenter(selected.geometry.location)
+    setSelected(null)
+    setMarkers([])
+    handleClose()
+    changeMarker(query, center)
+    if (todos.length >= 2) makeRoute(todos[todos.length - 2], todos[todos.length - 1])
+  }
+
+  // reusable helper service function to modify marker positions
   const changeMarker = (query, center) => {
+    (console.log(currMap))
     var request = {
       location: center,
-      radius: "5",
       query: query
     };
-    console.log(service)
     service.current.textSearch(request, callback);
     function callback(results, status) {
-      console.log(status)
       if (status === google.maps.places.PlacesServiceStatus.OK) {
         for (var i = 0; i < results.length; i++) {
+          setPrices(results[i])
           places.push(results[i])
         }
         setMarkers(places)
@@ -149,143 +163,100 @@ const MapContainer = (props) => {
     }
   }
 
+  const makeRoute = (a, b) => {
+    const origin = a.geometry.location
+    const destination = b.geometry.location
+    route.current.route(
+      {
+        origin: origin,
+        destination: destination,
+        travelMode: mode
+      },
+      function callback(result, status) {
+        if (status === google.maps.DirectionsStatus.OK) {
+          console.log(result)
+          directions.push(result)
+        } else {
+          console.error(`error fetching directions ${result}`);
+          return null
+        }
+      }
+    )
 
+  }
+
+
+  // map object
   const map = <GoogleMap
-    ref={(map) => setMap(map)}
+    // create map reference
+    ref={ref => setMap(ref)}
     mapContainerStyle={mapStyles}
     zoom={props.zoom}
     center={center}
     onLoad={onLoad}
   >
-    {
-      places &&
-      (
-        ({/* Marker options. Needs a key and position to display on map. position is lat/lng coords */ }),
-        markers.map(places => (
-          <Marker
-            icon={icon}
-            
-            key={places.place_id}
-            position={places.geometry.location}
-            onClick={() => {
-              setSelected(places)
-              console.log(selected)
-            }} />
-        )
-        )
-      )
-    }
+    <div className='d-flex justify-content-center p-2'>
+      <Fab variant='extended' size='medium' color='success' aria-label='add' onClick={() => setTraffic(!traffic)}>
+        <TrafficIcon sx={{ mr: 1 }} />
+        Traffic
+      </Fab>
+    </div>
 
-    {/*another conditional function for the infoWindow. Checks for marker existence to display, closes by changing the selected object back to null*/}
-    {selected ? (<InfoWindow
-      position={selected.geometry.location}
-      onCloseClick={() => {
-        setSelected(null)
-      }}>
-      {/* infoWindow can have one child div. Can still include other components inside the window via nesting and flex arrangement*/}
-      <div>
-        <div className='photoContainer card'>
-          {selected.photos ? <img src={selected.photos[0].getUrl()} alt={"picture of "+selected.name}></img> : null}
-          
-          <div className="starContainer"><div className='star'><StarRatings
-            rating={selected.rating}
-            starRatedColor="purple"
-            starDimension="20px"
-            starSpacing="8px"
-          />
-          </div>
-            <span className="rating" style={{ color: "blue" }}>{selected.rating}
-            </span>
-          </div>
-          <p>ratings total: ({selected.user_ratings_total})</p>
-          <h4>
-            {selected.name} {selected.priceString ? "(" + selected.priceString + ")" : ""}
-          </h4>
-          <p>
-            {selected.formatted_address}
-          </p>
-          <button
-            onClick={() => {
-              setTodos([...todos, selected]);
-              handleOpen()
-            }}>
-            Add to trip
-          </button>
-        </div>
-      </div>
-    </InfoWindow>) : null}
+    {/* MarkerInterface component handles the markers and marker infoWindows on the map  */}
+    <MarkerInterface
+      places={places}
+      markers={markers}
+      center={center}
+      selected={selected}
+      setSelected={setSelected}
+      calculateDistance={calculateDistance}
+      radius={radius}
+      setOpen={setOpen}
+      open={open}
+      todos={todos}
+      setTodos={setTodos}
+      google={google}
+    />
+    {directions ? (directions.map((direction, index) => (
+      <>
+        <DirectionsRenderer
+          directions={direction}
+          key={index} />
+      </>
+    ))
+    ) : null}
+    {traffic ? (<TrafficLayer />) : null}
   </GoogleMap>
 
-  const handleOpen = () => setOpen(true);
-  const handleClose = () => setOpen(false);
-
-  const modifyMarkers = (query, center) => {
-    setCenter(selected.geometry.location)
-    setSelected(null)
-    setMarkers([])
-    handleClose()
-    changeMarker(query, center)
-  }
-
-  const onSelect = item => {
-    setSelected(item);
-  }
-
-  const style = {
-    position: 'absolute',
-    top: '50%',
-    left: '50%',
-    transform: 'translate(-50%, -50%)',
-    width: 400,
-    bgcolor: 'background.paper',
-    border: '2px solid #000',
-    boxShadow: 24,
-    p: 4,
-  };
-
-  
   if (props.status) {
-
     return (
       <>
+        {console.log(mode)}
+        
         <div className='mapContainer'>
-          <div className="todo-list">
-            {todos.map((todo, index) => (
-              <Todo
-                key={index}
-                index={index}
-                todo={todo}
-                removeTodo={removeTodo}
-              />
-            ))}
-            <TodoForm addTodo={addTodo} />
-          </div>
+          {/* TodoList handles the list of Todo trip items */}
+
+          <TodoList
+            todos={todos}
+            setTodos={setTodos}
+            makeRoute={makeRoute}
+            setMode={setMode}
+            setRadius={setRadius}
+          />
           {map}
-          {open ? <Modal
-          open={open}
-          onClose={handleClose}
-          aria-labelledby="modal-modal-title"
-          aria-describedby="modal-modal-description"
-        >
-          <Box sx={style}>
-            <Typography id="modal-modal-title" variant="h6" component="h2">
-              Now where?
-            </Typography>
-            <Typography id="modal-modal-description" sx={{ mt: 2 }}>
-              Click one of the buttons below to change your available locations.
-              </Typography>
-            <div style={{ display: "flex", flexDirection: "row" }}>
-              <button className='btn--primary btn' onClick={() => (modifyMarkers("food", selected.geometry.location)) }>food</button>
-              <button className='btn--primary btn' onClick={() => modifyMarkers("hotel", selected.geometry.location)}>hotel</button>
-              <button className='btn--primary btn' onClick={() => modifyMarkers("fun", selected.geometry.location)}>activity</button>
-            </div>
-
-          </Box>
-        </Modal> : null}
-
-      
+          {/* ChoiceModal is the modal for making a new trip choice */}
+          {/* only opens if marker added to trip (tracked using open bool)*/}
+          {open ? <ChoiceModal
+            selected={selected}
+            open={open}
+            handleClose={handleClose}
+            modifyMarkers={modifyMarkers}
+            makeRoute={makeRoute}
+            todos={todos}
+          /> : null}
         </div>
-        <Save_trip_button id={props.id} trip={trip} city={props.city}/>
+        <Save_trip_button id={props.id} trip={trip} city={props.city} />
+        <button onClick={() => (setRadius(radius-.01), console.log(radius))} >radius</button>
       </>
     )
   }

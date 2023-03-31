@@ -55,6 +55,40 @@ function Navbar() {
             </div>
         </>
     )
+  return (
+    <>
+
+       <div className="">
+           <nav className= "navbar navbar-opaque" >
+            <div className= "navbar-container">
+                <Link to="/" className="navbar-logo" onClick={closeMobileMenu}>
+                    TR!P <i className="fa fa-solid fa-plane" />
+                </Link>
+                <div className="menu-icon" onClick={handleClick}>
+                        <i className={click ? 'fas fa-times' : 'fas fa-bars'}/>
+                   </div>
+                   <ul className={click ? 'nav-menu active' : 'nav-menu'}>
+                    <li className='nav-item'>
+                        <Link to ='/register' className='nav-links' onClick={closeMobileMenu}>
+                            Sign Up
+                        </Link>
+                    </li>
+                    <li className='nav-item'>
+                        <Link to ='/login' className='nav-links' onClick={closeMobileMenu}>
+                            Sign In
+                        </Link>
+                    </li>
+                    <li className='nav-item'>
+                        <Link to ='/ManageTrips' className='nav-links' onClick={closeMobileMenu}>
+                            Manage Trips
+                        </Link>
+                    </li>
+                </ul>
+            </div>
+            </nav>
+       </div>
+    </>
+  )
 }
 
 export default Navbar 

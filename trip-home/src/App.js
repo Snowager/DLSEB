@@ -20,6 +20,9 @@ function App() {
           <Route exact path="/reset" element={<Reset />} /> 
           <Route exact path="/profile" element={<Profile />} />
           <Route path="/MapPage/*" element={<MapPage />} />
+          <Route path="/Package/dinner_movie/*" element={<MapPage package={"dinner_movie"}/>} />
+          <Route path="/Package/family/*" element={<MapPage package={"family"}/>} />
+          <Route path="/Package/weekend_vacation/*" element={<MapPage package={"weekend_vacation"}/>} />
         </Routes>
       </Router>
     </div>
