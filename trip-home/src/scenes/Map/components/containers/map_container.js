@@ -215,6 +215,7 @@ const MapContainer = (props) => {
         <TrafficIcon sx={{ mr: 1 }} />
         Traffic
       </Fab>
+      <Save_trip_button id={props.id} trip={trip} city={props.city} />
     </div>
 
     {/* MarkerInterface component handles the markers and marker infoWindows on the map  */}
@@ -280,8 +281,7 @@ const MapContainer = (props) => {
         </div>
 
         {/*  {places ? (places.map((place, index) => (<div><p>{place.name}</p></div>) )): null  }*/}
-        <Save_trip_button id={props.id} trip={trip} city={props.city} />
-        <button onClick={() => (setRadius(radius-.01))} >radius</button>
+        
       </>
     )
   }
