@@ -36,8 +36,6 @@ const MapContainer = (props) => {
   const [selected, setSelected] = useState(null);
   const [markers, setMarkers] = useState([]);
   const [trip, setTrip] = useState([]);
-  // const [photo, setPhoto] = useState(null);
-  const places = [];
   const [todos, setTodos] = useState([]);
   const [directions, setDirections] = useState([]);
   const [package_status, setPackage_status] = useState(-1);
@@ -70,9 +68,8 @@ const MapContainer = (props) => {
             // 
             for (var i = 0; i < results.length; i++) {
               setPrices(results[i])
-              places.push(results[i])
             }
-            setMarkers(places)
+            setMarkers(results)
           }
           // --TODO-- add "else" block for a failed status return
         }    // a package was clicked
@@ -136,7 +133,7 @@ const MapContainer = (props) => {
 
   // call this to modify markers properly (query - tag to search for, center - where to center the search)
   const modifyMarkers = (query, center) => {
-    setCenter(selected.geometry.location)
+    setCenter({lat: selected.geometry.location.lat(), lng: selected.geometry.location.lng()})
     setSelected(null)
     setMarkers([])
     handleClose()
@@ -147,7 +144,6 @@ const MapContainer = (props) => {
 
   // reusable helper service function to modify marker positions
   const changeMarker = (query, center) => {
-    (console.log(currMap))
     var request = {
       location: center,
       query: query
@@ -157,9 +153,8 @@ const MapContainer = (props) => {
       if (status === google.maps.places.PlacesServiceStatus.OK) {
         for (var i = 0; i < results.length; i++) {
           setPrices(results[i])
-          places.push(results[i])
         }
-        setMarkers(places)
+        setMarkers(results)
       }
     }
   }
@@ -175,9 +170,7 @@ const MapContainer = (props) => {
       },
       function callback(result, status) {
         if (status === google.maps.DirectionsStatus.OK) {
-          console.log(result)
           setDirections(prevDirections => [...prevDirections, result])
-          console.log(directions)
         } else {
           console.error(`error fetching directions ${result}`);
           return null
@@ -217,7 +210,6 @@ const MapContainer = (props) => {
 
     {/* MarkerInterface component handles the markers and marker infoWindows on the map  */}
     <MarkerInterface
-      places={places}
       markers={markers}
       center={center}
       selected={selected}
@@ -244,7 +236,6 @@ const MapContainer = (props) => {
   if (props.status) {
     return (
       <>
-      {/*console.log(mode) */}
         <div className='mapContainer'>
           {/* TodoList handles the list of Todo trip items */}
 
@@ -270,7 +261,7 @@ const MapContainer = (props) => {
           /> : null}
         </div>
         <Save_trip_button id={props.id} trip={trip} city={props.city} />
-        <button onClick={() => (setRadius(radius-.01), console.log(radius))} >radius</button>
+        <button onClick={() => (setRadius(radius-.01))} >radius</button>
       </>
     )
   }
