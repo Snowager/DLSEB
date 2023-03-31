@@ -26,7 +26,7 @@ const MarkerInterface = (props) => {
             {
 
                     /* Marker options. Needs a key and position to display on map. position is lat/lng coords */
-                    props.places.map(places => (
+                    props.markers.map(places => (
                         <Marker
                             icon={icon}
 

@@ -35,9 +35,7 @@ const MapContainer = (props) => {
   const [selected, setSelected] = useState(null);
   const [trip, setTrip] = useState([]);
   const [added, setAdded] = useState(false)
-  // const [photo, setPhoto] = useState(null);
-  // const places = [];
-  const [places, setPlaces] = useState([]);
+  const [markers, setMarkers] = useState([]);
   const [todos, setTodos] = React.useState([]);
 
   const handleChoiceClose = () => setAdded(false);
@@ -61,7 +59,7 @@ const MapContainer = (props) => {
           for (var i = 0; i < results.length; i++) {
             setPrices(results[i])
           }
-          setPlaces(results)
+          setMarkers(results)
         }
         // --TODO-- add "else" block for a failed status return
       }
@@ -99,7 +97,7 @@ const MapContainer = (props) => {
           setPrices(results[i])
         }
       }
-      setPlaces(results)
+      setMarkers(results)
     }
   }
 
@@ -114,7 +112,7 @@ const MapContainer = (props) => {
   >
     {/* MarkerInterface component handles the markers and marker infoWindows on the map  */}
     <MarkerInterface
-      places={places}
+      markers={markers}
       selected={selected}
       setSelected={setSelected}
       setOpen={setAdded}
@@ -130,10 +128,10 @@ const MapContainer = (props) => {
     return (
       <>
         <div className='mapContainer'>
-          {places.length > 0 ? (
+          {markers.length > 0 ? (
             <PlacesList
               onClick={() => setAdded(true)}
-              todos={places}
+              todos={markers}
               setTodos={setTodos}
               open={added}
             />) : null}
