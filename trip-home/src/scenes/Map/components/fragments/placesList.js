@@ -63,7 +63,7 @@ const PlacesList = (props) => {
                 </Box>
               </Modal>) : null}
         <div className='places-list'>
-            <h1>Places</h1>
+            <h1 className='text-center text-white'>Places</h1>
             {
                 props.todos.map((todo, index) => (
                     <Places
