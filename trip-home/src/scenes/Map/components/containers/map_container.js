@@ -36,14 +36,13 @@ const MapContainer = (props) => {
   const [open, setOpen] = useState(false);
   const [selected, setSelected] = useState(null);
   const [trip, setTrip] = useState([]);
-  const [added, setAdded] = useState(false)
   const [markers, setMarkers] = useState([]);
   const [todos, setTodos] = useState([]);
   const [directions, setDirections] = useState([]);
   const [package_status, setPackage_status] = useState(-1);
   const [mode, setMode] = useState("DRIVING");
 
-  const handleChoiceClose = () => setAdded(false);
+  const handleChoiceClose = () => setOpen(false);
 
 
   // helper function to get a random value from 0-max (non-inclusive)
@@ -126,6 +125,8 @@ const MapContainer = (props) => {
     var c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
     var d = R * c;
     d = d * 0.000621371
+    //console.log(d)
+    //console.log(radius)
     return d; // returns the distance converted from meter to miles
   }
 
@@ -247,15 +248,16 @@ const MapContainer = (props) => {
         <div className='mapContainer'>
           {markers.length > 0 ? (
             <PlacesList
-              onClick={() => setAdded(true)}
+              onClick={() => setOpen(true)}
               todos={markers}
               setTodos={setTodos}
-              open={added}
+              open={open}
             />) : null}
           {todos ? (
             <TodoList
               todos={todos}
               setTodos={setTodos}
+              setRadius={setRadius}
             />) : null}
           {map}
           {/* TodoList handles the list of Todo trip items */}
@@ -265,9 +267,9 @@ const MapContainer = (props) => {
           {/* ChoiceModal is the modal for making a new trip choice */}
 
           {/* only opens if marker added to trip (tracked using open bool)*/}
-          {added ? <ChoiceModal
+          {open ? <ChoiceModal
             selected={todos[todos.length - 1]}
-            open={added}
+            open={open}
             handleClose={handleChoiceClose}
             modifyMarkers={modifyMarkers}
             makeFullRoute={makeFullRoute}
