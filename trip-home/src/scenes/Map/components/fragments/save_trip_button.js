@@ -83,7 +83,8 @@ const Save_trip_button = (props) => {
     }
 
     return (
-        status != "loading" ? (
+        console.log(status),
+        status == "complete" ? (
         <>
             <Fab variant='extended' size='medium' color='primary' aria-label='add' onClick={onClick}>
                 <RouteIcon sx={{ mr: 1 }} />
@@ -91,9 +92,9 @@ const Save_trip_button = (props) => {
             </Fab>
 
         </>) : (
-            <Fab variant='extended' size='medium' color='disabled' aria-label='add' onClick={onClick}>
+            <Fab variant='extended' size='medium' color='disabled' aria-label='add'>
                 <RouteIcon sx={{ mr: 1 }} />
-            Save Trip
+                Loading
         </Fab>
 
         )
