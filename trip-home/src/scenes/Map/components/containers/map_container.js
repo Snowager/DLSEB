@@ -252,6 +252,7 @@ const MapContainer = (props) => {
               onClick={() => setOpen(true)}
               todos={markers}
               setTodos={setTodos}
+              setSelected={setSelected}
               open={open}
             />) : null}
           {todos ? (
