@@ -57,7 +57,6 @@ const RadiusSlider = (props) => {
         props.setRadius(newValue)
         console.log(newValue)
     }
-
     return (
         <>
             <Box sx={{ display: "flex", margin: "40px" }}>
@@ -70,6 +69,10 @@ const RadiusSlider = (props) => {
                     step={null}
                     marks={marks}
                     max={30}
+                    color="primary"
+                    sx={{
+                        color: 'white',
+                      }}
                 />
             </Box>
         </>

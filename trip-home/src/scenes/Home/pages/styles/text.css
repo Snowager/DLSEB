@@ -10,3 +10,11 @@
 .overLayTitle {
     color: white;
 }
+select {
+    font-size: 0.9rem;
+    padding: 5px 5px;
+}
+.PackageList {
+    position: auto;
+    margin-top:100px;
+}
