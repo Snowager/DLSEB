@@ -236,7 +236,14 @@ const MapContainer = (props) => {
       <>
         <DirectionsRenderer
           directions={direction}
-          key={index} />
+          key={index}
+          options={{
+            polylineOptions:{
+              strokeColor:"green",
+              strokeWeight:4
+            }
+          }}
+           />
       </>
     ))
     ) : null}
