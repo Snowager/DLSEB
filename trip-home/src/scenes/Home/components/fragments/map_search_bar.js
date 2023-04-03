@@ -153,8 +153,9 @@ function MapSearchBar() {
                         </Link>
                     </div> </>)
                 :
-                <h1 class="text-light">
-                    Select a location!</h1>}
+                
+                <h1 class="PackageList ">
+                    Enter a Location to Begin</h1>}
 
 
         </>

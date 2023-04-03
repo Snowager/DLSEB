@@ -15,6 +15,7 @@ select {
     padding: 5px 5px;
 }
 .PackageList {
+    color:rgb(255, 255, 255);
     position: auto;
     margin-top:100px;
 }
