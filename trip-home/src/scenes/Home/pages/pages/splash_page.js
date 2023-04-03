@@ -9,7 +9,7 @@ function SplashPage() {
         <>
             <Navbar />
             <div className="container text-center mt-5">
-                <img class = "homescreen_logo" src="logo.png"/>
+                <img class = "homescreen_logo" src="greenLogo.png"/>
                 <div className="row">
                     <TravelSection />
                 </div>

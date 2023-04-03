@@ -59,7 +59,8 @@ const RadiusSlider = (props) => {
     }
     return (
         <>
-            <Box sx={{ display: "flex", margin: "40px" }}>
+            <h2 className='text-center'>Search Radius</h2>
+            <Box  sx={{ display: "flex", margin: "10px", color:"white" }}>
                 <Slider
                     aria-label="Radius"
                     defaultValue={5}
@@ -69,7 +70,6 @@ const RadiusSlider = (props) => {
                     step={null}
                     marks={marks}
                     max={30}
-                    color="primary"
                     sx={{
                         color: 'white',
                       }}
