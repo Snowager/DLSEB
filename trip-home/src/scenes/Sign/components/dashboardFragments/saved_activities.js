@@ -8,6 +8,7 @@ const Saved_activities = (props) => {
     const [activity_status, setActivity_status] =   useState("loading");
     const [activities, setActivities] =             useState([]);
     const email = props.email
+    const [drop_value, setDrop_value] = React.useState("");
 
     //changes status when the query completes without error
     const update_status = () => {
@@ -53,6 +54,10 @@ const Saved_activities = (props) => {
         get_activities({variables: {user_id: user_id}, onCompleted: setActivity_status("complete")})
       }
     }, [activity_status])
+
+    const handleChange = (event) => {
+      setDrop_value(event.target.value);
+    };
     
     if(activity_loading) return  <div> loading, please hold </div>
     if(activity_error) return    <div> {`Error! ${user_error.message}`}</div>
@@ -60,14 +65,20 @@ const Saved_activities = (props) => {
         console.log("email: " + email)
         return (
             <div>
+                <label> Saved activities
+                    <select value={drop_value} onChange={handleChange}>
                 {
+                  
                     activity_data.saved_activity.map(activity => (
-                        <div key={activity.name}>
-                            <h1>{activity.name}</h1>
-                            <p> at lat: {activity.lat} || lng: {activity.lng}</p>
-                        </div>
+                              <option value={activity.name} 
+                        className='btn btn-light'>
+                          <h2>{activity.name}</h2>
+                          <p> at lat: {activity.lat} || lng: {activity.lng}</p>
+                        </option>
                     ))
                 }
+                </select>
+                </label>
             </div>
         )
     }
