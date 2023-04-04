@@ -49,9 +49,9 @@ const ChoiceModal = (props) => {
                 Click one of the buttons below to change your available locations.
               </Typography>
               <div style={{ display: "flex", flexDirection: "row",width:"40%" }}>
-                <button className='btn--primary btn' onClick={() => props.modifyMarkers("food", selected.geometry.location)}>food</button>
-                <button className='btn--primary btn' onClick={() => props.modifyMarkers("hotel", selected.geometry.location)}>hotel</button>
-                <button className='btn--primary btn' onClick={() => props.modifyMarkers("fun", selected.geometry.location)}>activity</button>
+                <button className='btn--primary btn' onClick={() => props.modifyMarkers("food", selected.geometry.location)}>Food</button>
+                <button className='btn--primary btn' onClick={() => props.modifyMarkers("hotel", selected.geometry.location)}>Hotel</button>
+                <button className='btn--primary btn' onClick={() => props.modifyMarkers("fun", selected.geometry.location)}>Activity</button>
               </div>
 
             </Box>
