@@ -3,6 +3,8 @@ import { useAuthState } from "react-firebase-hooks/auth";
 import { Link, useNavigate } from "react-router-dom";
 import { useMutation } from '@apollo/client';
 import { auth, registerWithEmailAndPassword, signInWithGoogle } from "./firebase";
+import PhoneInput from 'react-phone-input-2'
+import 'react-phone-input-2/lib/style.css'
 import "../styles/register.css";
 import {CREATE_TRIP_USER} from '../../../TestingDatabase/GraphQL/inserts.js';
 
@@ -13,10 +15,6 @@ function Register() {
   const [user, loading, error] = useAuthState(auth);
   const [phone_number, setPhone_number] = useState("");
   const [user_name, setUser_name] = useState("");
-  const [touched, setTouched] = useState(false);
-  const isValidName = new RegExp(
-    '^[a-zA-Z0-9._:$!%-]+@[a-zA-Z0-9.-]+.[a-zA-Z]$'
- );
 
   const navigate = useNavigate();
   const register = () => {
@@ -54,10 +52,7 @@ function Register() {
           value={name}
           onChange={(e) => setName(e.target.value)}
           placeholder="Full Name"
-          onBlur={() => setTouched(true)}
-          pattern="/^(([A-Za-z]+[\-\']?)*([A-Za-z]+)?\s)+([A-Za-z]+[\-\']?)*([A-Za-z]+)?$/"
         />
-        {touched ? (isValidName ? "" : "Invalid Name") : null}
         <input
           type="text"
           className="register__textBox"
@@ -72,13 +67,13 @@ function Register() {
           onChange={(e) => setUser_name(e.target.value)}
           placeholder="Username"
         />
-        <input
-          type="text"
-          className="register__textBox"
+        <PhoneInput
+          type="tel"
+          className="phoneInput__btn__Reg"
+          country={'us'}
           value={phone_number}
-          onChange={(e) => setPhone_number(e.target.value)}
-          placeholder="Phone number"
-        />
+          onChange={(e) => setPhone_number("+" + e)}
+        /> 
         <input
           type="password"
           className="register__textBox"

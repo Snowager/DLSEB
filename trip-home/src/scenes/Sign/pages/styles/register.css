@@ -30,6 +30,12 @@
     background-color: #4285f4;
   }
   .register div {
-    margin-top: 7px;
+    color: white;
+  }
+  .phoneInput__btn__Reg {
+    margin-bottom: 10px;
+  }
+  .resetRegisterLink {
+    color: white;
   }
   
