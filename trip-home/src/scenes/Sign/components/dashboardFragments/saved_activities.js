@@ -64,7 +64,7 @@ const Saved_activities = (props) => {
                     activity_data.saved_activity.map(activity => (
                         <div key={activity.name}>
                             <h1>{activity.name}</h1>
-                            <h2>lat: {activity.lat} || lng: {activity.lng}</h2>
+                            <p> at lat: {activity.lat} || lng: {activity.lng}</p>
                         </div>
                     ))
                 }
