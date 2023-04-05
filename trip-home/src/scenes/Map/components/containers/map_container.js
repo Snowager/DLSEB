@@ -41,6 +41,7 @@ const MapContainer = (props) => {
   const [directions, setDirections] = useState([]);
   const [package_status, setPackage_status] = useState(-1);
   const [mode, setMode] = useState("DRIVING");
+  const [budget, setBudget] = useState(0)
 
   const handleChoiceClose = () => setOpen(false);
 
@@ -137,6 +138,9 @@ const MapContainer = (props) => {
     for (var j = 0; j < results.price_level; j++) {
       price += "$"
     }
+    if (price == "") {
+      price += "$"
+    }
     results.priceString = price;
   }
 
@@ -230,6 +234,7 @@ const MapContainer = (props) => {
       open={open}
       todos={todos}
       setTodos={setTodos}
+      budget={budget}
       google={google}
     />
     {directions ? (directions.map((direction, index) => (
@@ -260,6 +265,7 @@ const MapContainer = (props) => {
               todos={todos}
               setTodos={setTodos}
               setRadius={setRadius}
+              setBudget={setBudget}
             />) : null}
           {map}
           {/* TodoList handles the list of Todo trip items */}
