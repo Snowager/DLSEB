@@ -78,7 +78,7 @@ const Saved_activities = (props) => {
         return (
             <div>
                 <label> Saved activities
-                    <select value={drop_value.name} onChange={handleChange}>
+                    <select value={drop_value} onChange={handleChange}>
                 {
                   
                     activity_data.saved_activity.map(activity => (
@@ -92,8 +92,8 @@ const Saved_activities = (props) => {
                 <Link
                     to={`../MapPage/${selected.name}/${selected.lat}/${selected.lng}`}
                     className='btn btn-light'
-                    state={"fun"}
-                    onClick={() => pushType({drop_value})}>
+                    onClick={() => pushType({drop_value})}
+                    state={selected}>
                     start a trip with this location
                 </Link>
                 </label>
