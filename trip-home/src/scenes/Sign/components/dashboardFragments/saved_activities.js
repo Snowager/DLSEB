@@ -84,7 +84,7 @@ const Saved_activities = (props) => {
                 }
                 </select>
                 <Link
-                    to={`../MapPage/restaurant/${drop_value.split("_")[1]}/${drop_value.split("_")[2]}`}
+                    to={`../MapPage/${drop_value.split("_")[0]}/${drop_value.split("_")[1]}/${drop_value.split("_")[2]}`}
                     className='btn btn-light'
                     state={"fun"}
                     onClick={() => pushType({drop_value})}>
