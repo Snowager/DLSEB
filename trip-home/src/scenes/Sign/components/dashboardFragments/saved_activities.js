@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react"
 import {useQuery, useLazyQuery} from '@apollo/client';
 import {GET_SAVED_ACTIVITY, GET_TRIP_USER_BY_EMAIL} from "../../../TestingDatabase/GraphQL/queries.js"
+import { Link } from 'react-router-dom';
 
 const Saved_activities = (props) => {
     const [user_id, setUser_id] =                   useState("");
@@ -57,7 +58,12 @@ const Saved_activities = (props) => {
 
     const handleChange = (event) => {
       setDrop_value(event.target.value);
+      console.log(drop_value)
     };
+
+    const pushType = (type) => {
+      drop_value.type = type
+  }
     
     if(activity_loading) return  <div> loading, please hold </div>
     if(activity_error) return    <div> {`Error! ${user_error.message}`}</div>
@@ -70,14 +76,20 @@ const Saved_activities = (props) => {
                 {
                   
                     activity_data.saved_activity.map(activity => (
-                              <option value={activity.name} 
+                      <option value={activity.name + "_" + activity.lat + "_" + activity.lng} 
                         className='btn btn-light'>
-                          <h2>{activity.name}</h2>
-                          <p> at lat: {activity.lat} || lng: {activity.lng}</p>
-                        </option>
+                        {activity.name} at lat: {activity.lat} || lng: {activity.lng}
+                      </option>
                     ))
                 }
                 </select>
+                <Link
+                    to={`../MapPage/restaurant/${drop_value.split("_")[1]}/${drop_value.split("_")[2]}`}
+                    className='btn btn-light'
+                    state={"fun"}
+                    onClick={() => pushType({drop_value})}>
+                    start a trip with this location
+                </Link>
                 </label>
             </div>
         )

@@ -61,6 +61,11 @@ const MapContainer = (props) => {
     function onLoad(map) {
       // initialize our service's current state to reuse later (place service)
       service.current = new google.maps.places.PlacesService(map)
+      //The first node is already chosen
+      if(props.destination){
+          console.log("first node will be " + props.destination)
+          //--TODO-- load the map with the destination already in the trip
+      }
       // length == 1 means a button was pressed
       if (query.length == 1) {
         var request = {
