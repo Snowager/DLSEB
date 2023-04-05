@@ -10,6 +10,7 @@ const Saved_activities = (props) => {
     const [activities, setActivities] =             useState([]);
     const email = props.email
     const [drop_value, setDrop_value] = React.useState("");
+    const [selected, setSelected] = useState("");
 
     //changes status when the query completes without error
     const update_status = () => {
@@ -58,12 +59,16 @@ const Saved_activities = (props) => {
 
     const handleChange = (event) => {
       setDrop_value(event.target.value);
-      console.log(drop_value.name)
+      setSelected({name: event.target.value.split("_")[0],
+      lat: event.target.value.split("_")[1],
+      lng: event.target.value.split("_")[2]
+    });
+      console.log(drop_value)
     };
 
     const pushType = (type) => {
-      drop_value.type = type
-      drop_value.flag = true
+      selected.type = type
+      selected.flag = true
   }
     
     if(activity_loading) return  <div> loading, please hold </div>
@@ -73,11 +78,11 @@ const Saved_activities = (props) => {
         return (
             <div>
                 <label> Saved activities
-                    <select value={drop_value} onChange={handleChange}>
+                    <select value={drop_value.name} onChange={handleChange}>
                 {
                   
                     activity_data.saved_activity.map(activity => (
-                      <option value={{name: activity.name, lat: activity.lat, lng: activity.lng}} 
+                      <option value={activity.name + "_" + activity.lat + "_" + activity.lng} 
                         className='btn btn-light'>
                         {activity.name} at lat: {activity.lat} || lng: {activity.lng}
                       </option>
@@ -85,7 +90,7 @@ const Saved_activities = (props) => {
                 }
                 </select>
                 <Link
-                    to={`../MapPage/${drop_value.name}/${drop_value.lat}/${drop_value.lng}`}
+                    to={`../MapPage/${selected.name}/${selected.lat}/${selected.lng}`}
                     className='btn btn-light'
                     state={"fun"}
                     onClick={() => pushType({drop_value})}>
