@@ -1,11 +1,10 @@
 .register {
-    height: 80vh;
-    width: 100vw;
     display: flex;
     align-items: center;
     justify-content: center;
   }
   .register__container {
+    margin-top: 20px;
     display: flex;
     flex-direction: column;
     text-align: center;
@@ -17,6 +16,7 @@
     padding: 10px;
     font-size: 18px;
     margin-bottom: 10px;
+    width: 100%;
   }
   .register__btn {
     padding: 10px;
@@ -38,4 +38,11 @@
   .resetRegisterLink {
     color: white;
   }
+label {
+  margin-top: 5px;
+  display: flex;
+  text-align: right;
+  padding: 5px;
+  color: white;
+}
   
