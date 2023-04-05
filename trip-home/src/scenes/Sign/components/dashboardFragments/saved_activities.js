@@ -58,11 +58,12 @@ const Saved_activities = (props) => {
 
     const handleChange = (event) => {
       setDrop_value(event.target.value);
-      console.log(drop_value)
+      console.log(drop_value.name)
     };
 
     const pushType = (type) => {
       drop_value.type = type
+      drop_value.flag = true
   }
     
     if(activity_loading) return  <div> loading, please hold </div>
@@ -76,7 +77,7 @@ const Saved_activities = (props) => {
                 {
                   
                     activity_data.saved_activity.map(activity => (
-                      <option value={activity.name + "_" + activity.lat + "_" + activity.lng} 
+                      <option value={{name: activity.name, lat: activity.lat, lng: activity.lng}} 
                         className='btn btn-light'>
                         {activity.name} at lat: {activity.lat} || lng: {activity.lng}
                       </option>
@@ -84,7 +85,7 @@ const Saved_activities = (props) => {
                 }
                 </select>
                 <Link
-                    to={`../MapPage/${drop_value.split("_")[0]}/${drop_value.split("_")[1]}/${drop_value.split("_")[2]}`}
+                    to={`../MapPage/${drop_value.name}/${drop_value.lat}/${drop_value.lng}`}
                     className='btn btn-light'
                     state={"fun"}
                     onClick={() => pushType({drop_value})}>
