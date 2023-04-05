@@ -1,5 +1,6 @@
 import React from 'react';
 
+import { Box } from "@mui/material";
 import Radio from '@mui/material/Radio';
 import RadioGroup from '@mui/material/RadioGroup';
 import FormControlLabel from '@mui/material/FormControlLabel';
@@ -15,6 +16,7 @@ const TravelMode = (props) => {
 
     }
     return (
+      <Box sx={{ display: "flex", margin: "40px" }} className="text-center display-flex">
     <FormControl>
       <FormLabel id="demo-radio-buttons-group-label" className='text-center'>Travel Mode</FormLabel>
       <RadioGroup
@@ -46,6 +48,7 @@ const TravelMode = (props) => {
         }}/>} label={props.option[3]} labelPlacement="top"/>
       </RadioGroup>
     </FormControl>
+    </Box>
     )
 }
 export default TravelMode

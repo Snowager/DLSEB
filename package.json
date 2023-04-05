@@ -9,6 +9,7 @@
     "link-react": "^3.0.0",
     "react-google-maps": "^9.4.5",
     "react-hook-google-maps": "^0.0.3",
+    "react-phone-input-2": "^2.15.1",
     "react-router-dom": "^6.8.0",
     "react-scripts": "^5.0.1",
     "react-star-rating-component": "^1.4.1",

@@ -1,12 +1,8 @@
 import React, { useEffect, useState } from "react";
 import { useAuthState } from "react-firebase-hooks/auth";
 import { Link, useNavigate } from "react-router-dom";
-import {useMutation} from '@apollo/client';
-import {
-  auth,
-  registerWithEmailAndPassword,
-  signInWithGoogle,
-} from "./firebase";
+import { useMutation } from '@apollo/client';
+import { auth, registerWithEmailAndPassword, signInWithGoogle } from "./firebase";
 import "../styles/register.css";
 import {CREATE_TRIP_USER} from '../../../TestingDatabase/GraphQL/inserts.js';
 
@@ -17,6 +13,11 @@ function Register() {
   const [user, loading, error] = useAuthState(auth);
   const [phone_number, setPhone_number] = useState("");
   const [user_name, setUser_name] = useState("");
+  const [touched, setTouched] = useState(false);
+  const isValidName = new RegExp(
+    '^[a-zA-Z0-9._:$!%-]+@[a-zA-Z0-9.-]+.[a-zA-Z]$'
+ );
+
   const navigate = useNavigate();
   const register = () => {
     if (!name) alert("Please enter name");
@@ -24,8 +25,13 @@ function Register() {
   };
   useEffect(() => {
     if (loading) return;
-    //if (user) navigate.replace("/dashboard");
+    if (user) navigate.replace("/");
   }, [user, loading]);
+
+  const routeChange = () =>{ 
+    let path = '/'; 
+    navigate(path);
+  }
 
   //mutation call for adding the user to our personal database
   const [db_register, {db_loading, db_error, db_data}] = useMutation(CREATE_TRIP_USER, {
@@ -48,7 +54,10 @@ function Register() {
           value={name}
           onChange={(e) => setName(e.target.value)}
           placeholder="Full Name"
+          onBlur={() => setTouched(true)}
+          pattern="/^(([A-Za-z]+[\-\']?)*([A-Za-z]+)?\s)+([A-Za-z]+[\-\']?)*([A-Za-z]+)?$/"
         />
+        {touched ? (isValidName ? "" : "Invalid Name") : null}
         <input
           type="text"
           className="register__textBox"
@@ -80,6 +89,7 @@ function Register() {
         <button className="register__btn" disabled={db_loading} onClick={() => {
           register();
           db_register();
+          routeChange();
         }}>
           Register
         </button>

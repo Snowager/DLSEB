@@ -42,7 +42,7 @@ const MarkerWindow = (props) => {
                     <p>
                         {props.selected.formatted_address}
                     </p>
-                    <button
+                    <button className='btn btn-dark'
                         onClick={() => {
                             props.setTodos(prevTodos => [...prevTodos, props.selected])
                             props.onClick()
