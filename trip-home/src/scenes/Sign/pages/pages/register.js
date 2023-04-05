@@ -39,6 +39,16 @@ function Register () {
   const [passwordFocus, setPasswordFocus] = useState(false)
   const [matchFocus, setMatchFocus] = useState(false)
 
+  const [db_register, {db_loading, db_error, db_data}] = useMutation(CREATE_TRIP_USER, {
+    variables: {
+      email: email,
+      password: password,
+      phone_number: phone, 
+      first_name: name.split(" ")[0],
+      last_name: name.split(" ")[1]
+    }
+    });
+
  
   useEffect(() => {
     nameRef.current.focus()
@@ -76,15 +86,6 @@ function Register () {
     }
 
     try {
-        const [db_register, {db_loading, db_error, db_data}] = useMutation(CREATE_TRIP_USER, {
-        variables: {
-          email: email,
-          password: password,
-          phone_number: phone, 
-          first_name: name.split(" ")[0],
-          last_name: name.split(" ")[1]
-        }
-        });
         console.log("Registered successfully")
         setSuccess(true)
 
