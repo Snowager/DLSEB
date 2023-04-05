@@ -8,17 +8,17 @@ const BudgetSlider = (props) => {
     const marks = [
         {
             value: 1,
-            scaledValue: 33,
+            scaledValue: 1,
             label: '$',
         },
         {
             value: 2,
-            scaledValue: 66,
+            scaledValue: 2,
             label: '$$',
         },
         {
             value: 3,
-            scaledValue: 100,
+            scaledValue: 3,
             label: '$$$',
         },
     ];
@@ -29,7 +29,7 @@ const BudgetSlider = (props) => {
     }
 
     const handleChange = (event, newValue) => {
-        props.setRadius(newValue)
+        props.setBudget(newValue)
         console.log(newValue)
     }
 
@@ -44,7 +44,7 @@ const BudgetSlider = (props) => {
                     onChange={handleChange}
                     step={null}
                     marks={marks}
-                    max={100}
+                    max={3}
                 />
             </Box>
         </>
