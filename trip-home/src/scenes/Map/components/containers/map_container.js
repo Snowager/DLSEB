@@ -56,6 +56,17 @@ const MapContainer = (props) => {
     return Math.floor(Math.random() * max);
   }
 
+  function getLocationFromCoords(lat, lng){
+    var geocoder = new google.maps.Geocoder();             // create a geocoder object
+    var location = new google.maps.LatLng(lat, lng);    // turn coordinates into an object          
+    geocoder.geocode({ 'latLng': location }, function (results, status) {
+    if (status === google.maps.GeocoderStatus.OK) {           // if geocode success
+      var location = results[0];         // if address found, pass to processing function
+      return location;
+    }
+    });
+  }
+
   // React callback to load map
   const onLoad = React.useCallback(
     function onLoad(map) {
@@ -64,7 +75,8 @@ const MapContainer = (props) => {
       //The first node is already chosen
       if(props.flag){ //if the flag has been set to true it means that were comming from the profile page with a location ready to be added to the trip
           console.log("first node will be " + props.state.name)
-          
+          var firstNode = getLocationFromCoords(props.state.lat, props.state.lng);
+          setTodos([firstNode]);
       }
       // length == 1 means a button was pressed
       if (query.length == 1) {
