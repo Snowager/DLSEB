@@ -24,108 +24,6 @@ const style = {
   p: 4,
 };
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-const google = window.google;
-const myLatlng = { lat: -25.363, lng: 131.044 };
-const map = <GoogleMap
-  // create map reference
-
-
-  zoom={8}
-  center={myLatlng}
->
-</GoogleMap>
-// Create the initial InfoWindow.
-let infoWindow = new google.maps.InfoWindow({
-  content: "Click the map to get Lat/Lng!",
-  position: myLatlng,
-});
-
-infoWindow.open(map);
-// [START maps_event_click_latlng_listener]
-// Configure the click listener.
-map.addListener("click", (mapsMouseEvent) => {
-  // Close the current InfoWindow.
-  infoWindow.close();
-  // Create a new InfoWindow.
-  infoWindow = new google.maps.InfoWindow({
-    position: mapsMouseEvent.latLng,
-  });
-  infoWindow.setContent(
-    JSON.stringify(mapsMouseEvent.latLng.toJSON(), null, 2)
-  );
-  infoWindow.open(map);
-
-
-  var geocoder = new google.maps.Geocoder();             // create a geocoder object
-  var location = new google.maps.LatLng(mapsMouseEvent.latLng.lat(), mapsMouseEvent.latLng.lng());    // turn coordinates into an object          
-  geocoder.geocode({ 'latLng': location }, function (results, status) {
-    if (status == google.maps.GeocoderStatus.OK) {           // only geocodes if status returned is OK
-      var address = results[0].formatted_address;         // if address is found pass to processing function
-      console.log(address);
-    }
-  });
-
-
-});
-
-
-
-
-
-
-
-
-
-
-
-function ChildModal() {
-  const [open, setOpen] = React.useState(false);
-  const handleOpen = () => {
-    setOpen(true);
-  };
-  const handleClose = () => {
-    setOpen(false);
-  };
-
-  const { isLoaded } = useLoadScript({
-    googleMapsApiKey: "AIzaSyCqZGpZi8NbIqDp7jvaKZKCWDqMT3-_kr4",
-  });
-
-  if (!isLoaded) return <div>Loading...</div>;
-  return (
-    <React.Fragment>
-      <button onClick={handleOpen}> Pick a Location </button>
-      <Modal
-        open={open}
-        onClose={handleClose}
-        aria-labelledby="child-modal-title"
-        aria-describedby="child-modal-description"
-      >
-        <Box sx={style}>
-          <h2 id="child-modal-title">Add Map</h2>
-          <div>{map} </div>
-          <Button onClick={handleClose}>Close Child Modal</Button>
-        </Box>
-      </Modal>
-    </React.Fragment>
-  );
-}
-
 const TodoForm = (props, addTodo) => {
   // const [open, setOpen] = React.useState(false);
   // const handleOpen = () => setOpen(true);
@@ -139,8 +37,8 @@ const TodoForm = (props, addTodo) => {
     setOpen(false);
   };
 
-  const [name, setName] = useState('');
-  const [address, setAddress] = useState('');
+  const [name, setName] = useState(props.chosenPlace.name);
+  const [address, setAddress] = useState(props.chosenPlace.address);
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -189,6 +87,9 @@ const TodoForm = (props, addTodo) => {
                     // passes back the modified function containing all previous todos (with spread syntax ...) 
                     // and adds an object containing the e.target values from the form
                     props.setTodos(prevTodos => [...prevTodos, { name: name, formatted_address: address, rating: 0, user_rating_total: 0 }])
+                    props.setTempState(props.markers)
+                    props.setMarkers([])
+                    props.setClickMode(true)
                     handleClose()
                   }}>
                   Add to trip
@@ -197,7 +98,6 @@ const TodoForm = (props, addTodo) => {
               </form>
             </div>
           </Typography>
-          <ChildModal />
         </Box>
       </Modal>
     </div>
