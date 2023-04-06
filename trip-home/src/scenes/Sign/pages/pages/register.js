@@ -13,9 +13,11 @@ import {CREATE_TRIP_USER} from '../../../TestingDatabase/GraphQL/inserts.js';
 // regex validation
 const nameRegex = /^[a-z ,.'-]+$/i
 const emailRegex = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/
-const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%]).{8,24}$/
+const phoneRegex = /^(\+\d{1,2}\s)?\(?\d{3}\)?[\s.-]\d{3}[\s.-]\d{4}$/
+const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d\w\W]{8,24}$/
 
 function Register () {
+  // references
   const nameRef = useRef()
   const errorRef = useRef()
   const [user, loading, error] = useAuthState(auth);
@@ -65,10 +67,15 @@ function Register () {
   }, [email])
 
   useEffect(() => {
+    const result = phoneRegex.test(phone)
+    setValidPhone(result)
+  }, [phone])
+
+  useEffect(() => {
     const result = passwordRegex.test(password)
     setValidPassword(result)
-    const match = password === confirmPassword
-    setValidConfirm(match)
+    const confirmedPassword = password === confirmPassword
+    setValidConfirm(confirmedPassword)
   }, [password, confirmPassword])
 
   useEffect(() => {
@@ -94,8 +101,9 @@ function Register () {
     e.preventDefault()
     const v1 = nameRegex.test(name)
     const v2 = emailRegex.test(email)
-    const v3 = passwordRegex.test(password)
-    if (!v1 || !v2 || !v3) {
+    const v3 = phoneRegex.test(phone)
+    const v4 = passwordRegex.test(password)
+    if (!v1 || !v2 || !v3 || !v4) {
         setErrorMsg("Invalid Entry")
         return
     } 
@@ -128,7 +136,7 @@ function Register () {
             <h1>Register</h1>
             <form onsubmit={handleSubmit}>
               <label>
-                Name: 
+                Full Name: 
               </label>
               <input
                 type="text"
@@ -143,8 +151,9 @@ function Register () {
                 onFocus={() => setNameFocus(true)}
                 onBlur={() => setNameFocus(false)}
               />
-              <div className={nameFocus && name && !validName ? "instructions" : "offscreen"}>
-                Please enter a valid name.
+              <div id="errorMessage">
+                {nameFocus && name && !validName ? <p>Please enter a valid name.</p> : null}
+                {!nameFocus && name && !validName ? <p>Please enter a valid name.</p> : null}
               </div>
 
               <label>
@@ -162,11 +171,13 @@ function Register () {
                 onFocus={() => setEmailFocus(true)}
                 onBlur={() => setEmailFocus(false)}
               />
-              <div className={emailFocus && email && !validEmail ? "instructions" : "offscreen"}>
-                Please enter a valid email.
+              <div id="errorMessage">
+                {emailFocus && email && !validEmail ? <p>Please enter a valid email.</p> : null}
+                {!emailFocus && email && !validEmail ? <p>Please enter a valid email.</p> : null}
               </div>
 
               <label>
+                Phone Number:
               </label>
               <PhoneInput
                 type="tel"
@@ -181,8 +192,9 @@ function Register () {
                 onFocus={() => setPhoneFocus(true)}
                 onBlur={() => setPhoneFocus(false)}
               /> 
-              <div className={phoneFocus && phone && !validPhone ? "instructions" : "offscreen"}>
-                Please enter a valid phone number.
+              <div id="errorMessage">
+                {phoneFocus && phone && !validPhone ? <p>Please enter a valid phone number.</p> : null}
+                {!phoneFocus && phone && !validPhone ? <p>Please enter a valid phone number.</p> : null}
               </div>
 
               <label>
@@ -200,8 +212,9 @@ function Register () {
                 onFocus={() => setPasswordFocus(true)}
                 onBlur={() => setPasswordFocus(false)}
               />
-              <div className={passwordFocus && !validPassword ? "instructions" : "offscreen"}>
-                Please enter a valid password.
+              <div id="errorMessage">
+                {passwordFocus && password && !validPassword  ? <p>Please enter a valid password:<ul><li>8-24 characters</li><li>at least one capital letter</li><li>at least one number</li></ul></p> : null}
+                {!passwordFocus && password && !validPassword  ? <p>Please enter a valid password:<ul><li>8-24 characters</li><li>at least one capital letter</li><li>at least one number</li></ul></p> : null}
               </div>
 
               <label>
@@ -219,8 +232,9 @@ function Register () {
                 onFocus={() => setConfirmFocus(true)}
                 onBlur={() => setConfirmFocus(false)}
               />
-              <div className={passwordFocus && !validPassword ? "instructions" : "offscreen"}>
-                Please enter a valid password.
+              <div id="errorMessage">
+                {confirmFocus && !validConfirm ? <p>Passwords do not match.</p> : null}
+                {!confirmFocus && !validConfirm ? <p>Passwords do not match.</p> : null}
               </div>
             </form>
             <button className="register__btn" disabled={db_loading} onClick={() => {
