@@ -9,7 +9,7 @@ const Saved_activities = (props) => {
     const [activity_status, setActivity_status] =   useState("loading");
     const [activities, setActivities] =             useState([]);
     const email = props.email
-    const [drop_value, setDrop_value] = React.useState("");
+    const [drop_value, setDrop_value] = React.useState("Choose...");
     const [selected, setSelected] = useState("");
 
     //changes status when the query completes without error
@@ -47,6 +47,7 @@ const Saved_activities = (props) => {
       if(activity_status === "complete" && activity_data !== undefined){        
         console.log(activity_data)
         setActivities(activity_data.saved_activity)
+        setSelected(activity_data.saved_activity[0])
       }
       if(activity_status === "loading"){
         console.log("just wait")
@@ -59,10 +60,12 @@ const Saved_activities = (props) => {
 
     const handleChange = (event) => {
       setDrop_value(event.target.value);
-      setSelected({name: event.target.value.split("_")[0],
-      lat: event.target.value.split("_")[1],
-      lng: event.target.value.split("_")[2]
-    });
+      if(event.target.value !== "Choose..."){
+        setSelected({name: event.target.value.split("_")[0],
+          lat: event.target.value.split("_")[1],
+          lng: event.target.value.split("_")[2]
+        });
+      }
       console.log(drop_value)
     };
 
@@ -79,8 +82,8 @@ const Saved_activities = (props) => {
             <div>
                 <label> Saved activities
                     <select value={drop_value} onChange={handleChange}>
+                      <option value={"Choose..."} className='btn btn-light'> Choose... </option>
                 {
-                  
                     activity_data.saved_activity.map(activity => (
                       <option value={activity.name + "_" + activity.lat + "_" + activity.lng} 
                         className='btn btn-light'>
@@ -94,7 +97,9 @@ const Saved_activities = (props) => {
                     className='btn btn-light'
                     onClick={() => pushType(drop_value)}
                     state={selected}>
-                    start a trip with this location
+                      <button disabled={drop_value === "Choose..."}>
+                        start a trip with this location
+                    </button>
                 </Link>
                 </label>
             </div>
