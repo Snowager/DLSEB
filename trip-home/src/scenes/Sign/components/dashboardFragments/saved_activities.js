@@ -94,7 +94,7 @@ const Saved_activities = (props) => {
                 </select>
                 <Link
                     to={`../MapPage/${selected.name}/${selected.lat}/${selected.lng}`}
-                    className='btn btn-light'
+                    //className='btn btn-light'
                     onClick={() => pushType(drop_value)}
                     state={selected}>
                       <button disabled={drop_value === "Choose..."}>
