@@ -77,11 +77,11 @@ const MapContainer = (props) => {
 
         infoWindow.open(map);
         // [START maps_event_click_latlng_listener]
-        // Configure the click listener.
+        // configure the click listener.
         map.addListener("click", (mapsMouseEvent) => {
-          // Close the current InfoWindow.
+          // close the current InfoWindow.
           infoWindow.close();
-          // Create a new InfoWindow.
+          // create a new InfoWindow.
           infoWindow = new google.maps.InfoWindow({
             position: mapsMouseEvent.latLng,
           });
@@ -103,29 +103,12 @@ const MapContainer = (props) => {
           var geocoder = new google.maps.Geocoder();             // create a geocoder object
           var location = new google.maps.LatLng(mapsMouseEvent.latLng.lat(), mapsMouseEvent.latLng.lng());    // turn coordinates into an object          
           geocoder.geocode({ 'latLng': location }, function (results, status) {
-            if (status == google.maps.GeocoderStatus.OK) {           // if geocode success
-              var address = results[0].formatted_address;         // if address found, pass to processing function
+            if (status == google.maps.GeocoderStatus.OK) {           // only geocodes if status returned is OK
+              var address = results[0].formatted_address;         // if address is found pass to processing function
               console.log(address);
             }
           });
 
-          // const Geocode = new google.maps.Geocoder();
-
-          // const input = (mapsMouseEvent.latLng.lat).value;
-          // const latlngStr = input.split("{ ", "lat:", 2);
-          // const latlng = {
-          //   lat: parseFloat(latlngStr[0]),
-          //   lng: parseFloat(latlngStr[1]),
-          // };
-          // Geocode.fromLatLng({ location: latlng }).then(
-          //   response => {
-          //     const address = response.results[0].formatted_address;
-          //     console.log(address);
-          //   },
-          //   error => {
-          //     console.error(error);
-          //   }
-          // );
 
         });
 
