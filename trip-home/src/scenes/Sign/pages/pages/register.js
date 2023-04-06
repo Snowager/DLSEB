@@ -49,7 +49,7 @@ function Register () {
       phone_number: phone, 
       first_name: name.split(" ")[0],
       last_name: name.split(" ")[1],
-      user_name: "Clearly not Null"
+      user_name: email
     }
     });
 
