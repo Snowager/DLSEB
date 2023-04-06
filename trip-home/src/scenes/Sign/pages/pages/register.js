@@ -48,7 +48,8 @@ function Register () {
       password: password,
       phone_number: phone, 
       first_name: name.split(" ")[0],
-      last_name: name.split(" ")[1]
+      last_name: name.split(" ")[1],
+      user_name: "Clearly not Null"
     }
     });
 
@@ -89,7 +90,7 @@ function Register () {
   };
   useEffect(() => {
     if (loading) return;
-    if (user) navigate.replace("/");
+    //if (user) navigate.replace("/"); I literally don't know why this one doesn't work for me
   }, [user, loading]);
 
   const routeChange = () =>{ 
