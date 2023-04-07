@@ -3,15 +3,6 @@ import { Modal } from '@mui/material';
 import { Typography } from "@mui/material";
 import { Box } from "@mui/material";
 
-import { useMemo } from "react";
-import { GoogleMap, useLoadScript, Marker } from "@react-google-maps/api";
-import "../styles/hello.css"
-
-// import * as React from 'react';
-// import Box from '@mui/material/Box';
-// import Modal from '@mui/material/Modal';
-import { Button } from '@mui/material';
-
 const style = {
   position: 'absolute',
   top: '50%',
@@ -30,12 +21,8 @@ const TodoForm = (props, addTodo) => {
   // const handleClose = () => setOpen(false);
 
   const [open, setOpen] = React.useState(false);
-  const handleOpen = () => {
-    setOpen(true);
-  };
-  const handleClose = () => {
-    setOpen(false);
-  };
+  const handleOpen = () => setOpen(true);
+  const handleClose = () => setOpen(false);
 
   const [name, setName] = useState(props.chosenPlace.name);
   const [address, setAddress] = useState(props.chosenPlace.address);
@@ -87,12 +74,19 @@ const TodoForm = (props, addTodo) => {
                     // passes back the modified function containing all previous todos (with spread syntax ...) 
                     // and adds an object containing the e.target values from the form
                     props.setTodos(prevTodos => [...prevTodos, { name: name, formatted_address: address, rating: 0, user_rating_total: 0 }])
+                    handleClose()
+                  }}>
+                  Add to trip
+                </button>
+
+                <button
+                  onClick={() => {
                     props.setTempState(props.markers)
                     props.setMarkers([])
                     props.setClickMode(true)
                     handleClose()
                   }}>
-                  Add to trip
+                  Pick a location
                 </button>
 
               </form>

@@ -1,5 +1,5 @@
 import React, { useState, useRef } from 'react';
-import { GoogleMap, Marker, InfoWindow} from '@react-google-maps/api';
+import { GoogleMap, Marker, InfoWindow } from '@react-google-maps/api';
 import "../../../Splash/components/styles/button.css"
 import Save_trip_button from '../fragments/save_trip_button.js';
 import "../styles/map.css"
@@ -38,7 +38,7 @@ const MapContainer = (props) => {
   // const [photo, setPhoto] = useState(null);
   const places = [];
   const [todos, setTodos] = useState([]);
-  const [chosenPlace, setChosenPlace] = useState({name: null, address: null})
+  const [chosenPlace, setChosenPlace] = useState({ name: null, address: null })
   const [clickMode, setClickMode] = useState(false)
   const [clickPosition, setClickPosition] = useState(null)
   const [formOpen, setFormOpen] = useState(false)
@@ -112,9 +112,19 @@ const MapContainer = (props) => {
 
   const logClicks = (e) => {
     if (clickMode) {
-      
-      setClickPosition({lat: e.latLng.lat(), lng: e.latLng.lng()}) 
-      console.log(clickPosition) 
+
+      setClickPosition({ lat: e.latLng.lat(), lng: e.latLng.lng() })
+
+      var geocoder = new google.maps.Geocoder();             // create a geocoder object
+      var location = new google.maps.LatLng(e.latLng.lat(), e.latLng.lng());    // turn coordinates into an object          
+      geocoder.geocode({ 'latLng': location }, function (results, status) {
+        if (status == google.maps.GeocoderStatus.OK) {           // only geocodes if status returned is OK
+          var address = results[0].formatted_address;         // if address is found pass to processing function
+          console.log(address);
+        }
+      });
+
+      console.log(clickPosition)
     }
   }
 
@@ -148,12 +158,12 @@ const MapContainer = (props) => {
       google={google}
     />
     {clickPosition ? (
-    <InfoWindow 
-    position={clickPosition}
-    onCloseClick={handleClickAdd}>
-      <div><h1>{clickPosition.lat};{clickPosition.lng}</h1>
-      <button onClick={handleClickAdd}>Add location</button></div>
-    </InfoWindow>) : null}
+      <InfoWindow
+        position={clickPosition}
+        onCloseClick={handleClickAdd}>
+        <div><h1>{clickPosition.lat};{clickPosition.lng}</h1>
+          <button onClick={handleClickAdd}>Add location</button></div>
+      </InfoWindow>) : null}
   </GoogleMap>
 
   if (props.status) {
@@ -177,7 +187,7 @@ const MapContainer = (props) => {
             markers={markers}
             setMarkers={setMarkers}
             setTempState={setTempState}
-            
+
           />
           {map}
           {/* ChoiceModal is the modal for making a new trip choice */}
@@ -190,11 +200,6 @@ const MapContainer = (props) => {
           /> : null}
         </div>
         <Save_trip_button id={props.id} trip={trip} city={props.city} />
-
-
-        <input type="text" name="lat" id="lat" />
-
-        <input type="text" name="lng" id="lng" />
       </>
     )
   }
