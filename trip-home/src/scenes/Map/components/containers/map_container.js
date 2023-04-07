@@ -57,14 +57,21 @@ const MapContainer = (props) => {
   }
 
   function getLocationFromCoords(lat, lng){
-    var geocoder = new google.maps.Geocoder();             // create a geocoder object
-    var location = new google.maps.LatLng(lat, lng);    // turn coordinates into an object          
-    geocoder.geocode({ 'latLng': location }, function (results, status) {
-    if (status === google.maps.GeocoderStatus.OK) {           // if geocode success
-      var location = results[0];         // if address found, pass to processing function
-      return location;
+    console.log(lat + " Lat")
+    console.log(lng + " Lng")
+    var request = {
+      location: {lat: parseInt(lat), lng: parseInt(lng)},
+      query: props.state.name
+    };
+    service.current.textSearch(request, callback);
+    function callback(results, status) {
+      // only pushes results if it gets an OK status
+      if (status === google.maps.places.PlacesServiceStatus.OK) {          // if geocode success
+        var location = results[0];         // if address found, pass to processing function
+        console.log(location.photos)
+        return location;
+      }
     }
-    });
   }
 
   // React callback to load map
@@ -72,11 +79,12 @@ const MapContainer = (props) => {
     function onLoad(map) {
       // initialize our service's current state to reuse later (place service)
       service.current = new google.maps.places.PlacesService(map)
+      route.current = new google.maps.DirectionsService()
       //The first node is already chosen
       if(props.flag){ //if the flag has been set to true it means that were comming from the profile page with a location ready to be added to the trip
           console.log("first node will be " + props.state.name)
           var firstNode = getLocationFromCoords(props.state.lat, props.state.lng);
-          setTodos([firstNode]);
+          setMarkers([firstNode]);
       }
       // length == 1 means a button was pressed
       if (query.length == 1) {
@@ -84,7 +92,6 @@ const MapContainer = (props) => {
           location: center,
           query: query[0]
         };
-        route.current = new google.maps.DirectionsService()
         service.current.textSearch(request, serviceCallback);
         function serviceCallback(results, status) {
           // only pushes results if it gets an OK status
