@@ -11,6 +11,8 @@ const Saved_trips = (props) => {
     const [i, setI] = useState(0);
     const [trips, setTrips] = useState([]);
     const [flag, setFlag] = useState(false);
+    const [drop_value, setDrop_value] = React.useState("Choose...");
+    const [selected, setSelected] = useState("");
 
     //changes status when the query completes without error
     const update_status = () => {
@@ -79,6 +81,19 @@ const Saved_trips = (props) => {
       }
       else if(trip_data !== undefined && i >= trip_data.trip.length){setFlag(true)}
     }, [i])
+
+    const handleChange = (event) => {
+      setDrop_value(event.target.value);
+      if(event.target.value !== "Choose..."){
+        var num = parseInt(event.target.value.split("_")[1])
+        setSelected({id: event.target.value.split("_")[0],
+          num: num,
+          trip: trip_data.trip[num],
+          in_trips: in_trips[num]
+        });
+      }
+      console.log(drop_value)
+    };
     
     
     if(trip_loading || in_trip_loading) return  <div> loading, please hold </div>
@@ -86,16 +101,20 @@ const Saved_trips = (props) => {
     if(trip_data && trip_data !== undefined && flag){
         return (
             <div key="saved_trips">
-              {
-                  trip_data.trip.map(trip => (
-                    
-                      <div key={trip.trip_id}>
-                          <p>Trip in {trip.city} starting at {in_trips[trip_data.trip.indexOf(trip)][0].loc_name}</p>
-                          {in_trips[trip_data.trip.indexOf(trip)][in_trips[trip_data.trip.indexOf(trip)].length - 1] !== in_trips[trip_data.trip.indexOf(trip)][0]? 
-                          (<p>and ending at {in_trips[trip_data.trip.indexOf(trip)][in_trips[trip_data.trip.indexOf(trip)].length - 1].loc_name}</p>) : null}
-                      </div>
-                  ))
-              }
+              <label> Saved trips
+                <select value={drop_value} onChange={handleChange}>
+                  <option value={"Choose..."} className='btn btn-light'> Choose... </option>
+                  {
+                    trip_data.trip.map(trip => (
+                      <option value={trip.trip_id + "_" + trip_data.trip.indexOf(trip) + "_" + ""}>
+                        <p>Trip in {trip.city} starting at {in_trips[trip_data.trip.indexOf(trip)][0].loc_name}</p>
+                        {in_trips[trip_data.trip.indexOf(trip)][in_trips[trip_data.trip.indexOf(trip)].length - 1] !== in_trips[trip_data.trip.indexOf(trip)][0]? 
+                        (<p> and ending at {in_trips[trip_data.trip.indexOf(trip)][in_trips[trip_data.trip.indexOf(trip)].length - 1].loc_name}</p>) : null}
+                      </option>
+                    ))
+                  }
+                </select>
+              </label>
             </div>
         )
     }
