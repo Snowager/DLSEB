@@ -81,28 +81,49 @@ const Saved_trips = (props) => {
     
     if(trip_loading || in_trip_loading) return  <div> loading, please hold </div>
     if(trip_error || in_trip_error) return    <div> {`Error! ${user_error.message}`}</div>
-    if(trip_data && trip_data !== undefined){
-
+    if(trip_data && trip_data !== undefined && in_trip_data !== undefined){
         return (
             <div key="saved_trips">
-                {
-                    trip_data.trip.map(trip => (
-                        <div key={trip.trip_id}>
-                            <h1>Trip in {trip.city}</h1>
-                        </div>
-                    ))
-                }
-                {
-                  in_trips.map(item => (
-                    <div key = {item[0].id}>
-                      <h2>in_trip for {item[0].loc_name}</h2>
-                      {item[1] ? (<div> and {item[1].loc_name} </div>): null}
-                    </div>
+              {
+                  trip_data.trip.map(trip => (
+                    
+                      <div key={trip.trip_id}>
+                          <p>Trip in {trip.city} starting at {in_trips[trip_data.trip.indexOf(trip)][0].name}
+                          </p>{in_trips[trip_data.trip.indexOf(trip)][-1]? (<p>and ending at {in_trips[trip_data.trip.indexOf(trip)][-1].name}</p>) : null}
+                      </div>
                   ))
-                  }
+              }
             </div>
         )
     }
     return <div> something else happened </div>
 }
 export default Saved_trips;
+
+
+// //Make a list of objects that have the trip property as each item in the trip list
+// trip_data.trip.map(trip => 
+//   setTrips(prevTrips => [...prevTrips, {trip: trip}])
+// )
+// //add a second property to the objects of the lists associated in_trips
+// in_trips.map(item => (
+//   trips[in_trips.indexOf(item)].in_trips = item
+// ))
+
+
+
+// {
+//   trip_data.trip.map(trip => (
+//       <div key={trip.trip_id}>
+//           <h1>Trip in {trip.city}</h1>
+//       </div>
+//   ))
+// }
+// {
+// in_trips.map(item => (
+//   <div key = {item[0].id}>
+//     <h2>in_trip for {item[0].loc_name}</h2>
+//     {item[1] ? (<div> and {item[1].loc_name} </div>): null}
+//   </div>
+// ))
+// }

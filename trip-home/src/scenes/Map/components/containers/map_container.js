@@ -57,6 +57,7 @@ const MapContainer = (props) => {
     return Math.floor(Math.random() * max);
   }
 
+  //gets a places object from lat lng and a name.
   function getLocationFromCoords(lat, lng){
     console.log(lat + " Lat")
     console.log(lng + " Lng")
@@ -75,6 +76,7 @@ const MapContainer = (props) => {
     }
   }
 
+  //once first node is updated, set it as the actual first node of the trip
   useEffect(() => {
     if(firstNode !== undefined){setTodos(prevTodos => [firstNode, ...prevTodos])}
   }, [firstNode])
