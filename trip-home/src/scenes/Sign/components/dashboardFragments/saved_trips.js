@@ -10,6 +10,7 @@ const Saved_trips = (props) => {
     const email = props.email
     const [i, setI] = useState(0);
     const [trips, setTrips] = useState([]);
+    const [flag, setFlag] = useState(false);
 
     //changes status when the query completes without error
     const update_status = () => {
@@ -76,20 +77,22 @@ const Saved_trips = (props) => {
       if(trip_data !== undefined && i < trip_data.trip.length){
         get_in_trips({variables: {trip_id: trip_data.trip[i].trip_id}, onCompleted: (console.log("got data for " + trip_data.trip[i].trip_id))})
       }
+      else if(trip_data !== undefined && i >= trip_data.trip.length){setFlag(true)}
     }, [i])
     
     
     if(trip_loading || in_trip_loading) return  <div> loading, please hold </div>
     if(trip_error || in_trip_error) return    <div> {`Error! ${user_error.message}`}</div>
-    if(trip_data && trip_data !== undefined && in_trip_data !== undefined){
+    if(trip_data && trip_data !== undefined && flag){
         return (
             <div key="saved_trips">
               {
                   trip_data.trip.map(trip => (
                     
                       <div key={trip.trip_id}>
-                          <p>Trip in {trip.city} starting at {in_trips[trip_data.trip.indexOf(trip)][0].name}
-                          </p>{in_trips[trip_data.trip.indexOf(trip)][-1]? (<p>and ending at {in_trips[trip_data.trip.indexOf(trip)][-1].name}</p>) : null}
+                          <p>Trip in {trip.city} starting at {in_trips[trip_data.trip.indexOf(trip)][0].loc_name}</p>
+                          {in_trips[trip_data.trip.indexOf(trip)][in_trips[trip_data.trip.indexOf(trip)].length - 1] !== in_trips[trip_data.trip.indexOf(trip)][0]? 
+                          (<p>and ending at {in_trips[trip_data.trip.indexOf(trip)][in_trips[trip_data.trip.indexOf(trip)].length - 1].loc_name}</p>) : null}
                       </div>
                   ))
               }
