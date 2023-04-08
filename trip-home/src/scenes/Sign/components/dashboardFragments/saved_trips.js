@@ -9,6 +9,7 @@ const Saved_trips = (props) => {
     const [in_trips, setIn_trips] = useState([]);
     const email = props.email
     const [i, setI] = useState(0);
+    const [trips, setTrips] = useState([]);
 
     //changes status when the query completes without error
     const update_status = () => {
@@ -81,6 +82,7 @@ const Saved_trips = (props) => {
     if(trip_loading || in_trip_loading) return  <div> loading, please hold </div>
     if(trip_error || in_trip_error) return    <div> {`Error! ${user_error.message}`}</div>
     if(trip_data && trip_data !== undefined){
+
         return (
             <div key="saved_trips">
                 {

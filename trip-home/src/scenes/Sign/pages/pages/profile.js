@@ -7,6 +7,7 @@ import { query, collection, getDocs, where } from "firebase/firestore";
 import { getAuth, onAuthStateChanged } from "firebase/auth";
 import { MDBCol, MDBContainer, MDBRow, MDBCard, MDBCardBody, MDBTypography, MDBIcon } from 'mdb-react-ui-kit';
 import Saved_activities from '../../components/dashboardFragments/saved_activities.js'
+import Saved_trips from '../../components/dashboardFragments/saved_trips.js'
 
 function Profile() {
   const auth = getAuth();
@@ -85,7 +86,7 @@ function Profile() {
                         <MDBTypography tag="h6"><Saved_activities email={user?.email} /></MDBTypography>
                       </MDBCol>
                       <MDBCol size="10" className="mb-4">
-                        <MDBTypography tag="h6">placeholder</MDBTypography>
+                        <MDBTypography tag="h6"><Saved_trips email={user?.email}/></MDBTypography>
                       </MDBCol>
                     </MDBRow>
 
