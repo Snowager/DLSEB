@@ -41,6 +41,7 @@ const MapContainer = (props) => {
   const [directions, setDirections] = useState([]);
   const [package_status, setPackage_status] = useState(-1);
   const [mode, setMode] = useState("DRIVING");
+  const [firstNode, setFirstNode] = useState(undefined);
 
   const handleChoiceClose = () => setOpen(false);
 
@@ -66,13 +67,18 @@ const MapContainer = (props) => {
     service.current.textSearch(request, callback);
     function callback(results, status) {
       // only pushes results if it gets an OK status
-      if (status === google.maps.places.PlacesServiceStatus.OK) {          // if geocode success
+      if (status === google.maps.places.PlacesServiceStatus.OK) {
         var location = results[0];         // if address found, pass to processing function
         console.log(location.photos)
         return location;
       }
     }
   }
+
+  useEffect(() => {
+    if(firstNode !== undefined){setTodos(prevTodos => [firstNode, ...prevTodos])}
+  }, [firstNode])
+  
 
   // React callback to load map
   const onLoad = React.useCallback(
@@ -83,8 +89,7 @@ const MapContainer = (props) => {
       //The first node is already chosen
       if(props.flag){ //if the flag has been set to true it means that were comming from the profile page with a location ready to be added to the trip
           console.log("first node will be " + props.state.name)
-          var firstNode = getLocationFromCoords(props.state.lat, props.state.lng);
-          setMarkers([firstNode]);
+          setFirstNode(getLocationFromCoords(props.state.lat, props.state.lng));
       }
       // length == 1 means a button was pressed
       if (query.length == 1) {
