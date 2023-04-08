@@ -62,8 +62,8 @@ const Saved_activities = (props) => {
       setDrop_value(event.target.value);
       if(event.target.value !== "Choose..."){
         setSelected({name: event.target.value.split("_")[0],
-          lat: event.target.value.split("_")[1],
-          lng: event.target.value.split("_")[2]
+          lat: parseFloat(event.target.value.split("_")[1]),
+          lng: parseFloat(event.target.value.split("_")[2])
         });
       }
       console.log(drop_value)

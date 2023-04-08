@@ -90,7 +90,7 @@ const MapContainer = (props) => {
       if(props.flag){ //if the flag has been set to true it means that were comming from the profile page with a location ready to be added to the trip
           console.log("first node will be " + props.state.name)
           setFirstNode(getLocationFromCoords(props.state.lat, props.state.lng));
-      }
+      }else{}
       // length == 1 means a button was pressed
       if (query.length == 1) {
         var request = {
