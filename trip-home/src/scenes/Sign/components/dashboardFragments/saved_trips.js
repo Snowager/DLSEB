@@ -63,7 +63,7 @@ const Saved_trips = (props) => {
 
     //grabs in_trip information as soon as the trips are loaded
     useEffect(() => {
-      if(trip_data !== undefined && trip_data.trip[0].trip_id) get_in_trips({variables: {trip_id: trip_data.trip[0].trip_id}, onCompleted: console.log("got data for " + trip_data.trip[0].trip_id)})
+      if(trip_data !== undefined && trip_data.trip[0] && trip_data.trip[0].trip_id) get_in_trips({variables: {trip_id: trip_data.trip[0].trip_id}, onCompleted: console.log("got data for " + trip_data.trip[0].trip_id)})
     }, [trip_data])
  
     //puts in_trip info into the in_trips list and updates I
@@ -135,6 +135,6 @@ const Saved_trips = (props) => {
             </div>
         )
     }
-    return <div> something else happened </div>
+    return <div> There are no saved trips</div>
 }
 export default Saved_trips;

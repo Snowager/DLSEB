@@ -13,6 +13,8 @@ const Saved_activities = (props) => {
     const [drop_value, setDrop_value] = React.useState("Choose...");
     const [selected, setSelected] = useState("");
 
+    console.log(user_id + " || " + email + " || " + user_data.email)
+
     // //changes status when the query completes without error
     // const update_status = () => {
     //     setStatus("complete")
@@ -45,7 +47,7 @@ const Saved_activities = (props) => {
     //once the above query has finished, grab all items in the returned list
     useEffect(() => {
       console.log("activity status use effect")
-      if(activity_status === "complete" && activity_data !== undefined){        
+      if(activity_status === "complete" && activity_data !== undefined && activity_data.saved_activity && activity_data.saved_activity[0]){        
         console.log(activity_data)
         setActivities(activity_data.saved_activity)
         setSelected(activity_data.saved_activity[0])
@@ -77,7 +79,7 @@ const Saved_activities = (props) => {
     
     if(activity_loading) return  <div> loading, please hold </div>
     if(activity_error) return    <div> {`Error! ${activity_error.message}`}</div>
-    if(activity_data && activity_data !== undefined){
+    if(activity_data && activity_data !== undefined && activity_data.saved_activity && activity_data.saved_activity[0]){
         console.log("email: " + email)
         return (
             <div>
@@ -105,6 +107,6 @@ const Saved_activities = (props) => {
             </div>
         )
     }
-    return <div> something else happened </div>
+    return <div> There are no saved activities </div>
 }
 export default Saved_activities;
