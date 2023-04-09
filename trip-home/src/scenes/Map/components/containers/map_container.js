@@ -42,6 +42,7 @@ const MapContainer = (props) => {
   const [package_status, setPackage_status] = useState(-1);
   const [mode, setMode] = useState("DRIVING");
   const [firstNode, setFirstNode] = useState(undefined);
+  const [budget, setBudget] = useState(0)
 
   const handleChoiceClose = () => setOpen(false);
 
@@ -149,7 +150,7 @@ const MapContainer = (props) => {
       function callback(results, status) {
         // only pushes results if it gets an OK status
         if (status === google.maps.places.PlacesServiceStatus.OK) {
-          var choice = results[getRandomInt(results.length)]
+          var choice = results[getRandomInt(results.length/4)]
           setPrices(choice)
           setTodos(prevTodos => [...prevTodos, choice])
           setPackage_status(package_status + 1)
@@ -187,6 +188,9 @@ const MapContainer = (props) => {
   const setPrices = (results) => {
     var price = ""
     for (var j = 0; j < results.price_level; j++) {
+      price += "$"
+    }
+    if (price == "") {
       price += "$"
     }
     results.priceString = price;
@@ -267,7 +271,7 @@ const MapContainer = (props) => {
         <TrafficIcon sx={{ mr: 1 }} />
         Traffic
       </Fab>
-      <Save_trip_button id={props.id} trip={trip} city={props.city} />
+      <Save_trip_button id={props.id} trip={todos} city={props.city} />
     </div>
 
     {/* MarkerInterface component handles the markers and marker infoWindows on the map  */}
@@ -282,6 +286,7 @@ const MapContainer = (props) => {
       open={open}
       todos={todos}
       setTodos={setTodos}
+      budget={budget}
       google={google}
     />
     {directions ? (directions.map((direction, index) => (
@@ -312,6 +317,7 @@ const MapContainer = (props) => {
               todos={todos}
               setTodos={setTodos}
               setRadius={setRadius}
+              setBudget={setBudget}
             />) : null}
           {map}
           {/* TodoList handles the list of Todo trip items */}
