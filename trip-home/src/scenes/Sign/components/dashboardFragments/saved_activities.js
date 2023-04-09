@@ -1,32 +1,33 @@
 import React, { useEffect, useState } from "react"
 import {useQuery, useLazyQuery} from '@apollo/client';
 import {GET_SAVED_ACTIVITY, GET_TRIP_USER_BY_EMAIL} from "../../../TestingDatabase/GraphQL/queries.js"
+import user_data from '../../../TestingDatabase/pages/user.json';
 
 const Saved_activities = (props) => {
-    const [user_id, setUser_id] =                   useState("");
+    const user_id = user_data.id;
     const [status, setStatus] =                     useState("loading");
     const [activity_status, setActivity_status] =   useState("loading");
     const [activities, setActivities] =             useState([]);
-    const email = props.email
+    const email = user_data.email;
 
-    //changes status when the query completes without error
-    const update_status = () => {
-        setStatus("complete")
-    }
+    // //changes status when the query completes without error
+    // const update_status = () => {
+    //     setStatus("complete")
+    // }
 
-    //finds the trip user with the given email 
-    const {loading: user_loading, error: user_error, data: user_data} = useQuery(GET_TRIP_USER_BY_EMAIL, {
-        variables: {email: email},
-        onCompleted: update_status 
-    })
+    // //finds the trip user with the given email 
+    // const {loading: user_loading, error: user_error, data: user_data} = useQuery(GET_TRIP_USER_BY_EMAIL, {
+    //     variables: {email: email},
+    //     onCompleted: update_status 
+    // })
 
-    //grabs the user id from the only item in the get_trip_user query
-    useEffect(() => {
-      if(status === "complete"){
-        console.log(user_data)
-        setUser_id(user_data.trip_user[0].user_id)
-      }
-    }, [status])
+    // //grabs the user id from the only item in the get_trip_user query
+    // useEffect(() => {
+    //   if(status === "complete"){
+    //     console.log(user_data)
+    //     setUser_id(user_data.trip_user[0].user_id)
+    //   }
+    // }, [status])
 
     //finds all the items in the saved activities table that have a given user_id
     const [get_activities, {loading: activity_loading, error: activity_error, data: activity_data}] = useLazyQuery(GET_SAVED_ACTIVITY)
@@ -55,7 +56,7 @@ const Saved_activities = (props) => {
     }, [activity_status])
     
     if(activity_loading) return  <div> loading, please hold </div>
-    if(activity_error) return    <div> {`Error! ${user_error.message}`}</div>
+    if(activity_error) return    <div> {`Error! ${activity_error.message}`}</div>
     if(activity_data && activity_data !== undefined){
         console.log("email: " + email)
         return (
