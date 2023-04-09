@@ -7,12 +7,16 @@ import { query, collection, getDocs, where } from "firebase/firestore";
 import { getAuth, onAuthStateChanged } from "firebase/auth";
 import { MDBCol, MDBContainer, MDBRow, MDBCard, MDBCardBody, MDBTypography, MDBIcon } from 'mdb-react-ui-kit';
 import user_data from '../../../TestingDatabase/pages/user.json';
+import {useLazyQuery} from '@apollo/client';
+import { GET_TRIP_USER_BY_EMAIL } from "../../../TestingDatabase/GraphQL/queries.js";
+import { Link } from 'react-router-dom';
 
 function Profile() {
   const auth = getAuth();
   const [user, loading, error] = useAuthState(auth);
   const [name, setName] = useState("");
   const navigate = useNavigate();
+  const [found, setFound] = useState(false);
 
   const fetchUserName = async () => {
     try {
@@ -21,21 +25,40 @@ function Profile() {
       const data = doc.docs[0].data();
       setName(data.name);
       user_data.name = data.name;
+      user_data.email = data.email;
+      get_user();
     } catch (err) {
       console.error(err);
       alert("An error occured while fetching user data");
     }
   };
+
+  //needed so that react doesn't infinitely re-render
+  const update_found = () => {
+    setFound(true)
+}
+
+  //gets user data from the postgresql database
+  const [get_user, {data: db_data, loading: db_loading, error: db_error}] = useLazyQuery(GET_TRIP_USER_BY_EMAIL, {
+    variables: {email: user_data.email},
+    onCompleted: update_found
+  })
+
+  //once data has been gathered from the postgresql database this updates the user.json file with apporpriate id
+  useEffect(() => {
+    if(found){user_data.id = db_data.trip_user[0].user_id}
+  }, [found])
+
   useEffect(() => {
     if (loading) return;
     if (!user) return navigate("/");
-
     fetchUserName();
   }, [user, loading]);
 
   return (
     //setting the height 
     <section className="vh-100" >
+      <Link to={'/'}> back to home screen </Link>
     <MDBContainer className="py-5 h-100" >
       <MDBRow className="justify-content-center align-items-center h-100">
         <MDBCol lg="6" className="mb-4 mb-lg-0" >
