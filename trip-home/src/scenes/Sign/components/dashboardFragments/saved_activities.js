@@ -9,7 +9,7 @@ const Saved_activities = (props) => {
     const [status, setStatus] =                     useState("loading");
     const [activity_status, setActivity_status] =   useState("loading");
     const [activities, setActivities] =             useState([]);
-    const email = props.email
+    const email = user_data.email
     const [drop_value, setDrop_value] = React.useState("Choose...");
     const [selected, setSelected] = useState("");
 

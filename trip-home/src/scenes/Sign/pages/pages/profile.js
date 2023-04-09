@@ -40,6 +40,12 @@ function Profile() {
     setFound(true)
 }
 
+  function updateJson () {
+    user_data.id = "0";
+    user_data.name = "name";
+    user_data.email = "email";
+  }
+
   //gets user data from the postgresql database
   const [get_user, {data: db_data, loading: db_loading, error: db_error}] = useLazyQuery(GET_TRIP_USER_BY_EMAIL, {
     variables: {email: user_data.email},
@@ -109,10 +115,10 @@ function Profile() {
                     <hr className="mt-0 mb-4" />
                     <MDBRow className="pt-1">
                       <MDBCol size="10" className="mb-4">
-                        <MDBTypography tag="h6"><Saved_activities email={user?.email} /></MDBTypography>
+                        {found ? (<MDBTypography tag="h6"><Saved_activities email={user?.email} /></MDBTypography>): null}
                       </MDBCol>
                       <MDBCol size="10" className="mb-4">
-                        <MDBTypography tag="h6"><Saved_trips email={user?.email}/></MDBTypography>
+                        {found ? (<MDBTypography tag="h6"><Saved_trips email={user?.email}/></MDBTypography>): null}
                       </MDBCol>
                     </MDBRow>
 
