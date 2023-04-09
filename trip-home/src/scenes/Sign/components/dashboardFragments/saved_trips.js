@@ -15,25 +15,6 @@ const Saved_trips = (props) => {
     const [drop_value, setDrop_value] = React.useState("Choose...");
     const [selected, setSelected] = useState("");
 
-    // //changes status when the query completes without error
-    // const update_status = () => {
-    //     setStatus("complete")
-    // }
-
-    // //finds the trip user with the given email 
-    // const {loading: user_loading, error: user_error, data: user_data} = useQuery(GET_TRIP_USER_BY_EMAIL, {
-    //     variables: {email: email},
-    //     onCompleted: update_status 
-    // })
-
-    // //grabs the user id from the only item in the get_trip_user query
-    // useEffect(() => {
-    //   if(status === "complete"){
-    //     //console.log(user_data)
-    //     setUser_id(user_data.trip_user[0].user_id)
-    //   }
-    // }, [status])
-
     //finds all the items in the trips table that have a given user_id
     const [get_trips, {loading: trip_loading, error: trip_error, data: trip_data}] = useLazyQuery(GET_TRIP_BY_USER_ID)
 
