@@ -71,7 +71,7 @@ const Saved_activities = (props) => {
 
     const pushType = (type) => {
       selected.type = type
-      selected.flag = true
+      selected.activity_flag = true
   }
     
     if(activity_loading) return  <div> loading, please hold </div>

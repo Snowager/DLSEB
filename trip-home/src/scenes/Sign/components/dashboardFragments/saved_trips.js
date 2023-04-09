@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react"
 import {useQuery, useLazyQuery, cache} from '@apollo/client';
 import {GET_TRIP_BY_USER_ID, GET_TRIP_USER_BY_EMAIL, GET_IN_TRIP_BY_TRIP} from "../../../TestingDatabase/GraphQL/queries.js"
+import { Link } from 'react-router-dom';
 
 const Saved_trips = (props) => {
     const [user_id, setUser_id] =                   useState("");
@@ -82,6 +83,7 @@ const Saved_trips = (props) => {
       else if(trip_data !== undefined && i >= trip_data.trip.length){setFlag(true)}
     }, [i])
 
+    //changes the value of the drop down menu and sets the correct information in the "selected" object
     const handleChange = (event) => {
       setDrop_value(event.target.value);
       if(event.target.value !== "Choose..."){
@@ -94,6 +96,12 @@ const Saved_trips = (props) => {
       }
       console.log(drop_value)
     };
+
+    
+    const pushType = (type) => {
+      selected.type = type
+      selected.flag = true
+  }
     
     
     if(trip_loading || in_trip_loading) return  <div> loading, please hold </div>
@@ -114,6 +122,15 @@ const Saved_trips = (props) => {
                     ))
                   }
                 </select>
+                <Link
+                    to={`../MapPage/${selected.name}/${selected.lat}/${selected.lng}`}
+                    //className='btn btn-light'
+                    onClick={() => pushType(drop_value)}
+                    state={selected}>
+                      <button disabled={drop_value === "Choose..."}>
+                        start a trip with this location
+                    </button>
+                </Link>
               </label>
             </div>
         )
@@ -121,31 +138,3 @@ const Saved_trips = (props) => {
     return <div> something else happened </div>
 }
 export default Saved_trips;
-
-
-// //Make a list of objects that have the trip property as each item in the trip list
-// trip_data.trip.map(trip => 
-//   setTrips(prevTrips => [...prevTrips, {trip: trip}])
-// )
-// //add a second property to the objects of the lists associated in_trips
-// in_trips.map(item => (
-//   trips[in_trips.indexOf(item)].in_trips = item
-// ))
-
-
-
-// {
-//   trip_data.trip.map(trip => (
-//       <div key={trip.trip_id}>
-//           <h1>Trip in {trip.city}</h1>
-//       </div>
-//   ))
-// }
-// {
-// in_trips.map(item => (
-//   <div key = {item[0].id}>
-//     <h2>in_trip for {item[0].loc_name}</h2>
-//     {item[1] ? (<div> and {item[1].loc_name} </div>): null}
-//   </div>
-// ))
-// }
