@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { auth, signInWithEmailAndPassword, signInWithGoogle } from "./firebase";
+import { auth, signInWithEmailAndPassword, signInWithGoogle, signin } from "./firebase";
 import { useAuthState } from "react-firebase-hooks/auth";
 import { RecaptchaVerifier, signInWithPhoneNumber } from "firebase/auth";
 import PhoneInput from 'react-phone-input-2'
@@ -116,7 +116,7 @@ function Login() {
             placeholder="Enter your one time pin."
             />
             
-            <button className="login__btn" onClick={() => signInWithEmailAndPassword(email, password)} >
+            <button className="login__btn" onClick={() => signin(email, password)} >
               Login
             </button>
           </>

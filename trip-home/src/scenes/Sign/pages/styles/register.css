@@ -1,35 +1,51 @@
 .register {
-    height: 80vh;
-    width: 100vw;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-  }
-  .register__container {
-    display: flex;
-    flex-direction: column;
-    text-align: center;
-    background-color: rgba(0,0,0,.5);
-    padding: 30px;
-    color: white;
-  }
-  .register__textBox {
-    padding: 10px;
-    font-size: 18px;
-    margin-bottom: 10px;
-  }
-  .register__btn {
-    padding: 10px;
-    font-size: 18px;
-    margin-bottom: 10px;
-    border: none;
-    color: white;
-    background-color: black;
-  }
-  .register__google {
-    background-color: #4285f4;
-  }
-  .register div {
-    margin-top: 7px;
-  }
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.register__container {
+  margin-top: 20px;
+  margin-bottom: 20px;
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+  background-color: rgba(0,0,0,.7);
+  padding: 30px;
+  color: white;
+}
+.register__textBox {
+  padding: 10px;
+  font-size: 18px;
+  width: 100%;
+}
+.register__btn {
+  padding: 10px;
+  font-size: 18px;
+  margin-top: 10px;
+  border: none;
+  color: white;
+  background-color: black;
+}
+.register__google {
+  background-color: #4285f4;
+}
+.phoneInput__btn__Reg {
+  color: black;
+}
+.resetRegisterLink {
+  color: white;
+}
+label {
+  margin-top: 5px;
+  display: flex;
+  text-align: left;
+  padding: 5px;
+  color: white;
+}
+
+#errorMessage {
+  text-align: left;
+  color: rgb(255, 155, 148);
+  padding:0px;
+}
   

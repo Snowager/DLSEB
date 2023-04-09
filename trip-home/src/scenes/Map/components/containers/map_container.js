@@ -62,13 +62,13 @@ const MapContainer = (props) => {
     function onLoad(map) {
       // initialize our service's current state to reuse later (place service)
       service.current = new google.maps.places.PlacesService(map)
+      route.current = new google.maps.DirectionsService()
       // length == 1 means a button was pressed
       if (query.length == 1) {
         var request = {
           location: center,
           query: query[0]
         };
-        route.current = new google.maps.DirectionsService()
         service.current.textSearch(request, serviceCallback);
         function serviceCallback(results, status) {
           // only pushes results if it gets an OK status
@@ -98,7 +98,7 @@ const MapContainer = (props) => {
       function callback(results, status) {
         // only pushes results if it gets an OK status
         if (status === google.maps.places.PlacesServiceStatus.OK) {
-          var choice = results[getRandomInt(results.length)]
+          var choice = results[getRandomInt(results.length/4)]
           setPrices(choice)
           setTodos(prevTodos => [...prevTodos, choice])
           setPackage_status(package_status + 1)

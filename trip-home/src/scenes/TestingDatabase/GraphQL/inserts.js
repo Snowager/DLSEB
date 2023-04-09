@@ -1,7 +1,7 @@
 import { gql } from '@apollo/client';
 
 export const CREATE_TRIP_USER = gql`
-mutation CREATE_TRIP_USER($email: String, $first_name: String, $last_name: String, $password: String, $phone_number: bpchar, $user_name: String) {
+mutation CREATE_TRIP_USER($email: String, $first_name: String, $last_name: String, $password: String, $phone_number: String, $user_name: String) {
     insert_trip_user_one(object: {email: $email, first_name: $first_name, last_name: $last_name, password: $password, phone_number: $phone_number, user_name: $user_name}) {
     last_name
     }
