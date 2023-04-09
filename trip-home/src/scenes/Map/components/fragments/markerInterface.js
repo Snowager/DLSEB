@@ -29,10 +29,10 @@ const MarkerInterface = (props) => {
                         
                         ({/* Marker options. Needs a key and position to display on map. position is lat/lng coords */ }),
                         props.markers.map(places => (
-                            (props.calculateDistance(props.center, places.geometry.location) < props.radius ?
+                            ((props.calculateDistance(props.center, places.geometry.location) < props.radius) && 
+                            (places.priceString.length >= props.budget) ?
                                 <Marker
                                     icon={icon}
-
                                     key={places.place_id}
                                     position={places.geometry.location}
                                     onClick={() => {
