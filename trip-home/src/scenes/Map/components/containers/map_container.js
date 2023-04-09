@@ -42,8 +42,6 @@ const MapContainer = (props) => {
   const [package_status, setPackage_status] = useState(-1);
   const [mode, setMode] = useState("DRIVING");
   const [firstNode, setFirstNode] = useState(undefined);
-  const [nextNode, setNextNode] = useState(undefined);
-  const [nodeCount, setNodeCount] = useState(0);
 
   const handleChoiceClose = () => setOpen(false);
 
@@ -71,19 +69,11 @@ const MapContainer = (props) => {
       // only pushes results if it gets an OK status
       if (status === google.maps.places.PlacesServiceStatus.OK) {
         var location = results[0];         // if address found, pass to processing function
-        console.log(nextNode)
         console.log(location)
         return location;
       }
     }
   }
-
-  //Adds each successive node in the trip if the trip_flag is set to true
-  // function createTrip(in_trips){
-  //   console.log("create trip")
-  //   if(nodeCount === 0){setNextNode(getLocationFromCoords(in_trips[0].lat, in_trips[0].lng, in_trips[0].loc_name))}
-  //   else if(nodeCount <= in_trips.length){setNextNode(getLocationFromCoords(in_trips[nodeCount].lat, in_trips[nodeCount].lng, in_trips[nodeCount].loc_name))}
-  // }
 
   function createTrip(add, end, list){
     if(add < end){
@@ -101,19 +91,8 @@ const MapContainer = (props) => {
           createTrip(add + 1, end, list)
         }
       }
-    }
+    } // --TODO-- add conditional for if the location isn't on google maps but is in the database
   }
-
-  //add found location to the trip and then run createTrip to look for next node
-  // useEffect(() => {
-  //   console.log("nextNode " + nextNode) 
-  //   if(nextNode !== undefined){
-  //     setTodos(prevTodos => [...prevTodos, nextNode])
-  //     setNodeCount(nodeCount + 1)
-  //     createTrip(props.state.in_trips)
-  //   }
-  // }, [nextNode])
-  
 
   //once first node is updated, set it as the actual first node of the trip
   useEffect(() => {

@@ -10,7 +10,6 @@ const Saved_trips = (props) => {
     const [in_trips, setIn_trips] = useState([]);
     const email = props.email
     const [i, setI] = useState(0);
-    const [trips, setTrips] = useState([]);
     const [flag, setFlag] = useState(false);
     const [drop_value, setDrop_value] = React.useState("Choose...");
     const [selected, setSelected] = useState("");
@@ -126,7 +125,6 @@ const Saved_trips = (props) => {
                 </select>
                 <Link
                     to={`../MapPage/${selected.id}/${selected.lat}/${selected.lng}`}
-                    //className='btn btn-light'
                     onClick={() => pushType(drop_value)}
                     state={selected}>
                       <button disabled={drop_value === "Choose..."}>
