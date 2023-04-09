@@ -4,11 +4,14 @@ import { useLocation } from 'react-router-dom'
 import MapContainer from '../../../Map/components/containers/map_container';
 import Navbar from '../../../Splash/components/fragments/navbar_map.js';
 import "../styles/text.css"
+import { auth, signInWithEmailAndPassword, signInWithGoogle } from "./firebase";
+import { useAuthState } from "react-firebase-hooks/auth";
 
 
 function MapPage(props) {
   const [map, setMap] = useState(true)
   const location = useLocation()
+  const [user, loading, error] = useAuthState(auth);
 
   if (location.state) {
     console.log(location.state)
