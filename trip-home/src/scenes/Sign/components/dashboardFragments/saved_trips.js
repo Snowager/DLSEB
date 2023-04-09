@@ -2,36 +2,37 @@ import React, { useEffect, useState } from "react"
 import {useQuery, useLazyQuery, cache} from '@apollo/client';
 import {GET_TRIP_BY_USER_ID, GET_TRIP_USER_BY_EMAIL, GET_IN_TRIP_BY_TRIP} from "../../../TestingDatabase/GraphQL/queries.js"
 import { Link } from 'react-router-dom';
+import user_data from '../../../TestingDatabase/pages/user.json';
 
 const Saved_trips = (props) => {
-    const [user_id, setUser_id] =                   useState("");
+    const user_id = user_data.id;
     const [status, setStatus] =                     useState("loading");
     const [trip_status, setTrip_status] =   useState("loading");
     const [in_trips, setIn_trips] = useState([]);
-    const email = props.email
+    const email = user_data.email;
     const [i, setI] = useState(0);
     const [flag, setFlag] = useState(false);
     const [drop_value, setDrop_value] = React.useState("Choose...");
     const [selected, setSelected] = useState("");
 
-    //changes status when the query completes without error
-    const update_status = () => {
-        setStatus("complete")
-    }
+    // //changes status when the query completes without error
+    // const update_status = () => {
+    //     setStatus("complete")
+    // }
 
-    //finds the trip user with the given email 
-    const {loading: user_loading, error: user_error, data: user_data} = useQuery(GET_TRIP_USER_BY_EMAIL, {
-        variables: {email: email},
-        onCompleted: update_status 
-    })
+    // //finds the trip user with the given email 
+    // const {loading: user_loading, error: user_error, data: user_data} = useQuery(GET_TRIP_USER_BY_EMAIL, {
+    //     variables: {email: email},
+    //     onCompleted: update_status 
+    // })
 
-    //grabs the user id from the only item in the get_trip_user query
-    useEffect(() => {
-      if(status === "complete"){
-        //console.log(user_data)
-        setUser_id(user_data.trip_user[0].user_id)
-      }
-    }, [status])
+    // //grabs the user id from the only item in the get_trip_user query
+    // useEffect(() => {
+    //   if(status === "complete"){
+    //     //console.log(user_data)
+    //     setUser_id(user_data.trip_user[0].user_id)
+    //   }
+    // }, [status])
 
     //finds all the items in the trips table that have a given user_id
     const [get_trips, {loading: trip_loading, error: trip_error, data: trip_data}] = useLazyQuery(GET_TRIP_BY_USER_ID)
@@ -42,7 +43,7 @@ const Saved_trips = (props) => {
     //once the user_id is changed to an actual id in db, run the above query
     useEffect(() => {
       if(user_id !== ""){
-        get_trips({variables: {user_id: user_id}, onCompleted: setTrip_status("complete")})
+        get_trips({variables: {user_id: user_data.id}, onCompleted: setTrip_status("complete")})
       }
     }, [user_id])
 
@@ -106,7 +107,7 @@ const Saved_trips = (props) => {
     
     
     if(trip_loading || in_trip_loading) return  <div> loading, please hold </div>
-    if(trip_error || in_trip_error) return    <div> {`Error! ${user_error.message}`}</div>
+    if(trip_error || in_trip_error) return    <div> {`Error! ${trip_error.message}`}</div>
     if(trip_data && trip_data !== undefined && flag){
         return (
             <div key="saved_trips">
