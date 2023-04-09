@@ -215,7 +215,7 @@ const MapContainer = (props) => {
         <TrafficIcon sx={{ mr: 1 }} />
         Traffic
       </Fab>
-      <Save_trip_button id={props.id} trip={trip} city={props.city} />
+      <Save_trip_button id={props.id} trip={todos} city={props.city} />
     </div>
 
     {/* MarkerInterface component handles the markers and marker infoWindows on the map  */}

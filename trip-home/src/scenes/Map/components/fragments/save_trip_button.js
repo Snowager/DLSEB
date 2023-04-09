@@ -79,26 +79,18 @@ const Save_trip_button = (props) => {
 
     //changes the trip_id every time the button is pressed
     const onClick = () => {
+        console.log("onClick")
         setTrip_id(makeid(Math.random() * 12 + 6));
     }
 
     return (
-        console.log(status),
-        status == "complete" ? (
         <>
             <Fab variant='extended' size='medium' color='primary' aria-label='add' onClick={onClick}>
                 <RouteIcon sx={{ mr: 1 }} />
                 Save Trip
             </Fab>
-
-        </>) : (
-            <Fab variant='extended' size='medium' color='disabled' aria-label='add'>
-                <RouteIcon sx={{ mr: 1 }} />
-                Loading
-        </Fab>
-
+        </>
         )
-    )
 }
 
 export default Save_trip_button;
