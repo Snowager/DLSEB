@@ -6,6 +6,7 @@ import { auth, db, logout } from "./firebase";
 import { query, collection, getDocs, where } from "firebase/firestore";
 import { getAuth, onAuthStateChanged } from "firebase/auth";
 import { MDBCol, MDBContainer, MDBRow, MDBCard, MDBCardBody, MDBTypography, MDBIcon } from 'mdb-react-ui-kit';
+import user_data from '../../../TestingDatabase/pages/user.json';
 
 function Profile() {
   const auth = getAuth();
@@ -19,6 +20,7 @@ function Profile() {
       const doc = await getDocs(q);
       const data = doc.docs[0].data();
       setName(data.name);
+      user_data.name = data.name;
     } catch (err) {
       console.error(err);
       alert("An error occured while fetching user data");
@@ -27,6 +29,7 @@ function Profile() {
   useEffect(() => {
     if (loading) return;
     if (!user) return navigate("/");
+
     fetchUserName();
   }, [user, loading]);
 
