@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react"
 import {useQuery, useLazyQuery, cache} from '@apollo/client';
 import {GET_TRIP_BY_USER_ID, GET_TRIP_USER_BY_EMAIL, GET_IN_TRIP_BY_TRIP} from "../../../TestingDatabase/GraphQL/queries.js"
+import { Link } from 'react-router-dom';
 
 const Saved_trips = (props) => {
     const [user_id, setUser_id] =                   useState("");
@@ -9,6 +10,9 @@ const Saved_trips = (props) => {
     const [in_trips, setIn_trips] = useState([]);
     const email = props.email
     const [i, setI] = useState(0);
+    const [flag, setFlag] = useState(false);
+    const [drop_value, setDrop_value] = React.useState("Choose...");
+    const [selected, setSelected] = useState("");
 
     //changes status when the query completes without error
     const update_status = () => {
@@ -75,29 +79,59 @@ const Saved_trips = (props) => {
       if(trip_data !== undefined && i < trip_data.trip.length){
         get_in_trips({variables: {trip_id: trip_data.trip[i].trip_id}, onCompleted: (console.log("got data for " + trip_data.trip[i].trip_id))})
       }
+      else if(trip_data !== undefined && i >= trip_data.trip.length){setFlag(true)}
     }, [i])
+
+    //changes the value of the drop down menu and sets the correct information in the "selected" object
+    const handleChange = (event) => {
+      setDrop_value(event.target.value);
+      if(event.target.value !== "Choose..."){
+        var num = parseInt(event.target.value.split("_")[1])
+        setSelected({id: event.target.value.split("_")[0],
+          num: num,
+          trip: trip_data.trip[num],
+          in_trips: in_trips[num],
+          lat: parseFloat(event.target.value.split("_")[2]),
+          lng: parseFloat(event.target.value.split("_")[3])
+        });
+      }
+      console.log(drop_value)
+    };
+
+
+    const pushType = (type) => {
+      selected.type = type
+      selected.trip_flag = true
+  }
     
     
     if(trip_loading || in_trip_loading) return  <div> loading, please hold </div>
     if(trip_error || in_trip_error) return    <div> {`Error! ${user_error.message}`}</div>
-    if(trip_data && trip_data !== undefined){
+    if(trip_data && trip_data !== undefined && flag){
         return (
             <div key="saved_trips">
-                {
+              <label> Saved trips
+                <select value={drop_value} onChange={handleChange}>
+                  <option value={"Choose..."} className='btn btn-light'> Choose... </option>
+                  {
                     trip_data.trip.map(trip => (
-                        <div key={trip.trip_id}>
-                            <h1>Trip in {trip.city}</h1>
-                        </div>
+                      <option value={trip.trip_id + "_" + trip_data.trip.indexOf(trip) + "_" + in_trips[trip_data.trip.indexOf(trip)][0].lat + "_" + in_trips[trip_data.trip.indexOf(trip)][0].lng}>
+                        <p>Trip in {trip.city} starting at {in_trips[trip_data.trip.indexOf(trip)][0].loc_name}</p>
+                        {in_trips[trip_data.trip.indexOf(trip)][in_trips[trip_data.trip.indexOf(trip)].length - 1] !== in_trips[trip_data.trip.indexOf(trip)][0]? 
+                        (<p> and ending at {in_trips[trip_data.trip.indexOf(trip)][in_trips[trip_data.trip.indexOf(trip)].length - 1].loc_name}</p>) : null}
+                      </option>
                     ))
-                }
-                {
-                  in_trips.map(item => (
-                    <div key = {item[0].id}>
-                      <h2>in_trip for {item[0].loc_name}</h2>
-                      {item[1] ? (<div> and {item[1].loc_name} </div>): null}
-                    </div>
-                  ))
                   }
+                </select>
+                <Link
+                    to={`../MapPage/${selected.id}/${selected.lat}/${selected.lng}`}
+                    onClick={() => pushType(drop_value)}
+                    state={selected}>
+                      <button disabled={drop_value === "Choose..."}>
+                        Load this trip
+                    </button>
+                </Link>
+              </label>
             </div>
         )
     }

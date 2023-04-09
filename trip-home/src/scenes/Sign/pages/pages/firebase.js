@@ -1,22 +1,8 @@
 import { initializeApp } from "firebase/app";
-import {
-  GoogleAuthProvider,
-  getAuth,
-  signInWithPopup,
-  signInWithEmailAndPassword,
-  signInWithPhoneNumber,
-  createUserWithEmailAndPassword,
-  sendPasswordResetEmail,
-  signOut,
-} from "firebase/auth";
-import {
-  getFirestore,
-  query,
-  getDocs,
-  collection,
-  where,
-  addDoc,
-} from "firebase/firestore";
+import { GoogleAuthProvider, getAuth, signInWithPopup, signInWithEmailAndPassword, signInWithPhoneNumber,
+  createUserWithEmailAndPassword, sendPasswordResetEmail, signOut, } from "firebase/auth";
+import { getFirestore, query, getDocs, collection, where, addDoc, } from "firebase/firestore";
+
 // For Firebase JS SDK v7.20.0 and later, measurementId is optional
 const firebaseConfig = {
   apiKey: "AIzaSyC3NRpTX82Whbm7-v8cMK7LX_EB4TTWkVw",
@@ -27,6 +13,7 @@ const firebaseConfig = {
   appId: "1:506632449893:web:5af428c5449f1fea53bb8c",
   measurementId: "G-56SZQ1QMK6"
 };
+
 const app = initializeApp(firebaseConfig);
 const auth = getAuth(app);
 const db = getFirestore(app);
@@ -50,7 +37,7 @@ const signInWithGoogle = async () => {
     alert(err.message);
   }
 };
-const logInWithEmailAndPassword = async (email, password) => {
+const signin = async (email, password) => {
   try {
     await signInWithEmailAndPassword(auth, email, password);
   } catch (err) {
@@ -94,4 +81,5 @@ export {
   registerWithEmailAndPassword,
   sendPasswordResetEmail,
   logout,
+  signin,
 };
