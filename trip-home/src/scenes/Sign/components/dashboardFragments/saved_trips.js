@@ -91,16 +91,18 @@ const Saved_trips = (props) => {
         setSelected({id: event.target.value.split("_")[0],
           num: num,
           trip: trip_data.trip[num],
-          in_trips: in_trips[num]
+          in_trips: in_trips[num],
+          lat: event.target.value.split("_")[2],
+          lng: event.target.value.split("_")[3]
         });
       }
       console.log(drop_value)
     };
 
-    
+
     const pushType = (type) => {
       selected.type = type
-      selected.flag = true
+      selected.trip_flag = true
   }
     
     
@@ -114,7 +116,7 @@ const Saved_trips = (props) => {
                   <option value={"Choose..."} className='btn btn-light'> Choose... </option>
                   {
                     trip_data.trip.map(trip => (
-                      <option value={trip.trip_id + "_" + trip_data.trip.indexOf(trip) + "_" + ""}>
+                      <option value={trip.trip_id + "_" + trip_data.trip.indexOf(trip) + "_" + in_trips[trip_data.trip.indexOf(trip)][0].lat + "_" + in_trips[trip_data.trip.indexOf(trip)][0].lng}>
                         <p>Trip in {trip.city} starting at {in_trips[trip_data.trip.indexOf(trip)][0].loc_name}</p>
                         {in_trips[trip_data.trip.indexOf(trip)][in_trips[trip_data.trip.indexOf(trip)].length - 1] !== in_trips[trip_data.trip.indexOf(trip)][0]? 
                         (<p> and ending at {in_trips[trip_data.trip.indexOf(trip)][in_trips[trip_data.trip.indexOf(trip)].length - 1].loc_name}</p>) : null}
@@ -123,12 +125,12 @@ const Saved_trips = (props) => {
                   }
                 </select>
                 <Link
-                    to={`../MapPage/${selected.name}/${selected.lat}/${selected.lng}`}
+                    to={`../MapPage/${selected.id}/${selected.lat}/${selected.lng}`}
                     //className='btn btn-light'
                     onClick={() => pushType(drop_value)}
                     state={selected}>
                       <button disabled={drop_value === "Choose..."}>
-                        start a trip with this location
+                        Load this trip
                     </button>
                 </Link>
               </label>

@@ -42,6 +42,7 @@ const MapContainer = (props) => {
   const [package_status, setPackage_status] = useState(-1);
   const [mode, setMode] = useState("DRIVING");
   const [firstNode, setFirstNode] = useState(undefined);
+  const [nextNode, setNextNode] = useState(undefined);
 
   const handleChoiceClose = () => setOpen(false);
 
@@ -89,10 +90,12 @@ const MapContainer = (props) => {
       service.current = new google.maps.places.PlacesService(map)
       route.current = new google.maps.DirectionsService()
       //The first node is already chosen
-      if(props.flag){ //if the flag has been set to true it means that were comming from the profile page with a location ready to be added to the trip
+      if(props.activity_flag){ //if the flag has been set to true it means that were comming from the profile page with a location ready to be added to the trip
           console.log("first node will be " + props.state.name)
           setFirstNode(getLocationFromCoords(props.state.lat, props.state.lng));
-      }else{}
+      }else if(props.trip_flag){
+        console.log("a trip has been passed in")
+      }
       // length == 1 means a button was pressed
       if (query.length == 1) {
         var request = {
