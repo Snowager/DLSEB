@@ -13,7 +13,6 @@ function MapPage(props) {
 
   if (location.state) {
     console.log(location.state)
-    console.log(user_data.id)
 
     return (
       <>
