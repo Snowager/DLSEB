@@ -41,6 +41,7 @@ const MapContainer = (props) => {
   const [directions, setDirections] = useState([]);
   const [package_status, setPackage_status] = useState(-1);
   const [mode, setMode] = useState("DRIVING");
+  const [firstNode, setFirstNode] = useState(undefined);
   const [budget, setBudget] = useState(0)
 
   const handleChoiceClose = () => setOpen(false);
@@ -57,18 +58,69 @@ const MapContainer = (props) => {
     return Math.floor(Math.random() * max);
   }
 
+  //gets a places object from lat lng and a name.
+  function getLocationFromCoords(lat, lng, name){
+    console.log("Lat: " + lat + "|| Lng: " + lng + "|| Name: " + name)
+    var request = {
+      location: {lat: parseFloat(lat), lng: parseFloat(lng)},
+      query: name
+    };
+    service.current.textSearch(request, callback);
+    function callback(results, status) {
+      // only pushes results if it gets an OK status
+      if (status === google.maps.places.PlacesServiceStatus.OK) {
+        var location = results[0];         // if address found, pass to processing function
+        console.log(location)
+        return location;
+      }
+    }
+  }
+
+  function createTrip(add, end, list){
+    if(add < end){
+      var request = {
+        location: {lat: parseFloat(list[add].lat), lng: parseFloat(list[add].lng)},
+        query: list[add].loc_name
+      };
+      service.current.textSearch(request, callback);
+      function callback(results, status) {
+        // only pushes results if it gets an OK status
+        if (status === google.maps.places.PlacesServiceStatus.OK) {
+          var location = results[0];         // if address found, pass to processing function
+          console.log("found location: " + location.name)
+          setTodos(prevTodos => [...prevTodos, location])
+          createTrip(add + 1, end, list)
+        }
+      }
+    } // --TODO-- add conditional for if the location isn't on google maps but is in the database
+  }
+
+  //once first node is updated, set it as the actual first node of the trip
+  useEffect(() => {
+    if(firstNode !== undefined){setTodos(prevTodos => [firstNode, ...prevTodos])}
+  }, [firstNode])
+  
+
   // React callback to load map
   const onLoad = React.useCallback(
     function onLoad(map) {
       // initialize our service's current state to reuse later (place service)
       service.current = new google.maps.places.PlacesService(map)
+      route.current = new google.maps.DirectionsService()
+      //The first node is already chosen
+      if(props.activity_flag){ //if the flag has been set to true it means that were comming from the profile page with a location ready to be added to the trip
+          console.log("first node will be " + props.state.name)
+          setFirstNode(getLocationFromCoords(props.state.lat, props.state.lng, props.state.name));
+      }else if(props.trip_flag){
+        console.log("a trip has been passed in")
+        createTrip(0,props.state.in_trips.length,props.state.in_trips)
+      }
       // length == 1 means a button was pressed
       if (query.length == 1) {
         var request = {
           location: center,
           query: query[0]
         };
-        route.current = new google.maps.DirectionsService()
         service.current.textSearch(request, serviceCallback);
         function serviceCallback(results, status) {
           // only pushes results if it gets an OK status
@@ -98,7 +150,7 @@ const MapContainer = (props) => {
       function callback(results, status) {
         // only pushes results if it gets an OK status
         if (status === google.maps.places.PlacesServiceStatus.OK) {
-          var choice = results[getRandomInt(results.length)]
+          var choice = results[getRandomInt(results.length/4)]
           setPrices(choice)
           setTodos(prevTodos => [...prevTodos, choice])
           setPackage_status(package_status + 1)

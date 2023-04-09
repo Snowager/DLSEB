@@ -6,6 +6,8 @@ import { auth, db, logout } from "./firebase";
 import { query, collection, getDocs, where } from "firebase/firestore";
 import { getAuth, onAuthStateChanged } from "firebase/auth";
 import { MDBCol, MDBContainer, MDBRow, MDBCard, MDBCardBody, MDBTypography, MDBIcon } from 'mdb-react-ui-kit';
+import Saved_activities from '../../components/dashboardFragments/saved_activities.js'
+import Saved_trips from '../../components/dashboardFragments/saved_trips.js'
 import user_data from '../../../TestingDatabase/pages/user.json';
 import {useLazyQuery} from '@apollo/client';
 import { GET_TRIP_USER_BY_EMAIL } from "../../../TestingDatabase/GraphQL/queries.js";
@@ -107,10 +109,10 @@ function Profile() {
                     <hr className="mt-0 mb-4" />
                     <MDBRow className="pt-1">
                       <MDBCol size="10" className="mb-4">
-                        <MDBTypography tag="h6">placeholder</MDBTypography>
+                        <MDBTypography tag="h6"><Saved_activities email={user?.email} /></MDBTypography>
                       </MDBCol>
                       <MDBCol size="10" className="mb-4">
-                        <MDBTypography tag="h6">placeholder</MDBTypography>
+                        <MDBTypography tag="h6"><Saved_trips email={user?.email}/></MDBTypography>
                       </MDBCol>
                     </MDBRow>
 
