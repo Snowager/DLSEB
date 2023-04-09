@@ -30,6 +30,7 @@ const Places = (props) => {
           <button className='btn--primary'
             onClick={() => {
               props.setTodos(prevTodos => [...prevTodos, props.todo])
+              props.setSelected(props.todo)
               props.onClick()
             }}>
             Add to trip

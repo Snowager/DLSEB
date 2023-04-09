@@ -73,6 +73,7 @@ const PlacesList = (props) => {
                         setSelectedPlace={setSelectedPlace}
                         setOpen={setOpen}
                         onClick={props.onClick}
+                        setSelected={props.setSelected}
                     />
                 ))
                 
