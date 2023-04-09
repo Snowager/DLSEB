@@ -6,7 +6,7 @@ import About from './scenes/About/pages/pages/about';
 import LoginPage from './scenes/Splash/components/fragments/login_page';
 import RegisterPage from './scenes/Splash/components/fragments/register_page';
 import Reset from './scenes/Sign/pages/pages/reset';
-import Profile from './scenes/Sign/pages/pages/profile.js';
+import Profile from './scenes/Sign/pages/pages/profile';
 
 function App() {
   return (
