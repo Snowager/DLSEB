@@ -43,6 +43,7 @@ const MapContainer = (props) => {
   const [mode, setMode] = useState("DRIVING");
   const [firstNode, setFirstNode] = useState(undefined);
   const [nextNode, setNextNode] = useState(undefined);
+  const [nodeCount, setNodeCount] = useState(0);
 
   const handleChoiceClose = () => setOpen(false);
 
@@ -59,23 +60,60 @@ const MapContainer = (props) => {
   }
 
   //gets a places object from lat lng and a name.
-  function getLocationFromCoords(lat, lng){
-    console.log(lat + " Lat")
-    console.log(lng + " Lng")
+  function getLocationFromCoords(lat, lng, name){
+    console.log("Lat: " + lat + "|| Lng: " + lng + "|| Name: " + name)
     var request = {
-      location: {lat: parseInt(lat), lng: parseInt(lng)},
-      query: props.state.name
+      location: {lat: parseFloat(lat), lng: parseFloat(lng)},
+      query: name
     };
     service.current.textSearch(request, callback);
     function callback(results, status) {
       // only pushes results if it gets an OK status
       if (status === google.maps.places.PlacesServiceStatus.OK) {
         var location = results[0];         // if address found, pass to processing function
-        console.log(location.photos)
+        console.log(nextNode)
+        console.log(location)
         return location;
       }
     }
   }
+
+  //Adds each successive node in the trip if the trip_flag is set to true
+  // function createTrip(in_trips){
+  //   console.log("create trip")
+  //   if(nodeCount === 0){setNextNode(getLocationFromCoords(in_trips[0].lat, in_trips[0].lng, in_trips[0].loc_name))}
+  //   else if(nodeCount <= in_trips.length){setNextNode(getLocationFromCoords(in_trips[nodeCount].lat, in_trips[nodeCount].lng, in_trips[nodeCount].loc_name))}
+  // }
+
+  function createTrip(add, end, list){
+    if(add < end){
+      var request = {
+        location: {lat: parseFloat(list[add].lat), lng: parseFloat(list[add].lng)},
+        query: list[add].loc_name
+      };
+      service.current.textSearch(request, callback);
+      function callback(results, status) {
+        // only pushes results if it gets an OK status
+        if (status === google.maps.places.PlacesServiceStatus.OK) {
+          var location = results[0];         // if address found, pass to processing function
+          console.log("found location: " + location.name)
+          setTodos(prevTodos => [...prevTodos, location])
+          createTrip(add + 1, end, list)
+        }
+      }
+    }
+  }
+
+  //add found location to the trip and then run createTrip to look for next node
+  // useEffect(() => {
+  //   console.log("nextNode " + nextNode) 
+  //   if(nextNode !== undefined){
+  //     setTodos(prevTodos => [...prevTodos, nextNode])
+  //     setNodeCount(nodeCount + 1)
+  //     createTrip(props.state.in_trips)
+  //   }
+  // }, [nextNode])
+  
 
   //once first node is updated, set it as the actual first node of the trip
   useEffect(() => {
@@ -92,9 +130,10 @@ const MapContainer = (props) => {
       //The first node is already chosen
       if(props.activity_flag){ //if the flag has been set to true it means that were comming from the profile page with a location ready to be added to the trip
           console.log("first node will be " + props.state.name)
-          setFirstNode(getLocationFromCoords(props.state.lat, props.state.lng));
+          setFirstNode(getLocationFromCoords(props.state.lat, props.state.lng, props.state.name));
       }else if(props.trip_flag){
         console.log("a trip has been passed in")
+        createTrip(0,props.state.in_trips.length,props.state.in_trips)
       }
       // length == 1 means a button was pressed
       if (query.length == 1) {

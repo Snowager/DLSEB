@@ -92,8 +92,8 @@ const Saved_trips = (props) => {
           num: num,
           trip: trip_data.trip[num],
           in_trips: in_trips[num],
-          lat: event.target.value.split("_")[2],
-          lng: event.target.value.split("_")[3]
+          lat: parseFloat(event.target.value.split("_")[2]),
+          lng: parseFloat(event.target.value.split("_")[3])
         });
       }
       console.log(drop_value)
