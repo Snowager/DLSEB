@@ -22,6 +22,7 @@ const PlacesList = (props) => {
 
     const [selectedPlace, setSelectedPlace] = useState()
     const [open, setOpen] = useState(false)
+    const [selected, setSelected] = useState(props.selected)
 
     const handleClose = () => {
         setOpen(false)
@@ -64,6 +65,13 @@ const PlacesList = (props) => {
               </Modal>) : null}
         <div className='places-list'>
             <h1 className='text-center text-white'>Places</h1>
+            {/*
+            <div style={{ display: "flex", flexDirection: "row",width:"40%" }}>
+                <button className='btn--primary btn' onClick={() => props.modifyMarkers("food", selected.geometry.location)}>Food</button>
+                <button className='btn--primary btn' onClick={() => props.modifyMarkers("hotel", selected.geometry.location)}>Hotel</button>
+                <button className='btn--primary btn' onClick={() => props.modifyMarkers("fun", selected.geometry.location)}>Activity</button>
+              </div>
+        */}
             {
                 props.todos.map((todo, index) => (
                     <Places

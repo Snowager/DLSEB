@@ -1,6 +1,6 @@
 import { React, useState } from 'react'
 import { Marker, } from '@react-google-maps/api';
-import MarkerStyle from '../../images/markerTemplate4.svg'
+import MarkerStyle from '../../images/greenMarker2.svg'
 import MarkerWindow from "../fragments/markerWindow"
 
 /*
