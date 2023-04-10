@@ -79,7 +79,6 @@ const Save_trip_button = (props) => {
 
     //changes the trip_id every time the button is pressed
     const onClick = () => {
-        console.log("onClick")
         setTrip_id(makeid(Math.random() * 12 + 6));
     }
 

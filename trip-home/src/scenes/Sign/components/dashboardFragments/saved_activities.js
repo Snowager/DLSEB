@@ -2,34 +2,18 @@ import React, { useEffect, useState } from "react"
 import {useQuery, useLazyQuery} from '@apollo/client';
 import {GET_SAVED_ACTIVITY, GET_TRIP_USER_BY_EMAIL} from "../../../TestingDatabase/GraphQL/queries.js"
 import { Link } from 'react-router-dom';
+import user_data from '../../../TestingDatabase/pages/user.json';
 
 const Saved_activities = (props) => {
-    const [user_id, setUser_id] =                   useState("");
+    const user_id = user_data.id;
     const [status, setStatus] =                     useState("loading");
     const [activity_status, setActivity_status] =   useState("loading");
     const [activities, setActivities] =             useState([]);
-    const email = props.email
+    const email = user_data.email
     const [drop_value, setDrop_value] = React.useState("Choose...");
     const [selected, setSelected] = useState("");
 
-    //changes status when the query completes without error
-    const update_status = () => {
-        setStatus("complete")
-    }
-
-    //finds the trip user with the given email 
-    const {loading: user_loading, error: user_error, data: user_data} = useQuery(GET_TRIP_USER_BY_EMAIL, {
-        variables: {email: email},
-        onCompleted: update_status 
-    })
-
-    //grabs the user id from the only item in the get_trip_user query
-    useEffect(() => {
-      if(status === "complete"){
-        console.log(user_data)
-        setUser_id(user_data.trip_user[0].user_id)
-      }
-    }, [status])
+    console.log(user_id + " || " + email + " || " + user_data.email)
 
     //finds all the items in the saved activities table that have a given user_id
     const [get_activities, {loading: activity_loading, error: activity_error, data: activity_data}] = useLazyQuery(GET_SAVED_ACTIVITY)
@@ -44,7 +28,7 @@ const Saved_activities = (props) => {
     //once the above query has finished, grab all items in the returned list
     useEffect(() => {
       console.log("activity status use effect")
-      if(activity_status === "complete" && activity_data !== undefined){        
+      if(activity_status === "complete" && activity_data !== undefined && activity_data.saved_activity && activity_data.saved_activity[0]){        
         console.log(activity_data)
         setActivities(activity_data.saved_activity)
         setSelected(activity_data.saved_activity[0])
@@ -75,8 +59,8 @@ const Saved_activities = (props) => {
   }
     
     if(activity_loading) return  <div> loading, please hold </div>
-    if(activity_error) return    <div> {`Error! ${user_error.message}`}</div>
-    if(activity_data && activity_data !== undefined){
+    if(activity_error) return    <div> {`Error! ${activity_error.message}`}</div>
+    if(activity_data && activity_data !== undefined && activity_data.saved_activity && activity_data.saved_activity[0]){
         console.log("email: " + email)
         return (
             <div>
@@ -104,6 +88,6 @@ const Saved_activities = (props) => {
             </div>
         )
     }
-    return <div> something else happened </div>
+    return <div> There are no saved activities </div>
 }
 export default Saved_activities;
