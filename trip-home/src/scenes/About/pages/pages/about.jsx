@@ -17,14 +17,13 @@ export function About() {
 
         <div class= "headPara">
             <p> 
-            TR!P offers a solution for the influx of people who want to travel and experience the world but don’t want to be bogged down 
-            with all the planning that comes with going out. TR!P will allow a user to designate specific conditions 
-            (location, budget, interests, timeline), and our algorithm will then provide them with the perfect trip. 
-            In addition to serving the immense customer base already available in this sector, our app’s “hands-free” solution 
-            will help encourage others to get out and support entertainment businesses more, through its ease-of-use interface. 
-            Our algorithm will serve as a bridge between travel packages and the modern young customer base that prefers an 
-            all-encompassing solution at their fingers. For older customers, our app provides a hassle-free system with a clear 
-            UI to help book that dream vacation or just that needed night out.  
+            Welcome to TR!P, where we make trip planning easy and stress-free!
+            At TR!P, we understand that planning a trip can be overwhelming and time-consuming. 
+            That's why we're here to help you plan the perfect getaway, whether it's a night on the town or an adventure overseas.
+            On our website, you can search for destinations and plan your itinerary all in one place. 
+            We believe that travel has the power to transform and enrich our lives, and we're dedicated to 
+            helping you make the most of your trip. Whether you're a seasoned traveler or a first-time adventurer, 
+            we're here to help you plan your next unforgettable journey.
             </p>
         </div>
 
@@ -40,7 +39,7 @@ export function About() {
                     </div>
                     <div class='inside-child'>
                         <p className = 'nameHeader'>Cole Robinson</p>
-                        <p>Database Architect, Software Developer, Security Engineer</p>
+                        <p>Coordinator, Software Developer</p>
                     </div>
                 </div>
                 <div class='inside-parent'>
@@ -49,7 +48,7 @@ export function About() {
                     </div>
                     <div class='inside-child'>
                         <p className = 'nameHeader'>Tiffany Kouakou</p>
-                        <p>Business Analyst, UI / UX Designer, Database Architect</p>
+                        <p>Business Analyst, Database Architect, Secuirty Engineer</p>
                     </div>
                 </div>
                 <div class='inside-parent'>
@@ -58,7 +57,7 @@ export function About() {
                     </div>
                     <div class='inside-child'>
                         <p className = 'nameHeader'>Niko Antuna</p>
-                        <p>Coordinator, Web Developer, UI / UX Designer</p>
+                        <p>Web Developer, UI / UX Designer</p>
                     </div>
                 </div>
             </div>
@@ -70,7 +69,7 @@ export function About() {
                     </div>
                     <div class='inside-child'>
                         <p className = 'nameHeader'>Alex Bradberry</p>
-                        <p>Software Developer, Web Developer, Network Architect</p>
+                        <p>Software Developer, Network Architect, Database Architect</p>
                     </div>
                 </div>
                 <div class='inside-parent'>
@@ -79,7 +78,7 @@ export function About() {
                     </div>
                     <div class='inside-child'>
                         <p className = 'nameHeader'>Rachel Godina</p>
-                        <p>Business Analyst, UI / UX Designer, Security Engineer</p>
+                        <p>Business Analyst, Security Engineer, Database Architect</p>
                     </div>
                 </div>
                 <div class='inside-parent'>
@@ -88,7 +87,7 @@ export function About() {
                     </div>
                     <div class='inside-child'>
                         <p className = 'nameHeader'>Nate Burdick</p>
-                        <p>Software Developer, Web Developer, UI / UX Designer</p>
+                        <p> Web Developer, UI / UX Designer</p>
                     </div>
                 </div>
             </div>
