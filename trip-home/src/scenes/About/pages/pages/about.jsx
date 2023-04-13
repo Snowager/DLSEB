@@ -48,7 +48,7 @@ export function About() {
                     </div>
                     <div class='inside-child'>
                         <p className = 'nameHeader'>Tiffany Kouakou</p>
-                        <p>Business Analyst, Database Architect, Secuirty Engineer</p>
+                        <p>Business Analyst, Database Architect, Security Engineer</p>
                     </div>
                 </div>
                 <div class='inside-parent'>
