@@ -331,6 +331,8 @@ const MapContainer = (props) => {
               setRadius={setRadius}
               setBudget={setBudget}
               setMode={setMode}
+              id={props.id} 
+              city={props.city}
             />) : null}
           {map}
           {/* TodoList handles the list of Todo trip items */}
@@ -353,8 +355,8 @@ const MapContainer = (props) => {
         </div>
 
         {/*  {places ? (places.map((place, index) => (<div><p>{place.name}</p></div>) )): null  }*/}
-        
       </>
+      
     )
   }
   return null

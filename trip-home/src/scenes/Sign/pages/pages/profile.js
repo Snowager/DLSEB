@@ -12,7 +12,7 @@ import user_data from '../../../TestingDatabase/pages/user.json';
 import {useLazyQuery} from '@apollo/client';
 import { GET_TRIP_USER_BY_EMAIL } from "../../../TestingDatabase/GraphQL/queries.js";
 import { Link } from 'react-router-dom';
-import Navbar from "../../../Splash/components/fragments/navbar_map";
+import Navbar from "../../../Splash/components/fragments/navbar.js";
 
 function Profile() {
   const auth = getAuth();
