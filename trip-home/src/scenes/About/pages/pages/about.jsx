@@ -1,11 +1,11 @@
 import React from 'react';
 import Zac from '../../images/Zac.jpg';
-import Nate from '../../images/1.jpg';
-import Cole from '../../images/2.jpg';
-import Niko from '../../images/3.jpg';
-import Tiffany from '../../images/4.jpg';
-import Rachel from '../../images/5.jpg';
-import Alex from '../../images/6.jpg';
+import Nate from '../../images/Nate.png';
+import Cole from '../../images/Cole.png';
+import Niko from '../../images/Niko.png';
+import Tiffany from '../../images/Tiffany.png';
+import Rachel from '../../images/Rachel.png';
+import Alex from '../../images/Alex.png';
 import "../styles/about.css";
 
 export function About() {
@@ -17,14 +17,13 @@ export function About() {
 
         <div class= "headPara">
             <p> 
-            TR!P offers a solution for the influx of people who want to travel and experience the world but don’t want to be bogged down 
-            with all the planning that comes with going out. TR!P will allow a user to designate specific conditions 
-            (location, budget, interests, timeline), and our algorithm will then provide them with the perfect trip. 
-            In addition to serving the immense customer base already available in this sector, our app’s “hands-free” solution 
-            will help encourage others to get out and support entertainment businesses more, through its ease-of-use interface. 
-            Our algorithm will serve as a bridge between travel packages and the modern young customer base that prefers an 
-            all-encompassing solution at their fingers. For older customers, our app provides a hassle-free system with a clear 
-            UI to help book that dream vacation or just that needed night out.  
+            Welcome to TR!P, where we make trip planning easy and stress-free!
+            At TR!P, we understand that planning a trip can be overwhelming and time-consuming. 
+            That's why we're here to help you plan the perfect getaway, whether it's a night on the town or an adventure overseas.
+            On our website, you can search for destinations and plan your itinerary all in one place. 
+            We believe that travel has the power to transform and enrich our lives, and we're dedicated to 
+            helping you make the most of your trip. Whether you're a seasoned traveler or a first-time adventurer, 
+            we're here to help you plan your next unforgettable journey.
             </p>
         </div>
 
@@ -36,29 +35,29 @@ export function About() {
             <div class='outside-child'>
                 <div class='inside-parent'>
                     <div class='inside-child'>
-                        <img src = {Cole} alt="2" />
+                        <img src = {Cole} alt="Cole" />
                     </div>
                     <div class='inside-child'>
                         <p className = 'nameHeader'>Cole Robinson</p>
-                        <p>Database Architect, Software Developer, Security Engineer</p>
+                        <p>Coordinator, Software Developer</p>
                     </div>
                 </div>
                 <div class='inside-parent'>
                     <div class='inside-child'>
-                        <img src = {Tiffany} alt="4" />
+                        <img src = {Tiffany} alt="Tiffany" />
                     </div>
                     <div class='inside-child'>
                         <p className = 'nameHeader'>Tiffany Kouakou</p>
-                        <p>Business Analyst, UI / UX Designer, Database Architect</p>
+                        <p>Business Analyst, Database Architect, Security Engineer</p>
                     </div>
                 </div>
                 <div class='inside-parent'>
                     <div class='inside-child'>
-                        <img src = {Niko} alt="3" />
+                        <img src = {Niko} alt="Niko" />
                     </div>
                     <div class='inside-child'>
                         <p className = 'nameHeader'>Niko Antuna</p>
-                        <p>Coordinator, Web Developer, UI / UX Designer</p>
+                        <p>Web Developer, UI / UX Designer</p>
                     </div>
                 </div>
             </div>
@@ -66,20 +65,20 @@ export function About() {
             <div class='outside-child'>
                 <div class='inside-parent'>
                     <div class='inside-child'>
-                        <img src = {Alex} alt="6" />
+                        <img src = {Alex} alt="Alex" />
                     </div>
                     <div class='inside-child'>
                         <p className = 'nameHeader'>Alex Bradberry</p>
-                        <p>Software Developer, Web Developer, Network Architect</p>
+                        <p>Software Developer, Network Architect, Database Architect</p>
                     </div>
                 </div>
                 <div class='inside-parent'>
                     <div class='inside-child'>
-                        <img src = {Rachel} alt="5" />
+                        <img src = {Rachel} alt="Rachel" />
                     </div>
                     <div class='inside-child'>
                         <p className = 'nameHeader'>Rachel Godina</p>
-                        <p>Business Analyst, UI / UX Designer, Security Engineer</p>
+                        <p>Business Analyst, Security Engineer, Database Architect</p>
                     </div>
                 </div>
                 <div class='inside-parent'>
@@ -88,7 +87,7 @@ export function About() {
                     </div>
                     <div class='inside-child'>
                         <p className = 'nameHeader'>Nate Burdick</p>
-                        <p>Software Developer, Web Developer, UI / UX Designer</p>
+                        <p> Web Developer, UI / UX Designer</p>
                     </div>
                 </div>
             </div>
