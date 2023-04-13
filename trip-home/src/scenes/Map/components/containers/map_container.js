@@ -355,7 +355,6 @@ const MapContainer = (props) => {
         </div>
 
         {/*  {places ? (places.map((place, index) => (<div><p>{place.name}</p></div>) )): null  }*/}
-        <Save_trip_button id={props.id} trip={todos} city={props.city} />
       </>
       
     )

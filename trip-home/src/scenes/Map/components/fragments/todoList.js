@@ -42,8 +42,9 @@ const TodoList = (props) => {
                 ))
                 
             }
+<div class="text-center">
             <Save_trip_button id={props.id} trip={todos} city={props.city} />
-
+</div>
         </div>
 
     )
