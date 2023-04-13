@@ -330,6 +330,7 @@ const MapContainer = (props) => {
               setTodos={setTodos}
               setRadius={setRadius}
               setBudget={setBudget}
+              setMode={setMode}
             />) : null}
           {map}
           {/* TodoList handles the list of Todo trip items */}
