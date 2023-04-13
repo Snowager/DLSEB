@@ -2,8 +2,18 @@ import React, { useState } from 'react'
 import { Slider } from '@mui/material';
 import { Typography } from "@mui/material";
 import { Box } from "@mui/material";
+import {makeStyles} from '@material-ui/core/styles';
+
 
 const BudgetSlider = (props) => {
+
+    const useStyles = makeStyles({
+        root: {
+          "&>.MuiSlider-markLabel": {
+            color: "white !important"
+          }
+        }
+      });
 
     const marks = [
         {
@@ -32,10 +42,13 @@ const BudgetSlider = (props) => {
         props.setBudget(newValue)
         console.log(newValue)
     }
+    const styles = useStyles()
 
     return (
         <>
-            <Box sx={{ display: "flex", margin: "40px" }}>
+            <h2 className='text-center'>Budget</h2>
+
+            <Box sx={{ display: "flex", margin: "20px", color: "white" }}>
                 <Slider
                     aria-label="Budget"
                     defaultValue={1}
@@ -45,6 +58,10 @@ const BudgetSlider = (props) => {
                     step={null}
                     marks={marks}
                     max={3}
+                    sx={{
+                        color: 'white'
+                      }}
+                    className={styles.root}
                 />
             </Box>
         </>

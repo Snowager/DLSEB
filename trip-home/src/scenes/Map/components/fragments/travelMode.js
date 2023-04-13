@@ -18,7 +18,7 @@ const TravelMode = (props) => {
     return (
       <Box sx={{ display: "flex", margin: "2px", color:'white' }} className="text-center display-flex">
     <FormControl>
-      <FormLabel sx={{color:'white' }} id="demo-radio-buttons-group-label" className='text-center'>Travel Mode</FormLabel>
+    <h2 className='text-center'>Travel Mode</h2>
       <RadioGroup
         aria-labelledby="demo-radio-buttons-group-label"
         defaultValue={props.option[0]}
