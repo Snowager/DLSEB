@@ -35,6 +35,9 @@ const Places = (props) => {
             }}>
             Add to trip
           </button>
+          <button className="btn--outlineSmall" onClick={() => props.onClick()}>
+              <i className="fa fa-star  " aria-hidden="true"> </i>
+            </button>
         </div>
 
         <div className="todo-list-splitters"></div>

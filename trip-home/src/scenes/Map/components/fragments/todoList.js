@@ -27,7 +27,7 @@ const TodoList = (props) => {
         <div className='todo-list'>
             <RadiusSlider setRadius={props.setRadius} />
             <BudgetSlider setBudget={props.setBudget} />
-            <TravelMode option={["Car", "Bus", "Bike", "Walk"]} value={["DRIVING", "TRANSIT", "BICYCLING", "WALKING"]} size={30} setMode={props.setMode} />
+            <TravelMode option={["Car", "Bus", "Bike", "Walk"]} value={["DRIVING", "TRANSIT", "BICYCLING", "WALKING"]} size={20} setMode={props.setMode} />
             <h1 className='text-center'>Your Trip</h1>
             {
             

@@ -97,11 +97,13 @@
   opacity: 0.9;
   transition: 0.3s;
   background: rgb(237, 237, 237);
+  border-radius: 5px;
 }
 .todo-list-opacity:hover {
   opacity: 0.9;
   transition: 0.3s;
   background: rgb(46, 46, 46);
+  border-radius: 5px;
 }
 
 .todo-list-photos {

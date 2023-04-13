@@ -255,7 +255,7 @@ const MapContainer = (props) => {
   //change the routes everytime the todos change
   useEffect(() => {
     if(todos.length > 1) makeFullRoute();
-  }, [todos])
+  }, [todos, mode])
 
   // map object
   const map = <GoogleMap
@@ -330,6 +330,7 @@ const MapContainer = (props) => {
               setTodos={setTodos}
               setRadius={setRadius}
               setBudget={setBudget}
+              setMode={setMode}
             />) : null}
           {map}
           {/* TodoList handles the list of Todo trip items */}

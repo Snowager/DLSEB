@@ -19,6 +19,7 @@
     border: 1px solid black;
     border-radius: 3px;
     margin-top: 5px;
+    margin-left:10px;
 }
 .btn--primaryRED {
     background-color: red;
@@ -36,6 +37,15 @@
     transition: all 0.3s ease-out;
     margin-left: 10px;
     border-radius:5px;
+}
+.btn--outlineSmall {
+    background-color: transparent;
+    color: rgb(255, 255, 255);
+    padding: 3px 6px;
+    border: 1px solid var(--primary);
+    transition: all 0.3s ease-out;
+    border-radius:5px;
+    float: right;
 }
 
 btn--medium {
