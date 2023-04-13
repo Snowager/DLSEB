@@ -93,10 +93,15 @@
   margin-bottom: 10px;
 } 
 
+.places-list-opacity:hover {
+  opacity: 0.9;
+  transition: 0.3s;
+  background: rgb(237, 237, 237);
+}
 .todo-list-opacity:hover {
   opacity: 0.9;
   transition: 0.3s;
-  background: rgb(226, 226, 226);
+  background: rgb(46, 46, 46);
 }
 
 .todo-list-photos {

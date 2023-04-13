@@ -293,7 +293,14 @@ const MapContainer = (props) => {
       <>
         <DirectionsRenderer
           directions={direction}
-          key={index} />
+          key={index}
+          options={{
+            polylineOptions:{
+              strokeColor:"lightgreen",
+              strokeWeight:4
+            }
+          }}
+           />
       </>
     ))
     ) : null}
@@ -305,13 +312,18 @@ const MapContainer = (props) => {
       <>
         <div className='mapContainer'>
           {markers.length > 0 ? (
+            <>
             <PlacesList
               onClick={() => setOpen(true)}
               todos={markers}
               setTodos={setTodos}
               setSelected={setSelected}
               open={open}
-            />) : null}
+              selected={todos[todos.length - 1]}
+              modifyMarkers={modifyMarkers}
+              makeFullRoute={makeFullRoute}
+              makeRoute={makeRoute}
+            /> </>) : null}
           {todos ? (
             <TodoList
               todos={todos}

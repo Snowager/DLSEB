@@ -16,34 +16,39 @@ const TravelMode = (props) => {
 
     }
     return (
-      <Box sx={{ display: "flex", margin: "40px" }} className="text-center display-flex">
+      <Box sx={{ display: "flex", margin: "2px", color:'white' }} className="text-center display-flex">
     <FormControl>
-      <FormLabel id="demo-radio-buttons-group-label" className='text-center'>Travel Mode</FormLabel>
+      <FormLabel sx={{color:'white' }} id="demo-radio-buttons-group-label" className='text-center'>Travel Mode</FormLabel>
       <RadioGroup
         aria-labelledby="demo-radio-buttons-group-label"
         defaultValue={props.option[0]}
         name="radio-buttons-group"
         row={true}
         onChange={handleChange}
+        
       >
         <FormControlLabel value={props.value[0]} control={<Radio sx={{
           '& .MuiSvgIcon-root': {
             fontSize: size,
           },
+          color: 'white',
         }}/>} label={props.option[0]} labelPlacement="top"/>
         <FormControlLabel value={props.value[1]} control={<Radio sx={{
           '& .MuiSvgIcon-root': {
             fontSize: size,
+            color: 'white',
           },
         }}/>} label={props.option[1]} labelPlacement="top"/>
         <FormControlLabel value={props.value[2]} control={<Radio sx={{
           '& .MuiSvgIcon-root': {
             fontSize: size,
+            color: 'white',
           },
         }}/>} label={props.option[2]} labelPlacement="top"/>
         <FormControlLabel value={props.value[3]} control={<Radio sx={{
           '& .MuiSvgIcon-root': {
             fontSize: size,
+            color: 'white',
           },
         }}/>} label={props.option[3]} labelPlacement="top"/>
       </RadioGroup>

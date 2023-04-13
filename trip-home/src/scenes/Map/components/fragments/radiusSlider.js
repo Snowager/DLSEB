@@ -2,8 +2,19 @@ import React, { useState } from 'react'
 import { Slider } from '@mui/material';
 import { Typography } from "@mui/material";
 import { Box } from "@mui/material";
+import {makeStyles} from '@material-ui/core/styles';
+
+
 
 const RadiusSlider = (props) => {
+
+    const useStyles = makeStyles({
+        root: {
+          "&>.MuiSlider-markLabel": {
+            color: "white !important"
+          }
+        }
+      });
 
     const marks = [
         {
@@ -58,9 +69,11 @@ const RadiusSlider = (props) => {
         console.log(newValue)
     }
 
+    const styles = useStyles()
     return (
         <>
-            <Box sx={{ display: "flex", margin: "40px" }}>
+            <h2 className='text-center'>Search Radius</h2>
+            <Box  sx={{ display: "flex", margin: "10px", color:"white" }}>
                 <Slider
                     aria-label="Radius"
                     defaultValue={5}
@@ -70,6 +83,10 @@ const RadiusSlider = (props) => {
                     step={null}
                     marks={marks}
                     max={30}
+                    sx={{
+                        color: 'white'
+                      }}
+                    className={styles.root}
                 />
             </Box>
         </>
