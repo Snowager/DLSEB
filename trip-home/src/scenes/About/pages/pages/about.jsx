@@ -1,11 +1,11 @@
 import React from 'react';
 import Zac from '../../images/Zac.jpg';
-import Nate from '../../images/1.jpg';
-import Cole from '../../images/2.jpg';
-import Niko from '../../images/3.jpg';
-import Tiffany from '../../images/4.jpg';
-import Rachel from '../../images/5.jpg';
-import Alex from '../../images/6.jpg';
+import Nate from '../../images/Nate.png';
+import Cole from '../../images/Cole.png';
+import Niko from '../../images/Niko.png';
+import Tiffany from '../../images/Tiffany.png';
+import Rachel from '../../images/Rachel.png';
+import Alex from '../../images/Alex.png';
 import "../styles/about.css";
 
 export function About() {
@@ -35,7 +35,7 @@ export function About() {
             <div class='outside-child'>
                 <div class='inside-parent'>
                     <div class='inside-child'>
-                        <img src = {Cole} alt="2" />
+                        <img src = {Cole} alt="Cole" />
                     </div>
                     <div class='inside-child'>
                         <p className = 'nameHeader'>Cole Robinson</p>
@@ -44,7 +44,7 @@ export function About() {
                 </div>
                 <div class='inside-parent'>
                     <div class='inside-child'>
-                        <img src = {Tiffany} alt="4" />
+                        <img src = {Tiffany} alt="Tiffany" />
                     </div>
                     <div class='inside-child'>
                         <p className = 'nameHeader'>Tiffany Kouakou</p>
@@ -53,7 +53,7 @@ export function About() {
                 </div>
                 <div class='inside-parent'>
                     <div class='inside-child'>
-                        <img src = {Niko} alt="3" />
+                        <img src = {Niko} alt="Niko" />
                     </div>
                     <div class='inside-child'>
                         <p className = 'nameHeader'>Niko Antuna</p>
@@ -65,7 +65,7 @@ export function About() {
             <div class='outside-child'>
                 <div class='inside-parent'>
                     <div class='inside-child'>
-                        <img src = {Alex} alt="6" />
+                        <img src = {Alex} alt="Alex" />
                     </div>
                     <div class='inside-child'>
                         <p className = 'nameHeader'>Alex Bradberry</p>
@@ -74,7 +74,7 @@ export function About() {
                 </div>
                 <div class='inside-parent'>
                     <div class='inside-child'>
-                        <img src = {Rachel} alt="5" />
+                        <img src = {Rachel} alt="Rachel" />
                     </div>
                     <div class='inside-child'>
                         <p className = 'nameHeader'>Rachel Godina</p>
