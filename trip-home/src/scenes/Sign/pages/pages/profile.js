@@ -12,6 +12,7 @@ import user_data from '../../../TestingDatabase/pages/user.json';
 import {useLazyQuery} from '@apollo/client';
 import { GET_TRIP_USER_BY_EMAIL } from "../../../TestingDatabase/GraphQL/queries.js";
 import { Link } from 'react-router-dom';
+import Navbar from "../../../Splash/components/fragments/navbar_map";
 
 function Profile() {
   const auth = getAuth();
@@ -66,7 +67,7 @@ function Profile() {
   return (
     //setting the height 
     <section className="vh-100" >
-      <Link to={'/'}> back to home screen </Link>
+      <Navbar />
     <MDBContainer className="py-5 h-100" >
       <MDBRow className="justify-content-center align-items-center h-100">
         <MDBCol lg="6" className="mb-4 mb-lg-0" >
@@ -129,7 +130,7 @@ function Profile() {
                     <a href="#!"><MDBIcon fab icon="instagram me-3" size="lg" /></a>
                   </div>
                   <div class="text-center">
-                  <button className="profile__btn" onClick={logout}>
+                  <button className="btn--primary" onClick={logout}>
                     Log out
                     </button>
                   </div>

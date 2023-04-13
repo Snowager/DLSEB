@@ -3,6 +3,7 @@ import {useQuery, useLazyQuery, cache} from '@apollo/client';
 import {GET_TRIP_BY_USER_ID, GET_TRIP_USER_BY_EMAIL, GET_IN_TRIP_BY_TRIP} from "../../../TestingDatabase/GraphQL/queries.js"
 import { Link } from 'react-router-dom';
 import user_data from '../../../TestingDatabase/pages/user.json';
+import "../styles/saved_trips.css";
 
 const Saved_trips = (props) => {
     const user_id = user_data.id;
@@ -91,10 +92,10 @@ const Saved_trips = (props) => {
     if(trip_error || in_trip_error) return    <div> {`Error! ${trip_error.message}`}</div>
     if(trip_data && trip_data !== undefined && flag){
         return (
-            <div key="saved_trips">
+            <div key="saved_trips" >
               <label> Saved trips
-                <select value={drop_value} onChange={handleChange}>
-                  <option value={"Choose..."} className='btn btn-light'> Choose... </option>
+                <select value={drop_value} onChange={handleChange} className='SavedTripList'>
+                  <option value={"Choose..."} > Choose... </option>
                   {
                     trip_data.trip.map(trip => (
                       <option value={trip.trip_id + "_" + trip_data.trip.indexOf(trip) + "_" + in_trips[trip_data.trip.indexOf(trip)][0].lat + "_" + in_trips[trip_data.trip.indexOf(trip)][0].lng}>
@@ -109,7 +110,7 @@ const Saved_trips = (props) => {
                     to={`../MapPage/${selected.id}/${selected.lat}/${selected.lng}`}
                     onClick={() => pushType(drop_value)}
                     state={selected}>
-                      <button disabled={drop_value === "Choose..."}>
+                      <button className="btn--primary" disabled={drop_value === "Choose..."}>
                         Load this trip
                     </button>
                 </Link>
