@@ -7,10 +7,12 @@ import Tiffany from '../../images/Tiffany.png';
 import Rachel from '../../images/Rachel.png';
 import Alex from '../../images/Alex.png';
 import "../styles/about.css";
+import Navbar from '../../../Splash/components/fragments/navbar';
 
 export function About() {
     return (
         <div class= "app">
+            <Navbar/>
             <div class= "header"> 
                 What is TR!P?
             </div>
