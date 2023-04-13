@@ -52,12 +52,6 @@ const MapContainer = (props) => {
     return Math.floor(Math.random() * max);
   }
 
-
-  // helper function to get a random value from 0-max (non-inclusive)
-  function getRandomInt(max) {
-    return Math.floor(Math.random() * max);
-  }
-
   //gets a places object from lat lng and a name.
   function getLocationFromCoords(lat, lng, name){
     console.log("Lat: " + lat + "|| Lng: " + lng + "|| Name: " + name)

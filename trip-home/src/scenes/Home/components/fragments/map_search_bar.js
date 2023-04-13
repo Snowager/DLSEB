@@ -81,6 +81,14 @@ function MapSearchBar() {
         selected.type = type
     }
 
+    
+    function getRandomInt(max) {
+        return Math.floor(Math.random() * max);
+      }
+
+    const funList = ["hike", "park", "bowling", "arcade", "axe-throwing", "bike-ride", "Movie", "fishing", "escape room", "museum", "library", "ice-rink", "club", "trampoline", "golf", "laser-tag", "amusement-park", "tour", "beach", "ski", "pool", "spa", "historic", "Skate-park", "water-park", "GoKarts", "Aquarium", "Zoo", "botanical-garden", "Mall", "bar", "brewery", "pond", "Theater", "concert", "venue", "comedy", "event", "rollercoaster", "candle-making", "mini-golf", ""]
+
+
     if (!isLoaded) return
     return (
         <>
@@ -108,7 +116,7 @@ function MapSearchBar() {
                     <Link
                         to={`MapPage/activity/${selected.lat}/${selected.lng}`}
                         className='btn btn-light'
-                        onClick={() => pushType("fun")}
+                        onClick={() => pushType(funList[getRandomInt(funList.length - 1)])}
                         state={selected}>
                         Activity
                     </Link>
