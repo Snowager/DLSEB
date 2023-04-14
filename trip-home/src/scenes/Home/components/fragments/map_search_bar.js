@@ -3,6 +3,7 @@ import '../../../Home/pages/styles/search_bar.css';
 import '../../../Splash/components/styles/button.css';
 import React, { useState } from "react";
 import { Link } from 'react-router-dom';
+import Switch from '@mui/material/Switch';
 
 import usePlacesAutocomplete, {
     getGeocode,
@@ -61,6 +62,35 @@ const PlacesAutocomplete = ({ setSelected }) => {
     );
 };
 
+const ControlledSwitches = ({ setSelected }) => {
+    const [checked, setChecked] = React.useState(false);
+
+    const handleChange = (event) => {
+        setChecked(event.target.checked);
+        if (checked == false) {
+            navigator.geolocation.getCurrentPosition(function (position) {
+                console.log("Latitude is :", position.coords.latitude);
+                console.log("Longitude is :", position.coords.longitude);
+
+                setSelected({ lat: position.coords.latitude, lng: position.coords.longitude });
+
+            });
+        }
+    };
+
+    return (
+        <>
+            <div>
+                <p>Switch to Use Your Location</p>
+                <Switch
+                    checked={checked}
+                    onChange={handleChange}
+                />
+            </div>
+        </>
+    );
+}
+
 
 
 function MapSearchBar() {
@@ -80,6 +110,7 @@ function MapSearchBar() {
         <>
             <div className="places-container">
                 <PlacesAutocomplete setSelected={setSelected} />
+                <ControlledSwitches setSelected={setSelected} />
             </div>
 
             <div className="places-container mx-auto">

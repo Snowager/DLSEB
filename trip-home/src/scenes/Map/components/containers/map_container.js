@@ -119,8 +119,9 @@ const MapContainer = (props) => {
       var location = new google.maps.LatLng(e.latLng.lat(), e.latLng.lng());    // turn coordinates into an object          
       geocoder.geocode({ 'latLng': location }, function (results, status) {
         if (status == google.maps.GeocoderStatus.OK) {           // only geocodes if status returned is OK
-          var address = results[0].formatted_address;         // if address is found pass to processing function
+          const address = results[0].formatted_address;         // if address is found pass to processing function
           console.log(address);
+          chosenPlace.address = address;
         }
       });
 
@@ -162,7 +163,7 @@ const MapContainer = (props) => {
         position={clickPosition}
         onCloseClick={handleClickAdd}>
         <div><h1>{clickPosition.lat};{clickPosition.lng}</h1>
-          <button onClick={handleClickAdd}>Add location</button></div>
+          <button onClick={handleClickAdd}>Add Location</button></div>
       </InfoWindow>) : null}
   </GoogleMap>
 

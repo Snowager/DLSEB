@@ -58,22 +58,22 @@ const TodoForm = (props, addTodo) => {
               <form onSubmit={handleSubmit}>
                 <label>Place Name:</label>
                 <textarea
-                  required
+                  required={true}
                   value={name}
                   onChange={(e) => setName(e.target.value)}
                 />
                 <label>Place Address:</label>
                 <textarea
-                  required
-                  value={address}
-                  onChange={(e) => setAddress(e.target.value)}
+                  readOnly={true}
+                  required={true}
+                  value={props.chosenPlace.address}
                 />
 
                 <button
                   onClick={() => {
                     // passes back the modified function containing all previous todos (with spread syntax ...) 
                     // and adds an object containing the e.target values from the form
-                    props.setTodos(prevTodos => [...prevTodos, { name: name, formatted_address: address, rating: 0, user_rating_total: 0 }])
+                    props.setTodos(prevTodos => [...prevTodos, { name: name, formatted_address: props.chosenPlace.address, rating: 0, user_rating_total: 0 }])
                     handleClose()
                   }}>
                   Add to trip
