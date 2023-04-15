@@ -21,6 +21,7 @@ function Register () {
   const nameRef = useRef()
   const errorRef = useRef()
   const [user, loading, error] = useAuthState(auth);
+  const [new_user, setNew_user] = useState(null);
 
   const [name, setName] = useState("")
   const [email, setEmail] = useState("")
@@ -52,6 +53,21 @@ function Register () {
       user_name: email
     }
     });
+
+    useEffect(() => {
+      console.log(new_user)
+      if(new_user !== null){
+        console.log("more stuff")
+      db_register({variables: {
+        email: new_user.email,
+        password: "RegisteredWithGoogle1!",
+          phone_number: "9703446410", 
+          first_name: new_user.displayName.split(" ")[0],
+          last_name: new_user.displayName.split(" ")[1],
+          user_name: new_user.email
+      }})}
+    }, [new_user])
+    
 
   useEffect(() => {
     nameRef.current.focus()
@@ -247,7 +263,16 @@ function Register () {
             </button>
             <button
               className="register__btn register__google"
-              onClick={signInWithGoogle}
+              onClick={() => {
+                signInWithGoogle().then((user) => 
+                setNew_user(user), 
+                console.log(new_user)
+                //  setTimeout(() => {
+                //   setNew_user(user)
+                //  }, 1000)
+                )
+              }
+              }
             >
               Register with Google
             </button>
