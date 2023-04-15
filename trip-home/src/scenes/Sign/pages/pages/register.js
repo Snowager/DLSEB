@@ -61,7 +61,7 @@ function Register () {
       db_register({variables: {
         email: new_user.email,
         password: "RegisteredWithGoogle1!",
-          phone_number: "9703446410", 
+          phone_number: new_user.phoneNumber !== null ? new_user.phoneNumber : "+10000000000",
           first_name: new_user.displayName.split(" ")[0],
           last_name: new_user.displayName.split(" ")[1],
           user_name: new_user.email
