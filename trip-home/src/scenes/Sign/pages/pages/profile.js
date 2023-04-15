@@ -42,9 +42,9 @@ function Profile() {
 }
 
   function updateJson () {
-    user_data.id = "0";
-    user_data.name = "name";
-    user_data.email = "email";
+    user_data.id = "369";
+    user_data.name = "Tr!p App";
+    user_data.email = "tr.exclaim.ip@gmail.com";
   }
 
   //gets user data from the postgresql database
@@ -130,7 +130,10 @@ function Profile() {
                     <a href="#!"><MDBIcon fab icon="instagram me-3" size="lg" /></a>
                   </div>
                   <div class="text-center">
-                  <button className="btn--primary" onClick={logout}>
+                  <button className="btn--primary" onClick={() => {
+                    updateJson();
+                    logout(); 
+                  }}>
                     Log out
                     </button>
                   </div>
