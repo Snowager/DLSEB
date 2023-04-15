@@ -114,7 +114,7 @@ function MapSearchBar() {
                     <Link
                         to={`MapPage/activity/${selected.lat}/${selected.lng}`}
                         className='btn btn-light'
-                        onClick={() => pushType(fun_list[getRandomInt(fun_list.length - 1)])}
+                        onClick={() => pushType(fun_list.fun_list[getRandomInt(fun_list.fun_list.length - 1)])}
                         state={selected}>
                         Activity
                     </Link>

@@ -9,6 +9,7 @@ import ChoiceModal from '../fragments/choiceModal';
 import MarkerInterface from '../fragments/markerInterface';
 import { Fab } from '@mui/material';
 import TrafficIcon from '@mui/icons-material/Traffic';
+import fun_list from "../../components/fun.json"
 
 /*
 The map container is a container-type file that holds all the different components that interact with the map (Markers, 
