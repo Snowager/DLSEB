@@ -110,6 +110,23 @@ const MapContainer = (props) => {
         console.log("a trip has been passed in")
         createTrip(0,props.state.in_trips.length,props.state.in_trips)
       }
+      if (query.length === "fun") {
+        var request = {
+          location: center,
+          query: fun_list.fun_list[getRandomInt(fun_list.fun_list.length - 1)]
+        };
+        service.current.textSearch(request, serviceCallback);
+        function serviceCallback(results, status) {
+          // only pushes results if it gets an OK status
+          if (status === google.maps.places.PlacesServiceStatus.OK) {
+            // 
+            for (var i = 0; i < results.length; i++) {
+              setPrices(results[i])
+            }
+            setMarkers(results)
+          }
+        }
+      }
       // length == 1 means a button was pressed
       if (query.length == 1) {
         var request = {
