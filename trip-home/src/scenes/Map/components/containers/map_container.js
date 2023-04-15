@@ -113,14 +113,21 @@ const MapContainer = (props) => {
   const logClicks = (e) => {
     if (clickMode) {
 
+      // tracks where the user is clicking on the map
       setClickPosition({ lat: e.latLng.lat(), lng: e.latLng.lng() })
 
-      var geocoder = new google.maps.Geocoder();             // create a geocoder object
-      var location = new google.maps.LatLng(e.latLng.lat(), e.latLng.lng());    // turn coordinates into an object          
+      // create a geocoder object
+      var geocoder = new google.maps.Geocoder();
+
+      // turn coordinates into an object
+      var location = new google.maps.LatLng(e.latLng.lat(), e.latLng.lng());
       geocoder.geocode({ 'latLng': location }, function (results, status) {
-        if (status == google.maps.GeocoderStatus.OK) {           // only geocodes if status returned is OK
-          const address = results[0].formatted_address;         // if address is found pass to processing function
+        // only geocodes if status returned is OK
+        if (status == google.maps.GeocoderStatus.OK) {
+          // if address is found pass to processing function
+          const address = results[0].formatted_address;
           console.log(address);
+          // passes adddress chosen by user to the "todoForm" file
           chosenPlace.address = address;
         }
       });
@@ -129,6 +136,8 @@ const MapContainer = (props) => {
     }
   }
 
+  // places markers back on the map once a user adds an address to the "Add Your Own Place" modal/form 
+  // or closes the lat/lng Click Mode info window
   const handleClickAdd = () => {
     setMarkers(tempState)
     setTempState(null)
@@ -158,6 +167,8 @@ const MapContainer = (props) => {
       setTodos={setTodos}
       google={google}
     />
+
+    {/* if clickPosition is set true an infowindow pops up with the lat/lng where the users clicks on the map */}
     {clickPosition ? (
       <InfoWindow
         position={clickPosition}
