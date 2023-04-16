@@ -31,6 +31,7 @@ const signInWithGoogle = async () => {
         authProvider: "google",
         email: user.email,
       });
+      return user;
     }
   } catch (err) {
     console.error(err);
