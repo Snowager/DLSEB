@@ -9,6 +9,7 @@ import ChoiceModal from '../fragments/choiceModal';
 import MarkerInterface from '../fragments/markerInterface';
 import { Fab } from '@mui/material';
 import TrafficIcon from '@mui/icons-material/Traffic';
+import fun_list from "../../components/fun.json"
 
 /*
 The map container is a container-type file that holds all the different components that interact with the map (Markers, 
@@ -45,12 +46,6 @@ const MapContainer = (props) => {
   const [budget, setBudget] = useState(0)
 
   const handleChoiceClose = () => setOpen(false);
-
-
-  // helper function to get a random value from 0-max (non-inclusive)
-  function getRandomInt(max) {
-    return Math.floor(Math.random() * max);
-  }
 
 
   // helper function to get a random value from 0-max (non-inclusive)
@@ -114,6 +109,23 @@ const MapContainer = (props) => {
       }else if(props.trip_flag){
         console.log("a trip has been passed in")
         createTrip(0,props.state.in_trips.length,props.state.in_trips)
+      }
+      if (query.length === "fun") {
+        var request = {
+          location: center,
+          query: fun_list.fun_list[getRandomInt(fun_list.fun_list.length - 1)]
+        };
+        service.current.textSearch(request, serviceCallback);
+        function serviceCallback(results, status) {
+          // only pushes results if it gets an OK status
+          if (status === google.maps.places.PlacesServiceStatus.OK) {
+            // 
+            for (var i = 0; i < results.length; i++) {
+              setPrices(results[i])
+            }
+            setMarkers(results)
+          }
+        }
       }
       // length == 1 means a button was pressed
       if (query.length == 1) {

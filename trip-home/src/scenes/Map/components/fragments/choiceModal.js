@@ -3,7 +3,7 @@ import { Modal } from '@mui/material';
 import { Typography } from "@mui/material";
 import { Box } from "@mui/material";
 import { withTheme } from "@emotion/react";
-
+import fun_list from "../fun.json"
 
 /*
 
@@ -16,6 +16,10 @@ Passed the currently selected marker, as well as handling functions from map par
 
 
 const ChoiceModal = (props) => {
+
+  function getRandomInt(max) {
+    return Math.floor(Math.random() * max);
+  }
 
     const style = {
         position: 'absolute',
@@ -51,7 +55,7 @@ const ChoiceModal = (props) => {
               <div style={{ display: "flex", flexDirection: "row",width:"40%" }}>
                 <button className='btn--primary btn' onClick={() => props.modifyMarkers("food", selected.geometry.location)}>Food</button>
                 <button className='btn--primary btn' onClick={() => props.modifyMarkers("hotel", selected.geometry.location)}>Hotel</button>
-                <button className='btn--primary btn' onClick={() => props.modifyMarkers("fun", selected.geometry.location)}>Activity</button>
+                <button className='btn--primary btn' onClick={() => props.modifyMarkers(fun_list.fun_list[getRandomInt(fun_list.fun_list.length - 1)], selected.geometry.location)}>Activity</button>
               </div>
 
             </Box>

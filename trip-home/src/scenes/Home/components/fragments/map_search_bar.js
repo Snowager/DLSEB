@@ -1,6 +1,7 @@
 import { useLoadScript } from "@react-google-maps/api";
 import '../../../Home/pages/styles/search_bar.css';
 import '../../../Splash/components/styles/button.css';
+import fun_list from "../../../Map/components/fun.json";
 import React, { useState } from "react";
 import { Link } from 'react-router-dom';
 import usePlacesAutocomplete, {
@@ -80,6 +81,11 @@ function MapSearchBar() {
     const pushType = (type) => {
         selected.type = type
     }
+
+    
+    function getRandomInt(max) {
+        return Math.floor(Math.random() * max);
+      }
 
     if (!isLoaded) return
     return (
