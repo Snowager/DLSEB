@@ -15,33 +15,34 @@ Passed the current todo, as well as parent state function for deleting via index
 
 const Todo = (props) => {
 
-    const style = {
-        position: 'absolute',
-        top: '50%',
-        left: '50%',
-        transform: 'translate(-50%, -50%)',
-        width: 400,
-        bgcolor: 'background.paper',
-        border: '2px solid #000',
-        boxShadow: 24,
-        p: 4,
-    };
+  const style = {
+    position: 'absolute',
+    top: '50%',
+    left: '50%',
+    transform: 'translate(-50%, -50%)',
+    width: 400,
+    bgcolor: 'background.paper',
+    border: '2px solid #000',
+    boxShadow: 24,
+    p: 4,
+  };
 
-    const [open, setOpen] = React.useState(false);
-    const [del, setDel] = React.useState(false);
-    const handleOpen = () => setOpen(true);
-    const handleDel = () => setDel(true);
-    const handleClose = () => setOpen(false) + setDel(false);
-    return (
-        <>
+  const [open, setOpen] = React.useState(false);
+  const [del, setDel] = React.useState(false);
+  const handleOpen = () => setOpen(true);
+  const handleDel = () => setDel(true);
+  const handleClose = () => setOpen(false) + setDel(false);
+  return (
+    <>
       <div className="containerToDo">
-        {open ? <Modal open={open} onClose={handleClose} aria-labelledby="modal-modal-title" aria-describedby="modal-modal-description">
+        {open ? <Modal open={open} onClose={handleClose} className="todo-info-modal" aria-labelledby="modal-modal-title" aria-describedby="modal-modal-description">
           <Box sx={style}>
             <Typography id="modal-modal-title" variant="h6" component="h2">
-              <img className="img-fluid w-80" src={props.todo.photos[0].getUrl()} alt={"picture of " + props.todo.name} />
+              {props.todo.photos ? (<img className="img-fluid w-80" src={props.todo.photos[0].getUrl()} alt={"picture of " + props.todo.name} />) :
+                <img className="img-fluid w-80" src="https://bacibacirestaurant.files.wordpress.com/2020/02/chairs-cutlery-fork-9315.jpg" alt="temp food place" />}
             </Typography>
             <Typography id="modal-modal-description" sx={{ mt: 2 }}>
-              <div className="starContainer">
+              <div className="starContainer todo-star-modal">
                 <div className='star'>
                   <StarRatings rating={props.todo.rating} starRatedColor="purple" starDimension="20px" starSpacing="8px" />
                 </div>
@@ -83,8 +84,8 @@ const Todo = (props) => {
         </div>
         <div className="todo-list-splitters"></div>
       </div>
-      </>
-    );
+    </>
+  );
 }
 
 
@@ -93,7 +94,7 @@ const Todo = (props) => {
 
 
 
-    
+
 
 export default Todo
 

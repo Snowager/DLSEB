@@ -1,5 +1,5 @@
 import React, { useState, useRef, useEffect } from 'react';
-import { DirectionsRenderer, GoogleMap, TrafficLayer, } from '@react-google-maps/api';
+import { DirectionsRenderer, GoogleMap, TrafficLayer, InfoWindow } from '@react-google-maps/api';
 import "../../../Splash/components/styles/button.css";
 import Save_trip_button from '../fragments/save_trip_button.js';
 import "../styles/map.css"
@@ -7,6 +7,7 @@ import TodoList from "../fragments/todoList"
 import PlacesList from "../fragments/placesList"
 import ChoiceModal from '../fragments/choiceModal';
 import MarkerInterface from '../fragments/markerInterface';
+import TodoForm from '../fragments/todoForm';
 import { Fab } from '@mui/material';
 import TrafficIcon from '@mui/icons-material/Traffic';
 import fun_list from "../../components/fun.json"
@@ -44,6 +45,12 @@ const MapContainer = (props) => {
   const [mode, setMode] = useState("DRIVING");
   const [firstNode, setFirstNode] = useState(undefined);
   const [budget, setBudget] = useState(0)
+  const [todos, setTodos] = useState([]);
+  const [chosenPlace, setChosenPlace] = useState({ name: null, address: null })
+  const [clickMode, setClickMode] = useState(false)
+  const [clickPosition, setClickPosition] = useState(null)
+  const [formOpen, setFormOpen] = useState(false)
+  const [tempState, setTempState] = useState(null)
 
   const handleChoiceClose = () => setOpen(false);
 
@@ -269,6 +276,41 @@ const MapContainer = (props) => {
     if(todos.length > 1) makeFullRoute();
   }, [todos, mode])
 
+  const logClicks = (e) => {
+    if (clickMode) {
+
+      // tracks where the user is clicking on the map
+      setClickPosition({ lat: e.latLng.lat(), lng: e.latLng.lng() })
+
+      // create a geocoder object
+      var geocoder = new google.maps.Geocoder();
+
+      // turn coordinates into an object
+      var location = new google.maps.LatLng(e.latLng.lat(), e.latLng.lng());
+      geocoder.geocode({ 'latLng': location }, function (results, status) {
+        // only geocodes if status returned is OK
+        if (status == google.maps.GeocoderStatus.OK) {
+          // if address is found pass to processing function
+          const address = results[0].formatted_address;
+          console.log(address);
+          // passes adddress chosen by user to the "todoForm" file
+          chosenPlace.address = address;
+        }
+      });
+
+      console.log(clickPosition)
+    }
+  }
+
+  // places markers back on the map once a user adds an address to the "Add Your Own Place" modal/form 
+  // or closes the lat/lng Click Mode info window
+  const handleClickAdd = () => {
+    setMarkers(tempState)
+    setTempState(null)
+    setClickPosition(null)
+    setClickMode(false)
+  }
+
   // map object
   const map = <GoogleMap
     // create map reference
@@ -277,6 +319,7 @@ const MapContainer = (props) => {
     zoom={props.zoom}
     center={center}
     onLoad={onLoad}
+    onClick={(e) => logClicks(e)}
   >
     <div className='d-flex justify-content-center p-2'>
       <Fab variant='extended' size='medium' color='success' aria-label='add' onClick={() => setTraffic(!traffic)}>
@@ -317,6 +360,15 @@ const MapContainer = (props) => {
     ))
     ) : null}
     {traffic ? (<TrafficLayer />) : null}
+
+    {/* if clickPosition is set true an infowindow pops up with the lat/lng where the users clicks on the map */}
+    {clickPosition ? (
+      <InfoWindow
+        position={clickPosition}
+        onCloseClick={handleClickAdd}>
+        <div><h1>{clickPosition.lat};{clickPosition.lng}</h1>
+          <button onClick={handleClickAdd}>Add Location</button></div>
+      </InfoWindow>) : null}
   </GoogleMap>
 
   if (props.status) {
@@ -345,7 +397,20 @@ const MapContainer = (props) => {
               setMode={setMode}
               id={props.id} 
               city={props.city}
-            />) : null}
+            />
+          {/* passes the state of our todo list into component as function to be modified and passed back up */}
+          <TodoForm
+            chosenPlace={chosenPlace}
+            setClickMode={setClickMode}
+            todos={todos}
+            setTodos={setTodos}
+            formOpen={formOpen}
+            setFormOpen={setFormOpen}
+            markers={markers}
+            setMarkers={setMarkers}
+            setTempState={setTempState}
+
+          />) : null}
           {map}
           {/* TodoList handles the list of Todo trip items */}
 
