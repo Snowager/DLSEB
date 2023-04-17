@@ -1,14 +1,9 @@
-body {
-  background-image: url("../../images/background.jpg");
-  background-repeat: no-repeat;
-  background-size:cover;
-}
 
 .headPara {
   display: flex;
   flex-direction: column;
   text-align: center;
-  background-color: rgba(0,0,0,.5);
+  background-color: rgba(0,0,0,.7);
   padding: 20px;
   color: white;
   margin-right: 1rem;
@@ -42,7 +37,7 @@ img {
 .outside-parent {
   border: 1px solid black;
   text-align: left;
-  background-color: rgba(0,0,0,.5);
+  background-color: rgba(0,0,0,.7);
   color: white;
   margin-right: 1rem;
   margin-left: 1rem;
@@ -67,4 +62,5 @@ img {
   display: inline-block;
   padding: 0.5rem 0.5rem;
   vertical-align: middle;
+  border-radius: 4px;
 }

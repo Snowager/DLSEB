@@ -34,7 +34,7 @@ const Todo = (props) => {
   const handleClose = () => setOpen(false) + setDel(false);
   return (
     <>
-      <div className="container">
+      <div className="containerToDo">
         {open ? <Modal open={open} onClose={handleClose} className="todo-info-modal" aria-labelledby="modal-modal-title" aria-describedby="modal-modal-description">
           <Box sx={style}>
             <Typography id="modal-modal-title" variant="h6" component="h2">
@@ -63,7 +63,7 @@ const Todo = (props) => {
               <p>Are you sure you would like to remove {props.todo.name} from your trip?</p>
             </Typography>
             <button className='btn btn-success' onClick={() => handleClose()}>Keep</button>
-            <button className='btn btn-danger' onClick={() => props.removeTodo(props.index)}>DELETE</button>
+            <button className='btn btn-danger' onClick={() => {props.removeTodo(props.index) ; handleClose()}}>DELETE</button>
           </Box>
         </Modal> : null}
 
@@ -78,7 +78,7 @@ const Todo = (props) => {
           </div>
           <div className="col-md-1">
             <button className="Remove_Button" onClick={() => handleDel()}>
-              <i class="fa fa-trash" aria-hidden="true"> </i>
+              <i className="fa fa-trash" aria-hidden="true"> </i>
             </button>
           </div>
         </div>

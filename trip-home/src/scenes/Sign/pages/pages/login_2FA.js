@@ -1,9 +1,12 @@
 import React, { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { auth, signInWithEmailAndPassword, signInWithGoogle } from "./firebase";
+import { auth, signInWithEmailAndPassword, signInWithGoogle, signin } from "./firebase";
 import { useAuthState } from "react-firebase-hooks/auth";
 import { RecaptchaVerifier, signInWithPhoneNumber } from "firebase/auth";
-import "../styles/login.css";
+import PhoneInput from 'react-phone-input-2'
+import 'react-phone-input-2/lib/style.css'
+import "../styles/login.css"; 
+
 
 function Login() {
   const [email, setEmail] = useState("");
@@ -24,11 +27,12 @@ function Login() {
     }, auth);
   }
 
-  const requestOPT = (e) => {
+  const requestOTP = (e) => {
     e.preventDefault();
-    if (phone_number.length >= 12) {
+    if (phone_number.length >= 10) {
       setExpandForm(true);
       generateRecaptcha();
+      console.log(phone_number);
       let appVerifier = window.recaptchaVerifier;
       signInWithPhoneNumber(auth, phone_number, appVerifier)
         .then(confirmationResult => {
@@ -62,7 +66,7 @@ function Login() {
       // maybe trigger a loading screen
       return;
     }
-    if (user) navigate("/dashboard");
+    if (user) navigate("/profile");
   }, [user, loading]);
 
   return (
@@ -90,16 +94,16 @@ function Login() {
           placeholder="Username"
         />
         
-        <form onSubmit = {requestOPT}>
+        <form onSubmit = {requestOTP}>
           {/* Input phone number */}
-          <div>
-            <input
+          <div className="phoneInput__btn">
+            <PhoneInput
               type="tel"
-              className="otp__textBox"
+              country={'us'}
               value={phone_number}
-              onChange={(e) => setPhone_number(e.target.value)}
-              placeholder="Phone number"
+              onChange={(e) => setPhone_number("+"+e)}
             />
+            
           </div>
           {expandForm === true?
           <>
@@ -111,13 +115,17 @@ function Login() {
             onChange={verifyOTP}
             placeholder="Enter your one time pin."
             />
+            
+            <button className="login__btn" onClick={() => signin(email, password)} >
+              Login
+            </button>
           </>
           :
           null
           }
           { expandForm === false?
             <button type="submit" className ="otp__btn">
-              Request OPT
+              Request OTP
             </button>
             :
             null
@@ -125,21 +133,22 @@ function Login() {
           <div id="recaptcha-container"></div>
         </form>
 
-        <button
-          className="login__btn"
-          onClick={() => signInWithEmailAndPassword(email, password)}
-        >
+        {/* <button className="login__btn" onClick={() => signInWithEmailAndPassword(email, password)} >
           Login
-        </button>
+        </button> */}
+
         <button className="login__btn login__google" onClick={signInWithGoogle}>
           Login with Google
         </button>
-        <div>
-          <Link to="/reset">Forgot Password</Link>
-        </div>
-        <div>
-          Don't have an account? <Link to="/register">Register</Link> now.
-        </div>
+
+        <div className="resetRegisterLink">
+            <div>
+              <Link to="/reset">Forgot Password</Link>
+            </div>
+            <div>
+              Don't have an account? <Link to="/register">Register</Link> now.
+            </div>
+          </div>
       </div>
     </div>
   );

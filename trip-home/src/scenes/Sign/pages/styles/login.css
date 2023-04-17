@@ -1,9 +1,10 @@
 .login {
-    height: 100vh;
+    height: 80vh;
     width: 100vw;
     display: flex;
     align-items: center;
     justify-content: center;
+    
   }
   .login__container {
     display: flex;
@@ -11,20 +12,22 @@
     text-align: center;
     background-color: rgba(0,0,0,.5);
     padding: 30px;
-    color: white;
   }
   .login__textBox {
     padding: 10px;
     font-size: 18px;
     margin-bottom: 10px;
+    color: black;
   }
   .otp__textBox {
     width: 100%;
     padding: 10px;
     font-size: 18px;
     margin-bottom: 10px;
+    margin-top: 10px;
   }
   .login__btn {
+    width: 100%;
     padding: 10px;
     font-size: 18px;
     margin-bottom: 10px;
@@ -40,15 +43,16 @@
     border: none;
     color: white;
     background-color: black;
+    margin-top: 10px;
+  }
+  .phoneInput__btn {
+    color:black;
+    margin-bottom: 0px;
+    padding: 0px;
   }
   .login__google {
     background-color: #4285f4;
   }
-  body {
-    background-image: url("../../images/background.jpg");
-    background-repeat: no-repeat;
-    background-size:cover;
-  }
-  a:visited {
-    color: lightblue;
-  }
+
+
+ 

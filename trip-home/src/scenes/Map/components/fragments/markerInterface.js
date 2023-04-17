@@ -1,6 +1,6 @@
-import {React, useState } from 'react'
+import { React, useState } from 'react'
 import { Marker, } from '@react-google-maps/api';
-import MarkerStyle from '../../images/markerTemplate4.svg'
+import MarkerStyle from '../../images/greenMarker2.svg'
 import MarkerWindow from "../fragments/markerWindow"
 
 /*
@@ -24,22 +24,23 @@ const MarkerInterface = (props) => {
     return (
         <div>
             {
-                props.places &&
-                (
-                    ({/* Marker options. Needs a key and position to display on map. position is lat/lng coords */ }),
-                    props.markers.map(places => (
-                        <Marker
-                            icon={icon}
-
-                            key={places.place_id}
-                            position={places.geometry.location}
-                            onClick={() => {
-                                props.setSelected(places)
-                            }} />
-                    )
-                    )
-                )
-            }
+                props.markers ?
+                    (
+                        
+                        ({/* Marker options. Needs a key and position to display on map. position is lat/lng coords */ }),
+                        props.markers.map(places => (
+                            ((props.calculateDistance(props.center, places.geometry.location) < props.radius) && 
+                            (places.priceString.length >= props.budget) ?
+                                <Marker
+                                    icon={icon}
+                                    key={places.place_id}
+                                    position={places.geometry.location}
+                                    onClick={() => {
+                                        props.setSelected(places)
+                                    }} />
+                                : null
+                            )))) : null
+                                }
 
             {/*another conditional function for the infoWindow. Checks for marker existence to display, closes by changing the selected object back to null*/}
             {props.selected ?

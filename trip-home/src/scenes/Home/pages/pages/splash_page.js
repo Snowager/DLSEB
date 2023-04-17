@@ -5,14 +5,12 @@ import TravelSection from '../../../Splash/components/fragments/travel_section';
 
 
 function SplashPage() {
-    // comment blah
     return (
         <>
             <Navbar />
             <div className="container text-center mt-5">
+                <img class = "homescreen_logo" src="greenLogo.png"/>
                 <div className="row">
-                    <div className="col-md-1"> </div>
-                    <div className="col-md-10"></div>
                     <TravelSection />
                 </div>
             </div>
