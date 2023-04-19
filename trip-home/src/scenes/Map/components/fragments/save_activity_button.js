@@ -11,10 +11,11 @@ const Save_activity_button = (props) => {
     const id = user_data.id;
     const [saved, setSaved] = useState(false);
     const [state, setState] = useState(false);
+    const [savedActivities, setSavedActivities] = useState(user_data.savedActivities);
 
     //Check if the activity is already saved, if it is set saved to true
-    const isFound = user_data.savedActivities.some(element => {
-        console.log("doing it again")
+    const isFound = savedActivities.some(element => {
+        console.log(savedActivities);
         if (element === {lat: lat, lng: lng, name: name}) {
           return true;
         }
@@ -44,13 +45,13 @@ const Save_activity_button = (props) => {
     })
 
     useEffect(() => {
-        if(state === false && isFound === true){
+        if(state === false && isFound === true && saved === true){
             delete_activity();
             setSaved(false);
         }
-        else if(state === true && isFound === false){
+        else if(state === true && isFound === false && saved === false){
             create_activity();
-            user_data.savedActivities = [user_data.savedActivities, {lat: lat, lng: lng, name: name}]
+            setSavedActivities(prevSavedActivities => [...prevSavedActivities, {lat: lat, lng: lng, name: name}])
             setSaved(true);
         }
     }, [state])
@@ -59,10 +60,20 @@ const Save_activity_button = (props) => {
         if(saved === false && state === false){setState(true)}
         else if(saved === true && state === true){setState(false)}
     }
+
+    useEffect(() => {
+        user_data.savedActivities = savedActivities;
+    }, [savedActivities])
+
+    function deleteSavedActivities () {
+        user_data.savedActivities = []
+    }
+    
     return (
         <>
+        <button onClick={deleteSavedActivities}> delete saved activities </button>
         {state ?
-        <button className="btn--outlineSmall" color="#ff5c5c" onClick={handleClick}>
+        <button className="btn--outlineSmall" color="#FFFF33" onClick={handleClick}>
               <i className="fa fa-star  " aria-hidden="true" />
         </button>
         : 
