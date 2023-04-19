@@ -45,7 +45,6 @@ const MapContainer = (props) => {
   const [mode, setMode] = useState("DRIVING");
   const [firstNode, setFirstNode] = useState(undefined);
   const [budget, setBudget] = useState(0)
-  const [todos, setTodos] = useState([]);
   const [chosenPlace, setChosenPlace] = useState({ name: null, address: null })
   const [clickMode, setClickMode] = useState(false)
   const [clickPosition, setClickPosition] = useState(null)
@@ -397,8 +396,8 @@ const MapContainer = (props) => {
               setMode={setMode}
               id={props.id} 
               city={props.city}
-            />
-          {/* passes the state of our todo list into component as function to be modified and passed back up */}
+            />,
+          {/* passes the state of our todo list into component as function to be modified and passed back up */},
           <TodoForm
             chosenPlace={chosenPlace}
             setClickMode={setClickMode}
