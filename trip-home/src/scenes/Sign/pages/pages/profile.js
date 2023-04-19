@@ -54,9 +54,9 @@ function Profile() {
   })
 
   //once data has been gathered from the postgresql database this updates the user.json file with apporpriate id
-  useEffect(() => {
-    if(found){user_data.id = db_data.trip_user[0].user_id}
-  }, [found])
+  // useEffect(() => {
+  //   if(found){user_data.id = db_data.trip_user[0].user_id}
+  // }, [found])
 
   useEffect(() => {
     if (loading) return;
