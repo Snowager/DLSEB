@@ -26,6 +26,7 @@ const Save_activity_button = (props) => {
         if(isFound){setSaved(true)}
       }, []);
 
+    //graphiql mutation to create an entry in the saved activities table
     const [create_activity, activity_loading, activity_error] = useMutation(CREATE_SAVED_ACTIVITY, {
         variables: {
             lat: lat,
@@ -34,7 +35,8 @@ const Save_activity_button = (props) => {
             user_id: id
         }
     })
-
+    
+    //graphiql mutation to remove an entry in the saved activities table
     const [delete_activity, delete_activity_loading, delete_activity_error] = useMutation(REMOVE_SAVED_ACTIVITY, {
         variables: {
             lat: lat,
@@ -44,9 +46,11 @@ const Save_activity_button = (props) => {
         }
     })
 
+    //Every time state is changed the saved activities list will be updated accordingly
     useEffect(() => {
         if(state === false && isFound === true && saved === true){
             delete_activity();
+            removeItem();
             setSaved(false);
         }
         else if(state === true && isFound === false && saved === false){
@@ -56,28 +60,43 @@ const Save_activity_button = (props) => {
         }
     }, [state])
 
-    const handleClick = () => {
-        if(saved === false && state === false){setState(true)}
-        else if(saved === true && state === true){setState(false)}
-    }
+    //removes the location from the array
+    const removeItem = () => {
+        setSavedActivities((current) =>
+          current.filter((item) => item !== {lat: lat, lng: lng, name: name})
+        );
+      };
 
+    //update json everytime the list changes
     useEffect(() => {
+        console.log(savedActivities)
         user_data.savedActivities = savedActivities;
     }, [savedActivities])
 
     function deleteSavedActivities () {
         user_data.savedActivities = []
     }
+    function getSavedActivities () {
+        setSavedActivities(user_data.savedActivities)
+    }
     
     return (
         <>
-        <button onClick={deleteSavedActivities}> delete saved activities </button>
-        {state ?
-        <button className="btn--outlineSmall" color="#FFFF33" onClick={handleClick}>
-              <i className="fa fa-star  " aria-hidden="true" />
+        {/* <button onClick={() => {deleteSavedActivities()}}> delete saved activities </button> */}
+        {state === true ?
+        <button className="btn--outlineSmall btn--success"  onClick={ () => { // --TODO-- Figure out how to change the goddamn colors
+            getSavedActivities();
+            setState(false);
+            console.log(state);
+        }}>saved 
+              <i className="fa fa-star fa--success " color="blue" aria-hidden="true" />
         </button>
         : 
-        <button className="btn--outlineSmall" onClick={handleClick}>
+        <button className="btn--outlineSmall" onClick={ () => {
+            getSavedActivities();
+            setState(true);
+            console.log(state);
+        }}>
             <i className="fa fa-star  " aria-hidden="true" />
         </button>}
         </>
