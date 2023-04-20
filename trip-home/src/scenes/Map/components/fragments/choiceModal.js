@@ -33,12 +33,20 @@ const ChoiceModal = (props) => {
         p: 4,
       };
 
+    const [open, setOpen] = useState(true)
     const [selected, setSelected] = useState(props.selected)
+    const handleClose = (event, reason) => {
+      if (reason && reason == "backdropClick") {
+        return
+      }
+      setOpen(!open)
+
+    }
 
     return (
         <Modal
-            open={props.open}
-            onClose={props.handleClose}
+            open={open}
+            onClose={handleClose}
             aria-labelledby="modal-modal-title"
             aria-describedby="modal-modal-description"
           >
@@ -46,7 +54,7 @@ const ChoiceModal = (props) => {
               
               <Typography id="modal-modal-title" variant="h6" component="h2">
                 Choose your next category
-                <button className='btn--primaryRED' onClick={() => props.handleClose()}>X</button>
+                <button className='btn--primaryRED' onClick={handleClose}>X</button>
 
               </Typography>
               <Typography id="modal-modal-description" sx={{ mt: 2 }}>
