@@ -14,9 +14,8 @@ const Save_activity_button = (props) => {
     const [savedActivities, setSavedActivities] = useState(user_data.savedActivities);
 
     //Check if the activity is already saved, if it is set saved to true
-    const isFound = savedActivities.some(element => {
-        console.log(savedActivities);
-        if (element === {lat: lat, lng: lng, name: name}) {
+    const isFound = savedActivities.some(item => {
+        if (item.lat === lat && item.lng === lng && item.name === name) {
           return true;
         }
     
@@ -48,22 +47,23 @@ const Save_activity_button = (props) => {
 
     //Every time state is changed the saved activities list will be updated accordingly
     useEffect(() => {
-        if(state === false && isFound === true && saved === true){
+        console.log("state = " + state + " isFound = " + isFound)
+        if(state === false && isFound === true){
+            console.log("deleting activity " )
             delete_activity();
             removeItem();
-            setSaved(false);
         }
-        else if(state === true && isFound === false && saved === false){
+        else if(state === true && isFound === false){
             create_activity();
             setSavedActivities(prevSavedActivities => [...prevSavedActivities, {lat: lat, lng: lng, name: name}])
-            setSaved(true);
         }
     }, [state])
 
     //removes the location from the array
     const removeItem = () => {
+        console.log("removing item")
         setSavedActivities((current) =>
-          current.filter((item) => item !== {lat: lat, lng: lng, name: name})
+          current.filter((item) => (item.lat !== lat && item.lng !== lng && item.name !== name))
         );
       };
 
@@ -89,7 +89,7 @@ const Save_activity_button = (props) => {
             setState(false);
             console.log(state);
         }}>saved 
-              <i className="fa fa-star fa--success " color="blue" aria-hidden="true" />
+              <i className="fa fa-star fa-success " aria-hidden="true" />
         </button>
         : 
         <button className="btn--outlineSmall" onClick={ () => {
