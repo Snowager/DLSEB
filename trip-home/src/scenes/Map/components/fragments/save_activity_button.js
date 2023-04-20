@@ -10,7 +10,7 @@ const Save_activity_button = (props) => {
     const name = props.name;
     const id = user_data.id;
     const [saved, setSaved] = useState(false);
-    const [state, setState] = useState(false);
+    const [state, setState] = useState(null);
     const [savedActivities, setSavedActivities] = useState(user_data.savedActivities);
 
     //Check if the activity is already saved, if it is set saved to true
@@ -83,7 +83,7 @@ const Save_activity_button = (props) => {
     return (
         <>
         {/* <button onClick={() => {deleteSavedActivities()}}> delete saved activities </button> */}
-        {state === true ?
+        {isFound === true ?
         <button className="btn--outlineSmall btn--success"  onClick={ () => { // --TODO-- Figure out how to change the goddamn colors
             getSavedActivities();
             setState(false);
