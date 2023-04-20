@@ -84,11 +84,11 @@ const Save_activity_button = (props) => {
         <>
         {/* <button onClick={() => {deleteSavedActivities()}}> delete saved activities </button> */}
         {state === true ?
-        <button className="btn--outlineSmall btn--success"  onClick={ () => { // --TODO-- Figure out how to change the goddamn colors
+        <button className="btn--outlineSmallSuccess"  onClick={ () => { // --TODO-- Figure out how to change the goddamn colors
             getSavedActivities();
             setState(false);
             console.log(state);
-        }}>saved 
+        }}> 
               <i className="fa fa-star fa-success " aria-hidden="true" />
         </button>
         : 
