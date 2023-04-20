@@ -89,11 +89,14 @@ const ControlledSwitches = ({ setSelected }) => {
 
     return (
         <>
-            <div>
-                <p>Switch to Use Your Location</p>
+            <div class = "LocationSwitch">
+                Switch to Use Your Location
                 <Switch
                     checked={checked}
                     onChange={handleChange}
+                    sx={{
+                        color: 'white'
+                      }}
                 />
             </div>
         </>
