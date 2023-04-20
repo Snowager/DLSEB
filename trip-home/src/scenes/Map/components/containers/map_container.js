@@ -44,7 +44,7 @@ const MapContainer = (props) => {
   const [package_status, setPackage_status] = useState(-1);
   const [mode, setMode] = useState("DRIVING");
   const [firstNode, setFirstNode] = useState(undefined);
-  const [budget, setBudget] = useState(0)
+  const [budget, setBudget] = useState(1)
   const [chosenPlace, setChosenPlace] = useState({ name: null, address: null })
   const [clickMode, setClickMode] = useState(false)
   const [clickPosition, setClickPosition] = useState(null)
