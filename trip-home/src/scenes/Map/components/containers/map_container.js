@@ -350,8 +350,8 @@ const MapContainer = (props) => {
           key={index}
           options={{
             polylineOptions:{
-              strokeColor:"lightgreen",
-              strokeWeight:4
+              strokeColor:"#ff0066",
+              strokeWeight:6
             }
           }}
            />
