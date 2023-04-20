@@ -88,7 +88,7 @@ const Save_activity_button = (props) => {
             getSavedActivities();
             setState(false);
             console.log(state);
-        }}> 
+        }}> Saved
               <i className="fa fa-star fa-success " aria-hidden="true" />
         </button>
         : 
