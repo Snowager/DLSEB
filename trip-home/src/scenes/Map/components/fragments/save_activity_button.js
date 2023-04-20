@@ -84,7 +84,7 @@ const Save_activity_button = (props) => {
         <>
         {/* <button onClick={() => {deleteSavedActivities()}}> delete saved activities </button> */}
         {isFound === true ?
-        <button className="btn--outlineSmall btn--success"  onClick={ () => { // --TODO-- Figure out how to change the goddamn colors
+        <button className="btn--outlineSmallSuccess"  onClick={ () => { // --TODO-- Figure out how to change the goddamn colors
             getSavedActivities();
             setState(false);
             console.log(state);
