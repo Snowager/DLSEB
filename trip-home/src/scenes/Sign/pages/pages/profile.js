@@ -45,6 +45,7 @@ function Profile() {
     user_data.id = "369";
     user_data.name = "Tr!p App";
     user_data.email = "tr.exclaim.ip@gmail.com";
+    user_data.savedActivities = [];
   }
 
   //gets user data from the postgresql database
