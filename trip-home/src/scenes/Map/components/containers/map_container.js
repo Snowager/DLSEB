@@ -387,7 +387,7 @@ const MapContainer = (props) => {
               makeFullRoute={makeFullRoute}
               makeRoute={makeRoute}
             /> </>) : null}
-          {todos ? (
+            <div className='todo-list'>
             <TodoList
               todos={todos}
               setTodos={setTodos}
@@ -397,7 +397,6 @@ const MapContainer = (props) => {
               id={props.id} 
               city={props.city}
             />,
-          {/* passes the state of our todo list into component as function to be modified and passed back up */},
           <TodoForm
             chosenPlace={chosenPlace}
             setClickMode={setClickMode}
@@ -407,9 +406,7 @@ const MapContainer = (props) => {
             setFormOpen={setFormOpen}
             markers={markers}
             setMarkers={setMarkers}
-            setTempState={setTempState}
-
-          />) : null}
+            setTempState={setTempState}></TodoForm></div>
           {map}
           {/* TodoList handles the list of Todo trip items */}
 

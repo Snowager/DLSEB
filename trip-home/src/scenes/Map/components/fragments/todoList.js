@@ -25,7 +25,7 @@ const TodoList = (props) => {
     }
     const todos = props.todos;
     return (
-        <div className='todo-list'>
+        <>
             <RadiusSlider setRadius={props.setRadius} />
             <BudgetSlider setBudget={props.setBudget} />
             <TravelMode option={["Car", "Bus", "Bike", "Walk"]} value={["DRIVING", "TRANSIT", "BICYCLING", "WALKING"]} size={20} setMode={props.setMode} />
@@ -45,7 +45,7 @@ const TodoList = (props) => {
 <div class="text-center">
             <Save_trip_button id={props.id} trip={todos} city={props.city} />
 </div>
-        </div>
+        </>
 
     )
 }
