@@ -36,9 +36,6 @@ const Places = (props) => {
             Add to trip
           </button>
           <Save_activity_button lat={props.todo.geometry.location.lat()} lng ={props.todo.geometry.location.lng()} name={props.todo.name}/>
-          {/* <button className="btn--outlineSmall" onClick={() => props.onClick()}>
-              <i className="fa fa-star  " aria-hidden="true"> jaijswdenbf</i>
-            </button> */}
         </div>
 
         <div className="todo-list-splitters"></div>

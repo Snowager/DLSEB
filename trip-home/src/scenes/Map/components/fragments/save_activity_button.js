@@ -9,7 +9,6 @@ const Save_activity_button = (props) => {
     const lng = props.lng.toString();
     const name = props.name;
     const id = user_data.id;
-    const [saved, setSaved] = useState(false);
     const [state, setState] = useState(null);
     const [savedActivities, setSavedActivities] = useState(user_data.savedActivities);
 
@@ -21,9 +20,6 @@ const Save_activity_button = (props) => {
     
         return false;
       });
-    useEffect(() => {
-        if(isFound){setSaved(true)}
-      }, []);
 
     //graphiql mutation to create an entry in the saved activities table
     const [create_activity, activity_loading, activity_error] = useMutation(CREATE_SAVED_ACTIVITY, {
@@ -47,9 +43,7 @@ const Save_activity_button = (props) => {
 
     //Every time state is changed the saved activities list will be updated accordingly
     useEffect(() => {
-        console.log("state = " + state + " isFound = " + isFound)
         if(state === false && isFound === true){
-            console.log("deleting activity " )
             delete_activity();
             removeItem();
         }
@@ -61,7 +55,6 @@ const Save_activity_button = (props) => {
 
     //removes the location from the array
     const removeItem = () => {
-        console.log("removing item")
         setSavedActivities((current) =>
           current.filter((item) => (item.lat !== lat && item.lng !== lng && item.name !== name))
         );
@@ -73,21 +66,17 @@ const Save_activity_button = (props) => {
         user_data.savedActivities = savedActivities;
     }, [savedActivities])
 
-    function deleteSavedActivities () {
-        user_data.savedActivities = []
-    }
+    //update savedActivities everytime button is pressed that way the list of saved activities can be transfered from button to button
     function getSavedActivities () {
         setSavedActivities(user_data.savedActivities)
     }
     
     return (
         <>
-        {/* <button onClick={() => {deleteSavedActivities()}}> delete saved activities </button> */}
         {isFound === true ?
-        <button className="btn--outlineSmallSuccess"  onClick={ () => { // --TODO-- Figure out how to change the goddamn colors
+        <button className="btn--outlineSmallSuccess"  onClick={ () => {
             getSavedActivities();
             setState(false);
-            console.log(state);
         }}> Saved
               <i className="fa fa-star fa-success " aria-hidden="true" />
         </button>
@@ -95,7 +84,6 @@ const Save_activity_button = (props) => {
         <button className="btn--outlineSmall" onClick={ () => {
             getSavedActivities();
             setState(true);
-            console.log(state);
         }}>
             <i className="fa fa-star  " aria-hidden="true" />
         </button>}
