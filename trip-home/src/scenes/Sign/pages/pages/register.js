@@ -132,14 +132,13 @@ function Register () {
     // can check to see if email is not found in db?    
     } catch (error) {
     if (!error?.response) {
-        setErrorMsg("No Server Response")
-//     } else if (error.response?.status === 400) {
-//         setErrorMsg("Username Taken")
-//     } else {
-//         setErrorMsg("Registration Failed")
-//     }
-//     errorRef.current.focus()
+      setErrorMsg("No Server Response")
+      } else if (error.response?.status === 400) {
+          setErrorMsg("Username Taken")
+      } else {
+          setErrorMsg("Registration Failed")
       }
+      errorRef.current.focus()
     }
   }
 
@@ -209,10 +208,6 @@ function Register () {
                 onFocus={() => setPhoneFocus(true)}
                 onBlur={() => setPhoneFocus(false)}
               /> 
-              <div id="errorMessage">
-                {phoneFocus && phone && !validPhone ? <p>Please enter a valid phone number.</p> : null}
-                {!phoneFocus && phone && !validPhone ? <p>Please enter a valid phone number.</p> : null}
-              </div>
 
               <label>
                 Password:

@@ -59,22 +59,16 @@ function Login () {
   }, [password])
 
   // navigation: might need fixing 
-  /*
   const navigate = useNavigate();
-  const login = () => {
-    if (!name) alert("Please enter name");
-    registerWithEmailAndPassword(name, email, password);
-  };
   useEffect(() => {
     if (loading) return;
-    //if (user) navigate.replace("/"); I literally don't know why this one doesn't work for me
+    //if (user) navigate.replace("/"); //I literally don't know why this one doesn't work for me
   }, [user, loading]);
 
   const routeChange = () =>{ 
     let path = '/'; 
     navigate(path);
   }
-  */
 
   // validating all register variables
   const handleSubmit = async (e) => {
@@ -220,7 +214,10 @@ function Login () {
                     onChange={verifyOTP}
                     placeholder="Enter your one time pin."
                   />
-                  <button className="login__btn" onClick={() => signin(email, password)} >
+                  <button className="login__btn" onClick={() => {
+                    signin(email, password);
+                    routeChange();
+                    }}>
                     Login
                   </button>
                 </>
@@ -236,7 +233,10 @@ function Login () {
                 }
                 <div id="recaptcha-container"></div>
             </form>
-          <button className="login__btn login__google" onClick={signInWithGoogle}>
+          <button className="login__btn login__google" onClick={() => {
+            signInWithGoogle(); 
+            routeChange();
+            }}>
             Login with Google
           </button>
 
