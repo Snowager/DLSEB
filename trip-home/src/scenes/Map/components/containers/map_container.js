@@ -356,8 +356,7 @@ const MapContainer = (props) => {
           {/* only opens if marker added to trip (tracked using open bool)*/}
           {open ? <ChoiceModal
             selected={todos[todos.length - 1]}
-            open={open}
-            handleClose={handleChoiceClose}
+
             modifyMarkers={modifyMarkers}
             makeFullRoute={makeFullRoute}
             makeRoute={makeRoute}
