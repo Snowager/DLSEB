@@ -17,7 +17,7 @@ const MarkerInterface = (props) => {
         url: MarkerStyle, // url
         scaledSize: new props.google.maps.Size(50, 50), // scaled size
         origin: new props.google.maps.Point(0, 0), // origin
-        anchor: new props.google.maps.Point(0, 0) // anchor
+        anchor: new props.google.maps.Point(25, 49) // anchor
     };
 
 
