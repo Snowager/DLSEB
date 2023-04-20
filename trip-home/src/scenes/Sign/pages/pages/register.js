@@ -1,12 +1,13 @@
 import React, { useEffect, useState, useRef } from "react";
 import { useAuthState } from "react-firebase-hooks/auth";
 import { Link, useNavigate } from "react-router-dom";
-import { useMutation } from '@apollo/client';
+import { useMutation, useLazyQuery } from '@apollo/client';
 import { auth, registerWithEmailAndPassword, signInWithGoogle } from "./firebase";
 import PhoneInput from 'react-phone-input-2'
 import 'react-phone-input-2/lib/style.css'
 import "../styles/register.css";
 import {CREATE_TRIP_USER} from '../../../TestingDatabase/GraphQL/inserts.js';
+import {GET_TRIP_USER_BY_EMAIL} from '../../../TestingDatabase/GraphQL/queries.js';
 
 // New Register attempt
 
@@ -42,6 +43,19 @@ function Register () {
   const [phoneFocus, setPhoneFocus] = useState(false)
   const [passwordFocus, setPasswordFocus] = useState(false)
   const [confirmFocus, setConfirmFocus] = useState(false)
+  const [userInDatabase, setUserInDatabase] = useState(null)
+
+  const [get_user, {loading: user_loading, error: user_error, data: user_data}] = useLazyQuery(GET_TRIP_USER_BY_EMAIL)
+
+  function doesUserExist (email) {
+    get_user({variables: {email: email},
+      onCompleted: userExists})
+  }
+
+  const userExists = () => {
+    if(user_data && user_data !== undefined && user_data.trip_user[0]){setUserInDatabase(true)}
+    else{setUserInDatabase(false)}
+  }
 
   const [db_register, {db_loading, db_error, db_data}] = useMutation(CREATE_TRIP_USER, {
     variables: {
