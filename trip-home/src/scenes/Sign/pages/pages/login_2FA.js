@@ -2,16 +2,17 @@ import React, { useEffect, useState, useRef } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { auth, signInWithGoogle, signin } from "./firebase";
 import { useAuthState } from "react-firebase-hooks/auth";
+import { useLazyQuery } from '@apollo/client';
 import { RecaptchaVerifier, signInWithPhoneNumber } from "firebase/auth";
 import PhoneInput from 'react-phone-input-2'
 import 'react-phone-input-2/lib/style.css'
 import "../styles/login.css"; 
+import {GET_TRIP_USER_BY_EMAIL} from '../../../TestingDatabase/GraphQL/queries.js';
 
+// regex validation
 const emailRegex = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/
 const phoneRegex = /^(\+\d{1,2}\s)?\(?\d{3}\)?[\s.-]\d{3}[\s.-]\d{4}$/
 const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d\w\W]{8,24}$/
-
-// new login attempt
 
 function Login () {
   const nameRef = useRef()
@@ -38,6 +39,20 @@ function Login () {
   const [expandForm, setExpandForm] = useState(false);
   const [OTP, setOTP] = useState('');
 
+  const [userInDatabase, setUserInDatabase] = useState(null)
+  const [databaseCheck, setDatabaseCheck] = useState(null);
+  const [get_user, {loading: user_loading, error: user_error, data: user_data}] = useLazyQuery(GET_TRIP_USER_BY_EMAIL)
+
+  function doesUserExist (email) {
+    get_user({variables: {email: email},
+      onCompleted: userExists})
+  }
+
+  const userExists = () => {
+    if(user_data && user_data !== undefined && user_data.trip_user[0]){setUserInDatabase(true)}
+    else{setUserInDatabase(false)}
+  }
+
   // use effects to test validation 
   useEffect(() => {
     const result = emailRegex.test(email)
@@ -58,13 +73,8 @@ function Login () {
     setErrorMsg("")
   }, [password])
 
-  // navigation: might need fixing 
+  // navigation
   const navigate = useNavigate();
-  useEffect(() => {
-    if (loading) return;
-    //if (user) navigate.replace("/"); //I literally don't know why this one doesn't work for me
-  }, [user, loading]);
-
   const routeChange = () =>{ 
     let path = '/'; 
     navigate(path);
@@ -233,13 +243,29 @@ function Login () {
                 }
                 <div id="recaptcha-container"></div>
             </form>
+
+          {/* login with google button */}
           <button className="login__btn login__google" onClick={() => {
-            signInWithGoogle(); 
-            routeChange();
+            doesUserExist(email);
+            if (userInDatabase === true) {
+              console.log("inside if");
+              signInWithGoogle(); 
+              routeChange();
+            } else {
+              console.log("in else");
+              setDatabaseCheck(true);
+            }
             }}>
             Login with Google
           </button>
-
+          <div>
+            {databaseCheck ? (
+              <div id="errorMessage2">No account found! Register below.
+              </div>
+            ) : (
+              <div></div>
+            )}
+          </div>
           <div className="resetRegisterLink">
             <div>
               <Link to="/reset">Forgot Password</Link>

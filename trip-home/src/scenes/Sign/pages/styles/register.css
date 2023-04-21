@@ -48,4 +48,10 @@ label {
   color: rgb(255, 155, 148);
   padding:0px;
 }
+
+#errorMessage2 {
+  text-align: center;
+  color: rgb(255, 155, 148);
+  padding:0px;
+}
   

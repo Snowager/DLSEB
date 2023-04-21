@@ -9,8 +9,6 @@ import "../styles/register.css";
 import {CREATE_TRIP_USER} from '../../../TestingDatabase/GraphQL/inserts.js';
 import {GET_TRIP_USER_BY_EMAIL} from '../../../TestingDatabase/GraphQL/queries.js';
 
-// New Register attempt
-
 // regex validation
 const nameRegex = /^[a-z ,.'-]+$/i
 const emailRegex = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/
@@ -43,7 +41,10 @@ function Register () {
   const [phoneFocus, setPhoneFocus] = useState(false)
   const [passwordFocus, setPasswordFocus] = useState(false)
   const [confirmFocus, setConfirmFocus] = useState(false)
+
+  // database variables
   const [userInDatabase, setUserInDatabase] = useState(null)
+  const [databaseCheck, setDatabaseCheck] = useState(null);
 
   const [get_user, {loading: user_loading, error: user_error, data: user_data}] = useLazyQuery(GET_TRIP_USER_BY_EMAIL)
 
@@ -66,23 +67,23 @@ function Register () {
       last_name: name.split(" ")[1],
       user_name: email
     }
-    });
+  });
 
-    useEffect(() => {
-      console.log(new_user)
-      if(new_user !== null){
-        console.log("more stuff")
-      db_register({variables: {
-        email: new_user.email,
-        password: "RegisteredWithGoogle1!",
-          phone_number: new_user.phoneNumber !== null ? new_user.phoneNumber : "+10000000000",
-          first_name: new_user.displayName.split(" ")[0],
-          last_name: new_user.displayName.split(" ")[1],
-          user_name: new_user.email
-      }})}
-    }, [new_user])
+  useEffect(() => {
+    console.log(new_user)
+    if(new_user !== null){
+      console.log("more stuff")
+    db_register({variables: {
+      email: new_user.email,
+      password: "RegisteredWithGoogle1!",
+        phone_number: new_user.phoneNumber !== null ? new_user.phoneNumber : "+10000000000",
+        first_name: new_user.displayName.split(" ")[0],
+        last_name: new_user.displayName.split(" ")[1],
+        user_name: new_user.email
+    }})}
+  }, [new_user])
     
-
+// useEffects for testing validity
   useEffect(() => {
     nameRef.current.focus()
   }, [])
@@ -118,16 +119,13 @@ function Register () {
     if (!name) alert("Please enter name");
     registerWithEmailAndPassword(name, email, password);
   };
-  useEffect(() => {
-    if (loading) return;
-    //if (user) navigate.replace("/"); I literally don't know why this one doesn't work for me
-  }, [user, loading]);
 
   const routeChange = () =>{ 
     let path = '/'; 
     navigate(path);
   }
 
+// error handling
   const handleSubmit = async (e) => {
     e.preventDefault()
     const v1 = nameRegex.test(name)
@@ -139,18 +137,15 @@ function Register () {
         return
     } 
     try {
-        console.log("Registered successfully")
-        setSuccess(true)
-
-    // not sure how this will work - need to change since usernames will not be used
-    // can check to see if email is not found in db?    
+      console.log("Registered successfully")
+      setSuccess(true)
     } catch (error) {
     if (!error?.response) {
       setErrorMsg("No Server Response")
       } else if (error.response?.status === 400) {
-          setErrorMsg("Username Taken")
+        setErrorMsg("Username Taken")
       } else {
-          setErrorMsg("Registration Failed")
+        setErrorMsg("Registration Failed")
       }
       errorRef.current.focus()
     }
@@ -263,6 +258,7 @@ function Register () {
                 {!confirmFocus && !validConfirm ? <p>Passwords do not match.</p> : null}
               </div>
             </form>
+            {/* register button for email and password */}
             <button className="register__btn" disabled={db_loading} onClick={() => {
               register();
               db_register();
@@ -270,21 +266,36 @@ function Register () {
             }}>
               Register
             </button>
+
+            {/* register button for Google registration */}
             <button
               className="register__btn register__google"
               onClick={() => {
-                signInWithGoogle().then((user) => 
-                setNew_user(user), 
-                console.log(new_user)
-                //  setTimeout(() => {
-                //   setNew_user(user)
-                //  }, 1000)
-                )
-              }
-              }
-            >
+                console.log("before")
+                doesUserExist(email);
+                console.log("after");
+                if (userInDatabase === false) {
+                  console.log("inside if");
+                  signInWithGoogle().then((user) => 
+                  setNew_user(user), 
+                  console.log(new_user)
+                  );
+                  routeChange();
+                } else {
+                  console.log("in else");
+                  setDatabaseCheck(true);
+                }
+              }}>
               Register with Google
             </button>
+            <div>
+              {databaseCheck ? (
+                <div id="errorMessage2">Your account already exists! Login below.
+                </div>
+              ) : (
+                <div></div>
+              )}
+            </div>
             <div>
               Already have an account? <Link to="/login">Login</Link> now.
             </div>
