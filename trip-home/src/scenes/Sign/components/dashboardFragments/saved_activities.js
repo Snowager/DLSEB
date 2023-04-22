@@ -62,6 +62,11 @@ const Saved_activities = (props) => {
     if(activity_error) return    <div> {`Error! ${activity_error.message}`}</div>
     if(activity_data && activity_data !== undefined && activity_data.saved_activity && activity_data.saved_activity[0]){
         console.log("email: " + email)
+        user_data.savedActivities = [];
+        activity_data.saved_activity.map(activity => (
+          user_data.savedActivities.push({lat: activity.lat, lng: activity.lng, name: activity.name})
+        ))
+        console.log(user_data.savedActivities)
         return (
             <div>
                 <label> Saved activities

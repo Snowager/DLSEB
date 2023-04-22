@@ -1,6 +1,6 @@
 :root {
     --primary: #fff;
-
+    --secondary: rgb(251, 255, 2);
 }
 
 .btn {
@@ -43,6 +43,15 @@
     color: rgb(255, 255, 255);
     padding: 3px 6px;
     border: 1px solid var(--primary);
+    transition: all 0.3s ease-out;
+    border-radius:5px;
+    float: right;
+}
+.btn--outlineSmallSuccess {
+    background-color: transparent;
+    color: rgb(251, 255, 2);
+    padding: 3px 6px;
+    border: 1px solid var(--secondary);
     transition: all 0.3s ease-out;
     border-radius:5px;
     float: right;
