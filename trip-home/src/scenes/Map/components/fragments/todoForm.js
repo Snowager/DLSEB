@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import { Modal } from '@mui/material';
 import { Typography } from "@mui/material";
 import { Box } from "@mui/material";
-
+import "../styles/map.css"
 
 // modal styling
 const style = {
@@ -44,7 +44,7 @@ const TodoForm = (props, addTodo) => {
   return (
     <div>
       {/* opens "Add Your Own Place" Modal */}
-      <button onClick={handleOpen}> Add Your Own Place </button>
+      <button className="btn btn btn-light add-your-place-button" onClick={handleOpen}> Add Your Own Place </button>
       <Modal
         open={open}
         onClose={handleClose}
@@ -58,22 +58,40 @@ const TodoForm = (props, addTodo) => {
               <form onSubmit={handleSubmit}>
 
                 {/* name input excepts user input by typing in the corresponding textarea field */}
-                <label>Place Name:</label>
-                <textarea
+                <label className="todo-form-label">Place Name:</label>
+                <input
+                  className="todo-form-input"
+                  size="34"
                   required={true}
                   value={name}
                   onChange={(e) => setName(e.target.value)}
                 />
 
                 {/* address input excepts user input by using the "Pick A Location" button to select an address for the textarea field */}
-                <label>Place Address:</label>
-                <textarea
+                <label className="todo-form-label">Place Address:</label>
+                <input
+                  className="todo-form-input"
+                  size="30"
                   readOnly={true} // doesn't let user edit address from textarea field 
                   required={true}
                   value={props.chosenPlace.address}
                 />
 
                 <button
+                  className="todo-form-location-button"
+                  onClick={() => {
+                    // removes markers from google map and allows the user to click on the map to pass an 
+                    // address to the "Add Your Own Place" modal/form
+                    props.setTempState(props.markers)
+                    props.setMarkers([])
+                    props.setClickMode(true)
+                    handleClose()
+                  }}>
+                  <i className='fas fa-crosshairs'></i>
+                </button>
+
+                <button
+                  className='todo-form-submit-button'
                   onClick={() => {
                     // passes back the modified function containing all previous todos (with spread syntax ...) 
                     // and adds an object containing the values from the form
@@ -85,18 +103,6 @@ const TodoForm = (props, addTodo) => {
                     setName(null);
                   }}>
                   Add To Trip
-                </button>
-
-                <button
-                  onClick={() => {
-                    // removes markers from google map and allows the user to click on the map to pass an 
-                    // address to the "Add Your Own Place" modal/form
-                    props.setTempState(props.markers)
-                    props.setMarkers([])
-                    props.setClickMode(true)
-                    handleClose()
-                  }}>
-                  Pick A Location
                 </button>
 
               </form>

@@ -25,7 +25,7 @@ const MapContainer = (props) => {
   const [currMap, setMap] = useState({})
   const [center, setCenter] = useState({ lat: props.lat, lng: props.lng });
   const [mapStyles, setMapStyles] = useState({
-    height: "100vh",
+    height: "89vh",
     width: "100%"
   })
   // query is now initially set to a string array to account for potentially multiple passed types
@@ -60,10 +60,10 @@ const MapContainer = (props) => {
   }
 
   //gets a places object from lat lng and a name.
-  function getLocationFromCoords(lat, lng, name){
+  function getLocationFromCoords(lat, lng, name) {
     console.log("Lat: " + lat + "|| Lng: " + lng + "|| Name: " + name)
     var request = {
-      location: {lat: parseFloat(lat), lng: parseFloat(lng)},
+      location: { lat: parseFloat(lat), lng: parseFloat(lng) },
       query: name
     };
     service.current.textSearch(request, callback);
@@ -77,10 +77,10 @@ const MapContainer = (props) => {
     }
   }
 
-  function createTrip(add, end, list){
-    if(add < end){
+  function createTrip(add, end, list) {
+    if (add < end) {
       var request = {
-        location: {lat: parseFloat(list[add].lat), lng: parseFloat(list[add].lng)},
+        location: { lat: parseFloat(list[add].lat), lng: parseFloat(list[add].lng) },
         query: list[add].loc_name
       };
       service.current.textSearch(request, callback);
@@ -98,9 +98,9 @@ const MapContainer = (props) => {
 
   //once first node is updated, set it as the actual first node of the trip
   useEffect(() => {
-    if(firstNode !== undefined){setTodos(prevTodos => [firstNode, ...prevTodos])}
+    if (firstNode !== undefined) { setTodos(prevTodos => [firstNode, ...prevTodos]) }
   }, [firstNode])
-  
+
 
   // React callback to load map
   const onLoad = React.useCallback(
@@ -109,12 +109,12 @@ const MapContainer = (props) => {
       service.current = new google.maps.places.PlacesService(map)
       route.current = new google.maps.DirectionsService()
       //The first node is already chosen
-      if(props.activity_flag){ //if the flag has been set to true it means that were comming from the profile page with a location ready to be added to the trip
-          console.log("first node will be " + props.state.name)
-          setFirstNode(getLocationFromCoords(props.state.lat, props.state.lng, props.state.name));
-      }else if(props.trip_flag){
+      if (props.activity_flag) { //if the flag has been set to true it means that were comming from the profile page with a location ready to be added to the trip
+        console.log("first node will be " + props.state.name)
+        setFirstNode(getLocationFromCoords(props.state.lat, props.state.lng, props.state.name));
+      } else if (props.trip_flag) {
         console.log("a trip has been passed in")
-        createTrip(0,props.state.in_trips.length,props.state.in_trips)
+        createTrip(0, props.state.in_trips.length, props.state.in_trips)
       }
       if (query.length === "fun") {
         var request = {
@@ -168,7 +168,7 @@ const MapContainer = (props) => {
       function callback(results, status) {
         // only pushes results if it gets an OK status
         if (status === google.maps.places.PlacesServiceStatus.OK) {
-          var choice = results[getRandomInt(results.length/4)]
+          var choice = results[getRandomInt(results.length / 4)]
           setPrices(choice)
           setTodos(prevTodos => [...prevTodos, choice])
           setPackage_status(package_status + 1)
@@ -216,7 +216,7 @@ const MapContainer = (props) => {
 
   // call this to modify markers properly (query - tag to search for, center - where to center the search)
   const modifyMarkers = (query, center) => {
-    setCenter({lat: selected.geometry.location.lat(), lng: selected.geometry.location.lng()})
+    setCenter({ lat: selected.geometry.location.lat(), lng: selected.geometry.location.lng() })
     setSelected(null)
     handleChoiceClose()
     changeMarker(query, center)
@@ -265,14 +265,14 @@ const MapContainer = (props) => {
   //creates routes between all items in the todo List
   const makeFullRoute = () => {
     setDirections([]);
-    for(var x = 0; x < todos.length-1; x++){
-        makeRoute(todos[x], todos[x + 1])
+    for (var x = 0; x < todos.length - 1; x++) {
+      makeRoute(todos[x], todos[x + 1])
     }
   }
-  
+
   //change the routes everytime the todos change
   useEffect(() => {
-    if(todos.length > 1) makeFullRoute();
+    if (todos.length > 1) makeFullRoute();
   }, [todos, mode])
 
   const logClicks = (e) => {
@@ -349,12 +349,12 @@ const MapContainer = (props) => {
           directions={direction}
           key={index}
           options={{
-            polylineOptions:{
-              strokeColor:"#ff0066",
-              strokeWeight:6
+            polylineOptions: {
+              strokeColor: "#ff0066",
+              strokeWeight: 6
             }
           }}
-           />
+        />
       </>
     ))
     ) : null}
@@ -376,37 +376,37 @@ const MapContainer = (props) => {
         <div className='mapContainer'>
           {markers.length > 0 ? (
             <>
-            <PlacesList
-              onClick={() => setOpen(true)}
-              todos={markers}
-              setTodos={setTodos}
-              setSelected={setSelected}
-              open={open}
-              selected={todos[todos.length - 1]}
-              modifyMarkers={modifyMarkers}
-              makeFullRoute={makeFullRoute}
-              makeRoute={makeRoute}
-            /> </>) : null}
-            <div className='todo-list'>
+              <PlacesList
+                onClick={() => setOpen(true)}
+                todos={markers}
+                setTodos={setTodos}
+                setSelected={setSelected}
+                open={open}
+                selected={todos[todos.length - 1]}
+                modifyMarkers={modifyMarkers}
+                makeFullRoute={makeFullRoute}
+                makeRoute={makeRoute}
+              /> </>) : null}
+          <div className='todo-list'>
             <TodoList
               todos={todos}
               setTodos={setTodos}
               setRadius={setRadius}
               setBudget={setBudget}
               setMode={setMode}
-              id={props.id} 
+              id={props.id}
               city={props.city}
             />,
-          <TodoForm
-            chosenPlace={chosenPlace}
-            setClickMode={setClickMode}
-            todos={todos}
-            setTodos={setTodos}
-            formOpen={formOpen}
-            setFormOpen={setFormOpen}
-            markers={markers}
-            setMarkers={setMarkers}
-            setTempState={setTempState}></TodoForm></div>
+            <TodoForm
+              chosenPlace={chosenPlace}
+              setClickMode={setClickMode}
+              todos={todos}
+              setTodos={setTodos}
+              formOpen={formOpen}
+              setFormOpen={setFormOpen}
+              markers={markers}
+              setMarkers={setMarkers}
+              setTempState={setTempState}></TodoForm></div>
           {map}
           {/* TodoList handles the list of Todo trip items */}
 
@@ -428,7 +428,7 @@ const MapContainer = (props) => {
 
         {/*  {places ? (places.map((place, index) => (<div><p>{place.name}</p></div>) )): null  }*/}
       </>
-      
+
     )
   }
   return null
