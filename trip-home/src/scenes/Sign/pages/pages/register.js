@@ -271,8 +271,10 @@ function Register () {
             <button
               className="register__btn register__google"
               onClick={() => {
-                console.log("before")
-                doesUserExist(email);
+                console.log("before");
+                setTimeout(() => {
+                  doesUserExist(email);
+                }, 1000)
                 console.log("after");
                 if (userInDatabase === false) {
                   console.log("inside if");

@@ -246,7 +246,9 @@ function Login () {
 
           {/* login with google button */}
           <button className="login__btn login__google" onClick={() => {
-            doesUserExist(email);
+            setTimeout(() => {
+              doesUserExist(email);
+            }, 1000)
             if (userInDatabase === true) {
               console.log("inside if");
               signInWithGoogle(); 
@@ -281,3 +283,4 @@ function Login () {
   );
 }
 export default Login;
+
