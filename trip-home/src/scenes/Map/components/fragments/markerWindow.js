@@ -22,8 +22,9 @@ const MarkerWindow = (props) => {
             }}>
             {/* infoWindow can have one child div. Can still include other components inside the window via nesting and flex arrangement*/}
             <div>
+                {console.log(props.selected)}
                 <div className='photoContainer card'>
-                    {props.selected.photos ? <img src={props.selected.photos[0].getUrl()} alt={"picture of " + props.selected.name}></img> : null}
+                    {props.selected.photos ? <img className="todo-list-photos" src={props.selected.photos[0].getUrl()} alt={"picture of " + props.selected.name}></img> : null}
 
                     <div className="starContainer"><div className='star'><StarRatings
                         rating={props.selected.rating}

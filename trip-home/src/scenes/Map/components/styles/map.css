@@ -140,6 +140,11 @@
   margin-top: 5px;
 }
 
+.img-window {
+  height: 200px;
+  width: 200px;
+}
+
 .travel-mode {
   justify-content: center;
 }
