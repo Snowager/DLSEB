@@ -37,7 +37,7 @@ function Reset() {
           {emailMessage ? <p> Email was sent! The email may be in your spam folder.</p> : null}
         </div>
         <div>
-          Sign in to your account <Link to="/register">Sign in</Link> now.
+          Sign in to your account <Link to="/login">Sign in</Link> now.
         </div>
       </div>
     </div>

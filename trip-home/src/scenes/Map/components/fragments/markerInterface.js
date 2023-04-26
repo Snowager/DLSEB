@@ -19,7 +19,7 @@ const MarkerInterface = (props) => {
         origin: new props.google.maps.Point(0, 0), // origin
         anchor: new props.google.maps.Point(25, 49) // anchor
     };
-
+    
 
     return (
         <div>

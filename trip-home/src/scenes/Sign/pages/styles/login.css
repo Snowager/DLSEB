@@ -1,27 +1,23 @@
 .login {
-  height: 80vh;
-  width: 100vw;
   display: flex;
   align-items: center;
   justify-content: center;
-
 }
-
 .login__container {
+  margin-top: 20px;
+  margin-bottom: 20px;
   display: flex;
   flex-direction: column;
   text-align: center;
-  background-color: rgba(0, 0, 0, .7);
+  background-color: rgba(0,0,0,.7);
   padding: 30px;
+  color: white;
 }
-
 .login__textBox {
   padding: 10px;
   font-size: 18px;
-  margin-bottom: 10px;
-  color: black;
+  width: 100%;
 }
-
 .otp__textBox {
   width: 100%;
   padding: 10px;
@@ -29,7 +25,6 @@
   margin-bottom: 10px;
   margin-top: 10px;
 }
-
 .login__btn {
   width: 100%;
   padding: 10px;
@@ -39,9 +34,8 @@
   color: white;
   background-color: black;
 }
-
 .otp__btn {
-  width: 100%;
+  width:100%;
   padding: 10px;
   font-size: 18px;
   margin-bottom: 10px;
@@ -50,13 +44,24 @@
   background-color: black;
   margin-top: 10px;
 }
-
 .phoneInput__btn {
-  color: black;
+  color:black;
   margin-bottom: 0px;
   padding: 0px;
 }
-
 .login__google {
   background-color: #4285f4;
+}
+label {
+  margin-top: 5px;
+  display: flex;
+  text-align: left;
+  padding: 5px;
+  color: white;
+}
+
+#errorMessage {
+  text-align: left;
+  color: rgb(255, 155, 148);
+  padding:0px;
 }

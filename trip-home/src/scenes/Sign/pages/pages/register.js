@@ -1,27 +1,26 @@
 import React, { useEffect, useState, useRef } from "react";
 import { useAuthState } from "react-firebase-hooks/auth";
 import { Link, useNavigate } from "react-router-dom";
-import { useMutation } from '@apollo/client';
-import { auth, registerWithEmailAndPassword, signInWithGoogle } from "./firebase";
+import { useMutation, useLazyQuery } from '@apollo/client';
+import { auth, getUserCredentials, registerWithEmailAndPassword, RegisterWithGoogle } from "./firebase";
 import PhoneInput from 'react-phone-input-2'
 import 'react-phone-input-2/lib/style.css'
 import "../styles/register.css";
 import {CREATE_TRIP_USER} from '../../../TestingDatabase/GraphQL/inserts.js';
-
-// New Register attempt
+import {GET_TRIP_USER_BY_EMAIL} from '../../../TestingDatabase/GraphQL/queries.js';
 
 // regex validation
 const nameRegex = /^[a-z ,.'-]+$/i
 const emailRegex = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/
 const phoneRegex = /^(\+\d{1,2}\s)?\(?\d{3}\)?[\s.-]\d{3}[\s.-]\d{4}$/
-const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d\w\W]{8,24}$/
+const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d\w\W]{6,24}$/
 
 function Register () {
   // references
   const nameRef = useRef()
   const errorRef = useRef()
   const [user, loading, error] = useAuthState(auth);
-  const [new_user, setNew_user] = useState(null);
+  const [new_user, setNew_user] = useState(null)
 
   const [name, setName] = useState("")
   const [email, setEmail] = useState("")
@@ -43,6 +42,35 @@ function Register () {
   const [passwordFocus, setPasswordFocus] = useState(false)
   const [confirmFocus, setConfirmFocus] = useState(false)
 
+  // database variables
+  const [userInDatabase, setUserInDatabase] = useState(null)
+  const [databaseCheck, setDatabaseCheck] = useState(false);
+
+  const [get_user, {loading: user_loading, error: user_error, data: user_data}] = useLazyQuery(GET_TRIP_USER_BY_EMAIL)
+
+  const userExists = (user_data, new_user) => {
+    console.log(user_data && user_data !== undefined && user_data.trip_user[0])
+    if(user_data && user_data !== undefined && user_data.trip_user[0]) {
+      console.log("inside if");
+      setDatabaseCheck(true);}
+    else{
+      db_register (
+        {variables: {
+          email: new_user.email,
+          password: "RegisteredWithGoogle1!",
+          phone_number: new_user.phoneNumber !== null ? new_user.phoneNumber : "+10000000000",
+          first_name: new_user.displayName.split(" ")[0],
+          last_name: new_user.displayName.split(" ")[1],
+          user_name: new_user.email
+        },
+        onCompleted: routeChange()
+        }
+      )
+      console.log("in else");
+      routeChange();
+    }
+  }
+
   const [db_register, {db_loading, db_error, db_data}] = useMutation(CREATE_TRIP_USER, {
     variables: {
       email: email,
@@ -52,23 +80,25 @@ function Register () {
       last_name: name.split(" ")[1],
       user_name: email
     }
-    });
+  });
 
-    useEffect(() => {
-      console.log(new_user)
-      if(new_user !== null){
-        console.log("more stuff")
-      db_register({variables: {
-        email: new_user.email,
-        password: "RegisteredWithGoogle1!",
-          phone_number: new_user.phoneNumber !== null ? new_user.phoneNumber : "+10000000000",
-          first_name: new_user.displayName.split(" ")[0],
-          last_name: new_user.displayName.split(" ")[1],
-          user_name: new_user.email
-      }})}
-    }, [new_user])
+  useEffect(() => {
+    console.log(new_user)
+    if(new_user !== null){
+      console.log("more stuff")
+    db_register({variables: {
+      email: new_user.email,
+      password: "RegisteredWithGoogle1!",
+      phone_number: new_user.phoneNumber !== null ? new_user.phoneNumber : "+10000000000",
+      first_name: new_user.displayName.split(" ")[0],
+      last_name: new_user.displayName.split(" ")[1],
+      user_name: new_user.email
+    }})}
+  }, [new_user])
+
+  
     
-
+// useEffects for testing validity
   useEffect(() => {
     nameRef.current.focus()
   }, [])
@@ -104,16 +134,13 @@ function Register () {
     if (!name) alert("Please enter name");
     registerWithEmailAndPassword(name, email, password);
   };
-  useEffect(() => {
-    if (loading) return;
-    //if (user) navigate.replace("/"); I literally don't know why this one doesn't work for me
-  }, [user, loading]);
 
   const routeChange = () =>{ 
     let path = '/'; 
     navigate(path);
   }
 
+// error handling
   const handleSubmit = async (e) => {
     e.preventDefault()
     const v1 = nameRegex.test(name)
@@ -127,21 +154,17 @@ function Register () {
     try {
         console.log("Registered successfully")
         setSuccess(true)
-
-    // not sure how this will work - need to change since usernames will not be used
-    // can check to see if email is not found in db?    
     } catch (error) {
     if (!error?.response) {
         setErrorMsg("No Server Response")
-//     } else if (error.response?.status === 400) {
-//         setErrorMsg("Username Taken")
-//     } else {
-//         setErrorMsg("Registration Failed")
-//     }
-//     errorRef.current.focus()
+     } else if (error.response?.status === 400) {
+         setErrorMsg("Username Taken")
+     } else {
+         setErrorMsg("Registration Failed")
+     }
+     errorRef.current.focus()
       }
     }
-  }
 
   return (
     <>
@@ -209,10 +232,6 @@ function Register () {
                 onFocus={() => setPhoneFocus(true)}
                 onBlur={() => setPhoneFocus(false)}
               /> 
-              <div id="errorMessage">
-                {phoneFocus && phone && !validPhone ? <p>Please enter a valid phone number.</p> : null}
-                {!phoneFocus && phone && !validPhone ? <p>Please enter a valid phone number.</p> : null}
-              </div>
 
               <label>
                 Password:
@@ -230,15 +249,15 @@ function Register () {
                 onBlur={() => setPasswordFocus(false)}
               />
               <div id="errorMessage">
-                {passwordFocus && password && !validPassword  ? <p>Please enter a valid password:<ul><li>8-24 characters</li><li>at least one capital letter</li><li>at least one number</li></ul></p> : null}
-                {!passwordFocus && password && !validPassword  ? <p>Please enter a valid password:<ul><li>8-24 characters</li><li>at least one capital letter</li><li>at least one number</li></ul></p> : null}
+                {passwordFocus && password && !validPassword  ? <p>Please enter a valid password:<ul><li>6-24 characters</li><li>at least one capital letter</li><li>at least one number</li></ul></p> : null}
+                {!passwordFocus && password && !validPassword  ? <p>Please enter a valid password:<ul><li>6-24 characters</li><li>at least one capital letter</li><li>at least one number</li></ul></p> : null}
               </div>
 
               <label>
                 Confirm Password:
               </label>
               <input
-                type="confirmPassword"
+                type="password"
                 className="register__textBox"
                 value={confirmPassword}
                 id="confirmPassword"
@@ -254,6 +273,7 @@ function Register () {
                 {!confirmFocus && !validConfirm ? <p>Passwords do not match.</p> : null}
               </div>
             </form>
+            {/* register button for email and password */}
             <button className="register__btn" disabled={db_loading} onClick={() => {
               register();
               db_register();
@@ -261,21 +281,24 @@ function Register () {
             }}>
               Register
             </button>
+
+            {/* register button for Google registration */}
             <button
               className="register__btn register__google"
               onClick={() => {
-                signInWithGoogle().then((user) => 
-                setNew_user(user), 
-                console.log(new_user)
-                //  setTimeout(() => {
-                //   setNew_user(user)
-                //  }, 1000)
-                )
-              }
-              }
-            >
+                getUserCredentials().then((user) => {get_user({variables: {email: user.email}, 
+                  onCompleted: data =>  userExists(data, user)})})
+              }}>
               Register with Google
             </button>
+            <div>
+              {databaseCheck ? (
+                <div id="errorMessage2">Your account already exists! Login below.
+                </div>
+              ) : (
+                <div></div>
+              )}
+            </div>
             <div>
               Already have an account? <Link to="/login">Login</Link> now.
             </div>
@@ -286,99 +309,3 @@ function Register () {
   );
 }
 export default Register;
-
-// Old Register attempt
-// function Register() {
-//   const [email, setEmail] = useState("");
-//   const [password, setPassword] = useState("");
-//   const [name, setName] = useState("");
-//   const [user, loading, error] = useAuthState(auth);
-//   const [phone_number, setPhone_number] = useState("");
-//   const [user_name, setUser_name] = useState("");
-
-//   const navigate = useNavigate();
-//   const register = () => {
-//     if (!name) alert("Please enter name");
-//     registerWithEmailAndPassword(name, email, password);
-//   };
-//   useEffect(() => {
-//     if (loading) return;
-//     if (user) navigate.replace("/");
-//   }, [user, loading]);
-
-//   const routeChange = () =>{ 
-//     let path = '/'; 
-//     navigate(path);
-//   }
-
-//   //mutation call for adding the user to our personal database
-//   const [db_register, {db_loading, db_error, db_data}] = useMutation(CREATE_TRIP_USER, {
-//     variables: {
-//       email: email,
-//       password: password,
-//       phone_number: phone_number, //temporary until we add a field for user to input their phone number
-//       user_name: user_name, // temporary until we add a field for user to input their user name
-//       first_name: name.split(" ")[0],
-//       last_name: name.split(" ")[1]
-//     }
-//   });
-
-//   return (
-//     <div className="register">
-//       <div className="register__container">
-//         <input
-//           type="text"
-//           className="register__textBox"
-//           value={name}
-//           onChange={(e) => setName(e.target.value)}
-//           placeholder="Full Name"
-//         />
-//         <input
-//           type="text"
-//           className="register__textBox"
-//           value={email}
-//           onChange={(e) => setEmail(e.target.value)}
-//           placeholder="E-mail Address"
-//         />
-//         <input
-//           type="text"
-//           className="register__textBox"
-//           value={user_name}
-//           onChange={(e) => setUser_name(e.target.value)}
-//           placeholder="Username"
-//         />
-//         <PhoneInput
-//           type="tel"
-//           className="phoneInput__btn__Reg"
-//           country={'us'}
-//           value={phone_number}
-//           onChange={(e) => setPhone_number("+" + e)}
-//         /> 
-//         <input
-//           type="password"
-//           className="register__textBox"
-//           value={password}
-//           onChange={(e) => setPassword(e.target.value)}
-//           placeholder="Password"
-//         />
-//         <button className="register__btn" disabled={db_loading} onClick={() => {
-//           register();
-//           db_register();
-//           routeChange();
-//         }}>
-//           Register
-//         </button>
-//         <button
-//           className="register__btn register__google"
-//           onClick={signInWithGoogle}
-//         >
-//           Register with Google
-//         </button>
-//         <div>
-//           Already have an account? <Link to="/login">Login</Link> now.
-//         </div>
-//       </div>
-//     </div>
-//   );
-// }
-// export default Register;

@@ -55,9 +55,9 @@ function Profile() {
   })
 
   //once data has been gathered from the postgresql database this updates the user.json file with apporpriate id
-  useEffect(() => {
-    if(found){user_data.id = db_data.trip_user[0].user_id}
-  }, [found])
+  // useEffect(() => {
+  //   if(found){user_data.id = db_data.trip_user[0].user_id}
+  // }, [found])
 
   useEffect(() => {
     if (loading) return;
@@ -101,11 +101,14 @@ function Profile() {
                     <MDBCol size="10" className="mb-4">
                       <div>Email: {user?.email}</div>
                     </MDBCol>
-                    <MDBCol size="10" className="mb-4">
+                    {/* <MDBCol size="10" className="mb-4">
                       <div>Phone Number: {user?.phone_Number}</div>
                     </MDBCol>
                     <MDBCol size="10" className="mb-4">
                       <div>Location: {user?.location}</div>
+                    </MDBCol> */}
+                    <MDBCol size="10" className="mb-4">
+                    
                     </MDBCol>
     
                   </MDBRow>
@@ -123,13 +126,6 @@ function Profile() {
                         {found ? (<MDBTypography tag="h6"><Saved_trips email={user?.email}/></MDBTypography>): null}
                       </MDBCol>
                     </MDBRow>
-
-                    {/* Social media button that don't work yet?*/}
-                  <div className="d-flex justify-content-start">
-                    <a href="#!"><MDBIcon fab icon="facebook me-3" size="lg" /></a>
-                    <a href="#!"><MDBIcon fab icon="twitter me-3" size="lg" /></a>
-                    <a href="#!"><MDBIcon fab icon="instagram me-3" size="lg" /></a>
-                  </div>
                   <div class="text-center">
                   <button className="btn--primary" onClick={() => {
                     updateJson();
