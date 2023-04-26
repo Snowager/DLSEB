@@ -49,16 +49,15 @@ function Login () {
 
   
 
-  const userExists = () => {
+  const userExists = (user_data, user) => {
     // for some reason it only logs after trying like 3 times. So user_data is returning before the query promise finishes
     console.log(user_data)
-    if(user_data && user_data !== undefined && user_data.trip_user[0]){setUserInDatabase(true)}
-    else{setUserInDatabase(false)}
-    if (userInDatabase === true) {
+    console.log(user_data.trip_user[0])
+    if(user_data && user_data !== undefined){
       console.log("inside if");
-      signInWithGoogle(); 
-      routeChange();
-    } else {
+      signInWithGoogle(user); 
+      routeChange();}
+    else {
       console.log("in else");
       setDatabaseCheck(true);
     }
@@ -263,10 +262,8 @@ function Login () {
           {/* login with google button */}
           <button className="login__btn login__google" onClick={() => {
             {/* Use async promise to set a state for user, then pass that state as get_user query */}
-            getUserCredentials().then((user) => {
-              setGoogleUser(user)
-            }).then(get_user({variables: {email: googleUser.email}, 
-              onCompleted: userExists()}))
+            getUserCredentials().then((user) => {get_user({variables: {email: user.email}, 
+              onCompleted: data =>  userExists(data, user)})})
             }}>
             Login with Google
           </button>
