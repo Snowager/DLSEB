@@ -1,13 +1,14 @@
 import React, { useEffect, useState, useRef } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { auth, signInWithGoogle, signin } from "./firebase";
+import { auth, signInWithGoogle, signin, getUserCredentials } from "./firebase";
 import { useAuthState } from "react-firebase-hooks/auth";
-import { useLazyQuery } from '@apollo/client';
+import { useLazyQuery, useQuery } from '@apollo/client';
 import { RecaptchaVerifier, signInWithPhoneNumber } from "firebase/auth";
 import PhoneInput from 'react-phone-input-2'
 import 'react-phone-input-2/lib/style.css'
 import "../styles/login.css"; 
 import {GET_TRIP_USER_BY_EMAIL} from '../../../TestingDatabase/GraphQL/queries.js';
+import { Get_User } from "../../components/fragments/get_user_query";
 
 // regex validation
 const emailRegex = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/
@@ -41,18 +42,31 @@ function Login () {
 
   const [userInDatabase, setUserInDatabase] = useState(null)
   const [databaseCheck, setDatabaseCheck] = useState(null);
-  const [get_user, {loading: user_loading, error: user_error, data: user_data}] = useLazyQuery(GET_TRIP_USER_BY_EMAIL)
+  const [googleUser, setGoogleUser] = useState({email: null})
 
-  function doesUserExist (email) {
-    get_user({variables: {email: email},
-      onCompleted: userExists})
-  }
+  const [get_user, {loading: user_loading, error: user_error, data: user_data}] = useLazyQuery(GET_TRIP_USER_BY_EMAIL)
+  
+
+  
 
   const userExists = () => {
+    console.log(user_data)
     if(user_data && user_data !== undefined && user_data.trip_user[0]){setUserInDatabase(true)}
     else{setUserInDatabase(false)}
+    if (userInDatabase === true) {
+      console.log("inside if");
+      signInWithGoogle(); 
+      routeChange();
+    } else {
+      console.log("in else");
+      setDatabaseCheck(true);
+    }
   }
 
+  useEffect(() => {
+    
+  }, [googleUser])
+  
 
   // use effects to test validation 
   useEffect(() => {
@@ -247,15 +261,10 @@ function Login () {
 
           {/* login with google button */}
           <button className="login__btn login__google" onClick={() => {
-            doesUserExist();
-            if (userInDatabase === true) {
-              console.log("inside if");
-              signInWithGoogle(); 
-              routeChange();
-            } else {
-              console.log("in else");
-              setDatabaseCheck(true);
-            }
+            getUserCredentials().then((user) => {
+              setGoogleUser(user)
+            }).then(get_user({variables: {email: googleUser.email}, 
+              onCompleted: userExists()}))
             }}>
             Login with Google
           </button>
@@ -281,5 +290,6 @@ function Login () {
     </>
   );
 }
+
 export default Login;
 

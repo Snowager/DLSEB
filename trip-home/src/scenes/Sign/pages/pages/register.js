@@ -2,7 +2,7 @@ import React, { useEffect, useState, useRef } from "react";
 import { useAuthState } from "react-firebase-hooks/auth";
 import { Link, useNavigate } from "react-router-dom";
 import { useMutation, useLazyQuery } from '@apollo/client';
-import { auth, registerWithEmailAndPassword, signInWithGoogle } from "./firebase";
+import { auth, getUserCredentials, registerWithEmailAndPassword, RegisterWithGoogle } from "./firebase";
 import PhoneInput from 'react-phone-input-2'
 import 'react-phone-input-2/lib/style.css'
 import "../styles/register.css";
@@ -20,7 +20,7 @@ function Register () {
   const nameRef = useRef()
   const errorRef = useRef()
   const [user, loading, error] = useAuthState(auth);
-  const [new_user, setNew_user] = useState(null);
+  const [new_user, setNew_user] = useState(null)
 
   const [name, setName] = useState("")
   const [email, setEmail] = useState("")
@@ -44,7 +44,7 @@ function Register () {
 
   // database variables
   const [userInDatabase, setUserInDatabase] = useState(null)
-  const [databaseCheck, setDatabaseCheck] = useState(null);
+  const [databaseCheck, setDatabaseCheck] = useState(false);
 
   const [get_user, {loading: user_loading, error: user_error, data: user_data}] = useLazyQuery(GET_TRIP_USER_BY_EMAIL)
 
@@ -56,6 +56,17 @@ function Register () {
   const userExists = () => {
     if(user_data && user_data !== undefined && user_data.trip_user[0]){setUserInDatabase(true)}
     else{setUserInDatabase(false)}
+    if (userInDatabase === false) {
+      console.log("inside if");
+      RegisterWithGoogle().then((user) => 
+      setNew_user(user), 
+      console.log(new_user)
+      );
+      routeChange();
+    } else {
+      console.log("in else");
+      setDatabaseCheck(true);
+    }
   }
 
   const [db_register, {db_loading, db_error, db_data}] = useMutation(CREATE_TRIP_USER, {
@@ -139,19 +150,19 @@ function Register () {
         return
     } 
     try {
-      console.log("Registered successfully")
-      setSuccess(true)
+        console.log("Registered successfully")
+        setSuccess(true)
     } catch (error) {
     if (!error?.response) {
-      setErrorMsg("No Server Response")
-      } else if (error.response?.status === 400) {
-        setErrorMsg("Username Taken")
-      } else {
-        setErrorMsg("Registration Failed")
+        setErrorMsg("No Server Response")
+     } else if (error.response?.status === 400) {
+         setErrorMsg("Username Taken")
+     } else {
+         setErrorMsg("Registration Failed")
+     }
+     errorRef.current.focus()
       }
-      errorRef.current.focus()
     }
-  }
 
   return (
     <>
@@ -273,19 +284,9 @@ function Register () {
             <button
               className="register__btn register__google"
               onClick={() => {
-                doesUserExist();
-                console.log("after");
-                if (userInDatabase === false) {
-                  console.log("inside if");
-                  signInWithGoogle().then((user) => 
-                  setNew_user(user), 
-                  console.log(new_user)
-                  );
-                  routeChange();
-                } else {
-                  console.log("in else");
-                  setDatabaseCheck(true);
-                }
+                getUserCredentials().then((user) => 
+                doesUserExist(user));
+                
               }}>
               Register with Google
             </button>

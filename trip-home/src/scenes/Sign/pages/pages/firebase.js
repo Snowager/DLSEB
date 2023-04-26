@@ -2,6 +2,7 @@ import { initializeApp } from "firebase/app";
 import { GoogleAuthProvider, getAuth, signInWithPopup, signInWithEmailAndPassword, signInWithPhoneNumber,
   createUserWithEmailAndPassword, sendPasswordResetEmail, signOut, } from "firebase/auth";
 import { getFirestore, query, getDocs, collection, where, addDoc, } from "firebase/firestore";
+import {CREATE_TRIP_USER} from '../../../TestingDatabase/GraphQL/inserts.js';
 
 // For Firebase JS SDK v7.20.0 and later, measurementId is optional
 const firebaseConfig = {
@@ -18,7 +19,39 @@ const app = initializeApp(firebaseConfig);
 const auth = getAuth(app);
 const db = getFirestore(app);
 const googleProvider = new GoogleAuthProvider();
-const signInWithGoogle = async () => {
+
+const getUserCredentials = async () => {
+  try {
+    const res = await signInWithPopup(auth, googleProvider);
+    const user = res.user;
+    return user
+  } catch (err) {
+    console.error(err);
+    alert(err.message);
+  }
+
+}
+
+const signInWithGoogle = async (user) => {
+  try {
+    const q = query(collection(db, "users"), where("uid", "==", user.uid));
+    const docs = await getDocs(q);
+    if (docs.docs.length === 0) {
+      await addDoc(collection(db, "users"), {
+        uid: user.uid,
+        name: user.displayName,
+        authProvider: "google",
+        email: user.email,
+      });
+      return user;
+    }
+  } catch (err) {
+    console.error(err);
+    alert(err.message);
+  }
+};
+
+const RegisterWithGoogle = async () => {
   try {
     const res = await signInWithPopup(auth, googleProvider);
     const user = res.user;
@@ -83,4 +116,6 @@ export {
   sendPasswordResetEmail,
   logout,
   signin,
+  getUserCredentials,
+  RegisterWithGoogle
 };
