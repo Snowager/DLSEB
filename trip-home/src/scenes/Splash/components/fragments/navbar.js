@@ -38,14 +38,14 @@ function Navbar() {
                    </div>
                    <ul className={click ? 'nav-menu active' : 'nav-menu'}>
                     <li className='nav-item'>
-                        {user_data.id === "369" ? 
+                        {user_data.id === "399" ? 
                         <Link to ='/register' className='nav-links' onClick={closeMobileMenu}>
                             Sign Up
                         </Link>
                         : null}
                     </li>
                     <li className='nav-item'>
-                    {user_data.id === "369" ?
+                    {user_data.id === "399" ?
                         <Link to ='/login' className='nav-links' onClick={closeMobileMenu}>
                             Sign In
                         </Link>

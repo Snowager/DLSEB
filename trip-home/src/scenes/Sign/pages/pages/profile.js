@@ -42,7 +42,7 @@ function Profile() {
 }
 
   function updateJson () {
-    user_data.id = "369";
+    user_data.id = "399";
     user_data.name = "Tr!p App";
     user_data.email = "tr.exclaim.ip@gmail.com";
     user_data.savedActivities = [];
@@ -55,9 +55,9 @@ function Profile() {
   })
 
   //once data has been gathered from the postgresql database this updates the user.json file with apporpriate id
-  // useEffect(() => {
-  //   if(found){user_data.id = db_data.trip_user[0].user_id}
-  // }, [found])
+  useEffect(() => {
+    if(found){user_data.id = db_data.trip_user[0].user_id}
+  }, [found])
 
   useEffect(() => {
     if (loading) return;
