@@ -187,3 +187,9 @@
 .todo-form-submit-button {
   margin-top: 35px;
 }
+
+.modal-and-map-photos {
+  width: auto;
+  height: 26vh;
+  border-radius: 5px;
+}

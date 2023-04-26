@@ -4,6 +4,7 @@ import { Typography } from "@mui/material";
 import { Box } from "@mui/material";
 import StarRatings from 'react-star-ratings';
 import "../styles/map.css"
+import altPicture from '../../images/altPicture.jpg';
 
 /*
 
@@ -37,8 +38,8 @@ const Todo = (props) => {
       {open ? <Modal open={open} onClose={handleClose} className="todo-info-modal" aria-labelledby="modal-modal-title" aria-describedby="modal-modal-description">
         <Box sx={style}>
           <Typography id="modal-modal-title" variant="h6" component="h2">
-            {props.todo.photos ? (<img className="img-fluid w-80" src={props.todo.photos[0].getUrl()} alt={"picture of " + props.todo.name} />) :
-              <img className="img-fluid w-80" src="https://bacibacirestaurant.files.wordpress.com/2020/02/chairs-cutlery-fork-9315.jpg" alt="temp food place" />}
+            {props.todo.photos ? (<img className="modal-and-map-photos" src={props.todo.photos[0].getUrl()} alt={"picture of " + props.todo.name} />) :
+              <img className="modal-and-map-photos" src={altPicture} alt="alt place" />}
           </Typography>
           <Typography id="modal-modal-description" sx={{ mt: 2 }}>
             <div className="starContainer todo-star-modal">
@@ -70,7 +71,7 @@ const Todo = (props) => {
         <div className="row todo-list-opacity todo-list-margin" onClick={handleOpen}>
           <div className="col-xl todo todo-list-photos">
             {props.todo.photos ? (<img className="img-fluid w-80 todo-list-photos" src={props.todo.photos[0].getUrl()} alt={"picture of " + props.todo.name} />) :
-              <img className="img-fluid w-80" src="https://bacibacirestaurant.files.wordpress.com/2020/02/chairs-cutlery-fork-9315.jpg" alt="temp food place" />}
+              <img className="img-fluid w-80 todo-list-photos" src={altPicture} alt="alt place" />}
           </div>
 
           <div className="col-xl">

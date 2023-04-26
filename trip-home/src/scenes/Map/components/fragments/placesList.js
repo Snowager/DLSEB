@@ -47,7 +47,7 @@ const PlacesList = (props) => {
         <Modal open={open} onClose={handleClose} className="todo-info-modal" aria-labelledby="modal-modal-title" aria-describedby="modal-modal-description">
           <Box sx={style}>
             <Typography id="modal-modal-title" variant="h6" component="h2">
-              <img className="img-fluid w-80" src={selectedPlace.photos ? (selectedPlace.photos[0].getUrl()) : "https://bacibacirestaurant.files.wordpress.com/2020/02/chairs-cutlery-fork-9315.jpg"} alt={"picture of " + selectedPlace.name} />
+              <img className="modal-and-map-photos" src={selectedPlace.photos ? (selectedPlace.photos[0].getUrl()) : "https://bacibacirestaurant.files.wordpress.com/2020/02/chairs-cutlery-fork-9315.jpg"} alt={"picture of " + selectedPlace.name} />
             </Typography>
             <Typography id="modal-modal-description" sx={{ mt: 2 }}>
               <div className="starContainer todo-star-modal">
