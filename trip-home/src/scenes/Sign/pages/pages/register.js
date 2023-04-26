@@ -49,15 +49,17 @@ function Register () {
   const [get_user, {loading: user_loading, error: user_error, data: user_data}] = useLazyQuery(GET_TRIP_USER_BY_EMAIL)
 
   const userExists = (user_data) => {
-    if(user_data && user_data !== undefined){console.log("inside if");
-    setDatabaseCheck(true);}
-    else{console.log("in else");
-    RegisterWithGoogle().then((user) => 
-    setNew_user(user), 
-    console.log(new_user)
-    );
-    routeChange();}
-    
+    if(user_data && user_data !== undefined) {
+      console.log("inside if");
+      setDatabaseCheck(true);}
+    else{
+      console.log("in else");
+      RegisterWithGoogle().then((user) => 
+        setNew_user(user), 
+      console.log(new_user)
+      );
+      routeChange();
+    }
   }
 
   const [db_register, {db_loading, db_error, db_data}] = useMutation(CREATE_TRIP_USER, {
@@ -78,10 +80,10 @@ function Register () {
     db_register({variables: {
       email: new_user.email,
       password: "RegisteredWithGoogle1!",
-        phone_number: new_user.phoneNumber !== null ? new_user.phoneNumber : "+10000000000",
-        first_name: new_user.displayName.split(" ")[0],
-        last_name: new_user.displayName.split(" ")[1],
-        user_name: new_user.email
+      phone_number: new_user.phoneNumber !== null ? new_user.phoneNumber : "+10000000000",
+      first_name: new_user.displayName.split(" ")[0],
+      last_name: new_user.displayName.split(" ")[1],
+      user_name: new_user.email
     }})}
   }, [new_user])
 
