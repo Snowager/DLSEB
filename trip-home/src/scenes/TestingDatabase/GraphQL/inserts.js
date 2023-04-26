@@ -41,14 +41,33 @@ mutation CREATE_TRIP($city: String!, $duration: numeric!, $trip_id: String!, $us
   }
 }
 `;
+
+export const CREATE_SAVED_ACTIVITY = gql`
+  mutation CREATE_SAVED_ACTIVITY($lat: String!, $lng: String!, $name: String!, $user_id: Int!) {
+  insert_saved_activity(objects: {lat: $lat, lng: $lng, name: $name, user_id: $user_id}) {
+    returning {
+      lat
+      lng
+      name
+      user_id
+    }
+  }
+}
+`;
+
+export const REMOVE_SAVED_ACTIVITY = gql`
+  mutation REMOVE_SAVED_ACTIVITY($lat: String!, $lng: String!, $name: String!, $user_id: Int!) {
+  delete_saved_activity(where: {lat: {_eq: $lat}, lng: {_eq: $lng}, name: {_eq: $name}, user_id: {_eq: $user_id}}) {
+    returning {
+      lat
+      lng
+      name
+      user_id
+    }
+  }
+}
+`;
 /*
-export const CREATE_ = gql`
-
-`;
-
-export const CREATE_ = gql`
-
-`;
 
 export const CREATE_ = gql`
 

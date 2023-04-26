@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-
+import Save_activity_button from "./save_activity_button.js";
 
 import "../styles/map.css"
 
@@ -17,7 +17,7 @@ const Places = (props) => {
     <>
       <div className="container">
         <div className="row places-list-opacity todo-list-margin" onClick={() => (props.setSelectedPlace(props.todo), props.setOpen(true))}>
-          <div className="col-md-4 todo todo-list-photos" >
+          <div className="col-xl todo todo-list-photos" >
             {props.todo.photos ? (<img className="img-fluid w-80 todo-list-photos" src={props.todo.photos[0].getUrl()} alt={"picture of " + props.todo.name} />) :
               <img className="img-fluid w-80" src="https://bacibacirestaurant.files.wordpress.com/2020/02/chairs-cutlery-fork-9315.jpg" alt="temp food place" />}
           </div>
@@ -26,18 +26,23 @@ const Places = (props) => {
             {props.todo.name}
           </div>
         </div>
-        <div className="placeslisttemp">
-          <button className='btn--primary'
-            onClick={() => {
-              props.setTodos(prevTodos => [...prevTodos, props.todo])
-              props.setSelected(props.todo)
-              props.onClick()
-            }}>
-            Add to trip
-          </button>
-          <button className="btn--outlineSmall" onClick={() => props.onClick()}>
+
+        <div className="row placeslisttemp">
+          <div className="col">
+            <button className='btn btn-light add-to-trip-button'
+              onClick={() => {
+                props.setTodos(prevTodos => [...prevTodos, props.todo])
+                props.setSelected(props.todo)
+                props.onClick()
+              }}>
+              Add to trip
+            </button>
+          </div>
+          <div className="col">
+            <button className="btn--outlineSmall" onClick={() => props.onClick()}>
               <i className="fa fa-star  " aria-hidden="true"> </i>
             </button>
+          </div>
         </div>
 
         <div className="todo-list-splitters"></div>
@@ -55,6 +60,7 @@ const Places = (props) => {
 
 
 export default Places
+
 
 
 

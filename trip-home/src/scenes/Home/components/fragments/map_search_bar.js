@@ -4,7 +4,9 @@ import '../../../Splash/components/styles/button.css';
 import fun_list from "../../../Map/components/fun.json";
 import React, { useState } from "react";
 import { Link } from 'react-router-dom';
-import Switch from '@mui/material/Switch';import usePlacesAutocomplete, { getGeocode, getLatLng, } from "use-places-autocomplete";
+import Switch from '@mui/material/Switch';
+import { alpha, styled } from '@mui/material/styles';
+import usePlacesAutocomplete, { getGeocode, getLatLng, } from "use-places-autocomplete";
 import { Combobox, ComboboxInput, ComboboxPopover, ComboboxList, ComboboxOption, } from "@reach/combobox";
 import "@reach/combobox/styles.css";
 
@@ -70,6 +72,18 @@ const PlacesAutocomplete = ({ setSelected }) => {
 const ControlledSwitches = ({ setSelected }) => {
     const [checked, setChecked] = React.useState(false);
 
+    const GreenSwitch = styled(Switch)(({ theme }) => ({
+        '& .MuiSwitch-switchBase.Mui-checked': {
+            color: "#47BE43",
+            '&:hover': {
+                backgroundColor: alpha("#47BE43", theme.palette.action.hoverOpacity),
+            },
+        },
+        '& .MuiSwitch-switchBase.Mui-checked + .MuiSwitch-track': {
+            backgroundColor: "#47BE43",
+        },
+    }));
+
     const handleChange = (event) => {
         // tracks whether the switch is checked or unchecked
         setChecked(event.target.checked);
@@ -89,11 +103,14 @@ const ControlledSwitches = ({ setSelected }) => {
 
     return (
         <>
-            <div>
-                <p>Switch to Use Your Location</p>
-                <Switch
+            <div className="switch-rounded-bottom">
+                Click to Use Your Location
+                <GreenSwitch
                     checked={checked}
                     onChange={handleChange}
+                    sx={{
+                        color: 'white'
+                    }}
                 />
             </div>
         </>
@@ -121,10 +138,10 @@ function MapSearchBar() {
         selected.type = type
     }
 
-    
+
     function getRandomInt(max) {
         return Math.floor(Math.random() * max);
-      }
+    }
 
     if (!isLoaded) return
     return (
@@ -199,7 +216,7 @@ function MapSearchBar() {
                         </Link>
                     </div> </>)
                 :
-                
+
                 <h1 class="PackageList ">
                     Enter a Location to Begin</h1>}
 
