@@ -45,15 +45,12 @@ function Login () {
   const [googleUser, setGoogleUser] = useState({email: null})
 
   const [get_user, {loading: user_loading, error: user_error, data: user_data}] = useLazyQuery(GET_TRIP_USER_BY_EMAIL)
-  
-
-  
 
   const userExists = (user_data, user) => {
     // for some reason it only logs after trying like 3 times. So user_data is returning before the query promise finishes
     console.log(user_data)
     console.log(user_data.trip_user[0])
-    if(user_data && user_data !== undefined){
+    if(user_data && user_data !== undefined) {
       console.log("inside if");
       signInWithGoogle(user); 
       routeChange();}
