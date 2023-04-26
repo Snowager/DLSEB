@@ -95,7 +95,8 @@ const TodoForm = (props, addTodo) => {
                   onClick={() => {
                     // passes back the modified function containing all previous todos (with spread syntax ...) 
                     // and adds an object containing the values from the form
-                    props.setTodos(prevTodos => [...prevTodos, { name: name, formatted_address: props.chosenPlace.address, rating: 0, user_rating_total: 0 }])
+                    props.setTodos(prevTodos => [...prevTodos, { name: name, formatted_address: props.chosenPlace.address, geometry: {location: {lat:props.chosenPlace.lat, lng:props.chosenPlace.lng}},  rating: 0, user_rating_total: 0 }])
+                    props.setChosenPlace({ name: null, address: null })
                     handleClose()
 
                     //empties both text area fields once form is submitted

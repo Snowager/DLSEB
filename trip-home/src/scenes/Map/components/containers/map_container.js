@@ -147,6 +147,7 @@ const MapContainer = (props) => {
             for (var i = 0; i < results.length; i++) {
               setPrices(results[i])
             }
+            console.log(results[0])
             setMarkers(results)
           }
           // --TODO-- add "else" block for a failed status return
@@ -292,7 +293,9 @@ const MapContainer = (props) => {
           // if address is found pass to processing function
           const address = results[0].formatted_address;
           console.log(address);
-          // passes adddress chosen by user to the "todoForm" file
+          // passes address chosen by user to the "todoForm" file
+          chosenPlace.lat = e.latLng.lat()
+          chosenPlace.lng = e.latLng.lng()
           chosenPlace.address = address;
         }
       });
@@ -399,6 +402,7 @@ const MapContainer = (props) => {
             />,
             <TodoForm
               chosenPlace={chosenPlace}
+              setChosenPlace={setChosenPlace}
               setClickMode={setClickMode}
               todos={todos}
               setTodos={setTodos}
