@@ -48,25 +48,16 @@ function Register () {
 
   const [get_user, {loading: user_loading, error: user_error, data: user_data}] = useLazyQuery(GET_TRIP_USER_BY_EMAIL)
 
-  function doesUserExist (email) {
-    get_user({variables: {email: email},
-      onCompleted: userExists})
-  }
-
-  const userExists = () => {
-    if(user_data && user_data !== undefined && user_data.trip_user[0]){setUserInDatabase(true)}
-    else{setUserInDatabase(false)}
-    if (userInDatabase === false) {
-      console.log("inside if");
-      RegisterWithGoogle().then((user) => 
-      setNew_user(user), 
-      console.log(new_user)
-      );
-      routeChange();
-    } else {
-      console.log("in else");
-      setDatabaseCheck(true);
-    }
+  const userExists = (user_data) => {
+    if(user_data && user_data !== undefined){console.log("inside if");
+    setDatabaseCheck(true);}
+    else{console.log("in else");
+    RegisterWithGoogle().then((user) => 
+    setNew_user(user), 
+    console.log(new_user)
+    );
+    routeChange();}
+    
   }
 
   const [db_register, {db_loading, db_error, db_data}] = useMutation(CREATE_TRIP_USER, {
@@ -284,9 +275,8 @@ function Register () {
             <button
               className="register__btn register__google"
               onClick={() => {
-                getUserCredentials().then((user) => 
-                doesUserExist(user));
-                
+                getUserCredentials().then((user) => {get_user({variables: {email: user.email}, 
+                  onCompleted: data =>  userExists(data)})})
               }}>
               Register with Google
             </button>
