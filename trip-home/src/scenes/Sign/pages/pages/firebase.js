@@ -24,8 +24,7 @@ const googleProvider = new GoogleAuthProvider();
 const getUserCredentials = async () => {
   try {
     const res = await signInWithPopup(auth, googleProvider);
-    const user = res.user;
-    return user
+    return res.user
   } catch (err) {
     console.error(err);
     alert(err.message);
@@ -36,6 +35,7 @@ const getUserCredentials = async () => {
 // take user as parameter to finish signin process
 const signInWithGoogle = async (user) => {
   try {
+    console.log(user)
     const q = query(collection(db, "users"), where("uid", "==", user.uid));
     const docs = await getDocs(q);
     if (docs.docs.length === 0) {
