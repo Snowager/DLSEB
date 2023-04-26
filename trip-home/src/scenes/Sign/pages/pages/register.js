@@ -48,16 +48,25 @@ function Register () {
 
   const [get_user, {loading: user_loading, error: user_error, data: user_data}] = useLazyQuery(GET_TRIP_USER_BY_EMAIL)
 
-  const userExists = (user_data) => {
-    if(user_data && user_data !== undefined) {
+  const userExists = (user_data, new_user) => {
+    console.log(user_data && user_data !== undefined && user_data.trip_user[0])
+    if(user_data && user_data !== undefined && user_data.trip_user[0]) {
       console.log("inside if");
       setDatabaseCheck(true);}
     else{
+      db_register (
+        {variables: {
+          email: new_user.email,
+          password: "RegisteredWithGoogle1!",
+          phone_number: new_user.phoneNumber !== null ? new_user.phoneNumber : "+10000000000",
+          first_name: new_user.displayName.split(" ")[0],
+          last_name: new_user.displayName.split(" ")[1],
+          user_name: new_user.email
+        },
+        onCompleted: routeChange()
+        }
+      )
       console.log("in else");
-      RegisterWithGoogle().then((user) => 
-        setNew_user(user), 
-      console.log(new_user)
-      );
       routeChange();
     }
   }
@@ -278,7 +287,7 @@ function Register () {
               className="register__btn register__google"
               onClick={() => {
                 getUserCredentials().then((user) => {get_user({variables: {email: user.email}, 
-                  onCompleted: data =>  userExists(data)})})
+                  onCompleted: data =>  userExists(data, user)})})
               }}>
               Register with Google
             </button>
