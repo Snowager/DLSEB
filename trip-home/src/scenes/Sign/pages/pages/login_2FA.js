@@ -50,6 +50,7 @@ function Login () {
   
 
   const userExists = () => {
+    // for some reason it only logs after trying like 3 times. So user_data is returning before the query promise finishes
     console.log(user_data)
     if(user_data && user_data !== undefined && user_data.trip_user[0]){setUserInDatabase(true)}
     else{setUserInDatabase(false)}
@@ -261,6 +262,7 @@ function Login () {
 
           {/* login with google button */}
           <button className="login__btn login__google" onClick={() => {
+            {/* Use async promise to set a state for user, then pass that state as get_user query */}
             getUserCredentials().then((user) => {
               setGoogleUser(user)
             }).then(get_user({variables: {email: googleUser.email}, 

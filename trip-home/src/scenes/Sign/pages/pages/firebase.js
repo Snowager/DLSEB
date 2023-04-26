@@ -20,6 +20,7 @@ const auth = getAuth(app);
 const db = getFirestore(app);
 const googleProvider = new GoogleAuthProvider();
 
+// split signIn into 2 functions to return user info for db querying on signin/register auth requests
 const getUserCredentials = async () => {
   try {
     const res = await signInWithPopup(auth, googleProvider);
@@ -32,6 +33,7 @@ const getUserCredentials = async () => {
 
 }
 
+// take user as parameter to finish signin process
 const signInWithGoogle = async (user) => {
   try {
     const q = query(collection(db, "users"), where("uid", "==", user.uid));
@@ -51,6 +53,7 @@ const signInWithGoogle = async (user) => {
   }
 };
 
+// a register function that doesn't query db at all (initial version that I split into the ones above)
 const RegisterWithGoogle = async () => {
   try {
     const res = await signInWithPopup(auth, googleProvider);
