@@ -50,7 +50,7 @@ function Login () {
     // for some reason it only logs after trying like 3 times. So user_data is returning before the query promise finishes
     console.log(user_data)
     console.log(user_data.trip_user[0])
-    if(user_data && user_data !== undefined) {
+    if(user_data && user_data !== undefined && user_data.trip_user[0]) {
       console.log("inside if");
       signInWithGoogle(user); 
       routeChange();}
