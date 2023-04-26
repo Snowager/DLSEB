@@ -13,7 +13,7 @@ import {GET_TRIP_USER_BY_EMAIL} from '../../../TestingDatabase/GraphQL/queries.j
 const nameRegex = /^[a-z ,.'-]+$/i
 const emailRegex = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/
 const phoneRegex = /^(\+\d{1,2}\s)?\(?\d{3}\)?[\s.-]\d{3}[\s.-]\d{4}$/
-const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d\w\W]{8,24}$/
+const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d\w\W]{6,24}$/
 
 function Register () {
   // references
@@ -234,8 +234,8 @@ function Register () {
                 onBlur={() => setPasswordFocus(false)}
               />
               <div id="errorMessage">
-                {passwordFocus && password && !validPassword  ? <p>Please enter a valid password:<ul><li>8-24 characters</li><li>at least one capital letter</li><li>at least one number</li></ul></p> : null}
-                {!passwordFocus && password && !validPassword  ? <p>Please enter a valid password:<ul><li>8-24 characters</li><li>at least one capital letter</li><li>at least one number</li></ul></p> : null}
+                {passwordFocus && password && !validPassword  ? <p>Please enter a valid password:<ul><li>6-24 characters</li><li>at least one capital letter</li><li>at least one number</li></ul></p> : null}
+                {!passwordFocus && password && !validPassword  ? <p>Please enter a valid password:<ul><li>6-24 characters</li><li>at least one capital letter</li><li>at least one number</li></ul></p> : null}
               </div>
 
               <label>
