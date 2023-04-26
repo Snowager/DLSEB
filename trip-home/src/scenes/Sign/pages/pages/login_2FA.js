@@ -53,6 +53,7 @@ function Login () {
     else{setUserInDatabase(false)}
   }
 
+
   // use effects to test validation 
   useEffect(() => {
     const result = emailRegex.test(email)
@@ -246,9 +247,7 @@ function Login () {
 
           {/* login with google button */}
           <button className="login__btn login__google" onClick={() => {
-            setTimeout(() => {
-              doesUserExist(email);
-            }, 1000)
+            doesUserExist();
             if (userInDatabase === true) {
               console.log("inside if");
               signInWithGoogle(); 

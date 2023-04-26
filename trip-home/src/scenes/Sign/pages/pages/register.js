@@ -82,6 +82,8 @@ function Register () {
         user_name: new_user.email
     }})}
   }, [new_user])
+
+  
     
 // useEffects for testing validity
   useEffect(() => {
@@ -271,10 +273,7 @@ function Register () {
             <button
               className="register__btn register__google"
               onClick={() => {
-                console.log("before");
-                setTimeout(() => {
-                  doesUserExist(email);
-                }, 1000)
+                doesUserExist();
                 console.log("after");
                 if (userInDatabase === false) {
                   console.log("inside if");
