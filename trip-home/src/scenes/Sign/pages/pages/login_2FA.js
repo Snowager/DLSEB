@@ -88,7 +88,7 @@ function Login () {
   // navigation
   const navigate = useNavigate();
   const routeChange = () =>{ 
-    let path = '/'; 
+    let path = '/profile'; 
     navigate(path);
   }
 
