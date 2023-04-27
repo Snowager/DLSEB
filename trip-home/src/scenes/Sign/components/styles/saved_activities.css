@@ -1,9 +1,9 @@
-.SavedTripList {
+.SavedActivitieList {
     width: 123%;
     font-size: 80px;
 }
 
-.trip-button {
+.activitie-button {
     margin-left: 0px;
     background-color: #1471FF;
     color: white;
