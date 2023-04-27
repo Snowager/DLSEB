@@ -399,7 +399,7 @@ const MapContainer = (props) => {
               setMode={setMode}
               id={props.id}
               city={props.city}
-            />,
+            />
             <TodoForm
               chosenPlace={chosenPlace}
               setChosenPlace={setChosenPlace}
