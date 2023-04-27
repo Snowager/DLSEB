@@ -1,5 +1,4 @@
 import React from 'react';
-import Zac from '../../images/Zac.jpg';
 import Nate from '../../images/Nate.png';
 import Cole from '../../images/Cole.png';
 import Niko from '../../images/Niko.png';
