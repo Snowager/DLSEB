@@ -8,7 +8,6 @@ import PhoneInput from 'react-phone-input-2'
 import 'react-phone-input-2/lib/style.css'
 import "../styles/login.css"; 
 import {GET_TRIP_USER_BY_EMAIL} from '../../../TestingDatabase/GraphQL/queries.js';
-import { Get_User } from "../../components/fragments/get_user_query";
 
 // regex validation
 const emailRegex = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/

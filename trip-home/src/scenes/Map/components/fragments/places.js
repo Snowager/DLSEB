@@ -37,11 +37,7 @@ const Places = (props) => {
               }}>
               Add to trip
             </button>
-          </div>
-          <div className="col">
-            <button className="btn--outlineSmall" onClick={() => props.onClick()}>
-              <i className="fa fa-star  " aria-hidden="true"> </i>
-            </button>
+            <Save_activity_button lat={props.todo.geometry.location.lat()} lng ={props.todo.geometry.location.lng()} name={props.todo.name}/>
           </div>
         </div>
 
