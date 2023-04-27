@@ -2,7 +2,7 @@
 import React, { useState } from 'react';
 import { useLocation } from 'react-router-dom'
 import MapContainer from '../../../Map/components/containers/map_container';
-import Navbar from '../../../Splash/components/fragments/navbar_map.js';
+import Navbar from '../../../Splash/components/fragments/navbar.js';
 import "../styles/text.css"
 import user_data from '../../../TestingDatabase/pages/user.json';
 

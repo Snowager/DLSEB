@@ -12,7 +12,7 @@ import user_data from '../../../TestingDatabase/pages/user.json';
 import {useLazyQuery} from '@apollo/client';
 import { GET_TRIP_USER_BY_EMAIL } from "../../../TestingDatabase/GraphQL/queries.js";
 import { Link } from 'react-router-dom';
-import Navbar from "../../../Splash/components/fragments/navbar_map";
+import Navbar from "../../../Splash/components/fragments/navbar.js";
 
 function Profile() {
   const auth = getAuth();
@@ -42,9 +42,10 @@ function Profile() {
 }
 
   function updateJson () {
-    user_data.id = "0";
-    user_data.name = "name";
-    user_data.email = "email";
+    user_data.id = "399";
+    user_data.name = "Tr!p App";
+    user_data.email = "tr.exclaim.ip@gmail.com";
+    user_data.savedActivities = [];
   }
 
   //gets user data from the postgresql database
@@ -100,11 +101,14 @@ function Profile() {
                     <MDBCol size="10" className="mb-4">
                       <div>Email: {user?.email}</div>
                     </MDBCol>
-                    <MDBCol size="10" className="mb-4">
+                    {/* <MDBCol size="10" className="mb-4">
                       <div>Phone Number: {user?.phone_Number}</div>
                     </MDBCol>
                     <MDBCol size="10" className="mb-4">
                       <div>Location: {user?.location}</div>
+                    </MDBCol> */}
+                    <MDBCol size="10" className="mb-4">
+                    
                     </MDBCol>
     
                   </MDBRow>
@@ -122,15 +126,11 @@ function Profile() {
                         {found ? (<MDBTypography tag="h6"><Saved_trips email={user?.email}/></MDBTypography>): null}
                       </MDBCol>
                     </MDBRow>
-
-                    {/* Social media button that don't work yet?*/}
-                  <div className="d-flex justify-content-start">
-                    <a href="#!"><MDBIcon fab icon="facebook me-3" size="lg" /></a>
-                    <a href="#!"><MDBIcon fab icon="twitter me-3" size="lg" /></a>
-                    <a href="#!"><MDBIcon fab icon="instagram me-3" size="lg" /></a>
-                  </div>
                   <div class="text-center">
-                  <button className="btn--primary" onClick={logout}>
+                  <button className="btn--primary" onClick={() => {
+                    updateJson();
+                    logout(); 
+                  }}>
                     Log out
                     </button>
                   </div>

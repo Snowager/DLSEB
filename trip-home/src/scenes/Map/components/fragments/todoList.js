@@ -4,6 +4,7 @@ import TravelMode from '../fragments/travelMode';
 import RadiusSlider from './radiusSlider';
 import BudgetSlider from './budgetSlider';
 import "../styles/map.css"
+import Save_trip_button from '../fragments/save_trip_button.js';
 
 /*
 
@@ -22,9 +23,9 @@ const TodoList = (props) => {
         // calls setTodo parent state function with new todo list after splicing
         props.setTodos(newTodos);
     }
-
+    const todos = props.todos;
     return (
-        <div className='todo-list'>
+        <>
             <RadiusSlider setRadius={props.setRadius} />
             <BudgetSlider setBudget={props.setBudget} />
             <TravelMode option={["Car", "Bus", "Bike", "Walk"]} value={["DRIVING", "TRANSIT", "BICYCLING", "WALKING"]} size={20} setMode={props.setMode} />
@@ -41,7 +42,10 @@ const TodoList = (props) => {
                 ))
                 
             }
-        </div>
+<div class="text-center">
+            <Save_trip_button id={props.id} trip={todos} city={props.city} />
+</div>
+        </>
 
     )
 }

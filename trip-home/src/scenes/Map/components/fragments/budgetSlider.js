@@ -2,18 +2,18 @@ import React, { useState } from 'react'
 import { Slider } from '@mui/material';
 import { Typography } from "@mui/material";
 import { Box } from "@mui/material";
-import {makeStyles} from '@material-ui/core/styles';
+import { makeStyles } from '@material-ui/core/styles';
 
 
 const BudgetSlider = (props) => {
 
     const useStyles = makeStyles({
         root: {
-          "&>.MuiSlider-markLabel": {
-            color: "white !important"
-          }
+            "&>.MuiSlider-markLabel": {
+                color: "white !important"
+            }
         }
-      });
+    });
 
     const marks = [
         {
@@ -60,7 +60,7 @@ const BudgetSlider = (props) => {
                     max={3}
                     sx={{
                         color: 'white'
-                      }}
+                    }}
                     className={styles.root}
                 />
             </Box>

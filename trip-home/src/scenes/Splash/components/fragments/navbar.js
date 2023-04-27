@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import '../styles/navbar.css';
+import user_data from "../../../TestingDatabase/pages/user.json";
 
 function Navbar() {
     const [click, setClick] = useState(false);
@@ -37,18 +38,26 @@ function Navbar() {
                    </div>
                    <ul className={click ? 'nav-menu active' : 'nav-menu'}>
                     <li className='nav-item'>
+                        {user_data.id === "399" ? 
                         <Link to ='/register' className='nav-links' onClick={closeMobileMenu}>
                             Sign Up
                         </Link>
+                        : null}
                     </li>
                     <li className='nav-item'>
+                    {user_data.id === "399" ?
                         <Link to ='/login' className='nav-links' onClick={closeMobileMenu}>
                             Sign In
                         </Link>
+                        : 
+                        <Link to ='/profile' className='nav-links' onClick={closeMobileMenu}>
+                            My Profile
+                        </Link>
+                    }
                     </li>
                     <li className='nav-item'>
-                        <Link to ='/ManageTrips' className='nav-links' onClick={closeMobileMenu}>
-                            Manage Trips
+                        <Link to ='/about' className='nav-links' onClick={closeMobileMenu}>
+                            About Us
                         </Link>
                     </li>
                 </ul>

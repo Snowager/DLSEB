@@ -36,6 +36,7 @@
   display: flex;
   flex-direction: column;
 }
+
 /* .containerToDo{
   opacity: .95;
   background: rgb(99, 99, 99);
@@ -46,15 +47,20 @@
 } */
 .todo-list {
   color: rgb(255, 255, 255);
+  background: rgba(0, 0, 0, 0.6);
   font-size: 16px;
   overflow-x: hidden;
   overflow-y: scroll;
   overflow-wrap: break-word;
-  max-height: 100vh;
+  max-height: 89vh;
   width: 35%;
+  padding-top: 10px;
+  padding-bottom: 10px;
 }
+
 .places-list {
-  color: rgb(0, 0, 0);
+  color: rgb(255, 255, 255);
+  background: rgba(0, 0, 0, 0.6);
   display: flex;
   order: 3;
   flex-direction: column;
@@ -62,7 +68,7 @@
   overflow-x: hidden;
   overflow-y: scroll;
   overflow-wrap: break-word;
-  max-height: 100vh;
+  max-height: 89vh;
   width: 35%;
   padding-top: 10px;
   padding-bottom: 10px;
@@ -72,37 +78,33 @@
   background-color: red;
   border: none;
   color: white;
-  padding: 1px 6px;
+  border-radius: 5px;
+  padding: 4px 9px;
   text-align: center;
   text-decoration: none;
   display: inline-block;
   font-size: 16px;
 }
 
-/* .todo-form {
-  width: 56.5vh;
-  margin-left: 10px;
-  margin-right: 10px;
-} */
-
- .todo-list-splitters {
-  border: 1px solid rgba(0, 0, 0, 0.37);
+.todo-list-splitters {
+  border: 1px solid rgba(255, 255, 255, 0.5);
   margin-left: 5px;
   margin-right: 5px;
   margin-top: 10px;
   margin-bottom: 10px;
-} 
+}
 
 .places-list-opacity:hover {
   opacity: 0.9;
   transition: 0.3s;
-  background: rgb(237, 237, 237);
+  background: rgba(255, 255, 255, 0.5);
   border-radius: 5px;
 }
+
 .todo-list-opacity:hover {
   opacity: 0.9;
   transition: 0.3s;
-  background: rgb(46, 46, 46);
+  background: rgba(255, 255, 255, 0.5);
   border-radius: 5px;
 }
 
@@ -118,4 +120,76 @@
 
 .todo-info-modal {
   text-align: center;
+}
+
+.todo-star-modal {
+  justify-content: center
+}
+
+.add-to-trip-button {
+  padding: 3px;
+  margin-left: 0px;
+  margin-bottom: 0px;
+  margin-top: 5px;
+}
+
+.add-your-place-button {
+  padding: 3px;
+  margin-left: 5px;
+  margin-bottom: 0px;
+  margin-top: 5px;
+}
+
+.img-window {
+  height: 200px;
+  width: 200px;
+}
+
+.travel-mode {
+  justify-content: center;
+}
+
+.choice-modal-buttons {
+  justify-content: center;
+  margin-top: 15px;
+}
+
+.choice-modal-exit {
+  position: absolute;
+  top: 0;
+  right: 0;
+  margin-right: 3px;
+  margin-top: 3px;
+}
+
+.remove-button-position {
+  text-align: right;
+}
+
+.todo-form-label {
+  color: black;
+}
+
+.todo-form-input {
+  border-style: solid;
+  border-color: lightgray;
+}
+
+.todo-form-location-button {
+  border-width: 1px;
+  border-style: solid;
+  padding-bottom: 2px;
+  padding-left: 9px;
+  padding-right: 8px;
+  background-color: lightgray;
+}
+
+.todo-form-submit-button {
+  margin-top: 35px;
+}
+
+.modal-and-map-photos {
+  width: auto;
+  height: 26vh;
+  border-radius: 5px;
 }

@@ -17,9 +17,9 @@ const MarkerInterface = (props) => {
         url: MarkerStyle, // url
         scaledSize: new props.google.maps.Size(50, 50), // scaled size
         origin: new props.google.maps.Point(0, 0), // origin
-        anchor: new props.google.maps.Point(0, 0) // anchor
+        anchor: new props.google.maps.Point(25, 49) // anchor
     };
-
+    
 
     return (
         <div>
@@ -30,7 +30,7 @@ const MarkerInterface = (props) => {
                         ({/* Marker options. Needs a key and position to display on map. position is lat/lng coords */ }),
                         props.markers.map(places => (
                             ((props.calculateDistance(props.center, places.geometry.location) < props.radius) && 
-                            (places.priceString.length >= props.budget) ?
+                            (places.priceString.length <= props.budget) ?
                                 <Marker
                                     icon={icon}
                                     key={places.place_id}

@@ -1,66 +1,69 @@
-
-.headPara {
-  display: flex;
-  flex-direction: column;
+.titles {
+  text-decoration: underline;
   text-align: center;
-  background-color: rgba(0,0,0,.7);
+  color: white;
+}
+
+.trip-description-background {
+  background: rgba(0, 0, 0, 0.7);
+  margin: 1rem;
+  color: white;
+  text-align: center;
   padding: 20px;
-  color: white;
-  margin-right: 1rem;
-  margin-left: 1rem;
 }
 
-img {
-  width: 125px;
-  border-radius: 4px;
+.trip-team-background {
+  background: rgba(0, 0, 0, 0.7);
+  margin: 1rem;
+  padding: 20px;
 }
 
-.App, .header {
-  text-align: center;
-  display: flex;
-  align-items: center;
+.team-member-col {
+  background-color: #ECECEC;
+  margin: 1rem;
+}
+
+.sims {
+  width: 90%;
+  height: auto;
+  clip-path: circle();
+  margin: 20px;
+}
+
+.center-sims {
   justify-content: center;
-  color: white;
-  line-height: 150%;
-  padding: 1rem;
 }
 
-.header {
-  font-size: 35px;
+.header-sims {
+  margin-left: 10px;
+  margin-right: 10px;
+  margin-top: 10px;
 }
 
-.nameHeader {
-  font-size: 20px;
-
+.splitters-border {
+  border: 2px solid rgba(128, 128, 128, 0.547);
 }
 
-.outside-parent {
-  border: 1px solid black;
-  text-align: left;
-  background-color: rgba(0,0,0,.7);
-  color: white;
-  margin-right: 1rem;
-  margin-left: 1rem;
+.splitters-margin {
+  margin-left: 10px;
+  margin-right: 10px;
+  margin-bottom: 10px;
 }
 
-.inside-parent {
-  margin-right: 1rem;
-  margin-left: 1rem;
-  padding: 0.5rem 0.5rem;
-  text-align: left;
+.team-member-skills-title {
+  background-color: rgba(255, 255, 255, 0.832);
+  color: black;
+  margin-top: 10px;
+  margin-right: 10px;
+  margin-left: 10px;
+  margin-bottom: 20px;
 }
 
-.outside-child {
-  display: inline-block;
-  padding: 0.5rem 0.5rem;
-  vertical-align: middle;
-  width:50%;
-  line-height: 15px;
+.team-member-skills-description {
+  margin-top: 10px;
+  margin-bottom: 6px;
 }
 
-.inside-child {
-  display: inline-block;
-  padding: 0.5rem 0.5rem;
-  vertical-align: middle;
-  border-radius: 4px;
+.two-roles {
+  margin-bottom: 56px;
 }
