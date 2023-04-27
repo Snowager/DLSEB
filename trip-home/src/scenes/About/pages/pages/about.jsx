@@ -5,6 +5,7 @@ import Niko from '../../images/Niko.png';
 import Tiffany from '../../images/Tiffany.png';
 import Rachel from '../../images/Rachel.png';
 import Alex from '../../images/Alex.png';
+import Jordan from '../../images/Jordan.png';
 import "../styles/about.css";
 import Navbar from '../../../Splash/components/fragments/navbar';
 
@@ -29,6 +30,7 @@ export function About() {
             <div class='trip-team-background'>
                 <h2 className='titles'>Meet the TR!P Team</h2>
                 <div className='container'>
+
                     <div className='row'>
                         <div className='col team-member-col'>
                             <div className='row center-sims'>
@@ -136,6 +138,32 @@ export function About() {
                                 <p> - Web Developer </p>
                                 <p className='two-roles'> - UI / UX Designer </p>
                             </div>
+                        </div>
+                    </div>
+
+                    <h2 className='titles'>Honorable Mention</h2>
+
+                    <div className='row'>
+                        <div className='col'>
+                        </div>
+
+                        <div className='col team-member-col'>
+                            <div className='row center-sims'>
+                                <img className='sims' src={Jordan} alt="Jordan" />
+                            </div>
+                            <div className='row'>
+                                <h4 className='header-sims'>Jordan</h4>
+                            </div>
+                            <div className='row splitters-margin'>
+                                <div className="splitters-border"></div>
+                            </div>
+                            <div className='row team-member-skills-title'>
+                                <p className='team-member-skills-description'> Role: </p>
+                                <p> - Pastry Chef </p>
+                            </div>
+                        </div>
+
+                        <div className='col'>
                         </div>
                     </div>
 
